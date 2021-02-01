@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "sRFTubVpbAsuD8Cb+2BCcmGDnklf47P18iyYvvizlgiVKeIj9xzF7p59g63fnK/jGjZVqdlClTBz+kuPZyfr1g==",
+  "dgSpecHash": "1O9x54KHXBS0irIYLkAOIwElCotlAu5qEsTiGe4t0/xFAixotthHRR269dePZPpGm8UfpIj3s8WiMbYYZQK5nQ==",
   "success": true,
   "projectFilePath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\kash\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\kash\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\kash\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\kash\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
   "logs": []
 }
