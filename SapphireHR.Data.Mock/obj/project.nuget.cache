@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/hENkdMw9C+ljjZGj5Ni8ay6o9iNF4sT2dPogbKoqNTvbgeBiQx0+jNrAW1pBVWTqC5usTvzKkInl2cviQIPyQ==",
+  "dgSpecHash": "+0hE6tmgW4F+FhIn72QrCiiHWUAJ8NiDGKbXHlFeOmk/lzwdahthGHtrbQ5ujufFhnr89fDOJ5DdoS7pMWE2lw==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Data.Mock\\SapphireHR.Data.Mock.csproj",
+  "projectFilePath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Mock\\SapphireHR.Data.Mock.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

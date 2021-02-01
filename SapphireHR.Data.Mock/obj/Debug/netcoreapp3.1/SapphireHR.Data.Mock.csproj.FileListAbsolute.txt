@@ -7,3 +7,12 @@ C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\Sapp
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csproj.CoreCompileInputs.cache
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.deps.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csprojAssemblyReference.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.AssemblyInfoInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.AssemblyInfo.cs
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csproj.CoreCompileInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hw1iDho6m+MSHo1bGNLWdMHN8PbMXctPE6zaiO19J8nZptsdcoqlJdHkbrLmIHUHRi0myVhcoZtNjAnNlBJJqA==",
+  "dgSpecHash": "VcBqjuFgOjtJhbg4IljoYCIbdjGJJgon/doNsMg8Nk9RtCNp1ZxPd0jN01D+GPKjkvXVhimxCc6GZN1Zo50KuA==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj",
+  "projectFilePath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

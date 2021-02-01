@@ -1,6 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "1O9x54KHXBS0irIYLkAOIwElCotlAu5qEsTiGe4t0/xFAixotthHRR269dePZPpGm8UfpIj3s8WiMbYYZQK5nQ==",
   "success": true,
   "projectFilePath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
@@ -10,11 +9,5 @@
     "C:\\Users\\kash\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
     "C:\\Users\\kash\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
   ],
-=======
-  "dgSpecHash": "keV0RabOFkOQHS4rSCJSCe/HYm9CGTmvo9ymuZuFk7uQkPfgNVgIO213SeeLHh4CpZrLWr3HVRa9oQHaLopg5A==",
-  "success": true,
-  "projectFilePath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
-  "expectedPackageFiles": [],
->>>>>>> 433d718073ccc463e0fddbae3b43c82895e0a803
   "logs": []
 }

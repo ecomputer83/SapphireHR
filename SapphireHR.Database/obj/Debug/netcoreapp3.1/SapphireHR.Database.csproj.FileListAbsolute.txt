@@ -7,3 +7,12 @@ C:\Projects\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\Sapph
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.csproj.CoreCompileInputs.cache
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.dll
 C:\Projects\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.deps.json
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.csprojAssemblyReference.cache
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.AssemblyInfoInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.AssemblyInfo.cs
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.csproj.CoreCompileInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.pdb

@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj": {}
+    "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj": {
+    "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
+        "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
         "projectName": "SapphireHR.Web",
-        "projectPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR\\obj\\",
+        "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
+        "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+        "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -76,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

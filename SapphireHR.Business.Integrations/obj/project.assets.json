@@ -8,25 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\kash\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\SapphireHR.Business.Integrations.csproj",
+      "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\SapphireHR.Business.Integrations.csproj",
       "projectName": "SapphireHR.Business.Integrations",
-      "projectPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\SapphireHR.Business.Integrations.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\obj\\",
+      "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\SapphireHR.Business.Integrations.csproj",
+      "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+      "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Integrations\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -67,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
