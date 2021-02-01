@@ -1,0 +1,9 @@
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\bin\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.deps.json
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\bin\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\bin\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.pdb
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.csprojAssemblyReference.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.AssemblyInfoInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.AssemblyInfo.cs
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.csproj.CoreCompileInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.DocumentManager\obj\Debug\netcoreapp3.1\SapphireHR.Business.DocumentManager.pdb

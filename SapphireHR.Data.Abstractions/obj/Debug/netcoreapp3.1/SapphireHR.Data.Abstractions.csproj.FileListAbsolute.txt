@@ -1,0 +1,9 @@
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.deps.json
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.pdb
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.csprojAssemblyReference.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.AssemblyInfoInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.AssemblyInfo.cs
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.csproj.CoreCompileInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.pdb

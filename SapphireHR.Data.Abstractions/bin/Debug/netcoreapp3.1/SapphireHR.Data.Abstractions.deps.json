@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "SapphireHR.Data.Abstractions/1.0.0": {
+        "runtime": {
+          "SapphireHR.Data.Abstractions.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SapphireHR.Data.Abstractions/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
