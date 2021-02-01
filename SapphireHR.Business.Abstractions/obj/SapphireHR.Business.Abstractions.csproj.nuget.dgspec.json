@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj": {}
+    "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj": {}
   },
   "projects": {
-    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj": {
+    "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj",
+        "projectUniqueName": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj",
         "projectName": "SapphireHR.Business.Abstractions",
-        "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj",
-        "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
-        "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\obj\\",
+        "projectPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -58,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

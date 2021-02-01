@@ -1,0 +1,9 @@
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.deps.json
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.pdb
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.csprojAssemblyReference.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.AssemblyInfoInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.AssemblyInfo.cs
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.csproj.CoreCompileInputs.cache
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.dll
+C:\Projects\Sandbox\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.pdb
