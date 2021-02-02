@@ -15,3 +15,14 @@ C:\Sandbox\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\S
 C:\Sandbox\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.csproj.CoreCompileInputs.cache
 C:\Sandbox\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.dll
 C:\Sandbox\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\bin\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.deps.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\bin\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.runtimeconfig.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\bin\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.runtimeconfig.dev.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\bin\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\bin\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.AssemblyInfoInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.AssemblyInfo.cs
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.csproj.CoreCompileInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Integrations\obj\Debug\netcoreapp3.1\SapphireHR.Business.Integrations.genruntimeconfig.cache

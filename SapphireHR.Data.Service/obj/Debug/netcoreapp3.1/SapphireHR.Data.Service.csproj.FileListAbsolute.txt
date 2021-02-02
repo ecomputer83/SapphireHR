@@ -16,3 +16,15 @@ C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR
 C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csproj.CoreCompileInputs.cache
 C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.dll
 C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.deps.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.runtimeconfig.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.runtimeconfig.dev.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csprojAssemblyReference.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.AssemblyInfoInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.AssemblyInfo.cs
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csproj.CoreCompileInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.genruntimeconfig.cache

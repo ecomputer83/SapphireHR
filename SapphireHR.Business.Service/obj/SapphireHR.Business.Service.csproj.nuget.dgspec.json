@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {}
+    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {}
   },
   "projects": {
-    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {
+    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
+        "projectUniqueName": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
         "projectName": "SapphireHR.Business.Service",
-        "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
-        "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
-        "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\obj\\",
+        "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
+        "packagesPath": "C:\\Users\\OVATA\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\OVATA\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -43,6 +43,28 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

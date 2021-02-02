@@ -16,3 +16,15 @@ C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Da
 C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csproj.CoreCompileInputs.cache
 C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
 C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.deps.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.runtimeconfig.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.runtimeconfig.dev.json
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csprojAssemblyReference.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.AssemblyInfoInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.AssemblyInfo.cs
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.csproj.CoreCompileInputs.cache
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.genruntimeconfig.cache
