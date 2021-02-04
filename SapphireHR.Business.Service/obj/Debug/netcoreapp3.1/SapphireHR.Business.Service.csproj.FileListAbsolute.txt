@@ -21,6 +21,7 @@ C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\bin\Debug
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.runtimeconfig.dev.json
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\bin\Debug\netcoreapp3.1\SapphireHR.Business.Service.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.csprojAssemblyReference.cache
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.AssemblyInfoInputs.cache
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.AssemblyInfo.cs
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Service\obj\Debug\netcoreapp3.1\SapphireHR.Business.Service.csproj.CoreCompileInputs.cache

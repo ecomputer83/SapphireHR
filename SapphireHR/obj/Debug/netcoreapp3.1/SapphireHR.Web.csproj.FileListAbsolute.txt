@@ -52,6 +52,7 @@ C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\Sa
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\SapphireHR.Web.runtimeconfig.dev.json
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\SapphireHR.Web.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\SapphireHR.Web.pdb
+C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll

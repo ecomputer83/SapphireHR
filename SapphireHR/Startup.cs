@@ -31,7 +31,7 @@ namespace SapphireHR
             services.AddSwaggerGen();
             services.AddDbContext<ApplicationDbContext>(w =>
             {
-                w.UseSqlServer(Configuration.GetConnectionString("Defualt"));
+                w.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
         }
 
