@@ -6,6 +6,7 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class SkillGrade : BaseEntity
     {
+        public int SkillsId { get; set; }
         public string Name { get; set; }
         public int Rating { get; set; }
         public string Description { get; set; }

@@ -6,6 +6,7 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class ApplicationScore : BaseEntity
     {
+        public int ApplicationId { get; set; }
         public Application Application { get; set; }
         public string Score { get; set; }
     }

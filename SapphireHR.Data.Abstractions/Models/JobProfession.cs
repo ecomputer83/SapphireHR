@@ -6,6 +6,7 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class JobProfession : BaseEntity
     {
+        public int JobProfileId { get; set; }
         public double Salary { get; set; }
         public string EducationRequirement { get; set; }
         public string EducationDegree { get; set; }

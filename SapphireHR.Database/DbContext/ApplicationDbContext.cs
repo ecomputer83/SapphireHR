@@ -12,9 +12,18 @@ namespace SapphireHR.Database
         {
         }
 
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationFaceToView> ApplicationFaceToViews { get; set; }
+        public DbSet<ApplicationInterview> ApplicationInterviews { get; set; }
+        public DbSet<ApplicationNegotiation> ApplicationNegotiations { get; set; }
+        public DbSet<ApplicationScore> ApplicationScores { get; set; }
+        public DbSet<ApplicationSkills> ApplicationSkills { get; set; }
         public DbSet<CompanyInfo> CompanyInfos { get; set; }
         public DbSet<CompanyEmployee> CompanyEmployees { get; set; }
         public DbSet<CompanyRank> CompanyRanks { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Designation> Designations { get; set; }
         public DbSet<EmployeeBank> EmployeeBanks { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<OrganizationHeader> OrganizationHeaders { get; set; }
@@ -31,11 +40,21 @@ namespace SapphireHR.Database
         public DbSet<EmployeeTimetable> EmployeeTimetables { get; set; }
         public DbSet<EmployeeTransfer> EmployeeTransfers { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
+        public DbSet<JobCategory> JobCategories { get; set; }
+        public DbSet<JobProfession> JobProfessions { get; set; }
+        public DbSet<JobProfile> JobProfiles { get; set; }
+        public DbSet<JobRequisition> JobRequisitions { get; set; }
+        public DbSet<JobSkillLevel> JobSkillLevels { get; set; }
         public DbSet<LeavePolicy> LeavePolicies { get; set; }
         public DbSet<LeaveSetting> LeaveSettings { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
         public DbSet<RankPermission> RankPermissions { get; set; }
+        public DbSet<SkillGrade> SkillGrades { get; set; }
+        public DbSet<Skills> Skills { get; set; }
+        public DbSet<SkillType> SkillTypes { get; set; }
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<Lookup> Lookups { get; set; }
 
     }
 }

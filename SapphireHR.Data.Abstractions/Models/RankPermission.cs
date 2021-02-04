@@ -7,7 +7,6 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class RankPermission : BaseEntity
     {
-        public int Id { get; set; }
         public int RankId { get; set; }
         public bool ReadHoliday { get; set; }
         public bool ReadLeave { get; set; }
