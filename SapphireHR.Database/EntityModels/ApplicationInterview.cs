@@ -7,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class ApplicationInterview : BaseEntity
     {
+        public int ApplicationId { get; set; }
         public DateTime StartDate { get; set; }
         public string NoticePeriod { get; set; }
         public string Remark { get; set; }

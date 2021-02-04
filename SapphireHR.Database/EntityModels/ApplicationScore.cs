@@ -7,8 +7,9 @@ namespace SapphireHR.Database.EntityModels
 {
     public class ApplicationScore : BaseEntity
     {
+        public int ApplicationId { get; set; }
         [ForeignKey("ApplicationId")]
         public Application Application { get; set; }
-        public string Score { get; set; }
+        public double Score { get; set; }
     }
 }
