@@ -393,14 +393,11 @@ namespace SapphireHR.Database.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ApprovedBy")
+                    b.Property<int?>("ApprovedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
@@ -418,10 +415,6 @@ namespace SapphireHR.Database.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApprovedBy");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("EmployeeLeaves");
                 });
@@ -913,25 +906,6 @@ namespace SapphireHR.Database.Migrations
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeLeave", b =>
-                {
-                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Approver")
-                        .WithMany()
-                        .HasForeignKey("ApprovedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Approver");
 
                     b.Navigation("Employee");
                 });

@@ -9,8 +9,6 @@ namespace SapphireHR.Data.Abstractions.Models
     {
         public int DepartmentId { get; set; }
         public string Name { get; set; }
-
-        [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
     }
 }

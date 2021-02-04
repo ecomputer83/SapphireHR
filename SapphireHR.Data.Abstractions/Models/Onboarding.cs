@@ -14,8 +14,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public bool MeetingExecutives { get; set; }
         public bool MeetingColleagues { get; set; }
         public bool Collectible { get; set; }
-
-        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
     }
 }

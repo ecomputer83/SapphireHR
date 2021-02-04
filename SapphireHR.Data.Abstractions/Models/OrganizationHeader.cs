@@ -10,8 +10,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public int OrganizationId { get; set; }
         public string HostName { get; set; }
         public int Status { get; set; }
-
-        [ForeignKey("OrganizationId")]
         public OrganizationInfo Organization { get; set; }
     }
 }

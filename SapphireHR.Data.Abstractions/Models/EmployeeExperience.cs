@@ -12,7 +12,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public string Position { get; set; }
         public string StartYear { get; set; }
         public string EndYear { get; set; }
-        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
     }
 }

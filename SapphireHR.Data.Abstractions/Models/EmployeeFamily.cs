@@ -11,7 +11,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public string Name { get; set; }
         public string Relationship { get; set; }
         public string PhoneNo { get; set; }
-        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
     }
 }
