@@ -1578,6 +1578,36 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "SapphireHR.Business.Abstractions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "AutoMapper": "10.1.1",
+          "Microsoft.EntityFrameworkCore": "5.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2"
+        },
+        "compile": {
+          "bin/placeholder/SapphireHR.Business.Abstractions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SapphireHR.Business.Abstractions.dll": {}
+        }
+      },
+      "SapphireHR.Business.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "AutoMapper": "10.1.1",
+          "Microsoft.EntityFrameworkCore": "5.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2"
+        },
+        "compile": {
+          "bin/placeholder/SapphireHR.Business.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SapphireHR.Business.Service.dll": {}
+        }
+      },
       "SapphireHR.Database/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -5963,6 +5993,16 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "SapphireHR.Business.Abstractions/1.0.0": {
+      "type": "project",
+      "path": "../SapphireHR.Business.Abstractions/SapphireHR.Business.Abstractions.csproj",
+      "msbuildProject": "../SapphireHR.Business.Abstractions/SapphireHR.Business.Abstractions.csproj"
+    },
+    "SapphireHR.Business.Service/1.0.0": {
+      "type": "project",
+      "path": "../SapphireHR.Business.Service/SapphireHR.Business.Service.csproj",
+      "msbuildProject": "../SapphireHR.Business.Service/SapphireHR.Business.Service.csproj"
+    },
     "SapphireHR.Database/1.0.0": {
       "type": "project",
       "path": "../SapphireHR.Database/SapphireHR.Database.csproj",
@@ -5976,6 +6016,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.2",
+      "SapphireHR.Business.Abstractions >= 1.0.0",
+      "SapphireHR.Business.Service >= 1.0.0",
       "SapphireHR.Database >= 1.0.0",
       "Swashbuckle.AspNetCore.Swagger >= 5.6.3",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.6.3",
@@ -6014,6 +6056,12 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
+            "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj": {
+              "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Abstractions\\SapphireHR.Business.Abstractions.csproj"
+            },
+            "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {
+              "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj"
+            },
             "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {
               "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj"
             }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class CompanyInfo : BaseEntity
+    public class CompanyInfo : BaseEntity, IEntity
     {
         public string Name { get; set; }
         public string ContactPerson { get; set; }

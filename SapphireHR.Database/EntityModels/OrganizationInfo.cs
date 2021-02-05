@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class OrganizationInfo : BaseEntity
+    public class OrganizationInfo : BaseEntity, IEntity
     {
         public string Name { get; set; }
         public string ContactPerson{get;set;}
