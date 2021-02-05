@@ -28,3 +28,6 @@ C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcor
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.pdb
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.genruntimeconfig.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.runtimeconfig.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\bin\Debug\netcoreapp3.1\SapphireHR.Data.Mock.runtimeconfig.dev.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Mock\obj\Debug\netcoreapp3.1\SapphireHR.Data.Mock.genruntimeconfig.cache

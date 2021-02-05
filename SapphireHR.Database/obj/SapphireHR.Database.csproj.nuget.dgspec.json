@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {}
+    "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {}
   },
   "projects": {
-    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {
+    "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj",
+        "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj",
         "projectName": "SapphireHR.Database",
-        "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj",
-        "packagesPath": "C:\\Users\\OVATA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\obj\\",
+        "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj",
+        "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+        "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\OVATA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

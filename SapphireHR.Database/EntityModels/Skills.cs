@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Skills : BaseEntity
+    public class Skill : BaseEntity
     {
         public string Name { get; set; }
         public string Type { get; set; }

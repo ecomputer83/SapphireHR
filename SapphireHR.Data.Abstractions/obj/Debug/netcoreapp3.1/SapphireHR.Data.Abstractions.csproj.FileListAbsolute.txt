@@ -31,3 +31,9 @@ C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Abstractions\obj\Debu
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.pdb
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.genruntimeconfig.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.runtimeconfig.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.runtimeconfig.dev.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.csproj.CopyComplete
+C:\Sandbox\SapphireHR\SapphireHR.Data.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.genruntimeconfig.cache

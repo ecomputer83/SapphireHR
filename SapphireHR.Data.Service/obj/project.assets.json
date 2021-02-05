@@ -5882,23 +5882,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\OVATA\\.nuget\\packages\\": {},
+    "C:\\Users\\kash\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Data.Service\\SapphireHR.Data.Service.csproj",
+      "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Service\\SapphireHR.Data.Service.csproj",
       "projectName": "SapphireHR.Data.Service",
-      "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Data.Service\\SapphireHR.Data.Service.csproj",
-      "packagesPath": "C:\\Users\\OVATA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Data.Service\\obj\\",
+      "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Service\\SapphireHR.Data.Service.csproj",
+      "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+      "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\OVATA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -5913,8 +5913,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj": {
-              "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj"
+            "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj": {
+              "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Data.Abstractions\\SapphireHR.Data.Abstractions.csproj"
             }
           }
         }

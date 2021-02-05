@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SapphireHR.Controllers
+namespace SapphireHR.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]

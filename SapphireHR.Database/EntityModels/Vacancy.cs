@@ -12,8 +12,6 @@ namespace SapphireHR.Database.EntityModels
         public int Quantity { get; set; }
         public string Description { get; set; }
         public string Scores { get; set; }
-        [ForeignKey("JobProfileId")]
-        public JobProfile JobProfile { get; set; }
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }

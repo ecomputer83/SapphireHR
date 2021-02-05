@@ -13,6 +13,6 @@ namespace SapphireHR.Database.EntityModels
         public string Description { get; set; }
 
         [ForeignKey("SkillTypeId")]
-        public Skills Skills { get; set; }
+        public SkillType SkillType { get; set; }
     }
 }

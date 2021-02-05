@@ -50,9 +50,10 @@ namespace SapphireHR.Database
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
         public DbSet<RankPermission> RankPermissions { get; set; }
-        public DbSet<SkillGrade> SkillGrades { get; set; }
-        public DbSet<Skills> Skills { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillType> SkillTypes { get; set; }
+
+        public DbSet<SkillGrade> SkillGrades { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
 

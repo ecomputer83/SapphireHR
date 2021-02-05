@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {}
+    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {
+    "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
+        "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
         "projectName": "SapphireHR.Business.Service",
-        "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
-        "packagesPath": "C:\\Users\\OVATA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Business.Service\\obj\\",
+        "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\SapphireHR.Business.Service.csproj",
+        "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+        "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Business.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\OVATA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

@@ -28,3 +28,6 @@ C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Abstractions\obj\
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.dll
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.pdb
 C:\Users\OVATA\Desktop\Projects\SapphireHR\SapphireHR.Business.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.genruntimeconfig.cache
+C:\Sandbox\SapphireHR\SapphireHR.Business.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.runtimeconfig.json
+C:\Sandbox\SapphireHR\SapphireHR.Business.Abstractions\bin\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.runtimeconfig.dev.json
+C:\Sandbox\SapphireHR\SapphireHR.Business.Abstractions\obj\Debug\netcoreapp3.1\SapphireHR.Business.Abstractions.genruntimeconfig.cache

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SapphireHR
+namespace SapphireHR.Web
 {
     public class Startup
     {
@@ -31,8 +31,8 @@ namespace SapphireHR
             services.AddSwaggerGen();
             services.AddDbContext<ApplicationDbContext>(w =>
             {
-                w.UseSqlServer(Configuration.GetConnectionString("Default"));
-            });
+                w.UseSqlServer(Configuration.GetConnectionString("Default"), b => { b.MigrationsAssembly("SapphireHR.Web"); b.EnableRetryOnFailure(); });
+            }, ServiceLifetime.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

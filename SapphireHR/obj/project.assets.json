@@ -5983,23 +5983,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\OVATA\\.nuget\\packages\\": {},
+    "C:\\Users\\kash\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
+      "projectUniqueName": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
       "projectName": "SapphireHR.Web",
-      "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
-      "packagesPath": "C:\\Users\\OVATA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR\\obj\\",
+      "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\SapphireHR.Web.csproj",
+      "packagesPath": "C:\\Users\\kash\\.nuget\\packages\\",
+      "outputPath": "C:\\Sandbox\\SapphireHR\\SapphireHR\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\OVATA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kash\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -6014,8 +6014,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {
-              "projectPath": "C:\\Users\\OVATA\\Desktop\\Projects\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj"
+            "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj": {
+              "projectPath": "C:\\Sandbox\\SapphireHR\\SapphireHR.Database\\SapphireHR.Database.csproj"
             }
           }
         }

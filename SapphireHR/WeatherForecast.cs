@@ -1,6 +1,6 @@
 using System;
 
-namespace SapphireHR
+namespace SapphireHR.Web
 {
     public class WeatherForecast
     {
