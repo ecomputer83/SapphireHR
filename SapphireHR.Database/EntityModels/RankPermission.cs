@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class RankPermission
+    public class RankPermission : IEntity
     {
         public int Id { get; set; }
         public int RankId { get; set; }

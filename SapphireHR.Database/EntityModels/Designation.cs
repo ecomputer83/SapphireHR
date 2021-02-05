@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Designation : BaseEntity
+    public class Designation : BaseEntity, IEntity
     {
         public int DepartmentId { get; set; }
         public string Name { get; set; }

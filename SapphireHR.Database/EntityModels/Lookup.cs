@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Lookup : BaseEntity
+    public class Lookup : BaseEntity, IEntity
     {
         public string LookupType { get; set; }
         public string LookupValue { get; set; }

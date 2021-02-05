@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Holiday : BaseEntity
+    public class Holiday : BaseEntity, IEntity
     {
         public string Title { get; set; }
         public DateTime HolidayDate { get; set; }

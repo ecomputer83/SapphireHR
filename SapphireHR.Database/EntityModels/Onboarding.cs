@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Onboarding : BaseEntity
+    public class Onboarding : BaseEntity, IEntity
     {
         public int EmployeeId { get; set; }
         public bool TemplateCreation { get; set; }

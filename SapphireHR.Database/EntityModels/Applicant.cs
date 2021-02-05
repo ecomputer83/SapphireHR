@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class Applicant : BaseEntity
+    public class Applicant : BaseEntity, IEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

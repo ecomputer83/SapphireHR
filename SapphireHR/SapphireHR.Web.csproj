@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SapphireHR.Business.Abstractions\SapphireHR.Business.Abstractions.csproj" />
+    <ProjectReference Include="..\SapphireHR.Business.Service\SapphireHR.Business.Service.csproj" />
     <ProjectReference Include="..\SapphireHR.Database\SapphireHR.Database.csproj" />
   </ItemGroup>
 
