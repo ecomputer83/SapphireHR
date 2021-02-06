@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SapphireHR.Data.Service.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,9 @@ namespace SapphireHR.Business.Service
             }
             else
             {
+                services.AddScoped<OrganizationRepository>();
+                services.AddScoped<CompanyRepository>();
+                services.AddScoped<EmployeeRepository>();
             }
         }
 

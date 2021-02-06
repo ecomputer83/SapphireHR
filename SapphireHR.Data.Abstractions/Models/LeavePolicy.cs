@@ -7,7 +7,6 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class LeavePolicy : BaseEntity
     {
-        public int LeaveTypeId { get; set; }
         public int TypeId { get; set; }
         public string PolicyName { get; set; }
         public int Days { get; set; }
