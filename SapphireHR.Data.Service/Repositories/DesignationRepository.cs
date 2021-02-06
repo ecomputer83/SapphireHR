@@ -12,25 +12,5 @@ namespace SapphireHR.Data.Service.Repositories
         public DesignationRepository(ApplicationDbContext context) : base(context)
         {
         }
-
-        public Task AddDesignation(Designation model)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task UpdateDesignation(Designation model)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task ReadDesignation(Designation model)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveDesignation(Designation model)
-        {
-            return Task.CompletedTask;
-        }
     }
 }

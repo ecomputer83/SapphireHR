@@ -1,6 +1,6 @@
 namespace SapphireHR.Database.EntityModels
 {
-    public class Employee : BaseEntity
+    public class Employee : BaseEntity, IEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

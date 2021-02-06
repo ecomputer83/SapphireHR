@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Data.Service.Repositories
 {
-    //public class EmployeeRepository : GenericRepository<SapphireHR.Database.EntityModels.Employee, ApplicationDbContext>
-    //{
-    //    public async Task<Employee> GetEmployee(int Id)
-    //    {
-    //        var emp = await this.Get(Id);
-    //        return  
-    //    }
-    //}
+    public class EmployeeRepository : GenericRepository<SapphireHR.Database.EntityModels.Employee, ApplicationDbContext>
+    {
+        public EmployeeRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+    }
 }

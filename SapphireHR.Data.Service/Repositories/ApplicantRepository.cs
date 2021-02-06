@@ -13,24 +13,5 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
-        public Task AddApplicant(Applicant model)
-        {
-            return Task.CompletedTask;
-        }
-        
-        public Task UpdateApplicant(Applicant model)
-        {
-            return Task.CompletedTask;
-        }
-        
-        public Task ReadApplicant(Applicant model)
-        {
-            return Task.CompletedTask;
-        }
-        
-        public Task RemoveApplicant(Applicant model)
-        {
-            return Task.CompletedTask;
-        }
     }
 }
