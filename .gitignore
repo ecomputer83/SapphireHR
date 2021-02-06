@@ -368,3 +368,5 @@ MigrationBackup/
 /SapphireHR.Database/bin
 /SapphireHR.Database/obj
 /.vs
+/SapphireHR.Business.Integrations/obj
+/SapphireHR/obj
