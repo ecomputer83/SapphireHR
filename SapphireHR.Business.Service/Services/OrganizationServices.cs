@@ -1,5 +1,7 @@
-﻿using SapphireHR.Business.Abstractions.Models;
+﻿using AutoMapper;
+using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Data.Service.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,34 +11,124 @@ namespace SapphireHR.Business.Service.Services
 {
     public class OrganizationServices : IOrganizationService
     {
-        public Task AddLeaveType(LeaveTypeModel model)
+        OrganizationRepository _orgRepository;
+        readonly IMapper _mapper;
+        public OrganizationServices(OrganizationRepository orgRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this._orgRepository = orgRepository;
+            this._mapper = mapper;
+        }
+        public async Task AddLeaveType(LeaveTypeModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.LeaveType>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._orgRepository.AddLeaveType(datamodel);
         }
 
-        public Task AddOrganization(OrganizationModel model)
+        public async Task AddOrganization(OrganizationModel model)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.OrganizationInfo>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._orgRepository.Add(datamodel);
         }
 
-        public Task AddOrganizationHeader(OrganizationHeaderModel model)
+        public async Task AddOrganizationHeader(OrganizationHeaderModel model)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.OrganizationHeader>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._orgRepository.AddOrgHeader(datamodel);
         }
 
-        public Task DeleteOrganization(int Id)
+        public async Task DeleteOrganization(int Id)
         {
-            throw new NotImplementedException();
+            await this._orgRepository.Delete(Id);
         }
 
-        public Task RemoveLeaveType(int id)
+        public async Task RemoveLeaveType(int id)
         {
-            throw new NotImplementedException();
+            await this._orgRepository.RemoveLeaveType(id);
         }
 
-        public Task UpdateOrganization(OrganizationModel model, int Id)
+        public async Task UpdateOrganization(OrganizationModel model, int Id)
         {
-            throw new NotImplementedException();
+            var org = await this._orgRepository.Get(Id);
+            org.Name = model.Name;
+            org.Phone = model.Phone;
+            org.Email = model.Email;
+            org.ContactPerson = model.ContactPerson;
+            org.Address = model.Address;
+            org.UpdatedAt = DateTime.Now;
+            await this._orgRepository.Update(org);
+        }
+
+        public async Task AddRank(RankModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.Rank>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._orgRepository.AddRank(datamodel);
+        }
+
+        public async Task<List<RankModel>> GetRanks(int orgId)
+        {
+            var ranks = await this._orgRepository.ReadRanks(orgId);
+            return _mapper.Map<List<RankModel>>(ranks);
+        }
+
+        public async Task UpdateRank(RankModel model, int Id)
+        {
+            var rank = await this._orgRepository.ReadRank(Id);
+            rank.RankName = model.RankName;
+            await this._orgRepository.UpdateRank(rank);
+        }
+
+        public async Task RemoveRank(int Id)
+        {
+            await this._orgRepository.RemoveRank(Id);
+        }
+
+        public async Task AddRankPermission(RankPermissionModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.RankPermission>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._orgRepository.AddRankPermission(datamodel);
+        }
+
+        public async Task<RankPermissionModel> GetRankPermission(int orgId)
+        {
+            var ranks = await this._orgRepository.ReadRankPermission(orgId);
+            return _mapper.Map<RankPermissionModel>(ranks);
+        }
+
+        public async Task UpdateRankPermission(RankPermissionModel model, int Id)
+        {
+            var permission = await this._orgRepository.ReadRankPermission(Id);
+            var updatedPermission = _mapper.Map<Database.EntityModels.RankPermission>(model);
+            updatedPermission.Id = Id;
+            updatedPermission.CreatedAt = permission.CreatedAt;
+            updatedPermission.CreatedBy = permission.CreatedBy;
+            updatedPermission.UpdatedAt = DateTime.Now;
+            updatedPermission.UpdatedBy = "SYSTEM";
+            await this._orgRepository.UpdateRankPermission(updatedPermission);
+        }
+
+        public async Task RemoveRankPermission(int Id)
+        {
+            await this._orgRepository.RemoveRankPermission(Id);
         }
     }
 }

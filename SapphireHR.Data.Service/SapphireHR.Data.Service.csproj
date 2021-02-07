@@ -19,10 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SapphireHR.Business.Abstractions\SapphireHR.Business.Abstractions.csproj" />
-    <ProjectReference Include="..\SapphireHR.Business.Service\SapphireHR.Business.Service.csproj" />
     <ProjectReference Include="..\SapphireHR.Data.Abstractions\SapphireHR.Data.Abstractions.csproj" />
-    <ProjectReference Include="..\SapphireHR\SapphireHR.Web.csproj" />
   </ItemGroup>
 
 </Project>

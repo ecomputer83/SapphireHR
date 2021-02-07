@@ -20,6 +20,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public bool DeleteLeave { get; set; }
         public bool DeleteAssets { get; set; }
         public bool DeleteTimesheet { get; set; }
-        public CompanyRank Rank { get; set; }
+        public Rank Rank { get; set; }
     }
 }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SapphireHR.Data.Abstractions.Models
+namespace SapphireHR.Business.Abstractions.Models
 {
-    public class CompanyRank : BaseEntity
+    public class RankModel
     {
+        public int Id { get; set; }
         public string RankName { get; set; }
     }
 }

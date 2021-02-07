@@ -21,7 +21,7 @@ namespace SapphireHR.Database
         public DbSet<ApplicationSkills> ApplicationSkills { get; set; }
         public DbSet<CompanyInfo> CompanyInfos { get; set; }
         public DbSet<CompanyEmployee> CompanyEmployees { get; set; }
-        public DbSet<CompanyRank> CompanyRanks { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Designation> Designations { get; set; }
         public DbSet<EmployeeBank> EmployeeBanks { get; set; }

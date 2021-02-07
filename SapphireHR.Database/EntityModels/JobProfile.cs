@@ -16,7 +16,7 @@ namespace SapphireHR.Database.EntityModels
         public double SalaryMax { get; set; }
         public double AverageSalary { get; set; }
         [ForeignKey("RankId")]
-        public CompanyRank Rank { get; set; }
+        public Rank Rank { get; set; }
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
     }

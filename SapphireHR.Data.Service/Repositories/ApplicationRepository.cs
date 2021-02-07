@@ -1,7 +1,9 @@
-﻿using SapphireHR.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,22 +14,27 @@ namespace SapphireHR.Data.Service.Repositories
         public ApplicationRepository(ApplicationDbContext context) : base(context)
         {
         }
+        public Task<Application> GetApplicationDetail(int ApplicationId)
+        {
+            return Task.FromResult(new Application());
+        }
         public Task AddApplicationFaceToView(ApplicationFaceToView model)
         {
             return Task.CompletedTask;
         }
 
-        public Task UpdateApplicatioFaceToView(ApplicationFaceToView model)
+        public Task UpdateApplicatioFaceToView(ApplicationFaceToView model, int Id)
         {
             return Task.CompletedTask;
         }
 
-        public Task ReadApplicationFaceToView(ApplicationFaceToView model)
+        public Task<ApplicationFaceToView> ReadApplicationFaceToView(int Id)
         {
-            return Task.CompletedTask;
+            return Task.FromResult(new ApplicationFaceToView());
         }
 
-        public Task RemoveApplicationFaceToView(ApplicationFaceToView model)
+
+        public Task RemoveApplicationFaceToView(int Id)
         {
             return Task.CompletedTask;
         }

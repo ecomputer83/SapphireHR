@@ -18,5 +18,11 @@ namespace SapphireHR.Database.EntityModels
         public Applicant Applicant { get; set; }
         [ForeignKey("VacancyId")]
         public Vacancy Vacancy { get; set; }
+
+        public virtual ApplicationFaceToView ApplicationFaceToView { get; set; }
+        public virtual ApplicationInterview ApplicationInterview { get; set; }
+        public virtual ApplicationNegotiation ApplicationNegotiation { get; set; }
+        public virtual ApplicationScore ApplicationScore { get; set; }
+        public virtual IEnumerable<ApplicationSkills> ApplicationSkills { get; set; }
     }
 }

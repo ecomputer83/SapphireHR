@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace SapphireHR.Database.EntityModels
+namespace SapphireHR.Business.Abstractions.Models
 {
-    public class RankPermission : BaseEntity, IEntity
+    public class RankPermissionModel
     {
+        public int Id { get; set; }
         public int RankId { get; set; }
         public bool ReadHoliday { get; set; }
         public bool ReadLeave { get; set; }
@@ -20,8 +20,6 @@ namespace SapphireHR.Database.EntityModels
         public bool DeleteLeave { get; set; }
         public bool DeleteAssets { get; set; }
         public bool DeleteTimesheet { get; set; }
-
-        [ForeignKey("RankId")]
-        public Rank Rank { get; set; }
+        public int Status { get; set; }
     }
 }

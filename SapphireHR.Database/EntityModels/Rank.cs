@@ -1,7 +1,8 @@
 namespace SapphireHR.Database.EntityModels
 {
-    public class CompanyRank : BaseEntity
+    public class Rank : BaseEntity
     {
+        public int OrganizationId { get; set; }
         public string RankName { get; set; }
     }
 }
