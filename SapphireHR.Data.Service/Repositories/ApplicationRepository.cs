@@ -14,6 +14,7 @@ namespace SapphireHR.Data.Service.Repositories
         public ApplicationRepository(ApplicationDbContext context) : base(context)
         {
         }
+
         public Task<Application> GetApplicationDetail(int ApplicationId)
         {
             return Task.FromResult(new Application());
@@ -44,17 +45,17 @@ namespace SapphireHR.Data.Service.Repositories
             return Task.CompletedTask;
         }
 
-        public Task UpdateApplicationSkills(ApplicationSkills model)
+        public Task UpdateApplicationSkills(ApplicationSkills model, int Id)
         {
             return Task.CompletedTask;
         }
 
-        public Task ReadApplicationSkills(ApplicationSkills model)
+        public Task ReadApplicationSkills(int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task RemoveApplicationSkills(ApplicationSkills model)
+        public Task RemoveApplicationSkills(int Id)
         {
             return Task.CompletedTask;
         }
@@ -64,16 +65,16 @@ namespace SapphireHR.Data.Service.Repositories
             return Task.CompletedTask;
         }
 
-        public Task UpdateApplicationInterview(ApplicationInterview model)
+        public Task UpdateApplicationInterview(ApplicationInterview model, int Id)
         {
             return Task.CompletedTask;
         }
-        public Task ReadApplicationInterview(ApplicationInterview model)
+        public Task ReadApplicationInterview(int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task RemoveApplicationInterview(ApplicationInterview model)
+        public Task RemoveApplicationInterview(int Id)
         {
             return Task.CompletedTask;
         }
@@ -83,17 +84,17 @@ namespace SapphireHR.Data.Service.Repositories
             return Task.CompletedTask;
         }
         
-        public Task UpdateApplicationNegotiation(ApplicationNegotiation model)
+        public Task UpdateApplicationNegotiation(ApplicationNegotiation model, int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task ReadApplicationNegotiation(ApplicationNegotiation model)
+        public Task ReadApplicationNegotiation(int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task RemoveApplicationNegotiation(ApplicationNegotiation model)
+        public Task RemoveApplicationNegotiation(int Id)
         {
             return Task.CompletedTask;
         }
@@ -103,17 +104,17 @@ namespace SapphireHR.Data.Service.Repositories
             return Task.CompletedTask;
         }
         
-        public Task UpdateApplicationScore(ApplicationScore model)
+        public Task UpdateApplicationScore(ApplicationScore model, int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task ReadApplicationScore(ApplicationScore model)
+        public Task ReadApplicationScore(int Id)
         {
             return Task.CompletedTask;
         }
         
-        public Task RemoveApplicationScore(ApplicationScore model)
+        public Task RemoveApplicationScore(int Id)
         {
             return Task.CompletedTask;
         }
