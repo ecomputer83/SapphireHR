@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Business.DocumentManager.Documents;
 using SapphireHR.Data.Abstractions.Models;
 using SapphireHR.Data.Service.Repositories;
 using System;
@@ -13,15 +14,22 @@ namespace SapphireHR.Business.Service.Services
     public class CompanyServices : ICompanyService
     {
         CompanyRepository _companyRepository;
+        OrganizationRepository _organizationRepository;
+        FileManager _fileManager;
         readonly IMapper _mapper;
-        public CompanyServices(CompanyRepository companyRepository, IMapper mapper)
+        public CompanyServices(CompanyRepository companyRepository, OrganizationRepository organizationRepository, FileManager fileManager, IMapper mapper)
         {
             this._companyRepository = companyRepository;
+            this._organizationRepository = organizationRepository;
+            this._fileManager = fileManager;
             this._mapper = mapper;
         }
         public async Task AddCompany(CompanyModel model)
         {
+            var org = await _organizationRepository.Get(model.OrganizationId);
+            var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower());
             var datamodel = _mapper.Map<Database.EntityModels.CompanyInfo>(model);
+            datamodel.Directory = directory;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
