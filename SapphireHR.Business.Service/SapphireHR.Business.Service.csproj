@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SapphireHR.Business.Abstractions\SapphireHR.Business.Abstractions.csproj" />
+    <ProjectReference Include="..\SapphireHR.Business.DocumentManager\SapphireHR.Business.DocumentManager.csproj" />
     <ProjectReference Include="..\SapphireHR.Data.Abstractions\SapphireHR.Data.Abstractions.csproj" />
     <ProjectReference Include="..\SapphireHR.Data.Mock\SapphireHR.Data.Mock.csproj" />
     <ProjectReference Include="..\SapphireHR.Data.Service\SapphireHR.Data.Service.csproj" />

@@ -11,6 +11,7 @@ namespace SapphireHR.Database.EntityModels
         public string Address { get; set; }
         public string ContactAddress { get; set; }
         public string RegistrationNumber { get; set; } // CAC number
+        public string Directory { get; set; }
         public OrganizationHeader OrganizationHeader { get; set; }
         public ICollection<CompanyInfo> Companies { get; set; }
     }

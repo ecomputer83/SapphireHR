@@ -14,6 +14,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Address { get; set; }
         public string ContactAddress { get; set; }
         public string RegistrationNumber { get; set; } // CAC number
+        public string Directory { get; set; }
         public OrganizationHeaderModel OrganizationHeader { get; set; }
         public ICollection<CompanyModel> Companies { get; set; }
     }

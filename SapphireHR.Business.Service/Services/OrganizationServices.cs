@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Business.DocumentManager.Documents;
 using SapphireHR.Data.Service.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace SapphireHR.Business.Service.Services
     public class OrganizationServices : IOrganizationService
     {
         OrganizationRepository _orgRepository;
+        FileManager _fileManager;
         readonly IMapper _mapper;
-        public OrganizationServices(OrganizationRepository orgRepository, IMapper mapper)
+        public OrganizationServices(OrganizationRepository orgRepository, FileManager fileManager, IMapper mapper)
         {
             this._orgRepository = orgRepository;
+            _fileManager = fileManager;
             this._mapper = mapper;
         }
         public async Task AddLeaveType(LeaveTypeModel model)
@@ -30,7 +33,10 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task AddOrganization(OrganizationModel model)
         {
+            ///DocumentService for Creating Org folder
+            var orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower());
             var datamodel = _mapper.Map<Database.EntityModels.OrganizationInfo>(model);
+            datamodel.Directory = orgUrl;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";

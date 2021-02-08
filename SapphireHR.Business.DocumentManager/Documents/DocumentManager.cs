@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.DocumentManager.Documents
 {
-    public class DocumentManager
+    public class FileManager
     {
         IConfiguration _configuration;
-        public DocumentManager(IConfiguration configuration)
+        public FileManager(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -41,7 +41,6 @@ namespace SapphireHR.Business.DocumentManager.Documents
 
             return result;
         }
-
         public async Task<string> UploadFileToEmployeeFolder(BlobStore blob, string OrgFolder, string CompanyFolder, string EmployeeId)
         {
             string result = null;
@@ -89,15 +88,14 @@ namespace SapphireHR.Business.DocumentManager.Documents
 
             return Task.FromResult(result);
         }
-
-        public Task<string> CreateCompanyDirectory(string OrgFolderUrl, string CompanyFolder)
+        public Task<string> CreateCompanyDirectory(string OrgFolder, string CompanyFolder)
         {
             string result = null;
 
             string storageConnection = _configuration.GetConnectionString("BlobStorageConnectionString");
             try
             {
-                BlobContainerClient orgContainer = new BlobContainerClient(new Uri(OrgFolderUrl+"/"+CompanyFolder), null);
+                BlobContainerClient orgContainer = new BlobContainerClient(new Uri(OrgFolder+"/"+CompanyFolder), null);
 
                 if (!orgContainer.Exists())
                     orgContainer.Create();
