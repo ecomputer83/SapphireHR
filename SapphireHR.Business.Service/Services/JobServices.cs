@@ -68,110 +68,129 @@ namespace SapphireHR.Business.Service.Services
             await _jobRepsitory.AddVacancy(datamodel);
         }
 
-        public async Task<JobProfessionModel> GetJobProfessionById(int Id)
+        public async Task<JobProfessionModel> GetJobProfessionById(int id)
         {
-            var ranks = await this._jobRepsitory.GetJobProfessionById(Id);
-            return _mapper.Map<JobProfessionModel>(ranks);
+            var result = await this._jobRepsitory.GetJobProfessionById(id);
+            return _mapper.Map<JobProfessionModel>(result);
         }
 
         public async Task<List<JobProfessionModel>> GetJobProfessions()
         {
-            var ranks = await this._jobRepsitory.GetJobProfessions();
-            return _mapper.Map<List<JobProfessionModel>>(ranks);
+            var result = await this._jobRepsitory.GetJobProfessions();
+            return _mapper.Map<List<JobProfessionModel>>(result);
         }
 
-        public async Task<JobProfileModel> GetJobProfileById(int Id)
+        public async Task<JobProfileModel> GetJobProfileById(int id)
         {
-            var ranks = await this._jobRepsitory.Get(Id);
-            return _mapper.Map<JobProfileModel>(ranks);
+            var result = await this._jobRepsitory.Get(id);
+            return _mapper.Map<JobProfileModel>(result);
         }
 
         public async Task<List<JobProfileModel>> GetJobProfiles()
         {
-            var ranks = await this._jobRepsitory.GetAll();
-            return _mapper.Map<List<JobProfileModel>>(ranks);
+            var result = await this._jobRepsitory.GetAll();
+            return _mapper.Map<List<JobProfileModel>>(result);
         }
 
-        public async Task<JobSkillLevelModel> GetJobSkillLevelById(int Id)
+        public async Task<JobSkillLevelModel> GetJobSkillLevelById(int id)
         {
-            var ranks = await this._jobRepsitory.GetJobSkillLevelById(Id);
-            return _mapper.Map<JobSkillLevelModel>(ranks);
+            var result = await this._jobRepsitory.GetJobSkillLevelById(id);
+            return _mapper.Map<JobSkillLevelModel>(result);
         }
 
         public async Task<List<JobSkillLevelModel>> GetJobSkillLevels()
         {
-            var ranks = await this._jobRepsitory.GetJobSkillLevels();
-            return _mapper.Map<List<JobSkillLevelModel>>(ranks);
+            var result = await this._jobRepsitory.GetJobSkillLevels();
+            return _mapper.Map<List<JobSkillLevelModel>>(result);
         }
 
-        public async Task<List<SkillGradeModel>> GetSkillGradeById(int Id)
+        public async Task<SkillGradeModel> GetSkillGradeById(int id)
         {
-            throw new NotImplementedException();
+            var result = await this._jobRepsitory.GetSkillGradeById(id);
+            return _mapper.Map <SkillGradeModel>(result);
         }
 
-        public Task GetSkillGrades()
+        public async Task<List<SkillGradeModel>> GetSkillGrades()
         {
-            throw new NotImplementedException();
+            var result = await this._jobRepsitory.GetSkillGrades();
+            return _mapper.Map<List<SkillGradeModel>>(result);
         }
 
-        public Task GetVacancies()
+        public async Task<List<VacancyModel>> GetVacancies()
         {
-            throw new NotImplementedException();
+            var result = await this._jobRepsitory.GetVacancies();
+            return _mapper.Map<List<VacancyModel>>(result);
         }
 
-        public Task GetVacancyById(int Id)
+        public async Task<VacancyModel> GetVacancyById(int id)
         {
-            throw new NotImplementedException();
+            var result = await this._jobRepsitory.GetVacancyById(id);
+            return _mapper.Map<VacancyModel>(result);
         }
 
-        public Task RemoveJobProfession(int id)
+        public async Task RemoveJobProfession(int id)
         {
-            throw new NotImplementedException();
+            await this._jobRepsitory.RemoveJobProfession(id);
         }
 
-        public Task RemoveJobProfile(int id)
+        public async Task RemoveJobProfile(int id)
         {
-            throw new NotImplementedException();
+            await this._jobRepsitory.Delete(id);
         }
 
-        public Task RemoveJobSkillLevel(int id)
+        public async Task RemoveJobSkillLevel(int id)
         {
-            throw new NotImplementedException();
+            await this._jobRepsitory.RemoveJobSkillLevel(id);
         }
 
-        public Task RemoveSkillGrade(int id)
+        public async Task RemoveSkillGrade(int id)
         {
-            throw new NotImplementedException();
+            await this._jobRepsitory.RemoveSkillGrade(id);
         }
 
-        public Task RemoveVacancy(int id)
+        public async Task RemoveVacancy(int id)
         {
-            throw new NotImplementedException();
+            await this._jobRepsitory.RemoveVacancy(id);
         }
 
-        public Task UpdateJobProfession(JobProfessionModel model, int Id)
+        public async Task UpdateJobProfession(JobProfessionModel model, int id)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.JobProfession>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateJobProfession(datamodel);
         }
 
-        public Task UpdateJobProfile(JobProfileModel model, int Id)
+        public async Task UpdateJobProfile(JobProfileModel model, int id)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.JobProfile>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.Update(datamodel);
         }
 
-        public Task UpdateJobSkillLevel(JobSkillLevelModel model, int Id)
+        public async Task UpdateJobSkillLevel(JobSkillLevelModel model, int id)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.JobSkillLevel>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateJobSkillLevel(datamodel);
         }
 
-        public Task UpdateSkillGrade(SkillGradeModel model, int Id)
+        public async Task UpdateSkillGrade(SkillGradeModel model, int id)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.SkillGrade>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateSkillGrade(datamodel);
         }
 
-        public Task UpdateVacancy(VacancyModel model, int Id)
+        public async Task UpdateVacancy(VacancyModel model, int id)
         {
-            throw new NotImplementedException();
+            var datamodel = _mapper.Map<Database.EntityModels.Vacancy>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateVacancy(datamodel);
         }
     }
 }

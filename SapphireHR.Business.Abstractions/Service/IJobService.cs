@@ -17,28 +17,28 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<List<JobProfessionModel>> GetJobProfessions();
         Task<JobProfessionModel> GetJobProfessionById(int Id);
         Task AddJobProfession(JobProfessionModel model);
-        Task<JobProfileModel> UpdateJobProfession(JobProfessionModel model, int Id);
+        Task UpdateJobProfession(JobProfessionModel model, int Id);
         Task RemoveJobProfession(int id);
 
 
         Task<List<JobSkillLevelModel>> GetJobSkillLevels();
         Task<JobSkillLevelModel> GetJobSkillLevelById(int Id);
-        Task<JobProfileModel> AddJobSkillLevel(JobSkillLevelModel model);
-        Task<JobProfileModel> UpdateJobSkillLevel(JobSkillLevelModel model, int Id);
+        Task AddJobSkillLevel(JobSkillLevelModel model);
+        Task UpdateJobSkillLevel(JobSkillLevelModel model, int Id);
         Task RemoveJobSkillLevel(int id);
 
 
         Task<List<SkillGradeModel>> GetSkillGrades();
         Task<SkillGradeModel> GetSkillGradeById(int Id);
-        Task<JobProfileModel> AddSkillGrade(SkillGradeModel model);
-        Task<JobProfileModel> UpdateSkillGrade(SkillGradeModel model, int Id);
+        Task AddSkillGrade(SkillGradeModel model);
+        Task UpdateSkillGrade(SkillGradeModel model, int Id);
         Task RemoveSkillGrade(int id);
 
 
         Task<List<VacancyModel>> GetVacancies();
         Task<VacancyModel> GetVacancyById(int Id);
-        Task<JobProfileModel> AddVacancy(VacancyModel model);
-        Task<JobProfileModel> UpdateVacancy(VacancyModel model, int Id);
+        Task AddVacancy(VacancyModel model);
+        Task UpdateVacancy(VacancyModel model, int Id);
         Task RemoveVacancy(int id);
     }
 }
