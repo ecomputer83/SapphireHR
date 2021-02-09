@@ -1,8 +1,10 @@
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SapphireHR.Database.EntityModels
+namespace SapphireHR.Business.Abstractions.Models
 {
-    public class Employee : BaseEntity, IEntity
+    public class EmployeeModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,13 +20,6 @@ namespace SapphireHR.Database.EntityModels
         public string Nationality { get; set; }
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"
-        public EmployeeBank EmployeeBank { get; set; }
-
-        [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
-
-        [ForeignKey("Designation")]
-        public Designation Designation { get; set; }
-
+        
     }
 }
