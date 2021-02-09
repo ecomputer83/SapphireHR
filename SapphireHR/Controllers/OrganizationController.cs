@@ -43,7 +43,7 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("addrank")]
-        public async Task<IActionResult> AddRank(RankModel model)
+        public async Task<IActionResult> AddRank([FromBody] RankModel model)
         {
             try
             {
