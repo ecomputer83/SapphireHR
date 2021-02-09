@@ -27,8 +27,7 @@ namespace SapphireHR.Business.Service.Services
             data.UpdatedAt = DateTime.Now;
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
-            //await _employeeRepository.(data);
-
+            await _employeeRepository.AddEmployeeBank(data);
         }
     }
 }

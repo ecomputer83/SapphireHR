@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SapphireHR.Business.Abstractions.Models;
+using SapphireHR.Business.Abstractions.Service;
 using SapphireHR.Data.Service.Repositories;
 using SapphireHR.Database.EntityModels;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Service.Services
 {
-    public class ApplicationServices
+    public class ApplicationServices : IApplicationService
     {
         private readonly IMapper _mapper;
         private readonly ApplicationRepository _applicationRepository;
@@ -150,6 +151,40 @@ namespace SapphireHR.Business.Service.Services
             data.RelatedTaskCompleted = model.RelatedTaskCompleted;
             data.FinalDecision = model.FinalDecision;
             await _applicationRepository.UpdateApplicationNegotiation(data, id);
+        }
+
+        public async Task ReadApplicationNegotiation(int id)
+        {
+            await _applicationRepository.ReadApplicationNegotiation(id);
+        }
+
+        public async Task RemoveApplicationNegotiation(int id)
+        {
+            await _applicationRepository.RemoveApplicationNegotiation(id);
+        }
+
+        public async Task UpdateApplicationFaceToViewModel(ApplicationFaceToViewModel model, int id)
+        {
+            var data = await _applicationRepository.ReadApplicationFaceToView(id);
+            data.Rank = model.Rank;
+            data.Remark = model.Remark;
+            await _applicationRepository.UpdateApplicatioFaceToView(data, id);
+        }
+
+        public async Task AddAddApplicationSkills(ApplicationSkillModel model)
+        {
+            var data = _mapper.Map<ApplicationSkills>(model);
+            data.CreatedAt = DateTime.Now;
+            data.UpdatedAt = DateTime.Now;
+            data.CreatedBy = "SYSSTEM";
+            data.UpdatedBy = "SYSTEM";
+            await _applicationRepository.AddApplicationSkills(data);
+        }
+
+        public async Task UpdateAddApplicationSkills(ApplicationSkillModel model, int id)
+        {
+            var data = await _applicationRepository.ReadApplicationSkills(id);
+            await _applicationRepository.UpdateApplicationSkills(data, id);
         }
     }
 }
