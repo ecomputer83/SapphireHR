@@ -11,7 +11,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddOrganization(OrganizationModel model);
         Task AddOrganizationHeader(OrganizationHeaderModel model);
         Task UpdateOrganization(OrganizationModel model, int Id);
-
+        Task<OrganizationModel> GetOrganizationByHostHeader(string hostname);
         Task DeleteOrganization(int Id);
         Task AddLeaveType(LeaveTypeModel model);
         Task RemoveLeaveType(int id);

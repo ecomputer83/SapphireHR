@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
 using System;
@@ -8,53 +10,120 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Web.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OrganizationController : BaseApiController
     {
         IOrganizationService _organizationService;
+        private readonly ILogger<OrganizationController> _logger;
         public OrganizationController(IOrganizationService organizationService)
         {
             this._organizationService = organizationService;
         }
-        public IActionResult Index()
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("addleavetype")]
+        public async Task<IActionResult> AddLeaveType([FromBody] LeaveTypeModel model)
         {
-            return Ok();
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                model.OrganizationId = org.Id;
+                await _organizationService.AddLeaveType(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
 
-        public async Task<IActionResult> AddLeaveType(LeaveTypeModel model)
-        {
-            await _organizationService.AddLeaveType(model);
-            return Ok();
-        }
-
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("addrank")]
         public async Task<IActionResult> AddRank(RankModel model)
         {
-            await _organizationService.AddRank(model);
-            return Ok();
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                model.OrganizationId = org.Id;
+                await _organizationService.AddRank(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
-
-        public async Task<IActionResult> AddOrganization(OrganizationModel model)
+        [HttpPost]
+        
+        public async Task<IActionResult> Post([FromBody] OrganizationModel model)
         {
-            await _organizationService.AddOrganization(model);
-            return Ok();
+            try
+            {
+                await _organizationService.AddOrganization(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
-
-        public async Task<IActionResult> AddOrganizationHeader(OrganizationHeaderModel model)
+        [HttpPost]
+        [Route("PostHeader")]
+        public async Task<IActionResult> AddOrganizationHeader([FromBody] OrganizationHeaderModel model)
         {
-            await _organizationService.AddOrganizationHeader(model);
-            return Ok();
+            try
+            {
+                await _organizationService.AddOrganizationHeader(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
-
-        public async Task<IActionResult> DeleteOrganization(int Id)
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int Id)
         {
-            await _organizationService.DeleteOrganization(Id);
-            return Ok();
+            try
+            {
+                await _organizationService.DeleteOrganization(Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
-
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete]
+        [Route("DeleteLeaveType")]
         public async Task<IActionResult> DeleteLeaveType(int Id)
         {
-            await _organizationService.RemoveLeaveType(Id);
-            return Ok();
+            try
+            {
+                await _organizationService.RemoveLeaveType(Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
 
+        private async Task<OrganizationModel> GetOrganizationByHeader()
+        {
+            var host = Request.Headers["host"];
+            return await _organizationService.GetOrganizationByHostHeader(host);
+        }
     }
 }

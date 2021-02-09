@@ -16,6 +16,10 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
+        public Task<OrganizationInfo> GetOrganizationByHostHeader(string hostHeader)
+        {
+            return _context.OrganizationInfos.Include("OrganizationHeaders").FirstOrDefaultAsync(c => c.OrganizationHeader.HostName == hostHeader);
+        }
         public Task GetOrgHeader(int orgId)
         {
             var orgHeader = this._context.OrganizationHeaders.FirstOrDefault(c => c.OrganizationId == orgId);

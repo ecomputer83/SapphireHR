@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SapphireHR.Business.Abstractions.Models;
+using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +11,15 @@ namespace SapphireHR.Business.Service.ObjectMapper
     {
         public ApplicationProfile()
         {
+            CreateMap<OrganizationModel, OrganizationInfo>().ReverseMap();
+            CreateMap<LeaveTypeModel, LeaveType>().ReverseMap();
+            CreateMap<OrganizationHeaderModel, OrganizationHeader>().ReverseMap();
+            CreateMap<RankModel, Rank>().ReverseMap();
+            CreateMap<RankPermissionModel, RankPermission>().ReverseMap();
+            CreateMap<CompanyModel, CompanyInfo>().ReverseMap();
+            CreateMap<LeaveSettingModel, LeaveSetting>().ReverseMap();
+            CreateMap<EmployeeBankModel, EmployeeBank>().ReverseMap();
+
         }
     }
 }

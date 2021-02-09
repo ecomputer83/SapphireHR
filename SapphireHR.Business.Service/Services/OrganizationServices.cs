@@ -21,6 +21,11 @@ namespace SapphireHR.Business.Service.Services
             _fileManager = fileManager;
             this._mapper = mapper;
         }
+        public async Task<OrganizationModel> GetOrganizationByHostHeader(string hostname)
+        {
+            var org = await _orgRepository.GetOrganizationByHostHeader(hostname);
+            return _mapper.Map<OrganizationModel>(org);
+        }
         public async Task AddLeaveType(LeaveTypeModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.LeaveType>(model);
