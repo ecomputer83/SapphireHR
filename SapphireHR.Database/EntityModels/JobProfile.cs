@@ -7,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class JobProfile : BaseEntity, IEntity
     {
+        public int CompanyId { get; set; }
         public int RankId { get; set; }
         public int DepartmentId { get; set; }
         public string Title { get; set; }

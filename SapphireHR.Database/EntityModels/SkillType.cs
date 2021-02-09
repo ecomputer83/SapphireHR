@@ -6,6 +6,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class SkillType : BaseEntity
     {
+        public int CompanyId { get; set; }
         public string Name { get; set; }
     }
 }

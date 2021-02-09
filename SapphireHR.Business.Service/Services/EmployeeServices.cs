@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SapphireHR.Business.Abstractions.Models;
+using SapphireHR.Business.Abstractions.Service;
 using SapphireHR.Data.Service.Repositories;
 using SapphireHR.Database.EntityModels;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Service.Services
 {
-    public class EmployeeServices
+    public class EmployeeServices : IEmployee
     {
         private readonly IMapper _mapper;
         private readonly EmployeeRepository _employeeRepository;
@@ -20,14 +21,331 @@ namespace SapphireHR.Business.Service.Services
             _employeeRepository = employeeRepository;
         }
 
+        public async Task AddEmployee(EmployeeModel model)
+        {
+            var datamodel = _mapper.Map<Employee>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.Add(datamodel);
+        }
+
         public async Task AddEmployeeBank(EmployeeBankModel model)
         {
-            var data = _mapper.Map<EmployeeBank>(model);
-            data.CreatedAt = DateTime.Now;
-            data.UpdatedAt = DateTime.Now;
-            data.CreatedBy = "SYSTEM";
-            data.UpdatedBy = "SYSTEM";
-            await _employeeRepository.AddEmployeeBank(data);
+            var datamodel = _mapper.Map<EmployeeBank>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeBank(datamodel);
+        }
+
+        public async Task AddEmployeeEducation(EmployeeEducationModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeEducation>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeEducation(datamodel);
+        }
+
+        public async Task AddEmployeeEmergency(EmployeeEmergencyModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeEmergency>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeEmergency(datamodel);
+        }
+
+        public async Task AddEmployeeExp(EmployeeExperienceModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeExperience>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeExp(datamodel);
+        }
+
+        public async Task AddEmployeeFamily(EmployeeFamilyModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeFamily>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeFamily(datamodel);
+        }
+
+        public async Task AddEmployeeLeave(EmployeeLeaveModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeLeave>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeLeave(datamodel);
+        }
+
+        public async Task AddEmployeePension(EmployeePensionModel model)
+        {
+            var datamodel = _mapper.Map<EmployeePension>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeePension(datamodel);
+        }
+
+        public async Task AddEmployeeStatutory(EmployeeStatutoryModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeStatutory>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeStatutory(datamodel);
+        }
+
+        public async Task AddEmployeeTimetable(EmployeeTimetableModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeTimetable>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeTimetable(datamodel);
+        }
+
+        public async Task AddEmployeeTransfer(EmployeeTransferModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeTransfer>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeTransfer(datamodel);
+        }
+
+        public async Task GetEmployeeBank(int id)
+        {
+            await _employeeRepository.GetEmployeeBank(id);
+        }
+
+        public async Task GetEmployee(int id)
+        {
+            await _employeeRepository.Get(id);
+        }
+
+        public async Task GetEmployeeEducation(int id)
+        {
+            await _employeeRepository.GetEmployeeEducation(id);
+        }
+
+        public async Task GetEmployeeEmergency(int id)
+        {
+            await _employeeRepository.GetEmployeeEmergency(id);
+        }
+
+        public async Task GetEmployeeFamily(int id)
+        {
+            await _employeeRepository.GetEmployeeFamily(id);
+        }
+
+        public async Task GetEMployeeLeave(int id)
+        {
+            await _employeeRepository.GetEMployeeLeave(id);
+        }
+
+        public async Task GetEmployeePension(int id)
+        {
+            await _employeeRepository.GetEmployeePension(id);
+        }
+
+        public async Task GetEmployeeStatutory(int id)
+        {
+            await _employeeRepository.GetEmployeeStatutory(id);
+        }
+
+        public async Task GetEmployeeTimetable(int id)
+        {
+            await _employeeRepository.GetEmployeeTimetable(id);
+        }
+
+        public async Task GetEmployeeTransfer(int id)
+        {
+            await _employeeRepository.GetEmployeeTransfer(id);
+        }
+
+        public async Task GetEmployeExp(int id)
+        {
+            await _employeeRepository.GetEmployeeExp(id);
+        }
+
+        public async Task RemoveEmployee(int id)
+        {
+            await _employeeRepository.Delete(id);
+        }
+
+        public async Task RemoveEmployeeBank(int id)
+        {
+            await _employeeRepository.RemoveEmployeeBank(id);
+        }
+
+        public async Task RemoveEmployeeEducation(int id)
+        {
+            await _employeeRepository.RemoveEmployeeEducation(id);
+        }
+
+        public async Task RemoveEmployeeEmergency(int id)
+        {
+            await _employeeRepository.RemoveEmployeeEmergency(id);
+        }
+
+        public async Task RemoveEmployeeExp(int id)
+        {
+            await _employeeRepository.RemoveEmployeeExp(id);
+        }
+
+        public async Task RemoveEMployeeFamily(int id)
+        {
+            await _employeeRepository.RemoveEMployeeFamily(id);
+        }
+
+        public async Task RemoveEmployeeLeave(int id)
+        {
+            await _employeeRepository.RemoveEmployeeLeave(id);
+        }
+
+        public async Task RemoveEmployeePension(int id)
+        {
+            await _employeeRepository.RemoveEmployeePension(id);
+        }
+
+        public async Task RemoveEmployeeStatutory(int id)
+        {
+            await _employeeRepository.RemoveEmployeeStatutory(id);
+        }
+
+        public async Task RemoveEmployeeTimetable(int id)
+        {
+            await _employeeRepository.RemoveEmployeeTimetable(id);
+        }
+
+        public async Task RemoveEmployeeTransfer(int id)
+        {
+            await _employeeRepository.RemoveEmployeeTransfer(id);
+        }
+
+        public async Task UpdateEmployee(EmployeeModel model, int id)
+        {
+            var data = await _employeeRepository.Get(id);
+            var n_data = _mapper.Map<Employee>(model);
+            n_data.Id = data.Id;
+            n_data.DepartmentId = data.DepartmentId;
+            n_data.DesignationId = data.DesignationId;
+            n_data.CreatedAt = data.CreatedAt;
+            n_data.CreatedBy = data.CreatedBy;
+            n_data.UpdatedAt = data.UpdatedAt;
+            n_data.UpdatedBy = data.UpdatedBy;
+            await _employeeRepository.Update(n_data);
+        }
+
+        public async Task UpdateEmployeeBank(EmployeeBankModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeBank(id);
+            data.BankAccountNumber = model.BankAccountNumber;
+            data.BankName = model.BankName;
+            await _employeeRepository.UpdateEmployeeBank(data, id);
+        }
+
+        public async Task UpdateEmployeeEducation(EmployeeEducationModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeEducation(id);
+            data.Discipline = model.Discipline;
+            data.EndYear = model.EndYear;
+            data.StartYear = model.StartYear;
+            data.Institute = model.Institute;
+            await _employeeRepository.UpdateEmployeeEducation(data, id);
+        }
+
+        public async Task UpdateEmployeeEmergency(EmployeeEmergencyModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeEmergency(id);
+            data.Name = model.Name;
+            data.Phone1 = model.Phone1;
+            data.Phone2 = model.Phone2;
+            data.Relationship = model.Relationship;
+            await _employeeRepository.UpdateEmployeeEmergency(data, id);
+        }
+
+        public async Task UpdateEmployeeExp(EmployeeExperienceModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeExp(id);
+            data.Position = model.Position;
+            data.StartYear = model.StartYear;
+            data.EndYear = model.EndYear;
+            data.CompanyName = model.CompanyName;
+            await _employeeRepository.UpdateEmployeeExp(data, id);
+        }
+
+        public async Task UpdateEmployeeFamily(EmployeeFamilyModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeFamily(id);
+            data.Name = model.Name;
+            data.PhoneNo = model.PhoneNo;
+            data.Relationship = model.Relationship;
+            await _employeeRepository.UpdateEmployeeFamily(data, id);
+        }
+
+        public async Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id)
+        {
+            var data = await _employeeRepository.GetEMployeeLeave(id);
+            data.ApprovedBy = model.ApprovedBy;
+            data.FromDate = model.FromDate;
+            data.Reason = model.Reason;
+            data.ToDate = model.ToDate;
+            await _employeeRepository.UpdateEmployeeLeave(data, id);
+        }
+
+        public async Task UpdateEmployeePension(EmployeePensionModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeePension(id);
+            data.EmployeeRate = model.EmployeeRate;
+            data.EmployerRate = model.EmployerRate;
+            data.PensionManager = model.PensionManager;
+            data.PensionNo = model.PensionNo;
+            await _employeeRepository.UpdateEmployeePension(data, id);
+        }
+
+        public async Task UpdateEmployeeStatutory(EmployeeStatutoryModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeStatutory(id);
+            data.SalaryAmount = model.SalaryAmount;
+            data.SalaryBasis = model.SalaryBasis;
+            await _employeeRepository.UpdateEmployeeStatutory(data, id);
+        }
+
+        public async Task UpdateEmployeeTimetable(EmployeeTimetableModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeTimetable(id);
+            data.AttendedDate = model.AttendedDate;
+            data.PunchIn = model.PunchIn;
+            data.PunchOut = model.PunchOut;
+            await _employeeRepository.UpdateEmployeeTimetable(data, id);
+        }
+
+        public async Task UpdateEmployeeTransfer(EmployeeTransferModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeTransfer(id);
+            data.DateJoined = model.DateJoined;
+            data.FromCompany = model.FromCompany;
+            data.ToCompany = model.ToCompany;
+            await _employeeRepository.UpdateEmployeeTransfer(data, id);
         }
     }
 }
