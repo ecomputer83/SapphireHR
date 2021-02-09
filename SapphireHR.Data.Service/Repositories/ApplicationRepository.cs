@@ -14,108 +14,155 @@ namespace SapphireHR.Data.Service.Repositories
         public ApplicationRepository(ApplicationDbContext context) : base(context)
         {
         }
+
         public Task<Application> GetApplicationDetail(int ApplicationId)
         {
             return Task.FromResult(new Application());
         }
-        public Task AddApplicationFaceToView(ApplicationFaceToView model)
+
+        public async Task AddApplicationFaceToView(ApplicationFaceToView model)
         {
-            return Task.CompletedTask;
+            _context.Set<ApplicationFaceToView>().Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateApplicatioFaceToView(ApplicationFaceToView model, int Id)
+        public async Task UpdateApplicatioFaceToView(ApplicationFaceToView model, int Id)
         {
-            return Task.CompletedTask;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task<ApplicationFaceToView> ReadApplicationFaceToView(int Id)
+        {
+            return await _context.Set<ApplicationFaceToView>().FindAsync(Id);
         }
 
-        public Task<ApplicationFaceToView> ReadApplicationFaceToView(int Id)
+
+        public async Task RemoveApplicationFaceToView(int Id)
         {
-            return Task.FromResult(new ApplicationFaceToView());
+            var data = await _context.Set<ApplicationFaceToView>().FindAsync(Id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<ApplicationFaceToView>().Remove(data);
+            await _context.SaveChangesAsync();
         }
 
-
-        public Task RemoveApplicationFaceToView(int Id)
+        public async Task AddApplicationSkills(ApplicationSkills model)
         {
-            return Task.CompletedTask;
+            _context.Set<ApplicationSkills>().Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task AddApplicationSkills(ApplicationSkills model)
+        public async Task UpdateApplicationSkills(ApplicationSkills model, int Id)
         {
-            return Task.CompletedTask;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateApplicationSkills(ApplicationSkills model)
+        public async Task<ApplicationSkills> ReadApplicationSkills(int Id)
         {
-            return Task.CompletedTask;
+            return await _context.Set<ApplicationSkills>().FindAsync(Id);
+        }
+        
+        public async Task RemoveApplicationSkills(int Id)
+        {
+            var data = await _context.Set<ApplicationSkills>().FindAsync();
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<ApplicationSkills>().Remove(data);
+            await _context.SaveChangesAsync();
         }
 
-        public Task ReadApplicationSkills(ApplicationSkills model)
+        public async Task AddApplicationInterview(ApplicationInterview model)
         {
-            return Task.CompletedTask;
-        }
-        
-        public Task RemoveApplicationSkills(ApplicationSkills model)
-        {
-            return Task.CompletedTask;
+            _context.Set<ApplicationInterview>().Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task AddApplicationInterview(ApplicationInterview model)
+        public async Task UpdateApplicationInterview(ApplicationInterview model, int Id)
         {
-            return Task.CompletedTask;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
+        public async Task<ApplicationInterview> ReadApplicationInterview(int Id)
+        {
+            return await _context.Set<ApplicationInterview>().FindAsync(Id);
+        }
+        
+        public async Task RemoveApplicationInterview(int Id)
+        {
+            var data = await _context.Set<ApplicationInterview>().FindAsync(Id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
 
-        public Task UpdateApplicationInterview(ApplicationInterview model)
-        {
-            return Task.CompletedTask;
-        }
-        public Task ReadApplicationInterview(ApplicationInterview model)
-        {
-            return Task.CompletedTask;
+            _context.Set<ApplicationInterview>().Remove(data);
+            await _context.SaveChangesAsync();
         }
         
-        public Task RemoveApplicationInterview(ApplicationInterview model)
+        public async Task AddApplicationNegotiation(ApplicationNegotiation model)
         {
-            return Task.CompletedTask;
+            _context.Set<ApplicationNegotiation>().Add(model);
+            await _context.SaveChangesAsync();
         }
         
-        public Task AddApplicationNegotiation(ApplicationNegotiation model)
+        public async Task UpdateApplicationNegotiation(ApplicationNegotiation model, int Id)
         {
-            return Task.CompletedTask;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
         
-        public Task UpdateApplicationNegotiation(ApplicationNegotiation model)
+        public async Task<ApplicationNegotiation> ReadApplicationNegotiation(int Id)
         {
-            return Task.CompletedTask;
+            return await _context.Set<ApplicationNegotiation>().FindAsync(Id);
         }
         
-        public Task ReadApplicationNegotiation(ApplicationNegotiation model)
+        public async Task RemoveApplicationNegotiation(int Id)
         {
-            return Task.CompletedTask;
+            var data = await _context.Set<ApplicationNegotiation>().FindAsync(Id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<ApplicationNegotiation>().Remove(data);
+            await _context.SaveChangesAsync();
         }
         
-        public Task RemoveApplicationNegotiation(ApplicationNegotiation model)
+        public async Task AddApplicationScore(ApplicationScore model)
         {
-            return Task.CompletedTask;
+            _context.Set<ApplicationScore>().Add(model);
+            await _context.SaveChangesAsync();
         }
         
-        public Task AddApplicationScore(ApplicationScore model)
+        public async Task UpdateApplicationScore(ApplicationScore model, int Id)
         {
-            return Task.CompletedTask;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
         
-        public Task UpdateApplicationScore(ApplicationScore model)
+        public async Task<ApplicationScore> ReadApplicationScore(int Id)
         {
-            return Task.CompletedTask;
+            return await _context.Set<ApplicationScore>().FindAsync(Id);
         }
         
-        public Task ReadApplicationScore(ApplicationScore model)
+        public async Task RemoveApplicationScore(int Id)
         {
-            return Task.CompletedTask;
-        }
-        
-        public Task RemoveApplicationScore(ApplicationScore model)
-        {
-            return Task.CompletedTask;
+            var data = await _context.Set<ApplicationScore>().FindAsync(Id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<ApplicationScore>().Remove(data);
+            await _context.SaveChangesAsync();
         }
     }
 }

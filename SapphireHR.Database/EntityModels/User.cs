@@ -7,7 +7,8 @@ namespace SapphireHR.Database.EntityModels
 {
     public class User : IdentityUser
     {
-        public string FullName { get; set; }
-        public int UserType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int userType { get; set; }
     }
 }

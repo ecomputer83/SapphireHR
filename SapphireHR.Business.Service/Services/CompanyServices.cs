@@ -71,7 +71,6 @@ namespace SapphireHR.Business.Service.Services
             setting.CarryOverMax = model.CarryOverMax;
             setting.Days = model.Days;
             setting.EarnedLeave = model.EarnedLeave;
-
             await this._companyRepository.UpdateLeaveSetting(setting);
         }
 
