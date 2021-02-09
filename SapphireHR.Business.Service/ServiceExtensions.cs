@@ -19,6 +19,7 @@ namespace SapphireHR.Business.Service
             {
                 services.AddScoped<OrganizationRepository>();
                 services.AddScoped<CompanyRepository>();
+                services.AddScoped<JobRepository>();
                 services.AddScoped<EmployeeRepository>();
             }
         }
