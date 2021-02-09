@@ -6,6 +6,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class Applicant : BaseEntity, IEntity
     {
+        public int OrganizationId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
