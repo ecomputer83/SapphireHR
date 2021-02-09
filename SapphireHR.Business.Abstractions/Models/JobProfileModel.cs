@@ -6,5 +6,6 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class JobProfileModel
     {
+        public int Id { get; set; }
     }
 }

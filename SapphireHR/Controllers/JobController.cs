@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
 using System;
 using System.Collections.Generic;
@@ -193,17 +194,177 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        // POST api/<JobController>
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("createJobProfile")]
+        public async Task<IActionResult> PostJobProfile([FromBody] JobProfileModel model)
         {
+            try
+            {
+                await _jobService.AddJobProfile(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
 
-        // PUT api/<JobController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("createJobProfession")]
+        public async Task<IActionResult> PostJobProfession([FromBody] JobProfessionModel model)
         {
+            try
+            {
+                await _jobService.AddJobProfession(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
         }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("createJobSkillLevel")]
+        public async Task<IActionResult> PostJobSkillLevel([FromBody] JobSkillLevelModel model)
+        {
+            try
+            {
+                await _jobService.AddJobSkillLevel(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("createSkillGrade")]
+        public async Task<IActionResult> PostSkillGrade([FromBody] SkillGradeModel model)
+        {
+            try
+            {
+                await _jobService.AddSkillGrade(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("createVacancy")]
+        public async Task<IActionResult> PostVacancy([FromBody] VacancyModel model)
+        {
+            try
+            {
+                await _jobService.AddVacancy(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("{id}")]
+        [Route("updateVacancy")]
+        public async Task<IActionResult> UpdateVacancy([FromBody] VacancyModel model)
+        {
+            try
+            {
+                await _jobService.UpdateVacancy(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("{id}")]
+        [Route("updateJobProfile")]
+        public async Task<IActionResult> UpdateJobProfile([FromBody] JobProfileModel model)
+        {
+            try
+            {
+                await _jobService.UpdateJobProfile(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("{id}")]
+        [Route("updateJobProfession")]
+        public async Task<IActionResult> UpdateJobProfession([FromBody] JobProfessionModel model)
+        {
+            try
+            {
+                await _jobService.UpdateJobProfession(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("{id}")]
+        [Route("updateJobSkillLevel")]
+        public async Task<IActionResult> UpdateJobSkillLevel([FromBody] JobSkillLevelModel model)
+        {
+            try
+            {
+                await _jobService.UpdateJobSkillLevel(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("{id}")]
+        [Route("updateSkillGrade")]
+        public async Task<IActionResult> UpdateSkillGrade([FromBody] SkillGradeModel model)
+        {
+            try
+            {
+                await _jobService.UpdateSkillGrade(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]

@@ -6,5 +6,6 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class SkillGradeModel
     {
+        public int Id { get; set; }
     }
 }
