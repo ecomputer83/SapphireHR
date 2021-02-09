@@ -181,6 +181,11 @@ namespace SapphireHR.Web.Controllers
                         tokenModel.TFAEnabled = false;
                         tokenModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
+                        if(user.UserType != 2)
+                        {
+                            // Employee Service
+                        }
+
                         return Ok(tokenModel);
                     }
                 }

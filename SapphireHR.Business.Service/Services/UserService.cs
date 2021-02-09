@@ -44,7 +44,7 @@ namespace SapphireHR.Business.Service.Services
             bool res = false;
             var user = _mapper.Map<User>(model);
             user.UserName = model.Email;
-
+            user.EmailConfirmed = true;
 
             //if (user.UserNo != null) { 
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);

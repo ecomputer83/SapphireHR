@@ -9,5 +9,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public bool? HasVerifiedEmail { get; set; }
         public bool? TFAEnabled { get; set; }
         public string Token { get; set; }
+        public object Extra { get; set; } 
     }
 }
