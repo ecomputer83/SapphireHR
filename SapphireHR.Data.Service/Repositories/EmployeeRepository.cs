@@ -20,7 +20,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeBank(EmployeeBank model, int id)
+        public async Task UpdateEmployeeBank(EmployeeBank model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -49,7 +49,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeEducation(EmployeeEducation model, int id)
+        public async Task UpdateEmployeeEducation(EmployeeEducation model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -78,7 +78,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeEmergency(EmployeeEmergency model, int id)
+        public async Task UpdateEmployeeEmergency(EmployeeEmergency model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -107,7 +107,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeExp(EmployeeExperience model, int id)
+        public async Task UpdateEmployeeExp(EmployeeExperience model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
