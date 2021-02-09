@@ -1,0 +1,11 @@
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.AssemblyInfoInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.AssemblyInfo.cs
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.csproj.CoreCompileInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.deps.json
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.runtimeconfig.json
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.runtimeconfig.dev.json
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Database\bin\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Database\obj\Debug\netcoreapp3.1\SapphireHR.Database.genruntimeconfig.cache

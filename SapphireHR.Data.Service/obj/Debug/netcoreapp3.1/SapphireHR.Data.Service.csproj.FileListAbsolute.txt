@@ -1,0 +1,17 @@
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.AssemblyInfoInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.AssemblyInfo.cs
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csproj.CoreCompileInputs.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.deps.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.runtimeconfig.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.runtimeconfig.dev.json
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Service.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Database.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Data.Abstractions.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\bin\Debug\netcoreapp3.1\SapphireHR.Database.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csprojAssemblyReference.cache
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.csproj.CopyComplete
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.dll
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.pdb
+C:\Sandbox\SapphireHR\SapphireHR.Data.Service\obj\Debug\netcoreapp3.1\SapphireHR.Data.Service.genruntimeconfig.cache
