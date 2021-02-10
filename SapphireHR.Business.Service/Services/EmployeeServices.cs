@@ -20,15 +20,41 @@ namespace SapphireHR.Business.Service.Services
             _mapper = mapper;
             _employeeRepository = employeeRepository;
         }
-
-        public async Task AddEmployee(EmployeeModel model)
+        public async Task AddCompanyEmployee(CompanyEmployeeModel model)
+        {
+            var datamodel = _mapper.Map<CompanyEmployee>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddCompanyEmployee(datamodel);
+        }
+        public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
+        {
+            var data = await _employeeRepository.GetCompanyEmployeeByUserId(UserId);
+            return _mapper.Map<CompanyEmployeeModel>(data);
+        }
+        public async Task AddEmployee(EmployeeModel model, int CompanyId, int RankId)
         {
             var datamodel = _mapper.Map<Employee>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await _employeeRepository.Add(datamodel);
+            datamodel = await _employeeRepository.Add(datamodel);
+
+            var companyemployee = new CompanyEmployee
+            {
+                EmployeeId = datamodel.Id,
+                CompanyId = CompanyId,
+                RankId = RankId,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = "SYSTEM",
+                UpdatedBy = "SYSTEM"
+            };
+
+            await _employeeRepository.AddCompanyEmployee(companyemployee);
         }
 
         public async Task AddEmployeeBank(EmployeeBankModel model)
@@ -246,7 +272,6 @@ namespace SapphireHR.Business.Service.Services
             var data = await _employeeRepository.Get(id);
             var n_data = _mapper.Map<Employee>(model);
             n_data.Id = data.Id;
-            n_data.DepartmentId = data.DepartmentId;
             n_data.DesignationId = data.DesignationId;
             n_data.CreatedAt = data.CreatedAt;
             n_data.CreatedBy = data.CreatedBy;
@@ -260,7 +285,7 @@ namespace SapphireHR.Business.Service.Services
             var data = await _employeeRepository.GetEmployeeBank(id);
             data.BankAccountNumber = model.BankAccountNumber;
             data.BankName = model.BankName;
-            await _employeeRepository.UpdateEmployeeBank(data, id);
+            await _employeeRepository.UpdateEmployeeBank(data);
         }
 
         public async Task UpdateEmployeeEducation(EmployeeEducationModel model, int id)
@@ -270,7 +295,7 @@ namespace SapphireHR.Business.Service.Services
             data.EndYear = model.EndYear;
             data.StartYear = model.StartYear;
             data.Institute = model.Institute;
-            await _employeeRepository.UpdateEmployeeEducation(data, id);
+            await _employeeRepository.UpdateEmployeeEducation(data);
         }
 
         public async Task UpdateEmployeeEmergency(EmployeeEmergencyModel model, int id)
@@ -280,7 +305,7 @@ namespace SapphireHR.Business.Service.Services
             data.Phone1 = model.Phone1;
             data.Phone2 = model.Phone2;
             data.Relationship = model.Relationship;
-            await _employeeRepository.UpdateEmployeeEmergency(data, id);
+            await _employeeRepository.UpdateEmployeeEmergency(data);
         }
 
         public async Task UpdateEmployeeExp(EmployeeExperienceModel model, int id)
@@ -290,7 +315,7 @@ namespace SapphireHR.Business.Service.Services
             data.StartYear = model.StartYear;
             data.EndYear = model.EndYear;
             data.CompanyName = model.CompanyName;
-            await _employeeRepository.UpdateEmployeeExp(data, id);
+            await _employeeRepository.UpdateEmployeeExp(data);
         }
 
         public async Task UpdateEmployeeFamily(EmployeeFamilyModel model, int id)
@@ -299,7 +324,7 @@ namespace SapphireHR.Business.Service.Services
             data.Name = model.Name;
             data.PhoneNo = model.PhoneNo;
             data.Relationship = model.Relationship;
-            await _employeeRepository.UpdateEmployeeFamily(data, id);
+            await _employeeRepository.UpdateEmployeeFamily(data);
         }
 
         public async Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id)
@@ -309,7 +334,7 @@ namespace SapphireHR.Business.Service.Services
             data.FromDate = model.FromDate;
             data.Reason = model.Reason;
             data.ToDate = model.ToDate;
-            await _employeeRepository.UpdateEmployeeLeave(data, id);
+            await _employeeRepository.UpdateEmployeeLeave(data);
         }
 
         public async Task UpdateEmployeePension(EmployeePensionModel model, int id)
@@ -319,7 +344,7 @@ namespace SapphireHR.Business.Service.Services
             data.EmployerRate = model.EmployerRate;
             data.PensionManager = model.PensionManager;
             data.PensionNo = model.PensionNo;
-            await _employeeRepository.UpdateEmployeePension(data, id);
+            await _employeeRepository.UpdateEmployeePension(data);
         }
 
         public async Task UpdateEmployeeStatutory(EmployeeStatutoryModel model, int id)
@@ -327,7 +352,7 @@ namespace SapphireHR.Business.Service.Services
             var data = await _employeeRepository.GetEmployeeStatutory(id);
             data.SalaryAmount = model.SalaryAmount;
             data.SalaryBasis = model.SalaryBasis;
-            await _employeeRepository.UpdateEmployeeStatutory(data, id);
+            await _employeeRepository.UpdateEmployeeStatutory(data);
         }
 
         public async Task UpdateEmployeeTimetable(EmployeeTimetableModel model, int id)
@@ -336,7 +361,7 @@ namespace SapphireHR.Business.Service.Services
             data.AttendedDate = model.AttendedDate;
             data.PunchIn = model.PunchIn;
             data.PunchOut = model.PunchOut;
-            await _employeeRepository.UpdateEmployeeTimetable(data, id);
+            await _employeeRepository.UpdateEmployeeTimetable(data);
         }
 
         public async Task UpdateEmployeeTransfer(EmployeeTransferModel model, int id)
@@ -345,7 +370,7 @@ namespace SapphireHR.Business.Service.Services
             data.DateJoined = model.DateJoined;
             data.FromCompany = model.FromCompany;
             data.ToCompany = model.ToCompany;
-            await _employeeRepository.UpdateEmployeeTransfer(data, id);
+            await _employeeRepository.UpdateEmployeeTransfer(data);
         }
     }
 }

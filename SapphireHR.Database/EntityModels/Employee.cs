@@ -10,7 +10,6 @@ namespace SapphireHR.Database.EntityModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public int DepartmentId { get; set; }
         public int DesignationId { get; set; }
         public string Birthday { get; set; }
         public string Address { get; set; }
@@ -22,10 +21,7 @@ namespace SapphireHR.Database.EntityModels
         public string MaritalStatus { get; set; } // "Single" "Married"
         public EmployeeBank EmployeeBank { get; set; }
 
-        [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
-
-        [ForeignKey("Designation")]
+        [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
 
     }

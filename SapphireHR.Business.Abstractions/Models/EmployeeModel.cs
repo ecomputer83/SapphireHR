@@ -10,7 +10,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public int DepartmentId { get; set; }
         public int DesignationId { get; set; }
         public string Birthday { get; set; }
         public string Address { get; set; }

@@ -26,6 +26,7 @@ namespace SapphireHR.Web.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
+        private readonly IEmployeeService _employeeService;
         private readonly JwtSecurityTokenSettings _jwt;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
@@ -33,6 +34,7 @@ namespace SapphireHR.Web.Controllers
         public AccountController(
             IConfiguration configuration,
             IUserService userService,
+            IEmployeeService employeeService,
         IOptions<JwtSecurityTokenSettings> jwt,
             ILogger<AccountController> logger,
             IMapper mapper
@@ -41,6 +43,7 @@ namespace SapphireHR.Web.Controllers
 
             this._configuration = configuration;
             this._userService = userService;
+            this._employeeService = employeeService;
             this._jwt = jwt.Value;
             this._logger = logger;
             this._mapper = mapper;
@@ -181,9 +184,11 @@ namespace SapphireHR.Web.Controllers
                         tokenModel.TFAEnabled = false;
                         tokenModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
-                        if(user.UserType != 2)
+                        if(user.UserType > 1)
                         {
                             // Employee Service
+                            var companyEmployee = await _employeeService.GetCompanyEmployeeByUserId(user.Id);
+                            tokenModel.Extra = companyEmployee;
                         }
 
                         return Ok(tokenModel);
