@@ -19,6 +19,19 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<CompanyModel, CompanyInfo>().ReverseMap();
             CreateMap<LeaveSettingModel, LeaveSetting>().ReverseMap();
             CreateMap<EmployeeBankModel, EmployeeBank>().ReverseMap();
+            CreateMap<CompanyEmployeeModel, CompanyEmployee>().ReverseMap();
+            CreateMap<EmployeeEducationModel, EmployeeEducation>().ReverseMap();
+            CreateMap<EmployeeEmergencyModel, EmployeeEmergency>().ReverseMap();
+            CreateMap<EmployeeExperienceModel, EmployeeExperience>().ReverseMap();
+            CreateMap<EmployeeFamilyModel, EmployeeFamily>().ReverseMap();
+            CreateMap<EmployeeLeaveModel, EmployeeLeave>().ReverseMap();
+            CreateMap<EmployeePensionModel, EmployeePension>().ReverseMap();
+            CreateMap<EmployeeStatutoryModel, EmployeeStatutory>().ReverseMap();
+            CreateMap<EmployeeTimetableModel, EmployeeTimetable>().ReverseMap();
+            CreateMap<EmployeeTransferModel, EmployeeTransfer>().ReverseMap();
+            CreateMap<EmployeeModel, Employee>().ReverseMap();
+            CreateMap<UserModel, User>().ReverseMap();
+            CreateMap<VacancyModel, Vacancy>().ReverseMap();
 
         }
     }
