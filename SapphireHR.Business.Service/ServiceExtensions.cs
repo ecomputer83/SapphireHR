@@ -22,6 +22,10 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<JobRepository>();
                 services.AddScoped<EmployeeRepository>();
             }
+
+            services.AddScoped<ApplicantRepository>();
+            services.AddScoped<DepartmentRepository>();
+            services.AddScoped<DesignationRepository>();
         }
 
     }
