@@ -14,10 +14,12 @@ namespace SapphireHR.Web.Controllers
     public class MiscellaneousController : BaseApiController
     {
         private readonly ILogger _logger;
+        IMiscellaneousService _miscellaneousService;
 
-        public MiscellaneousController(ILogger<MiscellaneousController> logger)
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService)
         {
             _logger = logger;
+            _miscellaneousService = miscellaneousService;
         }
     }
 }
