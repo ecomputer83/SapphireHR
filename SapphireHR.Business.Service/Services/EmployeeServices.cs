@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Service.Services
 {
-    public class EmployeeServices : IEmployee
+    public class EmployeeServices : IEmployeeService
     {
         private readonly IMapper _mapper;
         private readonly EmployeeRepository _employeeRepository;

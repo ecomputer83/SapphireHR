@@ -13,5 +13,9 @@ namespace SapphireHR.Database.EntityModels
 
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+        
+        [ForeignKey("OrganizationId")]
+        public OrganizationInfo Organization { get; set; }
+
     }
 }

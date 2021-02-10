@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SapphireHR.Database.EntityModels
@@ -8,5 +9,8 @@ namespace SapphireHR.Database.EntityModels
     {
         public int OrganizationId { get; set; }
         public string Name { get; set; }
+
+        [ForeignKey("OrganizationId")]
+        public OrganizationInfo Organization { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Abstractions.Service
 {
-    public interface IEmployee
+    public interface IEmployeeService
     {
         Task AddEmployeeBank(EmployeeBankModel model);
         Task UpdateEmployeeBank(EmployeeBankModel model, int id);
