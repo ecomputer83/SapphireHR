@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Business.DocumentManager.Documents;
 using SapphireHR.Business.Service.Services;
 using SapphireHR.Data.Service.Repositories;
 using System;
@@ -24,10 +25,11 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<JobRepository>();
                 services.AddScoped<EmployeeRepository>();
                 services.AddScoped<ApplicantRepository>();
+                services.AddScoped<ApplicationRepository>();
                 services.AddScoped<DepartmentRepository>();
                 services.AddScoped<DesignationRepository>();
             }
-
+            services.AddScoped<FileManager>();
             services.AddTransient<IApplicationService, ApplicationServices>();
             services.AddTransient<ICompanyService, CompanyServices>();
             services.AddTransient<IEmailService, EmailService>();

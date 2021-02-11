@@ -46,7 +46,7 @@ namespace SapphireHR.Business.Service.Services
             user.UserName = model.Email;
             user.EmailConfirmed = true;
 
-            //if (user.UserNo != null) { 
+            
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (result.Succeeded)
             {
@@ -65,11 +65,7 @@ namespace SapphireHR.Business.Service.Services
             {
                 throw new Exception(result.Errors.Select(c => c.Description).Aggregate((a, b) => a + ", " + b));
             }
-            //}
-            //else
-            //{
-            //    throw new Exception("Unable to create account on Nav");
-            //}
+            
             return res;
         }
 

@@ -59,7 +59,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         [HttpPost]
-        
+        //[AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] OrganizationModel model)
         {
             try
@@ -75,6 +75,7 @@ namespace SapphireHR.Web.Controllers
         }
         [HttpPost]
         [Route("PostHeader")]
+        //[AllowAnonymous]
         public async Task<IActionResult> AddOrganizationHeader([FromBody] OrganizationHeaderModel model)
         {
             try

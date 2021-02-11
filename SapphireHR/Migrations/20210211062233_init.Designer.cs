@@ -10,8 +10,8 @@ using SapphireHR.Database;
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210210091016_companyemployeeforeignkeys")]
-    partial class companyemployeeforeignkeys
+    [Migration("20210211062233_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -615,6 +615,8 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrganizationId");
+
                     b.ToTable("Departments");
                 });
 
@@ -637,8 +639,8 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrganizationId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -652,6 +654,8 @@ namespace SapphireHR.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Designations");
                 });
@@ -2199,6 +2203,17 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("Organization");
                 });
 
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.Department", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Designation", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.Department", "Department")
@@ -2207,7 +2222,15 @@ namespace SapphireHR.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Department");
+
+                    b.Navigation("Organization");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>

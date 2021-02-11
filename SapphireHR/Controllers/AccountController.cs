@@ -96,7 +96,7 @@ namespace SapphireHR.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("register")]
+        [Route("registerasAdmin")]
         public async Task<IActionResult> RegisterAsAdmin([FromBody] UserModel model)
         {
             try
@@ -104,7 +104,7 @@ namespace SapphireHR.Web.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
-                await _userService.CreateUserAsync(model, null);
+                await _userService.CreateUserAsync(model, new string[] {"Administratior"});
 
                 return Ok();
             }
@@ -118,7 +118,31 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("addUser")]
+        [Route("addUserAsHR")]
+        public async Task<IActionResult> AddUserAsHR([FromBody] UserModel model)
+        {
+            try
+            {
+
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                model.UserType = 2;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<string>), 400)]
+        [Route("addUserAsEmployee")]
         public async Task<IActionResult> AddUserAsEmployee([FromBody] UserModel model)
         {
             try
@@ -126,9 +150,10 @@ namespace SapphireHR.Web.Controllers
 
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                model.UserType = 3;
                 model.Password = "password";
                 model.ConfirmPassword = "password";
-                await _userService.CreateUserAsync(model, null);
+                await _userService.CreateUserAsync(model, new string[] { "Employee" });
 
                 return Ok();
             }
