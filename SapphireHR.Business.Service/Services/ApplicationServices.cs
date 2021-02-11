@@ -171,16 +171,7 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicatioFaceToView(data, id);
         }
 
-        public async Task AddAddApplicationSkills(ApplicationSkillModel model)
-        {
-            var data = _mapper.Map<ApplicationSkills>(model);
-            data.CreatedAt = DateTime.Now;
-            data.UpdatedAt = DateTime.Now;
-            data.CreatedBy = "SYSSTEM";
-            data.UpdatedBy = "SYSTEM";
-            await _applicationRepository.AddApplicationSkills(data);
-        }
-
+       
         public async Task UpdateAddApplicationSkills(ApplicationSkillModel model, int id)
         {
             var data = await _applicationRepository.ReadApplicationSkills(id);

@@ -19,6 +19,12 @@ namespace SapphireHR.Web.Controllers
         IEmployeeService _employeeService;
         private readonly ILogger<EmployeeController> _logger;
 
+        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
+        {
+            _employeeService = employeeService;
+            _logger = logger;
+        }
+
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]

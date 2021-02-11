@@ -20,7 +20,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateApplicationInterview(ApplicationInterviewModel model, int id);
         Task ReadApplicationInterview(int id);
         Task RemoveApplicationInterview(int id);
-        Task AddAddApplicationSkills(ApplicationSkillModel model);
+        Task AddApplicationSkills(ApplicationSkillModel model);
         Task UpdateAddApplicationSkills(ApplicationSkillModel model, int id);
         Task ReadApplicationSkills(int id);
         Task RemoveApplicationSkills(int id);
