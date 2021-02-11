@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Service.Services
 {
-    public class EmployeeServices : IEmployee
+    public class EmployeeServices : IEmployeeService
     {
         private readonly IMapper _mapper;
         private readonly EmployeeRepository _employeeRepository;
@@ -131,59 +131,81 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeTransfer(datamodel);
         }
 
-        public async Task GetEmployeeBank(int id)
+        public async Task<EmployeeBankModel> GetEmployeeBank(int id)
         {
-            await _employeeRepository.GetEmployeeBank(id);
+            var bank = await _employeeRepository.GetEmployeeBank(id);
+            var res = _mapper.Map<EmployeeBankModel>(bank);
+            return res;
         }
 
-        public async Task GetEmployee(int id)
+        public async Task<EmployeeModel> GetEmployee(int id)
         {
-            await _employeeRepository.Get(id);
+            var emp =  await _employeeRepository.Get(id);
+            var res = _mapper.Map<EmployeeModel>(emp);
+            return res;
         }
 
-        public async Task GetEmployeeEducation(int id)
+        public async Task<EmployeeEducationModel> GetEmployeeEducation(int id)
         {
-            await _employeeRepository.GetEmployeeEducation(id);
+            var edu = await _employeeRepository.GetEmployeeEducation(id);
+            var res = _mapper.Map<EmployeeEducationModel>(edu);
+            return res;
         }
 
-        public async Task GetEmployeeEmergency(int id)
+        public async Task<EmployeeEmergencyModel> GetEmployeeEmergency(int id)
         {
-            await _employeeRepository.GetEmployeeEmergency(id);
+            var emg = await _employeeRepository.GetEmployeeEmergency(id);
+            var res = _mapper.Map<EmployeeEmergencyModel>(emg);
+            return res;
         }
 
-        public async Task GetEmployeeFamily(int id)
+        public async Task<EmployeeFamilyModel> GetEmployeeFamily(int id)
         {
-            await _employeeRepository.GetEmployeeFamily(id);
+            var fam = await _employeeRepository.GetEmployeeFamily(id);
+            var res = _mapper.Map<EmployeeFamilyModel>(fam);
+            return res;
         }
 
-        public async Task GetEMployeeLeave(int id)
+        public async Task<EmployeeLeaveModel> GetEMployeeLeave(int id)
         {
-            await _employeeRepository.GetEMployeeLeave(id);
+            var leave = await _employeeRepository.GetEMployeeLeave(id);
+            var res = _mapper.Map<EmployeeLeaveModel>(leave);
+            return res;
         }
 
-        public async Task GetEmployeePension(int id)
+        public async Task<EmployeePensionModel> GetEmployeePension(int id)
         {
-            await _employeeRepository.GetEmployeePension(id);
+            var pen = await _employeeRepository.GetEmployeePension(id);
+            var res = _mapper.Map<EmployeePensionModel>(pen);
+            return res;
         }
 
-        public async Task GetEmployeeStatutory(int id)
+        public async Task<EmployeeStatutoryModel> GetEmployeeStatutory(int id)
         {
-            await _employeeRepository.GetEmployeeStatutory(id);
+            var stat = await _employeeRepository.GetEmployeeStatutory(id);
+            var res = _mapper.Map<EmployeeStatutoryModel>(stat);
+            return res;
         }
 
-        public async Task GetEmployeeTimetable(int id)
+        public async Task<EmployeeTimetableModel> GetEmployeeTimetable(int id)
         {
-            await _employeeRepository.GetEmployeeTimetable(id);
+            var tt = await _employeeRepository.GetEmployeeTimetable(id);
+            var res = _mapper.Map<EmployeeTimetableModel>(tt);
+            return res;
         }
 
-        public async Task GetEmployeeTransfer(int id)
+        public async Task<EmployeeTransferModel> GetEmployeeTransfer(int id)
         {
-            await _employeeRepository.GetEmployeeTransfer(id);
+            var trans = await _employeeRepository.GetEmployeeTransfer(id);
+            var res = _mapper.Map<EmployeeTransferModel>(trans);
+            return res;
         }
 
-        public async Task GetEmployeExp(int id)
+        public async Task<EmployeeExperienceModel> GetEmployeExp(int id)
         {
-            await _employeeRepository.GetEmployeeExp(id);
+            var exp = await _employeeRepository.GetEmployeeExp(id);
+            var res = _mapper.Map<EmployeeExperienceModel>(exp);
+            return res;
         }
 
         public async Task RemoveEmployee(int id)
