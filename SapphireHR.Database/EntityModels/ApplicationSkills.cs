@@ -12,6 +12,8 @@ namespace SapphireHR.Database.EntityModels
         public int GradeId { get; set; }
         [ForeignKey("ApplicationId")]
         public Application Application { get; set; }
+        [ForeignKey("JobSkillLevelId")]
+        public JobSkillLevel JobSkillLevel { get; set; }
         [ForeignKey("GradeId")]
         public SkillGrade SkillGrade { get; set; }
     }

@@ -10,5 +10,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public int FromCompany { get; set; }
         public int ToCompany { get; set; }
         public DateTime DateJoined { get; set; }
+        public Employee Employee { get; set; }
     }
 }

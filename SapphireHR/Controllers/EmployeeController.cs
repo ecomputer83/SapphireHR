@@ -35,6 +35,22 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+        
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("getAllEmployees")]
+        public async Task<IActionResult> GetAllEmployees()
+        {
+            try
+            {
+                var rsc = await _employeeService.GetAllEmployees();
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]

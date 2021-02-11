@@ -163,6 +163,12 @@ namespace SapphireHR.Business.Service.Services
             var res = _mapper.Map<EmployeeBankModel>(bank);
             return res;
         }
+        public async Task<EmployeeModel> GetAllEmployees()
+        {
+            var emp = await _employeeRepository.GetAll();
+            var res = _mapper.Map<EmployeeModel>(emp);
+            return res;
+        }
 
         public async Task<EmployeeModel> GetEmployee(int id)
         {
@@ -394,5 +400,6 @@ namespace SapphireHR.Business.Service.Services
             data.ToCompany = model.ToCompany;
             await _employeeRepository.UpdateEmployeeTransfer(data);
         }
+
     }
 }

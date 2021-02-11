@@ -10,5 +10,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public DateTime AttendedDate { get; set; }
         public string PunchIn { get; set; }
         public string PunchOut { get; set; }
+        public Employee Employee { get; set; }
     }
 }

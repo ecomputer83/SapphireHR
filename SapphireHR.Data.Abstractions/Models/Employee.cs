@@ -6,13 +6,13 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class Employee : BaseEntity
     {
-        public int EmployeeBankId { get; set; }
+        public int OrganizationId { get; set; }
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Department { get; set; }
-        public string Designation { get; set; }
+        public int DesignationId { get; set; }
         public string Birthday { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; } // "M" or "F"
@@ -22,5 +22,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"
         public EmployeeBank EmployeeBank { get; set; }
+        public Designation Designation { get; set; }
     }
 }

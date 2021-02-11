@@ -16,9 +16,10 @@ namespace SapphireHR.Web.Controllers
     {
         IOrganizationService _organizationService;
         private readonly ILogger<OrganizationController> _logger;
-        public OrganizationController(IOrganizationService organizationService)
+        public OrganizationController(IOrganizationService organizationService, ILogger<OrganizationController> logger)
         {
             this._organizationService = organizationService;
+            this._logger = logger;
         }
 
         [Authorize(Roles = "Administrator")]

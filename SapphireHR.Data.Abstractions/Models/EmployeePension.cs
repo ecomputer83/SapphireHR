@@ -11,5 +11,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public int EmployeeRate { get; set; }
         public int EmployerRate { get; set; }
         public string PensionManager { get; set; }
+        public Employee Employee { get; set; }
     }
 }

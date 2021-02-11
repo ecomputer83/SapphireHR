@@ -6,6 +6,7 @@ namespace SapphireHR.Data.Abstractions.Models
 {
     public class Applicant : BaseEntity
     {
+        public int OrganizationId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
@@ -13,5 +14,6 @@ namespace SapphireHR.Data.Abstractions.Models
         public string Phone2 { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public OrganizationInfo Organization { get; set; }
     }
 }

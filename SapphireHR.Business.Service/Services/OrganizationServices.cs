@@ -39,7 +39,7 @@ namespace SapphireHR.Business.Service.Services
         public async Task AddOrganization(OrganizationModel model)
         {
             ///DocumentService for Creating Org folder
-            var orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower());
+            var orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower().Replace(" ", ""));
             var datamodel = _mapper.Map<Database.EntityModels.OrganizationInfo>(model);
             datamodel.Directory = orgUrl;
             datamodel.CreatedAt = DateTime.Now;

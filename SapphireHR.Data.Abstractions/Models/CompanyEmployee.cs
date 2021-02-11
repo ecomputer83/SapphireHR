@@ -9,5 +9,8 @@ namespace SapphireHR.Data.Abstractions.Models
         public int CompanyId { get; set; }
         public int EmployeeId { get; set; }
         public int RankId { get; set; }
+        public CompanyInfo CompanyInfo { get; set; }
+        public Employee Employee { get; set; }
+        public Rank Rank { get; set; } 
     }
 }

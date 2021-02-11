@@ -8,5 +8,6 @@ namespace SapphireHR.Data.Abstractions.Models
     {
         public string Name { get; set; }
         public int OrganizationId { get; set; }
+        public OrganizationInfo OrganizationInfo { get; set; }
     }
 }

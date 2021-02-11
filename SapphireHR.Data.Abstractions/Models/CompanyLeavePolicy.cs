@@ -8,5 +8,7 @@ namespace SapphireHR.Data.Abstractions.Models
     {
         public int PolicyId { get; set; }
         public int EmployeeId { get; set; }
+        public LeavePolicy LeavePolicy { get; set; }
+        public Employee Employee { get; set; }
     }
 }

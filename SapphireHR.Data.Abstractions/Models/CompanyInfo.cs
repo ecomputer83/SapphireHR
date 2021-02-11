@@ -12,6 +12,7 @@ namespace SapphireHR.Data.Abstractions.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public string Directory { get; set; }
         public int OrganizationId { get; set; }
         public OrganizationInfo Organization { get; set; }
     }

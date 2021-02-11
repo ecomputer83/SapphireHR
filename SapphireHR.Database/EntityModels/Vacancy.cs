@@ -15,5 +15,7 @@ namespace SapphireHR.Database.EntityModels
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
+        [ForeignKey("DesignationId")]
+        public JobProfile JobProfile { get; set; }
     }
 }
