@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SapphireHR.Database.EntityModels
@@ -10,5 +11,7 @@ namespace SapphireHR.Database.EntityModels
         public DateTime AttendedDate { get; set; }
         public string PunchIn { get; set; }
         public string PunchOut { get; set; }
+        [ForeignKey("EmployeeId")]
+        public Employee Employee { get; set; }
     }
 }

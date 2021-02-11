@@ -178,6 +178,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Phone1")
                         .HasColumnType("nvarchar(max)");
 
@@ -488,6 +491,12 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("RankId");
+
                     b.ToTable("CompanyEmployees");
                 });
 
@@ -571,6 +580,10 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("PolicyId");
+
                     b.ToTable("CompanyLeavePolicies");
                 });
 
@@ -590,6 +603,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -600,6 +616,8 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Departments");
                 });
@@ -623,6 +641,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -635,6 +656,8 @@ namespace SapphireHR.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Designations");
                 });
@@ -658,11 +681,8 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Designation")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DesignationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -681,6 +701,9 @@ namespace SapphireHR.Web.Migrations
 
                     b.Property<string>("Nationality")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PassportIdentificationNumber")
                         .HasColumnType("nvarchar(max)");
@@ -703,7 +726,12 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DesignationId");
 
                     b.ToTable("Employees");
                 });
@@ -936,6 +964,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
 
@@ -955,6 +986,8 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("EmployeeLeaves");
                 });
@@ -997,6 +1030,8 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("EmployeePensions");
                 });
@@ -1075,6 +1110,8 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("EmployeeTimetables");
                 });
 
@@ -1114,6 +1151,8 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("EmployeeTransfers");
                 });
 
@@ -1136,6 +1175,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<DateTime>("HolidayDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -1149,6 +1191,8 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Holidays");
                 });
@@ -1247,6 +1291,9 @@ namespace SapphireHR.Web.Migrations
 
                     b.Property<double>("AverageSalary")
                         .HasColumnType("float");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -1505,6 +1552,9 @@ namespace SapphireHR.Web.Migrations
 
                     b.Property<string>("LookupDescription")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LookupGroup")
+                        .HasColumnType("int");
 
                     b.Property<int>("LookupSort")
                         .HasColumnType("int");
@@ -1774,6 +1824,9 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -1850,6 +1903,9 @@ namespace SapphireHR.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -2127,10 +2183,67 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("SkillGrade");
                 });
 
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.CompanyEmployee", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.CompanyInfo", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SapphireHR.Database.EntityModels.Rank", "Rank")
+                        .WithMany()
+                        .HasForeignKey("RankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Rank");
+                });
+
             modelBuilder.Entity("SapphireHR.Database.EntityModels.CompanyInfo", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
                         .WithMany("Companies")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.CompanyLeavePolicy", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SapphireHR.Database.EntityModels.LeavePolicy", "LeavePolicy")
+                        .WithMany()
+                        .HasForeignKey("PolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("LeavePolicy");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.Department", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
+                        .WithMany()
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2146,7 +2259,26 @@ namespace SapphireHR.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Department");
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Designation", "Designation")
+                        .WithMany()
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Designation");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeBank", b =>
@@ -2204,6 +2336,28 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeLeave", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeePension", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeStatutory", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
@@ -2213,6 +2367,39 @@ namespace SapphireHR.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeTimetable", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeTransfer", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.Holiday", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.OrganizationInfo", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.JobCategory", b =>

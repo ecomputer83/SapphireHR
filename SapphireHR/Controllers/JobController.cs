@@ -19,15 +19,15 @@ namespace SapphireHR.Web.Controllers
         IJobService _jobService;
         private readonly ILogger<JobController> _logger;
 
-        public JobController(IJobService jobService)
+        public JobController(IJobService jobService, ILogger<JobController> logger)
         {
             _jobService = jobService;
+            _logger = logger;
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet]
-        [Route("getJobProfiles")]
-        public async Task<IActionResult> GetJobProfiles()
+        public async Task<IActionResult> Post()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getJobProfessions")]
         public async Task<IActionResult> GetJobProfessions()
@@ -58,7 +58,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getJobSkillLevels")]
         public async Task<IActionResult> GetJobSkillLevels()
@@ -75,7 +75,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getSkillGrades")]
         public async Task<IActionResult> GetSkillGrades()
@@ -92,7 +92,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getVacancies")]
         public async Task<IActionResult> GetVacancies()
@@ -109,8 +109,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
         [Route("getVacancyById")]
         public async Task<IActionResult> GetVacancyById(int id)
         {
@@ -123,11 +123,11 @@ namespace SapphireHR.Web.Controllers
             {
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
-            }            
+            }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
         [Route("getSkillGradeById")]
         public async Task<IActionResult> GetSkillGradeById(int id)
         {
@@ -143,8 +143,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
         [Route("getJobSkillLevelById")]
         public async Task<IActionResult> GetJobSkillLevelById(int id)
         {
@@ -160,9 +160,9 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
-        [Route("getVacancyById")]
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
+        [Route("GetJobProfessionById")]
         public async Task<IActionResult> GetJobProfessionById(int id)
         {
             try
@@ -177,8 +177,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpGet("{id}")]
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
         [Route("getJobProfileById")]
         public async Task<IActionResult> GetJobProfileById(int id)
         {
@@ -194,10 +194,9 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
-        [Route("createJobProfile")]
-        public async Task<IActionResult> PostJobProfile([FromBody] JobProfileModel model)
+        public async Task<IActionResult> Post([FromBody] JobProfileModel model)
         {
             try
             {
@@ -211,7 +210,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createJobProfession")]
         public async Task<IActionResult> PostJobProfession([FromBody] JobProfessionModel model)
@@ -228,7 +227,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createJobSkillLevel")]
         public async Task<IActionResult> PostJobSkillLevel([FromBody] JobSkillLevelModel model)
@@ -245,7 +244,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createSkillGrade")]
         public async Task<IActionResult> PostSkillGrade([FromBody] SkillGradeModel model)
@@ -262,7 +261,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createVacancy")]
         public async Task<IActionResult> PostVacancy([FromBody] VacancyModel model)
@@ -279,8 +278,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
         [Route("updateVacancy")]
         public async Task<IActionResult> UpdateVacancy([FromBody] VacancyModel model)
         {
@@ -296,10 +295,9 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
-        [Route("updateJobProfile")]
-        public async Task<IActionResult> UpdateJobProfile([FromBody] JobProfileModel model)
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] JobProfileModel model)
         {
             try
             {
@@ -313,8 +311,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
         [Route("updateJobProfession")]
         public async Task<IActionResult> UpdateJobProfession([FromBody] JobProfessionModel model)
         {
@@ -330,8 +328,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
         [Route("updateJobSkillLevel")]
         public async Task<IActionResult> UpdateJobSkillLevel([FromBody] JobSkillLevelModel model)
         {
@@ -348,8 +346,8 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPut("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
         [Route("updateSkillGrade")]
         public async Task<IActionResult> UpdateSkillGrade([FromBody] SkillGradeModel model)
         {
@@ -366,10 +364,9 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
-        [Route("deleteJobProfile")]
-        public async Task<IActionResult> DeleteJobProfile(int id)
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -383,8 +380,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
         [Route("deleteJobProfession")]
         public async Task<IActionResult> DeleteJobProfession(int id)
         {
@@ -400,8 +397,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
         [Route("deleteJobSkillLevel")]
         public async Task<IActionResult> DeleteJobSkillLevel(int id)
         {
@@ -417,8 +414,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
         [Route("deleteSkillGrade")]
         public async Task<IActionResult> DeleteSkillGrade(int id)
         {
@@ -434,8 +431,8 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete("{id}")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
         [Route("deleteVacancy")]
         public async Task<IActionResult> DeleteVacancy(int id)
         {

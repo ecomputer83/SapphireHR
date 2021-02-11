@@ -12,6 +12,8 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployee(EmployeeModel model, int id);
         Task<EmployeeModel> GetEmployee(int id);
         Task RemoveEmployee(int id);
+        Task AddCompanyEmployee(CompanyEmployeeModel model);
+        Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId);
         Task AddEmployeeBank(EmployeeBankModel model);
         Task UpdateEmployeeBank(EmployeeBankModel model, int id);
         Task<EmployeeBankModel> GetEmployeeBank(int id);

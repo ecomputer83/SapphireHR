@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace SapphireHR.Database.EntityModels
+namespace SapphireHR.Business.Abstractions.Models
 {
-    public class Department : BaseEntity, IEntity
+    public class DesignationModel
     {
         public int OrganizationId { get; set; }
+        public int DepartmentId { get; set; }
         public string Name { get; set; }
 
-        [ForeignKey("OrganizationId")]
-        public OrganizationInfo Organization { get; set; }
     }
 }

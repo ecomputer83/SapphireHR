@@ -26,6 +26,7 @@ namespace SapphireHR.Web.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
+        private readonly IEmployeeService _employeeService;
         private readonly JwtSecurityTokenSettings _jwt;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
@@ -33,6 +34,7 @@ namespace SapphireHR.Web.Controllers
         public AccountController(
             IConfiguration configuration,
             IUserService userService,
+            IEmployeeService employeeService,
         IOptions<JwtSecurityTokenSettings> jwt,
             ILogger<AccountController> logger,
             IMapper mapper
@@ -41,6 +43,7 @@ namespace SapphireHR.Web.Controllers
 
             this._configuration = configuration;
             this._userService = userService;
+            this._employeeService = employeeService;
             this._jwt = jwt.Value;
             this._logger = logger;
             this._mapper = mapper;
@@ -93,7 +96,7 @@ namespace SapphireHR.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("register")]
+        [Route("registerasAdmin")]
         public async Task<IActionResult> RegisterAsAdmin([FromBody] UserModel model)
         {
             try
@@ -101,7 +104,7 @@ namespace SapphireHR.Web.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
-                await _userService.CreateUserAsync(model, null);
+                await _userService.CreateUserAsync(model, new string[] {"Administratior"});
 
                 return Ok();
             }
@@ -115,7 +118,31 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("addUser")]
+        [Route("addUserAsHR")]
+        public async Task<IActionResult> AddUserAsHR([FromBody] UserModel model)
+        {
+            try
+            {
+
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                model.UserType = 2;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<string>), 400)]
+        [Route("addUserAsEmployee")]
         public async Task<IActionResult> AddUserAsEmployee([FromBody] UserModel model)
         {
             try
@@ -123,9 +150,10 @@ namespace SapphireHR.Web.Controllers
 
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                model.UserType = 3;
                 model.Password = "password";
                 model.ConfirmPassword = "password";
-                await _userService.CreateUserAsync(model, null);
+                await _userService.CreateUserAsync(model, new string[] { "Employee" });
 
                 return Ok();
             }
@@ -181,9 +209,11 @@ namespace SapphireHR.Web.Controllers
                         tokenModel.TFAEnabled = false;
                         tokenModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
-                        if(user.UserType != 2)
+                        if(user.UserType > 1)
                         {
                             // Employee Service
+                            var companyEmployee = await _employeeService.GetCompanyEmployeeByUserId(user.Id);
+                            tokenModel.Extra = companyEmployee;
                         }
 
                         return Ok(tokenModel);

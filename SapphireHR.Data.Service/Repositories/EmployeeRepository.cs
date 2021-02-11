@@ -14,13 +14,32 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
+        public async Task AddCompanyEmployee(CompanyEmployee model)
+        {
+            _context.Set<CompanyEmployee>().Add(model);
+            await _context.SaveChangesAsync();
+        }
         public async Task AddEmployeeBank(EmployeeBank model)
         {
             _context.Set<EmployeeBank>().Add(model);
             await _context.SaveChangesAsync();
         }
+        public async Task<CompanyEmployee> GetCompanyEmployeeByUserId(string userId)
+        {
+            var employee = await _context.Set<Employee>().FirstOrDefaultAsync(e => e.UserId == userId);
+            return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
+        }
+        public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)
+        {
+            return await _context.Set<CompanyEmployee>().Include(c=>c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c=>c.EmployeeId == employeeId);
+        }
 
-        public async Task UpdateEmployeeBank(EmployeeBank model, int id)
+        public async Task UpdateCompanyEmployee(CompanyEmployee model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateEmployeeBank(EmployeeBank model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -49,7 +68,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeEducation(EmployeeEducation model, int id)
+        public async Task UpdateEmployeeEducation(EmployeeEducation model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -78,7 +97,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeEmergency(EmployeeEmergency model, int id)
+        public async Task UpdateEmployeeEmergency(EmployeeEmergency model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -107,7 +126,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeExp(EmployeeExperience model, int id)
+        public async Task UpdateEmployeeExp(EmployeeExperience model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -136,7 +155,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeFamily(EmployeeFamily model, int id)
+        public async Task UpdateEmployeeFamily(EmployeeFamily model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -165,7 +184,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeLeave(EmployeeLeave model, int id)
+        public async Task UpdateEmployeeLeave(EmployeeLeave model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -194,7 +213,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeePension(EmployeePension model, int id)
+        public async Task UpdateEmployeePension(EmployeePension model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -223,7 +242,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeStatutory(EmployeeStatutory model, int id)
+        public async Task UpdateEmployeeStatutory(EmployeeStatutory model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -252,7 +271,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeTimetable(EmployeeTimetable model, int id)
+        public async Task UpdateEmployeeTimetable(EmployeeTimetable model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -281,7 +300,7 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEmployeeTransfer(EmployeeTransfer model, int id)
+        public async Task UpdateEmployeeTransfer(EmployeeTransfer model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
