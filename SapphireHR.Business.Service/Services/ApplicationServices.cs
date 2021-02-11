@@ -39,9 +39,11 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicationScore(data, id);
         }
 
-        public async Task ReadApplicationScore(int id)
+        public async Task<ApplicationScoreModel> ReadApplicationScore(int id)
         {
-            await _applicationRepository.ReadApplicationScore(id);
+            var rsc = await _applicationRepository.ReadApplicationScore(id);
+            var appScore = _mapper.Map<ApplicationScoreModel>(rsc);
+            return appScore;
         }
 
         public async Task RemoveApplicationScore(int id)
@@ -67,9 +69,11 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicatioFaceToView(data, id);
         }
 
-        public async Task ReadApplicationFaceToView(int id)
+        public async Task<ApplicationFaceToViewModel> ReadApplicationFaceToView(int id)
         {
-            await _applicationRepository.ReadApplicationFaceToView(id);
+            var result = await _applicationRepository.ReadApplicationFaceToView(id);
+            var appFtv = _mapper.Map<ApplicationFaceToViewModel>(result);
+            return appFtv;
         }
 
         public async Task RemoveApplicationFaceToView(int id)
@@ -98,9 +102,11 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicationInterview(data, id);
         }
 
-        public async Task ReadApplicationInterview(int id)
+        public async Task<ApplicationInterviewModel> ReadApplicationInterview(int id)
         {
-            await _applicationRepository.ReadApplicationInterview(id);
+            var result = await _applicationRepository.ReadApplicationInterview(id);
+            var appInterview = _mapper.Map<ApplicationInterviewModel>(result);
+            return appInterview;
         }
 
         public async Task RemoveApplicationInterview(int id)
@@ -124,9 +130,11 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicationSkills(data, id);
         }
 
-        public async Task ReadApplicationSkills(int id)
+        public async Task<ApplicationSkillModel> ReadApplicationSkills(int id)
         {
-            await _applicationRepository.ReadApplicationSkills(id);
+            var result = await _applicationRepository.ReadApplicationSkills(id);
+            var appSkill = _mapper.Map<ApplicationSkillModel>(result);
+            return appSkill;
         }
 
         public async Task RemoveApplicationSkills(int id)
@@ -153,9 +161,11 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicationNegotiation(data, id);
         }
 
-        public async Task ReadApplicationNegotiation(int id)
+        public async Task<ApplicationNegotiationModel> ReadApplicationNegotiation(int id)
         {
-            await _applicationRepository.ReadApplicationNegotiation(id);
+            var result = await _applicationRepository.ReadApplicationNegotiation(id);
+            var appNeg = _mapper.Map<ApplicationNegotiationModel>(result);
+            return appNeg;
         }
 
         public async Task RemoveApplicationNegotiation(int id)
@@ -171,16 +181,7 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicatioFaceToView(data, id);
         }
 
-        public async Task AddAddApplicationSkills(ApplicationSkillModel model)
-        {
-            var data = _mapper.Map<ApplicationSkills>(model);
-            data.CreatedAt = DateTime.Now;
-            data.UpdatedAt = DateTime.Now;
-            data.CreatedBy = "SYSSTEM";
-            data.UpdatedBy = "SYSTEM";
-            await _applicationRepository.AddApplicationSkills(data);
-        }
-
+       
         public async Task UpdateAddApplicationSkills(ApplicationSkillModel model, int id)
         {
             var data = await _applicationRepository.ReadApplicationSkills(id);

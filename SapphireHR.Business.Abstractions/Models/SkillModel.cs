@@ -4,10 +4,11 @@ using System.Text;
 
 namespace SapphireHR.Business.Abstractions.Models
 {
-    public class SkillTypeModel
+    public class SkillModel: BaseModel
     {
-        public int Id { get; set; }
         public int CompanyId { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -4,8 +4,12 @@ using System.Text;
 
 namespace SapphireHR.Business.Abstractions.Models
 {
-    public class JobProfessionModel
+    public class JobProfessionModel: BaseModel
     {
-        public int Id { get; set; }
+        public int JobProfileId { get; set; }
+        public double Salary { get; set; }
+        public string EducationRequirement { get; set; }
+        public string EducationDegree { get; set; }
+        public JobProfileModel JobProfile { get; set; }
     }
 }
