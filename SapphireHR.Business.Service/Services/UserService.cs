@@ -43,6 +43,7 @@ namespace SapphireHR.Business.Service.Services
         {
             bool res = false;
             var user = _mapper.Map<User>(model);
+            user.Id = new Guid().ToString();
             user.UserName = model.Email;
             user.EmailConfirmed = true;
 
