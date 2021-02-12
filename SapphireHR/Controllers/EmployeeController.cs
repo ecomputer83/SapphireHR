@@ -17,16 +17,20 @@ namespace SapphireHR.Web.Controllers
     public class EmployeeController : BaseApiController
     {
         IEmployeeService _employeeService;
+        IUserService _userService;
+        IOrganizationService _organizationService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
+            _userService = userService;
+            _organizationService = organizationService;
             _logger = logger;
         }
 
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployee(int id)
         {
@@ -42,7 +46,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet("getAllEmployees")]
         public async Task<IActionResult> GetAllEmployees()
         {
@@ -58,7 +62,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeBank(int id)
         {
@@ -74,7 +78,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeEducation(int id)
         {
@@ -90,7 +94,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeEmergency(int id)
         {
@@ -106,7 +110,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeExperience(int id)
         {
@@ -122,7 +126,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeFamily(int id)
         {
@@ -138,7 +142,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeLeave(int id)
         {
@@ -154,7 +158,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeePension(int id)
         {
@@ -170,7 +174,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeStatutory(int id)
         {
@@ -186,7 +190,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTimetable(int id)
         {
@@ -202,7 +206,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTransfer(int id)
         {
@@ -218,14 +222,58 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         public async Task<IActionResult> PostEmployee([FromBody] EmployeeModel payload)
         {
             try
+            {
+                var org = await GetOrganizationByHeader();
+                var emp = await _employeeService.AddEmployee(payload);
+
+                var model = new UserModel();
+                model.OrganizationId = org.Id;
+                model.FullName = $"{payload.FirstName} {payload.LastName}";
+                model.Email = payload.Email;
+                model.PhoneNumber = payload.Phone;
+                model.UserName = payload.Email;
+                model.UserType = 3;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
+                emp.UserId = usermodel.Id;
+                await _employeeService.UpdateEmployee(emp, emp.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        public async Task<IActionResult> PostHR([FromBody] EmployeeModel payload)
+        {
+            try
 
             {
-                await _employeeService.AddEmployee(payload);
+                var org = await GetOrganizationByHeader();
+                var emp = await _employeeService.AddEmployee(payload);
+
+                var model = new UserModel();
+                model.OrganizationId = org.Id;
+                model.FullName = $"{payload.FirstName} {payload.LastName}";
+                model.Email = payload.Email;
+                model.PhoneNumber = payload.Phone;
+                model.UserName = payload.Email;
+                model.UserType = 3;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                var usermodel = await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
+                emp.UserId = usermodel.Id;
+                await _employeeService.UpdateEmployee(emp, emp.Id);
                 return Ok();
             }
             catch (Exception ex)
@@ -236,7 +284,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeBank([FromBody] EmployeeBankModel payload)
         {            try
@@ -252,7 +300,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeEducation([FromBody] EmployeeEducationModel payload)
         {
@@ -268,7 +316,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeEmergency([FromBody] EmployeeEmergencyModel payload)
         {
@@ -284,7 +332,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeExp([FromBody] EmployeeExperienceModel payload)
         {
@@ -300,7 +348,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeStatutory([FromBody] EmployeeStatutoryModel payload)
         {
@@ -316,7 +364,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeFamily([FromBody] EmployeeFamilyModel payload)
         {
@@ -333,7 +381,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeLeave([FromBody] EmployeeLeaveModel payload)
         {
@@ -349,7 +397,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeePension([FromBody] EmployeePensionModel payload)
         {
@@ -365,7 +413,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeTimetable([FromBody] EmployeeTimetableModel payload)
         {
@@ -381,7 +429,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeTransfer([FromBody] EmployeeTransferModel payload)
         {
@@ -397,7 +445,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] EmployeeModel payload)
         {
@@ -414,7 +462,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeBank(int id, [FromBody] EmployeeBankModel payload)
         {
@@ -430,7 +478,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeEducation(int id, [FromBody] EmployeeEducationModel payload)
         {
@@ -446,7 +494,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeEmergency(int id, [FromBody] EmployeeEmergencyModel payload)
         {
@@ -462,7 +510,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeExperience(int id, [FromBody] EmployeeExperienceModel payload)
         {
@@ -478,7 +526,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeFamily(int id, [FromBody] EmployeeFamilyModel payload)
         {
@@ -494,7 +542,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeLeave(int id, [FromBody] EmployeeLeaveModel payload)
         {
@@ -510,7 +558,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeePension(int id, [FromBody] EmployeePensionModel payload)
         {
@@ -526,7 +574,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeStatutory(int id, [FromBody] EmployeeStatutoryModel payload)
         {
@@ -542,7 +590,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeTimetable(int id, [FromBody] EmployeeTimetableModel payload)
         {
@@ -558,7 +606,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeTransfer(int id, [FromBody] EmployeeTransferModel payload)
         {
@@ -574,7 +622,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
@@ -590,7 +638,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeBank(int id)
         {
@@ -606,7 +654,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeFamily(int id)
         {
@@ -622,7 +670,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeLeave(int id)
         {
@@ -638,7 +686,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeePension(int id)
         {
@@ -654,7 +702,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeStatutory(int id)
         {
@@ -670,7 +718,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeTimetable(int id)
         {
@@ -686,7 +734,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeTransfer(int id)
         {
@@ -702,7 +750,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeEducation(int id)
         {
@@ -718,7 +766,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeEmergency(int id)
         {
@@ -734,7 +782,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeExperience(int id)
         {
@@ -750,6 +798,10 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-
+        private async Task<OrganizationModel> GetOrganizationByHeader()
+        {
+            var host = Request.Headers["host"];
+            return await _organizationService.GetOrganizationByHostHeader(host);
+        }
     }
 }

@@ -14,11 +14,13 @@ namespace SapphireHR.Business.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly EmployeeRepository _employeeRepository;
+        private readonly CompanyRepository _companyRepository;
 
-        public EmployeeServices(IMapper mapper, EmployeeRepository employeeRepository)
+        public EmployeeServices(IMapper mapper, EmployeeRepository employeeRepository, CompanyRepository companyRepository)
         {
             _mapper = mapper;
             _employeeRepository = employeeRepository;
+            _companyRepository = companyRepository;
         }
         public async Task AddCompanyEmployee(CompanyEmployeeModel model)
         {
@@ -34,9 +36,11 @@ namespace SapphireHR.Business.Service.Services
             var data = await _employeeRepository.GetCompanyEmployeeByUserId(UserId);
             return _mapper.Map<CompanyEmployeeModel>(data);
         }
-        public async Task AddEmployee(EmployeeModel model)
+        public async Task<EmployeeModel> AddEmployee(EmployeeModel model)
         {
+            var Company = await _companyRepository.Get(model.CompanyId);
             var datamodel = _mapper.Map<Employee>(model);
+            datamodel.OrganizationId = Company.OrganizationId;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
@@ -55,6 +59,8 @@ namespace SapphireHR.Business.Service.Services
             };
 
             await _employeeRepository.AddCompanyEmployee(companyemployee);
+
+            return _mapper.Map<EmployeeModel>(datamodel);
         }
 
         public async Task AddEmployeeBank(EmployeeBankModel model)

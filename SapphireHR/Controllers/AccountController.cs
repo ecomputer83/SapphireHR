@@ -115,54 +115,54 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("addUserAsHR")]
-        public async Task<IActionResult> AddUserAsHR([FromBody] UserModel model)
-        {
-            try
-            {
+        //[Authorize(Roles = "Administrator")]
+        //[HttpPost]
+        //[ProducesResponseType(typeof(IEnumerable<string>), 400)]
+        //[Route("addUserAsHR")]
+        //public async Task<IActionResult> AddUserAsHR([FromBody] UserModel model)
+        //{
+        //    try
+        //    {
 
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
-                model.UserType = 2;
-                model.Password = "password";
-                model.ConfirmPassword = "password";
-                await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
+        //        if (!ModelState.IsValid)
+        //            return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+        //        model.UserType = 2;
+        //        model.Password = "password";
+        //        model.ConfirmPassword = "password";
+        //        await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
-        [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<string>), 400)]
-        [Route("addUserAsEmployee")]
-        public async Task<IActionResult> AddUserAsEmployee([FromBody] UserModel model)
-        {
-            try
-            {
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, ex.Message);
+        //        return CreateApiException(ex);
+        //    }
+        //}
+        //[Authorize(Roles = "Administrator")]
+        //[HttpPost]
+        //[ProducesResponseType(typeof(IEnumerable<string>), 400)]
+        //[Route("addUserAsEmployee")]
+        //public async Task<IActionResult> AddUserAsEmployee([FromBody] UserModel model)
+        //{
+        //    try
+        //    {
 
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
-                model.UserType = 3;
-                model.Password = "password";
-                model.ConfirmPassword = "password";
-                await _userService.CreateUserAsync(model, new string[] { "Employee" });
+        //        if (!ModelState.IsValid)
+        //            return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+        //        model.UserType = 3;
+        //        model.Password = "password";
+        //        model.ConfirmPassword = "password";
+        //        await _userService.CreateUserAsync(model, new string[] { "Employee" });
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, ex.Message);
+        //        return CreateApiException(ex);
+        //    }
+        //}
 
 
 

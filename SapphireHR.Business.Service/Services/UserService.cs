@@ -39,7 +39,7 @@ namespace SapphireHR.Business.Service.Services
             return await _userManager.CheckPasswordAsync(_user, Password);
         }
 
-        public async Task<bool> CreateUserAsync(UserModel model, IEnumerable<string> roleNames)
+        public async Task<UserModel> CreateUserAsync(UserModel model, IEnumerable<string> roleNames)
         {
             bool res = false;
             var user = _mapper.Map<User>(model);
@@ -66,7 +66,7 @@ namespace SapphireHR.Business.Service.Services
                 throw new Exception(result.Errors.Select(c => c.Description).Aggregate((a, b) => a + ", " + b));
             }
             
-            return res;
+            return _mapper.Map<UserModel>(await _userManager.FindByEmailAsync(model.Email));
         }
 
         public async Task<UserModel> FindByEmailAsync(string email)

@@ -9,7 +9,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IUserService
     {
-        Task<bool> CreateUserAsync(UserModel model, IEnumerable<string> roleNames);
+        Task<UserModel> CreateUserAsync(UserModel model, IEnumerable<string> roleNames);
         Task<UserModel> GetUserById(string userId);
         Task<bool> UpdateUser(UserModel user, IEnumerable<string> roleNames);
         Task ForgotPassword(EmailModel model);
