@@ -104,11 +104,12 @@ namespace SapphireHR.Web.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
-                await _userService.CreateUserAsync(model, new string[] {"Administratior"});
+                await _userService.CreateUserAsync(model, new string[] {"Administrator"});
 
                 return Ok();
             }
             catch (Exception ex)
+            
             {
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);

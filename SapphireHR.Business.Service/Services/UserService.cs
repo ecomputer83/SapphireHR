@@ -46,7 +46,11 @@ namespace SapphireHR.Business.Service.Services
             user.UserName = model.Email;
             user.EmailConfirmed = true;
 
-            
+            var role = await _roleManager.GetRoleNameAsync(new IdentityRole(roleNames.First()));
+            if(role == null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(roleNames.First()));
+            }
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (result.Succeeded)
             {
