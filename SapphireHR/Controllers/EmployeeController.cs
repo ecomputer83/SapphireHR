@@ -236,7 +236,6 @@ namespace SapphireHR.Web.Controllers
                 model.FullName = $"{payload.FirstName} {payload.LastName}";
                 model.Email = payload.Email;
                 model.PhoneNumber = payload.Phone;
-                model.UserName = payload.Email;
                 model.UserType = 3;
                 model.Password = "password";
                 model.ConfirmPassword = "password";
@@ -267,7 +266,6 @@ namespace SapphireHR.Web.Controllers
                 model.FullName = $"{payload.FirstName} {payload.LastName}";
                 model.Email = payload.Email;
                 model.PhoneNumber = payload.Phone;
-                model.UserName = payload.Email;
                 model.UserType = 3;
                 model.Password = "password";
                 model.ConfirmPassword = "password";

@@ -43,6 +43,8 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<ApplicationInterviewModel, ApplicationInterview>().ReverseMap();
             CreateMap<ApplicationFaceToViewModel, ApplicationFaceToView>().ReverseMap();
             CreateMap<ApplicationScoreModel, ApplicationScore>().ReverseMap();
+
+            CreateMap<UserViewModel, UserModel>();
         }
     }
 }

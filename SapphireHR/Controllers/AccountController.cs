@@ -97,14 +97,15 @@ namespace SapphireHR.Web.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
         [Route("registerasAdmin")]
-        public async Task<IActionResult> RegisterAsAdmin([FromBody] UserModel model)
+        public async Task<IActionResult> RegisterAsAdmin([FromBody] UserViewModel model)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
-                await _userService.CreateUserAsync(model, new string[] {"Administrator"});
+                var _model = _mapper.Map<UserModel>(model);
+                await _userService.CreateUserAsync(_model, new string[] {"Administrator"});
 
                 return Ok();
             }
@@ -360,7 +361,7 @@ namespace SapphireHR.Web.Controllers
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Id),

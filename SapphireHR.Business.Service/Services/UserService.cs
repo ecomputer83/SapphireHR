@@ -43,22 +43,31 @@ namespace SapphireHR.Business.Service.Services
         {
             bool res = false;
             var user = _mapper.Map<User>(model);
-            user.Id = new Guid().ToString();
+            user.Id = Guid.NewGuid().ToString();
             user.UserName = model.Email;
             user.EmailConfirmed = true;
-
-            var role = await _roleManager.GetRoleNameAsync(new IdentityRole(roleNames.First()));
-            if(role == null)
-            {
-                await _roleManager.CreateAsync(new IdentityRole(roleNames.First()));
-            }
+            user.TwoFactorEnabled = false;
+            
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 if (roleNames != null)
                 {
-                    var resultx = await _userManager.AddToRolesAsync(user, roleNames);
-                    res = resultx.Succeeded;
+                    var role = await _roleManager.RoleExistsAsync(roleNames.First());
+                    if (!role)
+                    {
+                        var roleResult = await _roleManager.CreateAsync(new IdentityRole(roleNames.First()));
+                        if (roleResult.Succeeded)
+                        {
+                            var resultx = await _userManager.AddToRolesAsync(user, roleNames);
+                            res = resultx.Succeeded;
+                        }
+                    }
+                    else
+                    {
+                        var resultx = await _userManager.AddToRolesAsync(user, roleNames);
+                        res = resultx.Succeeded;
+                    }
                 }
                 else
                 {
