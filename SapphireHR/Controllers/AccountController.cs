@@ -199,7 +199,8 @@ namespace SapphireHR.Web.Controllers
                 if (await _userService.CheckPasswordAsync(user, model.Password).ConfigureAwait(false))
                 {
                     tokenModel.HasVerifiedEmail = true;
-
+                    tokenModel.User = _mapper.Map<UserModel>(user);
+                    tokenModel.Role = (List<string>)await _userService.GetRolesAsync(user).ConfigureAwait(false);
                     if (user.TwoFactorEnabled)
                     {
                         tokenModel.TFAEnabled = true;
