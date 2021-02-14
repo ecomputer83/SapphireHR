@@ -8,7 +8,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IOrganizationService
     {
-        Task AddOrganization(OrganizationModel model);
+        Task<int> AddOrganization(OrganizationModel model);
         Task AddOrganizationHeader(OrganizationHeaderModel model);
         Task UpdateOrganization(OrganizationModel model, int Id);
         Task<OrganizationModel> GetOrganizationByHostHeader(string hostname);

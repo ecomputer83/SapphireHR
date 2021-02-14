@@ -65,8 +65,8 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                await _organizationService.AddOrganization(model);
-                return Ok();
+                var id = await _organizationService.AddOrganization(model);
+                return Ok(id);
             }
             catch (Exception ex)
             {

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace SapphireHR.Business.Service.Services
 {
@@ -15,11 +16,13 @@ namespace SapphireHR.Business.Service.Services
         OrganizationRepository _orgRepository;
         FileManager _fileManager;
         readonly IMapper _mapper;
-        public OrganizationServices(OrganizationRepository orgRepository, FileManager fileManager, IMapper mapper)
+        private readonly IConfiguration _config;
+        public OrganizationServices(OrganizationRepository orgRepository, FileManager fileManager, IMapper mapper, IConfiguration config)
         {
             this._orgRepository = orgRepository;
             _fileManager = fileManager;
             this._mapper = mapper;
+            this._config = config;
         }
         public async Task<OrganizationModel> GetOrganizationByHostHeader(string hostname)
         {
@@ -36,7 +39,7 @@ namespace SapphireHR.Business.Service.Services
             await this._orgRepository.AddLeaveType(datamodel);
         }
 
-        public async Task AddOrganization(OrganizationModel model)
+        public async Task<int> AddOrganization(OrganizationModel model)
         {
             ///DocumentService for Creating Org folder
             var orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower().Replace(" ", ""));
@@ -46,7 +49,22 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._orgRepository.Add(datamodel);
+            datamodel = await this._orgRepository.Add(datamodel);
+
+            var hostname = datamodel.Name.Replace(" ", "").ToLower();
+            var domain = _config.GetValue<string>("MyDomain");
+            var headermodel = new Database.EntityModels.OrganizationHeader
+            {
+                OrganizationId = datamodel.Id,
+                HostName = $"{hostname}.{domain}",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedBy = "SYSTEM",
+                UpdatedBy = "SYSTEM"
+            };
+
+            await this._orgRepository.AddOrgHeader(headermodel);
+            return datamodel.Id;
         }
 
         public async Task AddOrganizationHeader(OrganizationHeaderModel model)
