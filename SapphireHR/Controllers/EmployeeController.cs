@@ -266,7 +266,7 @@ namespace SapphireHR.Web.Controllers
                 model.FullName = $"{payload.FirstName} {payload.LastName}";
                 model.Email = payload.Email;
                 model.PhoneNumber = payload.Phone;
-                model.UserType = 3;
+                model.UserType = 2;
                 model.Password = "password";
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });

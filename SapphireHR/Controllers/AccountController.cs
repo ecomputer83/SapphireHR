@@ -105,6 +105,7 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
                 var _model = _mapper.Map<UserModel>(model);
+                _model.UserType = 1;
                 await _userService.CreateUserAsync(_model, new string[] {"Administrator"});
 
                 return Ok();
