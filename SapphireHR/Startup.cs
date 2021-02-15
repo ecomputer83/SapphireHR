@@ -93,9 +93,9 @@ namespace SapphireHR.Web
                 });
             services.AddCors(options =>
             {
-                options.AddPolicy(
-                    "AllowAll",
-                    policy => policy
+                options.AddDefaultPolicy(
+                   
+                    builder => builder
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
