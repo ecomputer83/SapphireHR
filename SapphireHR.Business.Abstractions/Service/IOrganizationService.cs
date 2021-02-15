@@ -16,7 +16,8 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddLeaveType(LeaveTypeModel model);
         Task RemoveLeaveType(int id);
         Task AddRank(RankModel model);
-        Task<List<RankModel>> GetRanks(int CompanyId);
+        Task<List<RankModel>> GetRanks(int orgId);
+        Task<List<LeaveTypeModel>> GetLeaveTypes(int orgId);
         Task UpdateRank(RankModel model, int Id);
         Task RemoveRank(int Id);
 

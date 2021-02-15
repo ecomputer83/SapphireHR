@@ -59,6 +59,39 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+        [HttpGet]
+        [Route("ranks")]
+        public async Task<IActionResult> GetRanks()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                var res = await _organizationService.GetRanks(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("leavetypes")]
+        public async Task<IActionResult> GetLeaveTypes()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                var res = await _organizationService.GetLeaveTypes(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
         [HttpPost]
         //[AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] OrganizationModel model)
