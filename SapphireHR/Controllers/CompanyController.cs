@@ -45,8 +45,8 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        public async Task<IActionResult> GetAll()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             try
             {
