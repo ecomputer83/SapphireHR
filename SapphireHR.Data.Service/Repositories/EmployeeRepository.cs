@@ -27,7 +27,7 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<CompanyEmployee> GetCompanyEmployeeByUserId(string userId)
         {
             var employee = await _context.Set<Employee>().FirstOrDefaultAsync(e => e.UserId == userId);
-            return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
+            return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).Include(c=>c.Rank).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
         }
         public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)
         {
