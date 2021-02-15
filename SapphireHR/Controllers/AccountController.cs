@@ -27,6 +27,7 @@ namespace SapphireHR.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         private readonly IEmployeeService _employeeService;
+        private readonly IOrganizationService _organizationService;
         private readonly JwtSecurityTokenSettings _jwt;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
@@ -35,6 +36,7 @@ namespace SapphireHR.Web.Controllers
             IConfiguration configuration,
             IUserService userService,
             IEmployeeService employeeService,
+            IOrganizationService organizationService,
         IOptions<JwtSecurityTokenSettings> jwt,
             ILogger<AccountController> logger,
             IMapper mapper
@@ -44,6 +46,7 @@ namespace SapphireHR.Web.Controllers
             this._configuration = configuration;
             this._userService = userService;
             this._employeeService = employeeService;
+            this._organizationService = organizationService;
             this._jwt = jwt.Value;
             this._logger = logger;
             this._mapper = mapper;
@@ -218,6 +221,11 @@ namespace SapphireHR.Web.Controllers
                             // Employee Service
                             var companyEmployee = await _employeeService.GetCompanyEmployeeByUserId(user.Id);
                             tokenModel.Extra = companyEmployee;
+                        }
+                        else
+                        {
+                            var org = await _organizationService.GetOrganizationAsync(user.OrganizationId);
+                            tokenModel.Extra = org;
                         }
 
                         return Ok(tokenModel);

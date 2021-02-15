@@ -24,6 +24,11 @@ namespace SapphireHR.Business.Service.Services
             this._mapper = mapper;
             this._config = config;
         }
+        public async Task<OrganizationModel> GetOrganizationAsync(int orgId)
+        {
+            var org = await _orgRepository.Get(orgId);
+            return _mapper.Map<OrganizationModel>(org);
+        }
         public async Task<OrganizationModel> GetOrganizationByHostHeader(string hostname)
         {
             var org = await _orgRepository.GetOrganizationByHostHeader(hostname);
