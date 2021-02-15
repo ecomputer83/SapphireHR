@@ -58,10 +58,11 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddRank(Rank model)
+        public async Task<int> AddRank(Rank model)
         {
             this._context.Set<Database.EntityModels.Rank>().Add(model);
             await _context.SaveChangesAsync();
+            return model.Id;
         }
 
         public async Task UpdateRank(Rank model)

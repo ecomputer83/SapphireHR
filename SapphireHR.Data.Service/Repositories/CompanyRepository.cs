@@ -14,7 +14,10 @@ namespace SapphireHR.Data.Service.Repositories
         public CompanyRepository(ApplicationDbContext context) : base(context)
         {
         }
-
+        public async Task<List<CompanyInfo>> ReadCompaniesById(int id)
+        {
+            return await _context.Set<CompanyInfo>().Where(c=>c.OrganizationId == id).ToListAsync();
+        }
         public async Task AddCompanyEmployee(CompanyEmployee model)
         {
             this._context.Set<Database.EntityModels.CompanyEmployee>().Add(model);

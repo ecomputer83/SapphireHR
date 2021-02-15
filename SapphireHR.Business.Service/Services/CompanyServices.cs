@@ -37,6 +37,12 @@ namespace SapphireHR.Business.Service.Services
             await this._companyRepository.Add(datamodel);
         }
 
+        public async Task<List<CompanyModel>> GetCompanies(int orgId)
+        {
+            var Orgs = await _companyRepository.ReadCompaniesById(orgId);
+            return _mapper.Map<List<CompanyModel>>(Orgs);
+        }
+
         public async Task AddLeaveSetting(LeaveSettingModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.LeaveSetting>(model);

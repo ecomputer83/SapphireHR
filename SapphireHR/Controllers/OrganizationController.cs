@@ -50,7 +50,9 @@ namespace SapphireHR.Web.Controllers
             {
                 var org = await GetOrganizationByHeader();
                 model.OrganizationId = org.Id;
-                await _organizationService.AddRank(model);
+                var id = await _organizationService.AddRank(model);
+                model.RankPermissionModel.RankId = id;
+                await _organizationService.AddRankPermission(model.RankPermissionModel);
                 return Ok();
             }
             catch (Exception ex)
@@ -59,6 +61,27 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("updaterank/{id}")]
+        public async Task<IActionResult> UpdateRank([FromBody] RankModel model, int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                model.OrganizationId = org.Id;
+                await _organizationService.UpdateRank(model, Id);
+                var pId = model.RankPermissionModel.Id;
+                await _organizationService.UpdateRankPermission(model.RankPermissionModel, pId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [HttpGet]
         [Route("ranks")]
         public async Task<IActionResult> GetRanks()

@@ -15,10 +15,12 @@ namespace SapphireHR.Business.Abstractions.Service
         Task DeleteOrganization(int Id);
         Task AddLeaveType(LeaveTypeModel model);
         Task RemoveLeaveType(int id);
-        Task AddRank(RankModel model);
+        Task<int> AddRank(RankModel model);
+        Task AddRankPermission(RankPermissionModel model);
         Task<List<RankModel>> GetRanks(int orgId);
         Task<List<LeaveTypeModel>> GetLeaveTypes(int orgId);
         Task UpdateRank(RankModel model, int Id);
+        Task UpdateRankPermission(RankPermissionModel model, int Id);
         Task RemoveRank(int Id);
 
     }

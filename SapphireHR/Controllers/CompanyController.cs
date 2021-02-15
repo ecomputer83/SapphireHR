@@ -45,6 +45,23 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                await _companyService.GetCompanies(org.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
         public async Task<IActionResult> Put(CompanyModel model, int Id)
         {

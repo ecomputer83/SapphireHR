@@ -99,14 +99,14 @@ namespace SapphireHR.Business.Service.Services
             await this._orgRepository.Update(org);
         }
 
-        public async Task AddRank(RankModel model)
+        public async Task<int> AddRank(RankModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.Rank>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._orgRepository.AddRank(datamodel);
+            return await this._orgRepository.AddRank(datamodel);
         }
 
         public async Task<List<RankModel>> GetRanks(int orgId)
