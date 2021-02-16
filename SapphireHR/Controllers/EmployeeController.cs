@@ -236,6 +236,41 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
 
+                
+                var emp = await _employeeService.AddEmployee(payload);
+
+                var model = new UserModel();
+                model.OrganizationId = org.Id;
+                model.FullName = $"{payload.FirstName} {payload.LastName}";
+                model.Email = payload.Email;
+                model.PhoneNumber = payload.Phone;
+                model.UserType = 3;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
+                emp.UserId = usermodel.Id;
+                await _employeeService.UpdateEmployee(emp, emp.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        public async Task<IActionResult> PostHR([FromBody] EmployeeModel payload)
+        {
+            try
+
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 //add rank
                 var rankId = 0;
                 var rank = await _organizationService.GetRank("Resources Manager");
@@ -301,41 +336,6 @@ namespace SapphireHR.Web.Controllers
                 {
                     designationId = designation.Id;
                 }
-                payload.RankId = rankId;
-                payload.DesignationId = designationId;
-                var emp = await _employeeService.AddEmployee(payload);
-
-                var model = new UserModel();
-                model.OrganizationId = org.Id;
-                model.FullName = $"{payload.FirstName} {payload.LastName}";
-                model.Email = payload.Email;
-                model.PhoneNumber = payload.Phone;
-                model.UserType = 3;
-                model.Password = "password";
-                model.ConfirmPassword = "password";
-                var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
-                emp.UserId = usermodel.Id;
-                await _employeeService.UpdateEmployee(emp, emp.Id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
-
-        [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        public async Task<IActionResult> PostHR([FromBody] EmployeeModel payload)
-        {
-            try
-
-            {
-                var org = await GetOrganizationByHeader();
-
-                var emp = await _employeeService.AddEmployee(payload);
-
                 var model = new UserModel();
                 model.OrganizationId = org.Id;
                 model.FullName = $"{payload.FirstName} {payload.LastName}";
@@ -345,8 +345,10 @@ namespace SapphireHR.Web.Controllers
                 model.Password = "password";
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
-                emp.UserId = usermodel.Id;
-                await _employeeService.UpdateEmployee(emp, emp.Id);
+                payload.UserId = usermodel.Id;
+                payload.RankId = rankId;
+                payload.DesignationId = designationId;
+                var emp = await _employeeService.AddEmployee(payload);
                 return Ok();
             }
             catch (Exception ex)
