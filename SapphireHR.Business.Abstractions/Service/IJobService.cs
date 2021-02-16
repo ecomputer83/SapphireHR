@@ -28,13 +28,6 @@ namespace SapphireHR.Business.Abstractions.Service
         Task RemoveJobSkillLevel(int id);
 
 
-        Task<List<SkillGradeModel>> GetSkillGrades();
-        Task<SkillGradeModel> GetSkillGradeById(int Id);
-        Task AddSkillGrade(SkillGradeModel model);
-        Task UpdateSkillGrade(SkillGradeModel model, int Id);
-        Task RemoveSkillGrade(int id);
-
-
         Task<List<VacancyModel>> GetVacancies();
         Task<VacancyModel> GetVacancyById(int Id);
         Task AddVacancy(VacancyModel model);

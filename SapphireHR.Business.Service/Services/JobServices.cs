@@ -48,15 +48,6 @@ namespace SapphireHR.Business.Service.Services
             await _jobRepsitory.AddJobSkillLevel(datamodel);
         }
 
-        public async Task AddSkillGrade(SkillGradeModel model)
-        {
-            var datamodel = _mapper.Map<Database.EntityModels.SkillGrade>(model);
-            datamodel.CreatedAt = DateTime.Now;
-            datamodel.UpdatedAt = DateTime.Now;
-            datamodel.CreatedBy = "SYSTEM";
-            datamodel.UpdatedBy = "SYSTEM";
-            await _jobRepsitory.AddSkillGrade(datamodel);
-        }
 
         public async Task AddVacancy(VacancyModel model)
         {
@@ -104,18 +95,6 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<JobSkillLevelModel>>(result);
         }
 
-        public async Task<SkillGradeModel> GetSkillGradeById(int id)
-        {
-            var result = await this._jobRepsitory.GetSkillGradeById(id);
-            return _mapper.Map <SkillGradeModel>(result);
-        }
-
-        public async Task<List<SkillGradeModel>> GetSkillGrades()
-        {
-            var result = await this._jobRepsitory.GetSkillGrades();
-            return _mapper.Map<List<SkillGradeModel>>(result);
-        }
-
         public async Task<List<VacancyModel>> GetVacancies()
         {
             var result = await this._jobRepsitory.GetVacancies();
@@ -141,11 +120,6 @@ namespace SapphireHR.Business.Service.Services
         public async Task RemoveJobSkillLevel(int id)
         {
             await this._jobRepsitory.RemoveJobSkillLevel(id);
-        }
-
-        public async Task RemoveSkillGrade(int id)
-        {
-            await this._jobRepsitory.RemoveSkillGrade(id);
         }
 
         public async Task RemoveVacancy(int id)
@@ -177,13 +151,7 @@ namespace SapphireHR.Business.Service.Services
             await _jobRepsitory.UpdateJobSkillLevel(datamodel);
         }
 
-        public async Task UpdateSkillGrade(SkillGradeModel model, int id)
-        {
-            var datamodel = _mapper.Map<Database.EntityModels.SkillGrade>(model);
-            datamodel.UpdatedAt = DateTime.Now;
-            datamodel.UpdatedBy = "SYSTEM";
-            await _jobRepsitory.UpdateSkillGrade(datamodel);
-        }
+        
 
         public async Task UpdateVacancy(VacancyModel model, int id)
         {

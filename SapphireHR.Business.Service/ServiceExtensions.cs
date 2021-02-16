@@ -23,6 +23,7 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<OrganizationRepository>();
                 services.AddScoped<CompanyRepository>();
                 services.AddScoped<JobRepository>();
+                services.AddScoped<SkillsRepository>();
                 services.AddScoped<EmployeeRepository>();
                 services.AddScoped<ApplicantRepository>();
                 services.AddScoped<ApplicationRepository>();
@@ -33,6 +34,7 @@ namespace SapphireHR.Business.Service
             services.AddTransient<IApplicationService, ApplicationServices>();
             services.AddTransient<ICompanyService, CompanyServices>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ISkillService, SkillService>();
             services.AddTransient<IEmployeeService, EmployeeServices>();
             services.AddTransient<IJobService, JobServices>();
             services.AddTransient<IMiscellaneousService, MiscellaneousServices>();
