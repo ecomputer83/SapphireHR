@@ -43,6 +43,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<CompanyModel>>(Orgs);
         }
 
+        public async Task<CompanyModel> GetCompany(int Id)
+        {
+            var Orgs = await _companyRepository.Get(Id);
+            return _mapper.Map<CompanyModel>(Orgs);
+        }
+
         public async Task AddLeaveSetting(LeaveSettingModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.LeaveSetting>(model);

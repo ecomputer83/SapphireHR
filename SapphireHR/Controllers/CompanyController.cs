@@ -45,6 +45,23 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                await _companyService.GetCompany(org.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
