@@ -205,7 +205,7 @@ namespace SapphireHR.Web.Controllers
 
         private async Task<OrganizationModel> GetOrganizationByHeader()
         {
-            var host = Request.Headers["host"];
+            var host = Request.Headers["Holder"];
             return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
