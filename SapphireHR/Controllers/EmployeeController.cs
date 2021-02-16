@@ -19,13 +19,15 @@ namespace SapphireHR.Web.Controllers
         IEmployeeService _employeeService;
         IUserService _userService;
         IOrganizationService _organizationService;
+        IMiscellaneousService _miscellaneousService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, IMiscellaneousService miscellaneousService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
             _userService = userService;
             _organizationService = organizationService;
+            _miscellaneousService = miscellaneousService;
             _logger = logger;
         }
 
@@ -229,6 +231,52 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                //add rank
+                var rmodel = new RankModel
+                {
+                    RankName = "Resources Manager",
+                    OrganizationId = org.Id,
+                    RankPermissionModel = new RankPermissionModel
+                    {
+                        WriteAssets = true,
+                        ReadAssets = true,
+                        DeleteAssets = true,
+                        WriteHolidays = true,
+                        ReadHoliday = true,
+                        DeleteHolidays = true,
+                        WriteLeave = true,
+                        ReadLeave = true,
+                        DeleteLeave = true,
+                        WriteTimesheet = true,
+                        ReadTimesheet = true,
+                        DeleteTimesheet = true
+                    }
+                };
+                var rankId = await _organizationService.AddRank(rmodel);
+
+                //add department
+                var dpmodel = new DepartmentModel
+                {
+                    OrganizationId = org.Id,
+                    Name = "Human Resources"
+                };
+                var departmentId = await _miscellaneousService.AddDepartment(dpmodel);
+                //add designation
+                var dmodel = new DesignationModel
+                {
+                    OrganizationId = org.Id,
+                    DepartmentId = departmentId,
+                    Name = "HR Manager"
+                };
+                var designationId = await _miscellaneousService.AddDesignation(dmodel);
+
+                payload.RankId = rankId;
+                payload.DesignationId = designationId;
                 var emp = await _employeeService.AddEmployee(payload);
 
                 var model = new UserModel();
@@ -259,6 +307,7 @@ namespace SapphireHR.Web.Controllers
 
             {
                 var org = await GetOrganizationByHeader();
+
                 var emp = await _employeeService.AddEmployee(payload);
 
                 var model = new UserModel();
