@@ -39,8 +39,8 @@ namespace SapphireHR.Web.Controllers
 
                 model.OrganizationId = org.Id;
 
-                await _companyService.AddCompany(model);
-                return Ok();
+                var id = await _companyService.AddCompany(model);
+                return Ok(id);
             }
             catch(Exception ex)
             {
