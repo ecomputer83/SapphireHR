@@ -75,22 +75,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
-        [HttpGet]
-        [Route("getSkillGrades")]
-        public async Task<IActionResult> GetSkillGrades()
-        {
-            try
-            {
-                var resource = await _jobService.GetSkillGrades();
-                return Ok(resource);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
+        
 
         //[Authorize(Roles = "Administrator")]
         [HttpGet]
@@ -126,22 +111,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
-        [HttpGet]
-        [Route("getSkillGradeById")]
-        public async Task<IActionResult> GetSkillGradeById(int id)
-        {
-            try
-            {
-                var rsc = await _jobService.GetSkillGradeById(id);
-                return Ok(rsc);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
+        
 
         //[Authorize(Roles = "Administrator")]
         [HttpGet]
@@ -243,24 +213,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-
-        [Authorize(Roles = "HRAdmin")]
-        [HttpPost]
-        [Route("createSkillGrade")]
-        public async Task<IActionResult> PostSkillGrade([FromBody] SkillGradeModel model)
-        {
-            try
-            {
-                await _jobService.AddSkillGrade(model);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
-
+        
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createVacancy")]
@@ -346,22 +299,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "HRAdmin")]
-        [HttpPut]
-        [Route("updateSkillGrade")]
-        public async Task<IActionResult> UpdateSkillGrade([FromBody] SkillGradeModel model)
-        {
-            try
-            {
-                await _jobService.UpdateSkillGrade(model, model.Id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
+        
 
 
         [Authorize(Roles = "HRAdmin")]
@@ -414,23 +352,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
-        [HttpDelete]
-        [Route("deleteSkillGrade")]
-        public async Task<IActionResult> DeleteSkillGrade(int id)
-        {
-            try
-            {
-                await _jobService.RemoveSkillGrade(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                return CreateApiException(ex);
-            }
-        }
-
+        
         [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteVacancy")]
