@@ -81,6 +81,10 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<Rank>().FindAsync(Id);
         }
+        public async Task<Rank> ReadRank(string name)
+        {
+            return await _context.Set<Rank>().FirstOrDefaultAsync(c => c.RankName.ToLower() == name.ToLower());
+        }
 
         public async Task RemoveRank(int id)
         {
