@@ -24,7 +24,7 @@ namespace SapphireHR.Business.Service.Services
             this._fileManager = fileManager;
             this._mapper = mapper;
         }
-        public async Task AddCompany(CompanyModel model)
+        public async Task<int> AddCompany(CompanyModel model)
         {
             var org = await _organizationRepository.Get(model.OrganizationId);
             var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
@@ -34,7 +34,8 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._companyRepository.Add(datamodel);
+            datamodel = await this._companyRepository.Add(datamodel);
+            return datamodel.Id;
         }
 
         public async Task<List<CompanyModel>> GetCompanies(int orgId)

@@ -30,6 +30,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 model.OrganizationId = org.Id;
                 await _organizationService.AddLeaveType(model);
                 return Ok();
@@ -49,6 +53,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 model.OrganizationId = org.Id;
                 var id = await _organizationService.AddRank(model);
                 model.RankPermissionModel.RankId = id;
@@ -69,6 +77,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 model.OrganizationId = org.Id;
                 await _organizationService.UpdateRank(model, Id);
                 var pId = model.RankPermissionModel.Id;
@@ -81,7 +93,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("ranks")]
         public async Task<IActionResult> GetRanks()
@@ -89,6 +101,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 var res = await _organizationService.GetRanks(org.Id);
                 return Ok(res);
             }
@@ -98,7 +114,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("leavetypes")]
         public async Task<IActionResult> GetLeaveTypes()
@@ -106,6 +122,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if(org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 var res = await _organizationService.GetLeaveTypes(org.Id);
                 return Ok(res);
             }
@@ -168,6 +188,11 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 await _organizationService.RemoveLeaveType(Id);
                 return Ok();
             }

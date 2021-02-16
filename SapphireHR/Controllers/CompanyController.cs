@@ -32,6 +32,11 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
                 model.OrganizationId = org.Id;
 
                 await _companyService.AddCompany(model);
@@ -51,8 +56,12 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
-                await _companyService.GetCompany(org.Id);
-                return Ok();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var company = await _companyService.GetCompany(org.Id);
+                return Ok(company);
             }
             catch (Exception ex)
             {
@@ -68,8 +77,12 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
-                await _companyService.GetCompanies(org.Id);
-                return Ok();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var companies = await _companyService.GetCompanies(org.Id);
+                return Ok(companies);
             }
             catch (Exception ex)
             {
@@ -85,6 +98,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 model.OrganizationId = org.Id;
 
                 await _companyService.UpdateCompany(model, Id);
@@ -102,6 +119,11 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 await _companyService.RemoveCompany(Id);
                 return Ok();
             }
