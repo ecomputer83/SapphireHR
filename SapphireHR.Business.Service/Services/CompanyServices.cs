@@ -27,9 +27,9 @@ namespace SapphireHR.Business.Service.Services
         public async Task<int> AddCompany(CompanyModel model)
         {
             var org = await _organizationRepository.Get(model.OrganizationId);
-            var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
+            //var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
             var datamodel = _mapper.Map<Database.EntityModels.CompanyInfo>(model);
-            datamodel.Directory = directory;
+            //datamodel.Directory = directory;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
