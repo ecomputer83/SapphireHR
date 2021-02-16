@@ -16,11 +16,13 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<int> AddDepartment(DepartmentModel model);
         Task UpdateDepartment(DepartmentModel model, int id);
         Task<DepartmentModel> GetDepartment(int id);
+        Task<DepartmentModel> GetDepartment(string name);
         Task RemoveDepartment(int id);
 
         Task<int> AddDesignation(DesignationModel model);
         Task UpdateDesignation(DesignationModel model, int id);
         Task<DesignationModel> GetDesignation(int id);
+        Task<DesignationModel> GetDesignation(string name);
         Task RemoveDesignation(int id);
     }
 }

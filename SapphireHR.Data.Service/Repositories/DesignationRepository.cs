@@ -1,4 +1,5 @@
-﻿using SapphireHR.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace SapphireHR.Data.Service.Repositories
     {
         public DesignationRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public Task<Designation> GetDesignation(string name)
+        {
+            return _context.Set<Designation>().FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower());
         }
     }
 }

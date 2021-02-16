@@ -70,6 +70,18 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<DepartmentModel>(data);
         }
 
+        public async Task<DepartmentModel> GetDepartment(string name)
+        {
+            var data = await _departmentRepository.GetDepartment(name);
+            return _mapper.Map<DepartmentModel>(data);
+        }
+
+        public async Task<DesignationModel> GetDesignation(string name)
+        {
+            var data = await _designationRepository.GetDesignation(name);
+            return _mapper.Map<DesignationModel>(data);
+        }
+
         public async Task<DesignationModel> GetDesignation(int id)
         {
             var data = await _designationRepository.Get(id);

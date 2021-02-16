@@ -237,44 +237,70 @@ namespace SapphireHR.Web.Controllers
                 }
 
                 //add rank
-                var rmodel = new RankModel
+                var rankId = 0;
+                var rank = await _organizationService.GetRank("Resources Manager");
+                if (rank == null)
                 {
-                    RankName = "Resources Manager",
-                    OrganizationId = org.Id,
-                    RankPermissionModel = new RankPermissionModel
+                    var rmodel = new RankModel
                     {
-                        WriteAssets = true,
-                        ReadAssets = true,
-                        DeleteAssets = true,
-                        WriteHolidays = true,
-                        ReadHoliday = true,
-                        DeleteHolidays = true,
-                        WriteLeave = true,
-                        ReadLeave = true,
-                        DeleteLeave = true,
-                        WriteTimesheet = true,
-                        ReadTimesheet = true,
-                        DeleteTimesheet = true
-                    }
-                };
-                var rankId = await _organizationService.AddRank(rmodel);
+                        RankName = "Resources Manager",
+                        OrganizationId = org.Id,
+                        RankPermissionModel = new RankPermissionModel
+                        {
+                            WriteAssets = true,
+                            ReadAssets = true,
+                            DeleteAssets = true,
+                            WriteHolidays = true,
+                            ReadHoliday = true,
+                            DeleteHolidays = true,
+                            WriteLeave = true,
+                            ReadLeave = true,
+                            DeleteLeave = true,
+                            WriteTimesheet = true,
+                            ReadTimesheet = true,
+                            DeleteTimesheet = true
+                        }
+                    };
+                    rankId = await _organizationService.AddRank(rmodel);
+                }
+                else
+                {
+                    rankId = rank.Id;
+                }
 
                 //add department
-                var dpmodel = new DepartmentModel
+                var departmentId = 0;
+                var department = await _miscellaneousService.GetDepartment("Human Resources");
+                if (department == null)
                 {
-                    OrganizationId = org.Id,
-                    Name = "Human Resources"
-                };
-                var departmentId = await _miscellaneousService.AddDepartment(dpmodel);
+                    var dpmodel = new DepartmentModel
+                    {
+                        OrganizationId = org.Id,
+                        Name = "Human Resources"
+                    };
+                    departmentId = await _miscellaneousService.AddDepartment(dpmodel);
+                }
+                else
+                {
+                    departmentId = department.Id;
+                }
                 //add designation
-                var dmodel = new DesignationModel
+                var designationId = 0;
+                var designation = await _miscellaneousService.GetDesignation("HR Manager");
+                if (designation == null)
                 {
-                    OrganizationId = org.Id,
-                    DepartmentId = departmentId,
-                    Name = "HR Manager"
-                };
-                var designationId = await _miscellaneousService.AddDesignation(dmodel);
-
+                    var dmodel = new DesignationModel
+                    {
+                        OrganizationId = org.Id,
+                        DepartmentId = departmentId,
+                        Name = "HR Manager"
+                    };
+                    designationId = await _miscellaneousService.AddDesignation(dmodel);
+                }
+                else
+                {
+                    designationId = designation.Id;
+                }
                 payload.RankId = rankId;
                 payload.DesignationId = designationId;
                 var emp = await _employeeService.AddEmployee(payload);

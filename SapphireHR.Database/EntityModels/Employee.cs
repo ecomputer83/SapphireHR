@@ -6,6 +6,7 @@ namespace SapphireHR.Database.EntityModels
     {
         public int OrganizationId { get; set; }
         public string UserId { get; set; }
+        public int RankId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -19,10 +20,12 @@ namespace SapphireHR.Database.EntityModels
         public string Nationality { get; set; }
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"
-        public EmployeeBank EmployeeBank { get; set; }
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
+
+        [ForeignKey("RankId")]
+        public Rank Rank { get; set; }
 
     }
 }
