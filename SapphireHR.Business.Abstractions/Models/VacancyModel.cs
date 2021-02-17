@@ -11,6 +11,5 @@ namespace SapphireHR.Business.Abstractions.Models
         public int Quantity { get; set; }
         public string Description { get; set; }
         public string Scores { get; set; }
-        public DesignationModel Designation { get; set; }
     }
 }
