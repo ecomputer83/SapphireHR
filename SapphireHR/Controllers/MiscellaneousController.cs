@@ -50,7 +50,12 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                var res = await _miscellaneousService.GetApplicants();
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetApplicants(org.Id);
                 return Ok(res);
             }
             catch (Exception ex)
@@ -69,6 +74,50 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var res = await _miscellaneousService.GetDepartment(id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getDepartments")]
+        public async Task<IActionResult> GetDepartments()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetDepartments(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getDesignations")]
+        public async Task<IActionResult> GetDesignations()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetDesignations(org.Id);
                 return Ok(res);
             }
             catch (Exception ex)

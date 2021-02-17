@@ -3,6 +3,7 @@ using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,11 @@ namespace SapphireHR.Data.Service.Repositories
         public Task<Designation> GetDesignation(string name)
         {
             return _context.Set<Designation>().FirstOrDefaultAsync(c => c.Name.ToLower() == name.ToLower());
+        }
+
+        public Task<List<Designation>> GetDesignations(int orgId)
+        {
+            return _context.Set<Designation>().Where(c => c.OrganizationId == orgId).ToListAsync();
         }
     }
 }

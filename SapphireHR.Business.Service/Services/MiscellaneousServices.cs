@@ -25,7 +25,11 @@ namespace SapphireHR.Business.Service.Services
             _departmentRepository = departmentRepository;
             _designationRepository = designationRepository;
         }
-
+        public async Task<List<ApplicantModel>> GetApplicants(int orgId)
+        {
+            var data = await _applicantRepository.GetApplicants(orgId);
+            return _mapper.Map<List<ApplicantModel>>(data);
+        }
         public async Task AddApplicant(ApplicantModel model)
         {
             var data = _mapper.Map<Applicant>(model);
@@ -64,12 +68,6 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<ApplicantModel>(data);
         }
 
-        public async Task<List<ApplicantModel>> GetApplicants()
-        {
-            var data = await _applicantRepository.GetAll();
-            return _mapper.Map<List<ApplicantModel>>(data);
-        }
-
         public async Task<DepartmentModel> GetDepartment(int id)
         {
             var data = await _departmentRepository.Get(id);
@@ -82,6 +80,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<DepartmentModel>(data);
         }
 
+        public async Task<List<DepartmentModel>> GetDepartments(int orgId)
+        {
+            var data = await _departmentRepository.GetDepartments(orgId);
+            return _mapper.Map<List<DepartmentModel>>(data);
+        }
+
         public async Task<DesignationModel> GetDesignation(string name)
         {
             var data = await _designationRepository.GetDesignation(name);
@@ -92,6 +96,12 @@ namespace SapphireHR.Business.Service.Services
         {
             var data = await _designationRepository.Get(id);
             return _mapper.Map<DesignationModel>(data);
+        }
+
+        public async Task<List<DesignationModel>> GetDesignations(int orgId)
+        {
+            var data = await _designationRepository.GetDesignations(orgId);
+            return _mapper.Map<List<DesignationModel>>(data);
         }
 
         public async Task RemoveApplicant(int id)

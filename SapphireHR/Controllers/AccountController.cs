@@ -185,9 +185,18 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this url" });
+                }
+
                 var user = await _userService.FindByEmailAsync(model.Email).ConfigureAwait(false);
                 if (user == null)
                     return BadRequest(new string[] { "Invalid credentials." });
+
+                if(user.OrganizationId != org.Id)
+                    return BadRequest(new string[] { "Invalid credentials on this url." });
 
                 var tokenModel = new TokenModel()
                 {
@@ -393,6 +402,12 @@ namespace SapphireHR.Web.Controllers
                 expires: DateTime.UtcNow.AddHours(3),
                 signingCredentials: signingCredentials);
             return jwtSecurityToken;
+        }
+
+        private async Task<OrganizationModel> GetOrganizationByHeader()
+        {
+            var host = Request.Headers["Holder"];
+            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }
