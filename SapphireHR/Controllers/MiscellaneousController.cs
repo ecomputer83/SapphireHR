@@ -17,11 +17,13 @@ namespace SapphireHR.Web.Controllers
     {
         private readonly ILogger _logger;
         IMiscellaneousService _miscellaneousService;
+        IOrganizationService _organizationService;
 
-        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService)
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService, IOrganizationService organizationService)
         {
             _logger = logger;
             _miscellaneousService = miscellaneousService;
+            _organizationService = organizationService;
         }
 
         [Authorize(Roles = "HRAdmin")]
@@ -77,11 +79,17 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createApplicantById")]
-        public async Task<IActionResult> PostApplicantById([FromBody] ApplicantModel model)
+        [Route("createApplicant")]
+        public async Task<IActionResult> PostApplicant([FromBody] ApplicantModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddApplicant(model);
                 return Ok();
             }
@@ -94,11 +102,17 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createDepartmentById")]
-        public async Task<IActionResult> PostDepartmentById([FromBody] DepartmentModel model)
+        [Route("createDepartment")]
+        public async Task<IActionResult> PostDepartment([FromBody] DepartmentModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddDepartment(model);
                 return Ok();
             }
@@ -111,11 +125,17 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createDesignationById")]
-        public async Task<IActionResult> PostDesignationId([FromBody] DesignationModel model)
+        [Route("createDesignation")]
+        public async Task<IActionResult> PostDesignation([FromBody] DesignationModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddDesignation(model);
                 return Ok();
             }
@@ -226,6 +246,12 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
+        }
+
+        private async Task<OrganizationModel> GetOrganizationByHeader()
+        {
+            var host = Request.Headers["Holder"];
+            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

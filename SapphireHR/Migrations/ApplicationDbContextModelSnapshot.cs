@@ -187,6 +187,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Salutation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
