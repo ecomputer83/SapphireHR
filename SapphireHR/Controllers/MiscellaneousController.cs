@@ -24,7 +24,7 @@ namespace SapphireHR.Web.Controllers
             _miscellaneousService = miscellaneousService;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getApplicantById")]
         public async Task<IActionResult> GetApplicantById(int id)
@@ -41,7 +41,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getDepartmentById")]
         public async Task<IActionResult> GetDepartmentById(int id)
@@ -58,7 +58,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getDesignationById")]
         public async Task<IActionResult> GetDesignationById(int id)
@@ -75,7 +75,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createApplicantById")]
         public async Task<IActionResult> PostApplicantById([FromBody] ApplicantModel model)
@@ -92,7 +92,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createDepartmentById")]
         public async Task<IActionResult> PostDepartmentById([FromBody] DepartmentModel model)
@@ -109,7 +109,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createDesignationById")]
         public async Task<IActionResult> PostDesignationId([FromBody] DesignationModel model)
@@ -126,7 +126,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateApplicant")]
         public async Task<IActionResult> UpdateApplicant([FromBody] ApplicantModel model)
@@ -143,7 +143,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateDepartment")]
         public async Task<IActionResult> UpdateDepartment([FromBody] DepartmentModel model)
@@ -160,7 +160,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateDesignation")]
         public async Task<IActionResult> UpdateDesignation([FromBody] DesignationModel model)
@@ -177,7 +177,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteApplicant")]
         public async Task<IActionResult> DeleteApplicant(int id)
@@ -194,7 +194,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteDepartment")]
         public async Task<IActionResult> DeleteDepartment(int id)
@@ -211,7 +211,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteDesignation")]
         public async Task<IActionResult> DeleteDesignation(int id)
