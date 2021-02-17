@@ -3,6 +3,7 @@ using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,18 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Set<EmployeeBank>().Add(model);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)
+        {
+            return await _context.Set<EmployeeSalary>()
+                .Include(c => c.Employee)
+                .FirstOrDefaultAsync(s => s.EmployeeId == employeeId);
+        }
+        public async Task AddEmployeeSalary(EmployeeSalary model)
+        {
+            _context.Set<EmployeeSalary>().Add(model);
+            await _context.SaveChangesAsync();
+        }
         public async Task<CompanyEmployee> GetCompanyEmployeeByUserId(string userId)
         {
             var employee = await _context.Set<Employee>().FirstOrDefaultAsync(e => e.UserId == userId);
@@ -32,6 +45,17 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)
         {
             return await _context.Set<CompanyEmployee>().Include(c=>c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c=>c.EmployeeId == employeeId);
+        }
+
+        public async Task<List<EmployeeSalary>> GetEmployeeSalaries()
+        {
+            return await _context.Set<EmployeeSalary>().Include(c => c.Employee).ToListAsync();
+        }
+
+        public async Task UpdateCompanySalary(EmployeeSalary model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateCompanyEmployee(CompanyEmployee model)
@@ -117,6 +141,18 @@ namespace SapphireHR.Data.Service.Repositories
             }
 
             _context.Set<EmployeeEmergency>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveEmployeeSalary(int id)
+        {
+            var data = await _context.Set<EmployeeSalary>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("This item can't be found"));
+            }
+
+            _context.Set<EmployeeSalary>().Remove(data);
             await _context.SaveChangesAsync();
         }
 
