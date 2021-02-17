@@ -43,6 +43,24 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
+        [Route("getAllApplicant")]
+        public async Task<IActionResult> GetApplicants()
+        {
+            try
+            {
+                var res = await _miscellaneousService.GetApplicants();
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
         [Route("getDepartmentById")]
         public async Task<IActionResult> GetDepartmentById(int id)
         {
