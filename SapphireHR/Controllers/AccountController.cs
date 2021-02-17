@@ -233,7 +233,6 @@ namespace SapphireHR.Web.Controllers
                         }
                         else
                         {
-                            var org = await _organizationService.GetOrganizationAsync(user.OrganizationId);
                             tokenModel.Extra = org;
                         }
 
