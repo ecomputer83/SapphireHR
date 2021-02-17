@@ -64,6 +64,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<ApplicantModel>(data);
         }
 
+        public async Task<List<ApplicantModel>> GetApplicants()
+        {
+            var data = await _applicantRepository.GetAll();
+            return _mapper.Map<List<ApplicantModel>>(data);
+        }
+
         public async Task<DepartmentModel> GetDepartment(int id)
         {
             var data = await _departmentRepository.Get(id);
