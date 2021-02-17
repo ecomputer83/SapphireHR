@@ -16,7 +16,7 @@ namespace SapphireHR.Web.Controllers
     {
         IOrganizationService _organizationService;
         private readonly ILogger<OrganizationController> _logger;
-        public OrganizationController(IOrganizationService organizationService, ILogger<OrganizationController> logger)
+        public OrganizationController(IOrganizationService organizationService, ILogger<OrganizationController> logger) : base(organizationService)
         {
             this._organizationService = organizationService;
             this._logger = logger;
@@ -210,12 +210,6 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
-        }
-
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["Holder"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

@@ -17,11 +17,13 @@ namespace SapphireHR.Web.Controllers
     public class JobController : BaseApiController
     {
         IJobService _jobService;
+        IOrganizationService _organizationService;
         private readonly ILogger<JobController> _logger;
 
-        public JobController(IJobService jobService, ILogger<JobController> logger)
+        public JobController(IJobService jobService, IOrganizationService organizationService, ILogger<JobController> logger) : base(organizationService)
         {
             _jobService = jobService;
+            _organizationService = organizationService;
             _logger = logger;
         }
 

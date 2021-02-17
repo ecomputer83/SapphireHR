@@ -16,11 +16,13 @@ namespace SapphireHR.Web.Controllers
     public class ApplicationController : BaseApiController
     {
         IApplicationService _applicationService;
+        IOrganizationService _organizationService;
         private readonly ILogger<ApplicationController> _logger;
 
-        public ApplicationController(IApplicationService applicationService, ILogger<ApplicationController> logger)
+        public ApplicationController(IApplicationService applicationService, IOrganizationService organizationService, ILogger<ApplicationController> logger) : base(organizationService)
         {
             _applicationService = applicationService;
+            _organizationService = organizationService;
             _logger = logger;
         }
 

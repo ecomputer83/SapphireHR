@@ -40,7 +40,7 @@ namespace SapphireHR.Web.Controllers
         IOptions<JwtSecurityTokenSettings> jwt,
             ILogger<AccountController> logger,
             IMapper mapper
-            )
+            ) : base(organizationService)
         {
 
             this._configuration = configuration;

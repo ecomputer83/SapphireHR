@@ -18,7 +18,7 @@ namespace SapphireHR.Web.Controllers
         ICompanyService _companyService;
         IOrganizationService _organizationService;
         private readonly ILogger<CompanyController> _logger;
-        public CompanyController(IOrganizationService organizationService, ICompanyService companyService, ILogger<CompanyController> logger)
+        public CompanyController(IOrganizationService organizationService, ICompanyService companyService, ILogger<CompanyController> logger) : base(organizationService)
         {
             this._companyService = companyService;
             this._organizationService = organizationService;
@@ -132,12 +132,6 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
-        }
-
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["Holder"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

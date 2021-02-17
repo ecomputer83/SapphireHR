@@ -19,7 +19,7 @@ namespace SapphireHR.Web.Controllers
         IMiscellaneousService _miscellaneousService;
         IOrganizationService _organizationService;
 
-        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService, IOrganizationService organizationService)
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService, IOrganizationService organizationService) : base(organizationService)
         {
             _logger = logger;
             _miscellaneousService = miscellaneousService;
@@ -315,10 +315,6 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["Holder"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
-        }
+        
     }
 }

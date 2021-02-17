@@ -22,7 +22,7 @@ namespace SapphireHR.Web.Controllers
         IMiscellaneousService _miscellaneousService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, IMiscellaneousService miscellaneousService, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, IMiscellaneousService miscellaneousService, ILogger<EmployeeController> logger) : base(organizationService)
         {
             _employeeService = employeeService;
             _userService = userService;
@@ -871,12 +871,6 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
-        }
-
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["Holder"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

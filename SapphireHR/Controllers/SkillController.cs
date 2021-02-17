@@ -17,11 +17,13 @@ namespace SapphireHR.Web.Controllers
     public class SkillController : BaseApiController
     {
         ISkillService _skillService;
+        IOrganizationService _organizationService;
         private readonly ILogger<SkillController> _logger;
 
-        public SkillController(ISkillService skillService, ILogger<SkillController> logger)
+        public SkillController(ISkillService skillService, IOrganizationService organizationService, ILogger<SkillController> logger) : base(organizationService)
         {
             _skillService = skillService;
+            _organizationService = organizationService;
             _logger = logger;
         }
 
