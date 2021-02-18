@@ -102,7 +102,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet]
         [Route("ranks")]
         public async Task<IActionResult> GetRanks()
@@ -123,7 +123,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet]
         [Route("leavetypes")]
         public async Task<IActionResult> GetLeaveTypes()
