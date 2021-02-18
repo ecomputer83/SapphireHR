@@ -237,7 +237,7 @@ namespace SapphireHR.Web.Controllers
                 }
 
                 
-                var emp = await _employeeService.AddEmployee(payload);
+                
 
                 var model = new UserModel();
                 model.OrganizationId = org.Id;
@@ -248,8 +248,8 @@ namespace SapphireHR.Web.Controllers
                 model.Password = "password";
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
-                emp.UserId = usermodel.Id;
-                await _employeeService.UpdateEmployee(emp, emp.Id);
+                payload.UserId = usermodel.Id;
+                var emp = await _employeeService.AddEmployee(payload);
                 return Ok();
             }
             catch (Exception ex)
