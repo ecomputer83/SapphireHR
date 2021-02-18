@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SapphireHR.Database.EntityModels
@@ -27,5 +28,10 @@ namespace SapphireHR.Database.EntityModels
         [ForeignKey("RankId")]
         public Rank Rank { get; set; }
 
+        public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
+        public virtual List<EmployeeEmergency> EmployeeEmergencies { get; set; }
+        public virtual List<EmployeeExperience> EmployeeExperiences { get; set; }
+        public virtual List<EmployeeFamily> EmployeeFamilies { get; set; }
+        public virtual EmployeeBank EmployeeBank { get; set; }
     }
 }

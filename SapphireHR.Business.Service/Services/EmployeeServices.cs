@@ -163,22 +163,23 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeTransfer(datamodel);
         }
 
+
         public async Task<EmployeeBankModel> GetEmployeeBank(int id)
         {
             var bank = await _employeeRepository.GetEmployeeBank(id);
             var res = _mapper.Map<EmployeeBankModel>(bank);
             return res;
         }
-        public async Task<EmployeeModel> GetAllEmployees()
+        public async Task<EmployeeModel> GetAllEmployees(int companyId)
         {
-            var emp = await _employeeRepository.GetAll();
+            var emp = await _employeeRepository.GetEmployees(companyId);
             var res = _mapper.Map<EmployeeModel>(emp);
             return res;
         }
 
         public async Task<EmployeeModel> GetEmployee(int id)
         {
-            var emp =  await _employeeRepository.Get(id);
+            var emp =  await _employeeRepository.GetEmployeeDetail(id);
             var res = _mapper.Map<EmployeeModel>(emp);
             return res;
         }

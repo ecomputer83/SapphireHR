@@ -3,6 +3,7 @@ using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,20 @@ namespace SapphireHR.Data.Service.Repositories
         public EmployeeRepository(ApplicationDbContext context) : base(context)
         {
         }
+        public async Task<Employee> GetEmployeeDetail(int employeeId)
+        {
+            var emp = await _context.Set<Employee>().Include(b => b.EmployeeBank).FirstOrDefaultAsync();
+            emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
+            emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();
+            emp.EmployeeExperiences = _context.Set<EmployeeExperience>().Where(e => e.EmployeeId == emp.Id).ToList();
+            emp.EmployeeFamilies = _context.Set<EmployeeFamily>().Where(e => e.EmployeeId == emp.Id).ToList();
 
+            return emp;
+        }
+
+        public Task<List<Employee>> GetEmployees(int companyId) {
+            return _context.Set<CompanyEmployee>().Include(c=>c.Employee).Where(e=>e.CompanyId == companyId).Select(e => e.Employee).ToListAsync();
+        }
         public async Task AddCompanyEmployee(CompanyEmployee model)
         {
             _context.Set<CompanyEmployee>().Add(model);
