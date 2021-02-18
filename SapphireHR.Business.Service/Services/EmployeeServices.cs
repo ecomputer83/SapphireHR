@@ -170,10 +170,10 @@ namespace SapphireHR.Business.Service.Services
             var res = _mapper.Map<EmployeeBankModel>(bank);
             return res;
         }
-        public async Task<EmployeeModel> GetAllEmployees(int companyId)
+        public async Task<List<EmployeeModel>> GetAllEmployees(int companyId)
         {
             var emp = await _employeeRepository.GetEmployees(companyId);
-            var res = _mapper.Map<EmployeeModel>(emp);
+            var res = _mapper.Map<List<EmployeeModel>>(emp);
             return res;
         }
 
