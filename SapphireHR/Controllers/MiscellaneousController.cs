@@ -17,14 +17,16 @@ namespace SapphireHR.Web.Controllers
     {
         private readonly ILogger _logger;
         IMiscellaneousService _miscellaneousService;
+        IOrganizationService _organizationService;
 
-        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService)
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService, IOrganizationService organizationService) : base(organizationService)
         {
             _logger = logger;
             _miscellaneousService = miscellaneousService;
+            _organizationService = organizationService;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getApplicantById")]
         public async Task<IActionResult> GetApplicantById(int id)
@@ -41,7 +43,30 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getAllApplicant")]
+        public async Task<IActionResult> GetApplicants()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetApplicants(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getDepartmentById")]
         public async Task<IActionResult> GetDepartmentById(int id)
@@ -58,7 +83,51 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getDepartments")]
+        public async Task<IActionResult> GetDepartments()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetDepartments(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getDesignations")]
+        public async Task<IActionResult> GetDesignations()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetDesignations(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getDesignationById")]
         public async Task<IActionResult> GetDesignationById(int id)
@@ -75,13 +144,19 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createApplicantById")]
-        public async Task<IActionResult> PostApplicantById([FromBody] ApplicantModel model)
+        [Route("createApplicant")]
+        public async Task<IActionResult> PostApplicant([FromBody] ApplicantModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddApplicant(model);
                 return Ok();
             }
@@ -92,13 +167,19 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createDepartmentById")]
-        public async Task<IActionResult> PostDepartmentById([FromBody] DepartmentModel model)
+        [Route("createDepartment")]
+        public async Task<IActionResult> PostDepartment([FromBody] DepartmentModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddDepartment(model);
                 return Ok();
             }
@@ -109,13 +190,19 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createDesignationById")]
-        public async Task<IActionResult> PostDesignationId([FromBody] DesignationModel model)
+        [Route("createDesignation")]
+        public async Task<IActionResult> PostDesignation([FromBody] DesignationModel model)
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
                 await _miscellaneousService.AddDesignation(model);
                 return Ok();
             }
@@ -126,7 +213,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateApplicant")]
         public async Task<IActionResult> UpdateApplicant([FromBody] ApplicantModel model)
@@ -143,7 +230,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateDepartment")]
         public async Task<IActionResult> UpdateDepartment([FromBody] DepartmentModel model)
@@ -160,7 +247,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateDesignation")]
         public async Task<IActionResult> UpdateDesignation([FromBody] DesignationModel model)
@@ -177,7 +264,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteApplicant")]
         public async Task<IActionResult> DeleteApplicant(int id)
@@ -194,7 +281,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteDepartment")]
         public async Task<IActionResult> DeleteDepartment(int id)
@@ -211,7 +298,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteDesignation")]
         public async Task<IActionResult> DeleteDesignation(int id)
@@ -227,5 +314,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+
+        
     }
 }

@@ -19,7 +19,7 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<OrganizationInfo> GetOrganizationByHostHeader(string hostHeader)
         {
             var header = await _context.OrganizationHeaders.Include("Organization").FirstOrDefaultAsync(c => c.HostName == hostHeader);
-            return header.Organization;
+            return header?.Organization;
         }
         public Task GetOrgHeader(int orgId)
         {
@@ -80,6 +80,10 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<Rank> ReadRank(int Id)
         {
             return await _context.Set<Rank>().FindAsync(Id);
+        }
+        public async Task<Rank> ReadRank(string name)
+        {
+            return await _context.Set<Rank>().FirstOrDefaultAsync(c => c.RankName.ToLower() == name.ToLower());
         }
 
         public async Task RemoveRank(int id)

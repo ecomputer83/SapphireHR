@@ -10,6 +10,5 @@ namespace SapphireHR.Business.Abstractions.Models
         public double Salary { get; set; }
         public string EducationRequirement { get; set; }
         public string EducationDegree { get; set; }
-        public JobProfileModel JobProfile { get; set; }
     }
 }

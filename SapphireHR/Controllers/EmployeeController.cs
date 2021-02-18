@@ -19,13 +19,15 @@ namespace SapphireHR.Web.Controllers
         IEmployeeService _employeeService;
         IUserService _userService;
         IOrganizationService _organizationService;
+        IMiscellaneousService _miscellaneousService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, IMiscellaneousService miscellaneousService, ILogger<EmployeeController> logger) : base(organizationService)
         {
             _employeeService = employeeService;
             _userService = userService;
             _organizationService = organizationService;
+            _miscellaneousService = miscellaneousService;
             _logger = logger;
         }
 
@@ -47,12 +49,12 @@ namespace SapphireHR.Web.Controllers
         }
         
         [Authorize(Roles = "HRAdmin")]
-        [HttpGet("getAllEmployees")]
-        public async Task<IActionResult> GetAllEmployees()
+        [HttpGet("{companyId}")]
+        public async Task<IActionResult> GetAllEmployees(int companyId)
         {
             try
             {
-                var rsc = await _employeeService.GetAllEmployees();
+                var rsc = await _employeeService.GetAllEmployees(companyId);
                 return Ok(rsc);
             }
             catch (Exception ex)
@@ -229,7 +231,13 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
-                var emp = await _employeeService.AddEmployee(payload);
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                
+                
 
                 var model = new UserModel();
                 model.OrganizationId = org.Id;
@@ -240,8 +248,8 @@ namespace SapphireHR.Web.Controllers
                 model.Password = "password";
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
-                emp.UserId = usermodel.Id;
-                await _employeeService.UpdateEmployee(emp, emp.Id);
+                payload.UserId = usermodel.Id;
+                var emp = await _employeeService.AddEmployee(payload);
                 return Ok();
             }
             catch (Exception ex)
@@ -259,8 +267,75 @@ namespace SapphireHR.Web.Controllers
 
             {
                 var org = await GetOrganizationByHeader();
-                var emp = await _employeeService.AddEmployee(payload);
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                //add rank
+                var rankId = 0;
+                var rank = await _organizationService.GetRank("Resources Manager");
+                if (rank == null)
+                {
+                    var rmodel = new RankModel
+                    {
+                        RankName = "Resources Manager",
+                        OrganizationId = org.Id,
+                        RankPermissionModel = new RankPermissionModel
+                        {
+                            WriteAssets = true,
+                            ReadAssets = true,
+                            DeleteAssets = true,
+                            WriteHolidays = true,
+                            ReadHoliday = true,
+                            DeleteHolidays = true,
+                            WriteLeave = true,
+                            ReadLeave = true,
+                            DeleteLeave = true,
+                            WriteTimesheet = true,
+                            ReadTimesheet = true,
+                            DeleteTimesheet = true
+                        }
+                    };
+                    rankId = await _organizationService.AddRank(rmodel);
+                }
+                else
+                {
+                    rankId = rank.Id;
+                }
 
+                //add department
+                var departmentId = 0;
+                var department = await _miscellaneousService.GetDepartment("Human Resources");
+                if (department == null)
+                {
+                    var dpmodel = new DepartmentModel
+                    {
+                        OrganizationId = org.Id,
+                        Name = "Human Resources"
+                    };
+                    departmentId = await _miscellaneousService.AddDepartment(dpmodel);
+                }
+                else
+                {
+                    departmentId = department.Id;
+                }
+                //add designation
+                var designationId = 0;
+                var designation = await _miscellaneousService.GetDesignation("HR Manager");
+                if (designation == null)
+                {
+                    var dmodel = new DesignationModel
+                    {
+                        OrganizationId = org.Id,
+                        DepartmentId = departmentId,
+                        Name = "HR Manager"
+                    };
+                    designationId = await _miscellaneousService.AddDesignation(dmodel);
+                }
+                else
+                {
+                    designationId = designation.Id;
+                }
                 var model = new UserModel();
                 model.OrganizationId = org.Id;
                 model.FullName = $"{payload.FirstName} {payload.LastName}";
@@ -270,8 +345,10 @@ namespace SapphireHR.Web.Controllers
                 model.Password = "password";
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "HRAdmin" });
-                emp.UserId = usermodel.Id;
-                await _employeeService.UpdateEmployee(emp, emp.Id);
+                payload.UserId = usermodel.Id;
+                payload.RankId = rankId;
+                payload.DesignationId = designationId;
+                var emp = await _employeeService.AddEmployee(payload);
                 return Ok();
             }
             catch (Exception ex)
@@ -943,12 +1020,6 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
-        }
-
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["host"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

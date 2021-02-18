@@ -19,6 +19,8 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddRankPermission(RankPermissionModel model);
         Task<OrganizationModel> GetOrganizationAsync(int orgId);
         Task<List<RankModel>> GetRanks(int orgId);
+        Task<RankModel> GetRank(int Id);
+        Task<RankModel> GetRank(string name);
         Task<List<LeaveTypeModel>> GetLeaveTypes(int orgId);
         Task UpdateRank(RankModel model, int Id);
         Task UpdateRankPermission(RankPermissionModel model, int Id);

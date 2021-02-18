@@ -8,7 +8,8 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface ICompanyService
     {
-        Task AddCompany(CompanyModel model);
+        Task<int> AddCompany(CompanyModel model);
+        Task<CompanyModel> GetCompany(int Id);
         Task<List<CompanyModel>> GetCompanies(int orgId);
         Task UpdateCompany(CompanyModel model, int Id);
         Task RemoveCompany(int Id);

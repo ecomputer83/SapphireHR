@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SapphireHR.Database.EntityModels
@@ -6,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
     {
         public int OrganizationId { get; set; }
         public string UserId { get; set; }
+        public int RankId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -19,10 +21,17 @@ namespace SapphireHR.Database.EntityModels
         public string Nationality { get; set; }
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"
-        public EmployeeBank EmployeeBank { get; set; }
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
 
+        [ForeignKey("RankId")]
+        public Rank Rank { get; set; }
+
+        public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
+        public virtual List<EmployeeEmergency> EmployeeEmergencies { get; set; }
+        public virtual List<EmployeeExperience> EmployeeExperiences { get; set; }
+        public virtual List<EmployeeFamily> EmployeeFamilies { get; set; }
+        public virtual EmployeeBank EmployeeBank { get; set; }
     }
 }

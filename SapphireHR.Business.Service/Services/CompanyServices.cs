@@ -24,23 +24,30 @@ namespace SapphireHR.Business.Service.Services
             this._fileManager = fileManager;
             this._mapper = mapper;
         }
-        public async Task AddCompany(CompanyModel model)
+        public async Task<int> AddCompany(CompanyModel model)
         {
             var org = await _organizationRepository.Get(model.OrganizationId);
-            var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
+            //var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
             var datamodel = _mapper.Map<Database.EntityModels.CompanyInfo>(model);
-            datamodel.Directory = directory;
+            //datamodel.Directory = directory;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._companyRepository.Add(datamodel);
+            datamodel = await this._companyRepository.Add(datamodel);
+            return datamodel.Id;
         }
 
         public async Task<List<CompanyModel>> GetCompanies(int orgId)
         {
             var Orgs = await _companyRepository.ReadCompaniesById(orgId);
             return _mapper.Map<List<CompanyModel>>(Orgs);
+        }
+
+        public async Task<CompanyModel> GetCompany(int Id)
+        {
+            var Orgs = await _companyRepository.Get(Id);
+            return _mapper.Map<CompanyModel>(Orgs);
         }
 
         public async Task AddLeaveSetting(LeaveSettingModel model)

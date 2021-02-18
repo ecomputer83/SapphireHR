@@ -18,7 +18,7 @@ namespace SapphireHR.Web.Controllers
         ICompanyService _companyService;
         IOrganizationService _organizationService;
         private readonly ILogger<CompanyController> _logger;
-        public CompanyController(IOrganizationService organizationService, ICompanyService companyService, ILogger<CompanyController> logger)
+        public CompanyController(IOrganizationService organizationService, ICompanyService companyService, ILogger<CompanyController> logger) : base(organizationService)
         {
             this._companyService = companyService;
             this._organizationService = organizationService;
@@ -32,12 +32,38 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
                 model.OrganizationId = org.Id;
 
-                await _companyService.AddCompany(model);
-                return Ok();
+                var id = await _companyService.AddCompany(model);
+                return Ok(id);
             }
             catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var company = await _companyService.GetCompany(org.Id);
+                return Ok(company);
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
@@ -51,8 +77,12 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
-                await _companyService.GetCompanies(org.Id);
-                return Ok();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var companies = await _companyService.GetCompanies(org.Id);
+                return Ok(companies);
             }
             catch (Exception ex)
             {
@@ -68,6 +98,10 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 model.OrganizationId = org.Id;
 
                 await _companyService.UpdateCompany(model, Id);
@@ -85,6 +119,11 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
                 await _companyService.RemoveCompany(Id);
                 return Ok();
             }
@@ -93,12 +132,6 @@ namespace SapphireHR.Web.Controllers
                 _logger.LogError(ex, ex.Message);
                 return CreateApiException(ex);
             }
-        }
-
-        private async Task<OrganizationModel> GetOrganizationByHeader()
-        {
-            var host = Request.Headers["host"];
-            return await _organizationService.GetOrganizationByHostHeader(host);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using SapphireHR.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +15,9 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
+        public Task<List<Applicant>> GetApplicants(int orgId)
+        {
+            return _context.Set<Applicant>().Where(c => c.OrganizationId == orgId).ToListAsync();
+        }
     }
 }
