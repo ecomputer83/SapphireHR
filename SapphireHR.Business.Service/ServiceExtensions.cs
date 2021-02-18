@@ -29,11 +29,14 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<ApplicationRepository>();
                 services.AddScoped<DepartmentRepository>();
                 services.AddScoped<DesignationRepository>();
+                services.AddScoped<ExpenseRespository>();
             }
             services.AddScoped<FileManager>();
             services.AddTransient<IApplicationService, ApplicationServices>();
+            services.AddTransient<IExpenseService, ExpenseService>();
             services.AddTransient<ICompanyService, CompanyServices>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IDesignationService, DesignationService>();
             services.AddTransient<ISkillService, SkillService>();
             services.AddTransient<IEmployeeService, EmployeeServices>();
             services.AddTransient<IJobService, JobServices>();

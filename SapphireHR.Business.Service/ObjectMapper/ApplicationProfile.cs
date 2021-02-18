@@ -11,6 +11,11 @@ namespace SapphireHR.Business.Service.ObjectMapper
     {
         public ApplicationProfile()
         {
+            CreateMap<ExpenseClaimModel, ExpenseClaim>().ReverseMap();
+            CreateMap<ExpenseTypeModel, ExpenseType>().ReverseMap();
+            CreateMap<ExpensePromotionModel, ExpensePromotion>().ReverseMap();
+            CreateMap<DesignationPerformanceModel, DesignationPerformance>().ReverseMap();
+            CreateMap<LeaveTypeModel, LeaveType>().ReverseMap();
             CreateMap<OrganizationModel, OrganizationInfo>().ReverseMap();
             CreateMap<LeaveTypeModel, LeaveType>().ReverseMap();
             CreateMap<OrganizationHeaderModel, OrganizationHeader>().ReverseMap();
