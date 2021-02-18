@@ -23,6 +23,11 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Nationality { get; set; }
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"
-        
+
+        public  List<EmployeeEducationModel> EmployeeEducations { get; set; }
+        public  List<EmployeeEmergencyModel> EmployeeEmergencies { get; set; }
+        public  List<EmployeeExperienceModel> EmployeeExperiences { get; set; }
+        public  List<EmployeeFamilyModel> EmployeeFamilies { get; set; }
+        public  EmployeeBankModel EmployeeBank { get; set; }
     }
 }
