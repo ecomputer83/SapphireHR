@@ -21,6 +21,7 @@ namespace SapphireHR.Web.Controllers
             return Problem(ex.StackTrace, ex.Source, 500, ex.Message);
         }
 
+        [NonAction]
         public async Task<OrganizationModel> GetOrganizationByHeader()
         {
             var host = Request.Headers["Holder"];

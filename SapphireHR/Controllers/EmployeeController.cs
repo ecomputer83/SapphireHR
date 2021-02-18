@@ -49,12 +49,12 @@ namespace SapphireHR.Web.Controllers
         }
         
         [Authorize(Roles = "HRAdmin")]
-        [HttpGet("getAllEmployees")]
-        public async Task<IActionResult> GetAllEmployees()
+        [HttpGet("getAllEmployees/{companyId}")]
+        public async Task<IActionResult> GetAllEmployees(int companyId)
         {
             try
             {
-                var rsc = await _employeeService.GetAllEmployees();
+                var rsc = await _employeeService.GetAllEmployees(companyId);
                 return Ok(rsc);
             }
             catch (Exception ex)
