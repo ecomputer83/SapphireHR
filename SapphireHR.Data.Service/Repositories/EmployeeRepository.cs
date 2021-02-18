@@ -16,7 +16,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Employee> GetEmployeeDetail(int employeeId)
         {
-            var emp = await _context.Set<Employee>().Include(b => b.EmployeeBank).FirstOrDefaultAsync();
+            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).FirstOrDefaultAsync();
             emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeExperiences = _context.Set<EmployeeExperience>().Where(e => e.EmployeeId == emp.Id).ToList();
@@ -26,7 +26,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
         public Task<List<Employee>> GetEmployees(int companyId) {
-            return _context.Set<CompanyEmployee>().Include(c=>c.Employee).Where(e=>e.CompanyId == companyId).Select(e => e.Employee).ToListAsync();
+            return _context.Set<CompanyEmployee>().Include(c=>c.Employee).ThenInclude(d => d.Designation).Where(e=>e.CompanyId == companyId).Select(e => e.Employee).ToListAsync();
         }
         public async Task AddCompanyEmployee(CompanyEmployee model)
         {
