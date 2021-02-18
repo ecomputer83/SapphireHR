@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SapphireHR.Database.EntityModels
 {
-    public class TerminationType : BaseEntity
+    public class TerminationType : BaseEntity, IEntity
     {
         public string Name { get; set; }
     }

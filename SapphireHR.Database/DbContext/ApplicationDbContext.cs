@@ -25,6 +25,7 @@ namespace SapphireHR.Database
         public DbSet<Rank> Ranks { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Designation> Designations { get; set; }
+        public DbSet<DesignationPerformance> DesignationPerformances { get; set; }
         public DbSet<EmployeeBank> EmployeeBanks { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<OrganizationHeader> OrganizationHeaders { get; set; }
@@ -36,10 +37,15 @@ namespace SapphireHR.Database
         public DbSet<EmployeeEmergency> EmployeeEmergencies { get; set; }
         public DbSet<EmployeeExperience> EmployeeExperiences { get; set; }
         public DbSet<EmployeeFamily> EmployeeFamilies { get; set; }
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
+        public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
+        public DbSet<ExpensePromotion> ExpensePromotions { get; set; }
+        public DbSet<EmployeeTravel> EmployeeTravels { get; set; }
+        public DbSet<EmployeeResignation> EmployeeResignations { get; set; }
         public DbSet<EmployeeLeave> EmployeeLeaves { get; set; }
         public DbSet<EmployeePension> EmployeePensions { get; set; }
-        public DbSet<EmployeeStatutory> EmployeeStatutories { get; set; }
         public DbSet<EmployeeTimetable> EmployeeTimetables { get; set; }
+        public DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
         public DbSet<EmployeeTransfer> EmployeeTransfers { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
         public DbSet<JobCategory> JobCategories { get; set; }
@@ -56,6 +62,7 @@ namespace SapphireHR.Database
         public DbSet<SkillType> SkillTypes { get; set; }
 
         public DbSet<SkillGrade> SkillGrades { get; set; }
+        public DbSet<TerminationType> TerminationTypes { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
 

@@ -37,10 +37,55 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Set<EmployeeSalary>().Add(model);
             await _context.SaveChangesAsync();
         }
+        public async Task AddEmployeeTravel(EmployeeTravel model)
+        {
+            _context.Set<EmployeeTravel>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddEmployeeTermination(EmployeeTermination model)
+        {
+            _context.Set<EmployeeTermination>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddEmployeeResignation(EmployeeResignation model)
+        {
+            _context.Set<EmployeeResignation>().Add(model);
+            await _context.SaveChangesAsync();
+        }
         public async Task<CompanyEmployee> GetCompanyEmployeeByUserId(string userId)
         {
             var employee = await _context.Set<Employee>().FirstOrDefaultAsync(e => e.UserId == userId);
-            return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).Include(c=>c.Rank).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
+            return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).Include(c => c.Rank).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
+        }
+
+        public async Task<List<EmployeeResignation>> GetEmployeeResignations()
+        {
+            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).ToListAsync();
+        }
+
+        public async Task<List<EmployeeTermination>> GetEmployeeTerminations()
+        {
+            return await _context.Set<EmployeeTermination>().Include(c => c.Employee).ToListAsync();
+        }
+        public async Task<List<EmployeeTravel>> GetEmployeeTravels()
+        {
+            return await _context.Set<EmployeeTravel>().Include(c => c.Employee).ToListAsync();
+        }
+        public async Task<EmployeeResignation> GetEmployeeResignationById(int id)
+        {
+            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<EmployeeTravel> GetEmployeeTravelById(int id)
+        {
+            return await _context.Set<EmployeeTravel>().Include(c => c.Employee).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<EmployeeTermination> GetEmployeeTerminationById(int id)
+        {
+            return await _context.Set<EmployeeTermination>().Include(c => c.Employee).Include(x => x.Employee).FirstOrDefaultAsync(e => e.Id == id);
         }
         public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)
         {
@@ -50,6 +95,24 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<List<EmployeeSalary>> GetEmployeeSalaries()
         {
             return await _context.Set<EmployeeSalary>().Include(c => c.Employee).ToListAsync();
+        }
+
+        public async Task UpdateEmployeeTravel(EmployeeTravel model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateEmployeeTermination(EmployeeTermination model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateEmployeeResignation(EmployeeResignation model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateCompanySalary(EmployeeSalary model)
@@ -141,6 +204,42 @@ namespace SapphireHR.Data.Service.Repositories
             }
 
             _context.Set<EmployeeEmergency>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveEmployeeTravel(int id)
+        {
+            var data = await _context.Set<EmployeeTravel>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<EmployeeTravel>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveEmployeeResignation(int id)
+        {
+            var data = await _context.Set<EmployeeResignation>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<EmployeeResignation>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveEmployeeTermination(int id)
+        {
+            var data = await _context.Set<EmployeeTermination>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<EmployeeTermination>().Remove(data);
             await _context.SaveChangesAsync();
         }
 
