@@ -9,8 +9,10 @@ namespace SapphireHR.Database.EntityModels
     {
         public int CompanyId { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
         public string Description { get; set; }
+        [ForeignKey("Type")]
+        public SkillType SkillType { get; set; }
         [ForeignKey("CompanyId")]
         public CompanyInfo CompanyInfo { get; set; }
     }

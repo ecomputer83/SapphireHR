@@ -7,12 +7,9 @@ namespace SapphireHR.Database.EntityModels
 {
     public class SkillGrade : BaseEntity
     {
-        public int SkillTypeId { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public int Rating { get; set; }
         public string Description { get; set; }
-
-        [ForeignKey("SkillTypeId")]
-        public SkillType SkillType { get; set; }
     }
 }
