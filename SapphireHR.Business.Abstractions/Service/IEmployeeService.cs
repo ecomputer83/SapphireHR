@@ -55,5 +55,20 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployeeTransfer(EmployeeTransferModel model, int id);
         Task<EmployeeTransferModel> GetEmployeeTransfer(int id);
         Task RemoveEmployeeTransfer(int id);
+
+        Task AddEmployeeTravel(EmployeeTravelModel model);
+        Task UpdateEmployeeTravel(EmployeeTravelModel model, int id);
+        Task<EmployeeTravelModel> GetEmployeeTravel(int id);
+        Task RemoveEmployeeTravel(int id);
+
+        Task AddEmployeeResignation(EmployeeResignationModel model);
+        Task UpdateEmployeeResignation(EmployeeResignationModel model, int id);
+        Task<EmployeeResignationModel> GetEmployeeResignation(int id);
+        Task RemoveEmployeeResignation(int id);
+
+        Task AddEmployeeTermination(EmployeeTerminationModel model);
+        Task UpdateEmployeeTermination(EmployeeTerminationModel model, int id);
+        Task<EmployeeTerminationModel> GetEmployeeTermination(int id);
+        Task RemoveEmployeeTermination(int id);
     }
 }

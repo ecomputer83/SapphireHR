@@ -4,10 +4,12 @@ using System.Text;
 
 namespace SapphireHR.Business.Abstractions.Models
 {
-    public class EmployeeTravelModel
+    public class EmployeeResignationModel
     {
-        public string BankAccountNumber { get; set; }
-        public string BankName { get; set; }
+        public DateTime NoticeDate { get; set; }
+        public DateTime ResignationDate { get; set; }
+        public string Reason { get; set; }
         public int EmployeeId { get; set; }
+        public EmployeeModel Employee { get; set; }
     }
 }
