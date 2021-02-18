@@ -22,7 +22,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public Task<List<Designation>> GetDesignations(int orgId)
         {
-            return _context.Set<Designation>().Where(c => c.OrganizationId == orgId).ToListAsync();
+            return _context.Set<Designation>().Include(c=>c.Department).Where(c => c.OrganizationId == orgId).ToListAsync();
         }
     }
 }

@@ -12,5 +12,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public int DepartmentId { get; set; }
         public string Name { get; set; }
 
+        public DepartmentModel Department { get; set; }
+
     }
 }
