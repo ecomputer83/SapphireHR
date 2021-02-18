@@ -377,6 +377,57 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> PostEmployeeTravel([FromBody] EmployeeTravelModel payload)
+        {
+            try
+
+            {
+                await _employeeService.AddEmployeeTravel(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PostEmployeeResignation([FromBody] EmployeeResignationModel payload)
+        {
+            try
+
+            {
+                await _employeeService.AddEmployeeResignation(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PostEmployeeTermination([FromBody] EmployeeTerminationModel payload)
+        {
+            try
+
+            {
+                await _employeeService.AddEmployeeTermination(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> PostEmployeeEducation([FromBody] EmployeeEducationModel payload)
         {
             try
@@ -587,6 +638,56 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeResignation(int id, [FromBody] EmployeeResignationModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateEmployeeResignation(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeTermination(int id, [FromBody] EmployeeTerminationModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateEmployeeTermination(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeTravel(int id, [FromBody] EmployeeTravelModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateEmployeeTravel(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeExperience(int id, [FromBody] EmployeeExperienceModel payload)
         {
             try
@@ -720,6 +821,54 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.RemoveEmployeeBank( id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployeeResignation(int id)
+        {
+            try
+            {
+                await _employeeService.RemoveEmployeeResignation(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployeeTermination(int id)
+        {
+            try
+            {
+                await _employeeService.RemoveEmployeeTermination(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployeeTravel(int id)
+        {
+            try
+            {
+                await _employeeService.RemoveEmployeeTravel(id);
                 return Ok();
             }
             catch (Exception ex)

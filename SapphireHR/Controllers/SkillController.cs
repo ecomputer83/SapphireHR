@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+ //For more information on enabling Web API for empty projects, visit https:go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SapphireHR.Web.Controllers
 {
@@ -28,7 +28,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getSkillGradeById")]
         public async Task<IActionResult> GetSkillGradeById(int id)
@@ -46,7 +46,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getSkillById")]
         public async Task<IActionResult> GetSkillById(int id)
@@ -64,7 +64,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getSkillTypeById")]
         public async Task<IActionResult> GetSkillTypeById(int id)
@@ -82,7 +82,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getSkillGrades")]
         public async Task<IActionResult> GetSkillGrades()
@@ -99,7 +99,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getSkills")]
         public async Task<IActionResult> GetSkills()
@@ -116,7 +116,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getSkillTypes")]
         public async Task<IActionResult> GetSkillTypes()
@@ -135,7 +135,7 @@ namespace SapphireHR.Web.Controllers
 
 
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateSkillGrade")]
         public async Task<IActionResult> UpdateSkillGrade([FromBody] SkillGradeModel model)
@@ -152,7 +152,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateSkill")]
         public async Task<IActionResult> UpdateSkill([FromBody] SkillModel model)
@@ -169,7 +169,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateSkillType")]
         public async Task<IActionResult> UpdateSkillType([FromBody] SkillTypeModel model)
@@ -186,7 +186,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createSkillGrade")]
         public async Task<IActionResult> PostSkillGrade([FromBody] SkillGradeModel model)
@@ -203,7 +203,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createSkill")]
         public async Task<IActionResult> PostSkill([FromBody] SkillModel model)
@@ -220,7 +220,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createSkillType")]
         public async Task<IActionResult> PostSkillType([FromBody] SkillTypeModel model)
@@ -238,7 +238,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteSkillGrade")]
         public async Task<IActionResult> DeleteSkillGrade(int id)
@@ -255,7 +255,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteSkill")]
         public async Task<IActionResult> DeleteSkill(int id)
@@ -272,7 +272,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-//        [Authorize(Roles = "HRAdmin")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteSkillType")]
         public async Task<IActionResult> DeleteSkillType(int id)

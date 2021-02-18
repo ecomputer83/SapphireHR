@@ -27,7 +27,7 @@ namespace SapphireHR.Web.Controllers
             _logger = logger;
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> Post()
         {
@@ -43,7 +43,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getJobProfessions")]
         public async Task<IActionResult> GetJobProfessions()
@@ -79,7 +79,7 @@ namespace SapphireHR.Web.Controllers
 
         
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getVacancies")]
         public async Task<IActionResult> GetVacancies()
@@ -96,7 +96,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getVacancyById")]
         public async Task<IActionResult> GetVacancyById(int id)
@@ -115,7 +115,7 @@ namespace SapphireHR.Web.Controllers
 
         
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getJobSkillLevelById")]
         public async Task<IActionResult> GetJobSkillLevelById(int id)
@@ -132,7 +132,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("GetJobProfessionById")]
         public async Task<IActionResult> GetJobProfessionById(int id)
@@ -149,7 +149,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getJobProfileById")]
         public async Task<IActionResult> GetJobProfileById(int id)
@@ -166,7 +166,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] JobProfileModel model)
         {

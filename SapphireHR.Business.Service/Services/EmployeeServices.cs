@@ -31,6 +31,40 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedBy = "SYSTEM";
             await _employeeRepository.AddCompanyEmployee(datamodel);
         }
+
+        public async Task AddEmployeeResignation(EmployeeResignationModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeResignation>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeResignation(datamodel);
+        }
+
+        public async Task AddEmployeeTravel(EmployeeTravelModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeTravel>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeTravel(datamodel);
+        }
+
+        public async Task AddEmployeeTermination(EmployeeTerminationModel model)
+        {
+            //if Employee has been terminated before
+            var datamodel = _mapper.Map<EmployeeTermination>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeTermination(datamodel);
+        }
+
+
+
         public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
         {
             var data = await _employeeRepository.GetCompanyEmployeeByUserId(UserId);
@@ -168,6 +202,27 @@ namespace SapphireHR.Business.Service.Services
         {
             var bank = await _employeeRepository.GetEmployeeBank(id);
             var res = _mapper.Map<EmployeeBankModel>(bank);
+            return res;
+        }
+
+        public async Task<EmployeeResignationModel> GetEmployeeResignation(int id)
+        {
+            var bank = await _employeeRepository.GetEmployeeResignationById(id);
+            var res = _mapper.Map<EmployeeResignationModel>(bank);
+            return res;
+        }
+
+        public async Task<EmployeeTerminationModel> GetEmployeeTermination(int id)
+        {
+            var bank = await _employeeRepository.GetEmployeeTerminationById(id);
+            var res = _mapper.Map<EmployeeTerminationModel>(bank);
+            return res;
+        }
+
+        public async Task<EmployeeTravelModel> GetEmployeeTravel(int id)
+        {
+            var bank = await _employeeRepository.Get(id);
+            var res = _mapper.Map<EmployeeTravelModel>(bank);
             return res;
         }
         public async Task<List<EmployeeModel>> GetAllEmployees(int companyId)
@@ -408,5 +463,43 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.UpdateEmployeeTransfer(data);
         }
 
+        public async Task UpdateEmployeeTravel(EmployeeTravelModel model, int id)
+        {
+            var datamodel = _mapper.Map<EmployeeTravel>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateEmployeeTravel(datamodel);
+        }
+
+        public async Task UpdateEmployeeResignation(EmployeeResignationModel model, int id)
+        {
+            var datamodel = _mapper.Map<EmployeeResignation>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateEmployeeResignation(datamodel);
+        }
+
+        public async Task UpdateEmployeeTermination(EmployeeTerminationModel model, int id)
+        {
+            var datamodel = _mapper.Map<EmployeeTermination>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateEmployeeTermination(datamodel);
+        }
+
+        public async Task RemoveEmployeeTravel(int id)
+        {
+            await _employeeRepository.RemoveEmployeeTravel(id);
+        }
+
+        public async Task RemoveEmployeeResignation(int id)
+        {
+            await _employeeRepository.RemoveEmployeeResignation(id);
+        }
+
+        public async Task RemoveEmployeeTermination(int id)
+        {
+            await _employeeRepository.RemoveEmployeeStatutory(id);
+        }
     }
 }
