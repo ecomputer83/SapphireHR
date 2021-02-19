@@ -14,7 +14,10 @@ namespace SapphireHR.Data.Service.Repositories
         public DesignationRepository(ApplicationDbContext context) : base(context)
         {
         }
-
+        public Task<Designation> GetNoTrackingDesignation(int id)
+        {
+            return _context.Designations.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        }
         public async Task<DesignationPerformance> GetDesignationPerformance(int id)
         {
             return await _context.Set<DesignationPerformance>()

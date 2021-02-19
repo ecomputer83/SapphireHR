@@ -76,7 +76,11 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateSkill(SkillModel model)
         {
-            var datamodel = _mapper.Map<Database.EntityModels.Skill>(model);
+            var data_model = _mapper.Map<Database.EntityModels.Skill>(model);
+            var datamodel = await _skillRepsitory.GetSkillById(model.Id);
+            datamodel.Name = model.Name;
+            datamodel.Type = model.Type;
+            datamodel.Description = model.Description;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _skillRepsitory.UpdateSkill(datamodel);
@@ -85,7 +89,9 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateSkillType(SkillTypeModel model)
         {
-            var datamodel = _mapper.Map<Database.EntityModels.SkillType>(model);
+            var data_model = _mapper.Map<Database.EntityModels.SkillType>(model);
+            var datamodel = await _skillRepsitory.GetSkillTypeById(model.Id);
+            datamodel.Name = model.Name;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _skillRepsitory.UpdateSkillType(datamodel);
@@ -117,7 +123,12 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateSkillGrade(SkillGradeModel model)
         {
-            var datamodel = _mapper.Map<Database.EntityModels.SkillGrade>(model);
+            var data_model = _mapper.Map<Database.EntityModels.SkillGrade>(model);
+            var datamodel = await _skillRepsitory.GetSkillGradeById(model.Id);
+            datamodel.Description = model.Name;
+            datamodel.Name = model.Name;
+            datamodel.Rating = model.Rating;
+            datamodel.Type = model.Type;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _skillRepsitory.UpdateSkillGrade(datamodel);

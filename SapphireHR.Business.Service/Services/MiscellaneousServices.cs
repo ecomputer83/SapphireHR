@@ -121,7 +121,8 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateApplicant(ApplicantModel model, int id)
         {
-            var data = _mapper.Map<Applicant>(model);
+            var new_data = _mapper.Map<Applicant>(model);
+            var data = await _applicantRepository.GetNoTrackingApplicant(id);
             data.Address = model.Address;
             data.Email = model.Email;
             data.FirstName = model.FirstName;
@@ -134,14 +135,17 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateDepartment(DepartmentModel model, int id)
         {
-            var data = _mapper.Map<Department>(model);
-            data.Name = model.Name;
+            
+            var new_data = _mapper.Map<Department>(model);
+            var data = await _departmentRepository.GetNoTrackingDepartment(id);
+            data.Name = new_data.Name;
             await _departmentRepository.Update(data);
         }
 
         public async Task UpdateDesignation(DesignationModel model, int id)
         {
-            var data = _mapper.Map<Designation>(model);
+            var new_data = _mapper.Map<Designation>(model);
+            var data = await _designationRepository.GetNoTrackingDesignation(id);
             data.Name = model.Name;
             await _designationRepository.Update(data);
         }

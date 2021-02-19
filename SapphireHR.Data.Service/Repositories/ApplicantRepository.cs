@@ -14,7 +14,10 @@ namespace SapphireHR.Data.Service.Repositories
         public ApplicantRepository(ApplicationDbContext context) : base(context)
         {
         }
-
+        public Task<Applicant> GetNoTrackingApplicant(int id)
+        {
+            return _context.Applicants.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        }
         public Task<List<Applicant>> GetApplicants(int orgId)
         {
             return _context.Set<Applicant>().Where(c => c.OrganizationId == orgId).ToListAsync();

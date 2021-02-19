@@ -22,7 +22,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Skill> GetSkillById(int id)
         {
-            return await _context.Set<Skill>().FindAsync(id);
+            return await _context.Skills.AsNoTracking().FirstOrDefaultAsync(s=>s.Id == id);
         }
         public async Task AddSkill(Skill model)
         {
@@ -53,7 +53,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<SkillType> GetSkillTypeById(int id)
         {
-            return await _context.Set<SkillType>().FindAsync(id);
+            return await _context.SkillTypes.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
         }
         public async Task AddSkillType(SkillType model)
         {
@@ -84,7 +84,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<SkillGrade> GetSkillGradeById(int id)
         {
-            return await _context.Set<SkillGrade>().Include("SkillType").Where(c => c.Id == id).FirstOrDefaultAsync();
+            return await _context.SkillGrades.Include("SkillType").AsNoTracking().Where(c => c.Id == id).FirstOrDefaultAsync();
         }
         public async Task AddSkillGrade(SkillGrade model)
         {
