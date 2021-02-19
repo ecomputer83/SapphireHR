@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class EmployeeEducationModel
     {
+        public int Id { get; set; }
         public int EmployeeId { get; set; }
         public string Institute { get; set; }
         public string Discipline { get; set; }

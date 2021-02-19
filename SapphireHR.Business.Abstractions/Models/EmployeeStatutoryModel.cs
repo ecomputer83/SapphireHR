@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class EmployeeStatutoryModel
     {
+        public int Id { get; set; }
         public int EmployeeId { get; set; }
         public string SalaryBasis { get; set; }
         public double SalaryAmount { get; set; }

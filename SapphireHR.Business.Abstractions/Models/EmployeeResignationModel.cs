@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class EmployeeResignationModel
     {
+        public int Id { get; set; }
         public DateTime NoticeDate { get; set; }
         public DateTime ResignationDate { get; set; }
         public string Reason { get; set; }
