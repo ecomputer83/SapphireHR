@@ -24,7 +24,7 @@ namespace SapphireHR.Web.Migrations
                 column: "CompanyId",
                 principalTable: "CompanyInfos",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

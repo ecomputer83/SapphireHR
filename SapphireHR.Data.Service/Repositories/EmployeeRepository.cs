@@ -28,6 +28,10 @@ namespace SapphireHR.Data.Service.Repositories
         public Task<List<Employee>> GetEmployees(int companyId) {
             return _context.Set<CompanyEmployee>().Include(c=>c.Employee).ThenInclude(d => d.Designation).Where(e=>e.CompanyId == companyId).Select(e => e.Employee).ToListAsync();
         }
+        public Task<Employee> GetNoTrackingEmployee(int employeeId)
+        {
+            return _context.Employees.AsNoTracking().FirstOrDefaultAsync(e => e.Id == employeeId);
+        }
         public async Task AddCompanyEmployee(CompanyEmployee model)
         {
             _context.Set<CompanyEmployee>().Add(model);
@@ -41,8 +45,8 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)
         {
-            return await _context.Set<EmployeeSalary>()
-                .Include(c => c.Employee)
+            return await _context.EmployeeSalaries
+                .Include(c => c.Employee).AsNoTracking()
                 .FirstOrDefaultAsync(s => s.EmployeeId == employeeId);
         }
         public async Task AddEmployeeSalary(EmployeeSalary model)
@@ -147,7 +151,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeBank> GetEmployeeBank(int id)
         {
-            return await _context.Set<EmployeeBank>().FindAsync(id);
+            return await _context.EmployeeBanks.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task RemoveEmployeeBank(int id)
@@ -176,7 +180,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeEducation> GetEmployeeEducation(int id)
         {
-            return await _context.Set<EmployeeEducation>().FindAsync(id);
+            return await _context.EmployeeEducations.AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
         }
 
         public async Task RemoveEmployeeEducation(int id)
@@ -205,7 +209,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeEmergency> GetEmployeeEmergency(int id)
         {
-            return await _context.Set<EmployeeEmergency>().FindAsync(id);
+            return await _context.EmployeeEmergencies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task RemoveEmployeeEmergency(int id)
@@ -282,7 +286,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeExperience> GetEmployeeExp(int id)
         {
-            return await _context.Set<EmployeeExperience>().FindAsync(id);
+            return await _context.EmployeeExperiences.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task RemoveEmployeeExp(int id)
@@ -311,7 +315,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeFamily> GetEmployeeFamily(int id)
         {
-            return await _context.Set<EmployeeFamily>().FindAsync(id);
+            return await _context.EmployeeFamilies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task RemoveEMployeeFamily(int id)

@@ -359,7 +359,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateEmployee(EmployeeModel model, int id)
         {
-            var data = await _employeeRepository.Get(id);
+            var data = await _employeeRepository.GetNoTrackingEmployee(id);
             var n_data = _mapper.Map<Employee>(model);
             n_data.Id = data.Id;
             n_data.DesignationId = data.DesignationId;
