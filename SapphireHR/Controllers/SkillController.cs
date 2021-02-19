@@ -84,12 +84,12 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
-        [Route("getSkillGrades")]
-        public async Task<IActionResult> GetSkillGrades()
+        [Route("getSkillGrades/{id}")]
+        public async Task<IActionResult> GetSkillGrades(int id)
         {
             try
             {
-                var resource = await _skillService.GetSkillGrades();
+                var resource = await _skillService.GetSkillGrades(id);
                 return Ok(resource);
             }
             catch (Exception ex)
@@ -101,12 +101,12 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
-        [Route("getSkills")]
-        public async Task<IActionResult> GetSkills()
+        [Route("getSkills/{id}")]
+        public async Task<IActionResult> GetSkills(int id)
         {
             try
             {
-                var resource = await _skillService.GetSkills();
+                var resource = await _skillService.GetSkills(id);
                 return Ok(resource);
             }
             catch (Exception ex)
@@ -119,11 +119,11 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getSkillTypes")]
-        public async Task<IActionResult> GetSkillTypes()
+        public async Task<IActionResult> GetSkillTypes(int id)
         {
             try
             {
-                var resource = await _skillService.GetSkillTypes();
+                var resource = await _skillService.GetSkillTypes(id);
                 return Ok(resource);
             }
             catch (Exception ex)

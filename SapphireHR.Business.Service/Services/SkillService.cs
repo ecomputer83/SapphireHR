@@ -45,9 +45,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<SkillModel>(result);
         }
 
-        public async Task<List<SkillModel>> GetSkills()
+        public async Task<List<SkillModel>> GetSkills(int CompanyId)
         {
-            var result = await this._skillRepsitory.GetSkills();
+            var result = await this._skillRepsitory.GetSkills(CompanyId);
             return _mapper.Map<List<SkillModel>>(result);
         }
 
@@ -57,9 +57,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<SkillTypeModel>(result);
         }
 
-        public async Task<List<SkillTypeModel>> GetSkillTypes()
+        public async Task<List<SkillTypeModel>> GetSkillTypes(int CompanyId)
         {
-            var result = await this._skillRepsitory.GetSkillTypes();
+            var result = await this._skillRepsitory.GetSkillTypes(CompanyId);
             return _mapper.Map<List<SkillTypeModel>>(result);
         }
 
@@ -98,9 +98,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<SkillGradeModel>(result);
         }
 
-        public async Task<List<SkillGradeModel>> GetSkillGrades()
+        public async Task<List<SkillGradeModel>> GetSkillGrades(int CompanyId)
         {
-            var result = await this._skillRepsitory.GetSkillGrades();
+            var result = await this._skillRepsitory.GetSkillGrades(CompanyId);
             return _mapper.Map<List<SkillGradeModel>>(result);
         }
 

@@ -16,9 +16,9 @@ namespace SapphireHR.Data.Service.Repositories
 
         }
 
-        public async Task<List<Skill>> GetSkills()
+        public async Task<List<Skill>> GetSkills(int companyId)
         {
-            return await _context.Set<Skill>().ToListAsync();
+            return await _context.Set<Skill>().Include(s=>s.SkillType).Where(c=>c.CompanyId == companyId).ToListAsync();
         }
         public async Task<Skill> GetSkillById(int id)
         {
@@ -47,9 +47,9 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
 
-        public async Task<List<SkillType>> GetSkillTypes()
+        public async Task<List<SkillType>> GetSkillTypes(int companyId)
         {
-            return await _context.Set<SkillType>().ToListAsync();
+            return await _context.Set<SkillType>().Where(c => c.CompanyId == companyId).ToListAsync();
         }
         public async Task<SkillType> GetSkillTypeById(int id)
         {
@@ -78,9 +78,9 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
 
-        public async Task<List<SkillGrade>> GetSkillGrades()
+        public async Task<List<SkillGrade>> GetSkillGrades(int companyId)
         {
-            return await _context.Set<SkillGrade>().ToListAsync();
+            return await _context.Set<SkillGrade>().Where(c => c.CompanyId == companyId).ToListAsync();
         }
         public async Task<SkillGrade> GetSkillGradeById(int id)
         {

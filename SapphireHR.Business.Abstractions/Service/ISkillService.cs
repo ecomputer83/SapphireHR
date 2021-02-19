@@ -8,7 +8,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface ISkillService
     {
-        Task<List<SkillModel>> GetSkills();
+        Task<List<SkillModel>> GetSkills(int CompanyId);
         Task<SkillModel> GetSkillById(int id);
         Task AddSkill(SkillModel model);
         Task UpdateSkill(SkillModel model);
@@ -16,14 +16,14 @@ namespace SapphireHR.Business.Abstractions.Service
 
 
 
-        Task<List<SkillTypeModel>> GetSkillTypes();
+        Task<List<SkillTypeModel>> GetSkillTypes(int CompanyId);
         Task<SkillTypeModel> GetSkillTypeById(int id);
         Task AddSkillType(SkillTypeModel model);
         Task UpdateSkillType(SkillTypeModel model);
         Task RemoveSkillType(int id);
 
 
-        Task<List<SkillGradeModel>> GetSkillGrades();
+        Task<List<SkillGradeModel>> GetSkillGrades(int CompanyId);
         Task<SkillGradeModel> GetSkillGradeById(int id);
         Task AddSkillGrade(SkillGradeModel model);
         Task UpdateSkillGrade(SkillGradeModel model);
