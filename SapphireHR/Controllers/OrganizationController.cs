@@ -58,12 +58,12 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
                 var rank = await _organizationService.GetRank(model.RankName);
-                if (rank == null)
+                if (rank != null)
                 {
                     model.OrganizationId = org.Id;
                     var id = await _organizationService.AddRank(model);
-                    model.RankPermissionModel.RankId = id;
-                    await _organizationService.AddRankPermission(model.RankPermissionModel);
+                    model.RankPermission.RankId = id;
+                    await _organizationService.AddRankPermission(model.RankPermission);
 
                     return Ok(id);
                 }
@@ -92,8 +92,8 @@ namespace SapphireHR.Web.Controllers
                 }
                 model.OrganizationId = org.Id;
                 await _organizationService.UpdateRank(model, Id);
-                var pId = model.RankPermissionModel.Id;
-                await _organizationService.UpdateRankPermission(model.RankPermissionModel, pId);
+                var pId = model.RankPermission.Id;
+                await _organizationService.UpdateRankPermission(model.RankPermission, pId);
                 return Ok();
             }
             catch (Exception ex)
