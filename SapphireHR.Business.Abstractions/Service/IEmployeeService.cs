@@ -49,7 +49,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task RemoveEmployeeStatutory(int id);
         Task AddEmployeeTimetable(EmployeeTimetableModel model);
         Task UpdateEmployeeTimetable(EmployeeTimetableModel model, int id);
-        Task<EmployeeTimetableModel> GetEmployeeTimetable(int id);
+        Task<List<EmployeeTimetableModel>> GetEmployeeTimetable(int employeeId);
         Task RemoveEmployeeTimetable(int id);
         Task AddEmployeeTransfer(EmployeeTransferModel model);
         Task UpdateEmployeeTransfer(EmployeeTransferModel model, int id);

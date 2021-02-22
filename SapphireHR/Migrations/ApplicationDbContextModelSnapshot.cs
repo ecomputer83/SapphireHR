@@ -1056,6 +1056,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("LeaveTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
@@ -1074,6 +1077,8 @@ namespace SapphireHR.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("LeaveTypeId");
 
                     b.ToTable("EmployeeLeaves");
                 });
@@ -1287,14 +1292,14 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PunchIn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PunchOut")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Punch")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -2811,7 +2816,15 @@ namespace SapphireHR.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SapphireHR.Database.EntityModels.LeaveType", "LeaveType")
+                        .WithMany()
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Employee");
+
+                    b.Navigation("LeaveType");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeePension", b =>

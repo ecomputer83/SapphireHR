@@ -211,7 +211,7 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.EmployeeEmergencies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
-
+        
         public async Task RemoveEmployeeEmergency(int id)
         {
             var data = await _context.Set<EmployeeEmergency>().FindAsync(id);
@@ -429,9 +429,14 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<EmployeeTimetable>> GetEmployeeTimetables(int id)
+        {
+            return await _context.Set<EmployeeTimetable>().Where(c=>c.EmployeeId == id && c.AttendedDate.ToShortDateString() == DateTime.Now.ToShortDateString()).ToListAsync();
+        }
+
         public async Task<EmployeeTimetable> GetEmployeeTimetable(int id)
         {
-            return await _context.Set<EmployeeTimetable>().FindAsync(id);
+            return await _context.EmployeeTimetables.AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
         }
 
         public async Task RemoveEmployeeTimetable(int id)
@@ -446,6 +451,16 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoveEmployee(int Id)
+        {
+            var bank = await _context.Set<EmployeeBank>().FirstOrDefaultAsync(e=>e.EmployeeId == Id);
+            if (bank != null)
+            {
+                _context.Set<EmployeeBank>().Remove(bank);
+            }
+            
+            //var educations = await  _context.Set<EmployeeEducation>().
+        }
         public async Task AddEmployeeTransfer(EmployeeTransfer model)
         {
             _context.Set<EmployeeTransfer>().Add(model);

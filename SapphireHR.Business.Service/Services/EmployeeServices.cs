@@ -281,10 +281,10 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<EmployeeTimetableModel> GetEmployeeTimetable(int id)
+        public async Task<List<EmployeeTimetableModel>> GetEmployeeTimetable(int employeeId)
         {
-            var tt = await _employeeRepository.GetEmployeeTimetable(id);
-            var res = _mapper.Map<EmployeeTimetableModel>(tt);
+            var tt = await _employeeRepository.GetEmployeeTimetables(employeeId);
+            var res = _mapper.Map<List<EmployeeTimetableModel>>(tt);
             return res;
         }
 
@@ -449,8 +449,8 @@ namespace SapphireHR.Business.Service.Services
         {
             var data = await _employeeRepository.GetEmployeeTimetable(id);
             data.AttendedDate = model.AttendedDate;
-            data.PunchIn = model.PunchIn;
-            data.PunchOut = model.PunchOut;
+            data.Time = model.Time;
+            data.Punch = model.Punch;
             await _employeeRepository.UpdateEmployeeTimetable(data);
         }
 
