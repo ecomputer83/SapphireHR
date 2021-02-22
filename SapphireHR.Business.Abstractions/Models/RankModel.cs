@@ -10,6 +10,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public int OrganizationId { get; set; }
         public string RankName { get; set; }
 
-        public RankPermissionModel RankPermissionModel { get; set; }
+        public RankPermissionModel RankPermission { get; set; }
     }
 }
