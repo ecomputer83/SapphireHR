@@ -211,5 +211,27 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete]
+        [Route("DeleteRank")]
+        public async Task<IActionResult> DeleteRank(int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                await _organizationService.RemoveRank(Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
     }
 }
