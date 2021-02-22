@@ -280,7 +280,7 @@ namespace SapphireHR.Web.Controllers
                     {
                         RankName = "Resources Manager",
                         OrganizationId = org.Id,
-                        RankPermissionModel = new RankPermissionModel
+                        RankPermission = new RankPermissionModel
                         {
                             WriteAssets = true,
                             ReadAssets = true,
