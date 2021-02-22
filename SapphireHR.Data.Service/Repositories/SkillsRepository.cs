@@ -84,7 +84,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<SkillGrade> GetSkillGradeById(int id)
         {
-            return await _context.SkillGrades.Include("SkillType").AsNoTracking().Where(c => c.Id == id).FirstOrDefaultAsync();
+            return await _context.SkillGrades.AsNoTracking().Where(c => c.Id == id).FirstOrDefaultAsync();
         }
         public async Task AddSkillGrade(SkillGrade model)
         {
