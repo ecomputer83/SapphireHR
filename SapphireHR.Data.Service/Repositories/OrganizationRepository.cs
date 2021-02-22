@@ -74,7 +74,13 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<Rank>> ReadRanks(int OrgId)
         {
-            return await _context.Set<Rank>().Where(c => c.OrganizationId == OrgId).ToListAsync();
+            return await _context.Set<RankPermission>().Include(r=>r.Rank).Where(c => c.Rank.OrganizationId == OrgId).Select(c=> new Rank
+            {
+                RankPermission = c,
+                RankName = c.Rank.RankName,
+                Id = c.Rank.Id,
+                OrganizationId = c.Rank.OrganizationId
+            }).ToListAsync();
         }
 
         public async Task<Rank> ReadRank(int Id)

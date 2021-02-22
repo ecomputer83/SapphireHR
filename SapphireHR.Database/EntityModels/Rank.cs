@@ -8,5 +8,7 @@ namespace SapphireHR.Database.EntityModels
         public string RankName { get; set; }
         [ForeignKey("OrganizationId")]
         public OrganizationInfo OrganizationInfo { get; set; }
+
+        public virtual RankPermission RankPermission { get; set; }
     }
 }
