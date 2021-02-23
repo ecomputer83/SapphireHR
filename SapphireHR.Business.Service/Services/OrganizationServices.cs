@@ -168,13 +168,16 @@ namespace SapphireHR.Business.Service.Services
         public async Task UpdateRankPermission(RankPermissionModel model, int Id)
         {
             var permission = await this._orgRepository.ReadRankPermission(Id);
-            var updatedPermission = _mapper.Map<Database.EntityModels.RankPermission>(model);
-            updatedPermission.Id = Id;
-            updatedPermission.CreatedAt = permission.CreatedAt;
-            updatedPermission.CreatedBy = permission.CreatedBy;
-            updatedPermission.UpdatedAt = DateTime.Now;
-            updatedPermission.UpdatedBy = "SYSTEM";
-            await this._orgRepository.UpdateRankPermission(updatedPermission);
+            if (permission != null)
+            {
+                var updatedPermission = _mapper.Map<Database.EntityModels.RankPermission>(model);
+                updatedPermission.Id = Id;
+                updatedPermission.CreatedAt = permission.CreatedAt;
+                updatedPermission.CreatedBy = permission.CreatedBy;
+                updatedPermission.UpdatedAt = DateTime.Now;
+                updatedPermission.UpdatedBy = "SYSTEM";
+                await this._orgRepository.UpdateRankPermission(updatedPermission);
+            }
         }
 
         public async Task RemoveRankPermission(int Id)
