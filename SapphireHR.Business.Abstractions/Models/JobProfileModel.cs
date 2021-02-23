@@ -15,5 +15,8 @@ namespace SapphireHR.Business.Abstractions.Models
         public double SalaryMin { get; set; }
         public double SalaryMax { get; set; }
         public double AverageSalary { get; set; }
+
+        public RankModel Rank { get; set; }
+        public DepartmentModel Department { get; set; }
     }
 }

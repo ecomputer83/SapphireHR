@@ -16,7 +16,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<List<JobProfile>> GetJobProfiles(int companyId)
         {
-            return await _context.Set<JobProfile>().Where(c=>c.CompanyId == companyId).ToListAsync();
+            return await _context.Set<JobProfile>().Include(c=>c.Rank).Include(d=>d.Department).Where(c=>c.CompanyId == companyId).ToListAsync();
         }
         public async Task<List<JobCategory>> GetJobCategories()
         {
