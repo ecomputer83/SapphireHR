@@ -29,7 +29,7 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet]
-
+        [Route("GetJobProfiles")]
         public async Task<IActionResult> GetJobProfiles(int id)
         {
             try
