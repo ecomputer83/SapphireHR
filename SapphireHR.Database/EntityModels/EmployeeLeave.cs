@@ -8,7 +8,7 @@ namespace SapphireHR.Database.EntityModels
     public class EmployeeLeave : BaseEntity
     {
         public int EmployeeId { get; set; }
-
+        public int CompanyId { get; set; }
         public int LeaveTypeId { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }

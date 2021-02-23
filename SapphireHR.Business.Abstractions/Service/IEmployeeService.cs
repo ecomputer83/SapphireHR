@@ -38,6 +38,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddEmployeeLeave(EmployeeLeaveModel model);
         Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id);
         Task<EmployeeLeaveModel> GetEMployeeLeave(int id);
+        Task<List<EmployeeLeaveModel>> GetEmployeeLeaves(int id);
         Task RemoveEmployeeLeave(int id);
         Task AddEmployeePension(EmployeePensionModel model);
         Task UpdateEmployeePension(EmployeePensionModel model, int id);

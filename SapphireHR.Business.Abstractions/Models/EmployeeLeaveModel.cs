@@ -7,6 +7,7 @@ namespace SapphireHR.Business.Abstractions.Models
     public class EmployeeLeaveModel
     {
         public int Id { get; set; }
+        public int CompanyId { get; set;  }
         public int EmployeeId { get; set; }
         public int LeaveTypeId { get; set; }
         public DateTime FromDate { get; set; }

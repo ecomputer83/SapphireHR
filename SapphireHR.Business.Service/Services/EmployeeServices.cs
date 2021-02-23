@@ -267,6 +267,13 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<List<EmployeeLeaveModel>> GetEmployeeLeaves(int id)
+        {
+            var leaves = await _employeeRepository.GetEMployeeLeaves(id);
+            var res = _mapper.Map<List<EmployeeLeaveModel>>(leaves);
+            return res;
+        }
+
         public async Task<EmployeePensionModel> GetEmployeePension(int id)
         {
             var pen = await _employeeRepository.GetEmployeePension(id);

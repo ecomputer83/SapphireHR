@@ -347,6 +347,11 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<EmployeeLeave>().FindAsync(id);
         }
 
+        public async Task<List<EmployeeLeave>> GetEMployeeLeaves(int id)
+        {
+            return await _context.Set<EmployeeLeave>().Include(e=>e.Employee).Include(l=>l.LeaveType).Where(l => l.CompanyId == id).ToListAsync();
+        }
+
         public async Task RemoveEmployeeLeave(int id)
         {
             var data = await _context.Set<EmployeeLeave>().FindAsync(id);
