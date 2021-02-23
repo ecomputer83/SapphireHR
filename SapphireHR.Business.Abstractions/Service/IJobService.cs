@@ -14,14 +14,14 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateJobProfile(JobProfileModel model, int Id);
         Task RemoveJobProfile(int id);
 
-        Task<List<JobProfessionModel>> GetJobProfessions();
+        Task<JobProfessionModel> GetJobProfessionByProfileId(int profileId);
         Task<JobProfessionModel> GetJobProfessionById(int Id);
         Task AddJobProfession(JobProfessionModel model);
         Task UpdateJobProfession(JobProfessionModel model, int Id);
         Task RemoveJobProfession(int id);
 
 
-        Task<List<JobSkillLevelModel>> GetJobSkillLevels();
+        Task<List<JobSkillLevelModel>> GetJobSkillLevels(int profileId);
         Task<JobSkillLevelModel> GetJobSkillLevelById(int Id);
         Task AddJobSkillLevel(JobSkillLevelModel model);
         Task UpdateJobSkillLevel(JobSkillLevelModel model, int Id);

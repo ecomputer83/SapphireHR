@@ -49,9 +49,9 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
 
-        public async Task<List<JobProfession>> GetJobProfessions()
+        public async Task<JobProfession> GetJobProfessionbyProfileId(int Id)
         {
-            return await _context.Set<JobProfession>().ToListAsync();
+            return await _context.Set<JobProfession>().FirstOrDefaultAsync(c => c.JobProfileId == Id);
         }
         public async Task<JobProfession> GetJobProfessionById(int id)
         {
@@ -80,9 +80,9 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
 
-        public async Task<List<JobSkillLevel>> GetJobSkillLevels()
+        public async Task<List<JobSkillLevel>> GetJobSkillLevels(int profileId)
         {
-            return await _context.Set<JobSkillLevel>().ToListAsync();
+            return await _context.Set<JobSkillLevel>().Where(c=>c.JobProfileId == profileId).ToListAsync();
         }
         public async Task<JobSkillLevel> GetJobSkillLevelById(int id)
         {

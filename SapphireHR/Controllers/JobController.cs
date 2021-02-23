@@ -62,12 +62,12 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet]
-        [Route("getJobProfessions")]
-        public async Task<IActionResult> GetJobProfessions()
+        [Route("GetJobProfessionByProfileId")]
+        public async Task<IActionResult> GetJobProfessionByProfileId(int id)
         {
             try
             {
-                var resource = await _jobService.GetJobProfessions();
+                var resource = await _jobService.GetJobProfessionByProfileId(id);
                 return Ok(resource);
             }
             catch (Exception ex)
@@ -80,11 +80,11 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getJobSkillLevels")]
-        public async Task<IActionResult> GetJobSkillLevels()
+        public async Task<IActionResult> GetJobSkillLevels(int id)
         {
             try
             {
-                var resource = await _jobService.GetJobSkillLevels();
+                var resource = await _jobService.GetJobSkillLevels(id);
                 return Ok(resource);
             }
             catch (Exception ex)
@@ -96,7 +96,7 @@ namespace SapphireHR.Web.Controllers
 
         
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getVacancies")]
         public async Task<IActionResult> GetVacancies(int id)
@@ -113,7 +113,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getVacancyById")]
         public async Task<IActionResult> GetVacancyById(int id)
@@ -132,7 +132,7 @@ namespace SapphireHR.Web.Controllers
 
         
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getJobSkillLevelById")]
         public async Task<IActionResult> GetJobSkillLevelById(int id)
@@ -149,7 +149,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("GetJobProfessionById")]
         public async Task<IActionResult> GetJobProfessionById(int id)
@@ -166,7 +166,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getJobProfileById")]
         public async Task<IActionResult> GetJobProfileById(int id)
@@ -183,7 +183,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] JobProfileModel model)
         {
