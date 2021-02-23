@@ -79,7 +79,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
+        [HttpPut]
         [Route("updaterank/{id}")]
         public async Task<IActionResult> UpdateRank([FromBody] RankModel model, int Id)
         {
