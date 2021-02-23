@@ -3,6 +3,7 @@ using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,10 @@ namespace SapphireHR.Data.Service.Repositories
     {
         public JobRepository(ApplicationDbContext context) : base(context)
         {
+        }
+        public async Task<List<JobProfile>> GetJobProfiles(int companyId)
+        {
+            return await _context.Set<JobProfile>().Where(c=>c.CompanyId == companyId).ToListAsync();
         }
         public async Task<List<JobCategory>> GetJobCategories()
         {
@@ -106,9 +111,9 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
 
-        public async Task<List<Vacancy>> GetVacancies()
+        public async Task<List<Vacancy>> GetVacancies(int id)
         {
-            return await _context.Set<Vacancy>().ToListAsync();
+            return await _context.Set<Vacancy>().Include(c=>c.JobProfile).Where(c=>c.JobProfile.CompanyId == id).ToListAsync();
         }
         public async Task<Vacancy> GetVacancyById(int id)
         {

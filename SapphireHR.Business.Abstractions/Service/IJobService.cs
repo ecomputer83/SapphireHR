@@ -8,7 +8,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IJobService
     {
-        Task<List<JobProfileModel>> GetJobProfiles();
+        Task<List<JobProfileModel>> GetJobProfiles(int companyId);
         Task<JobProfileModel> GetJobProfileById(int Id);
         Task<int> AddJobProfile(JobProfileModel model);
         Task UpdateJobProfile(JobProfileModel model, int Id);
@@ -28,7 +28,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task RemoveJobSkillLevel(int id);
 
 
-        Task<List<VacancyModel>> GetVacancies();
+        Task<List<VacancyModel>> GetVacancies(int id);
         Task<VacancyModel> GetVacancyById(int Id);
         Task AddVacancy(VacancyModel model);
         Task UpdateVacancy(VacancyModel model, int Id);

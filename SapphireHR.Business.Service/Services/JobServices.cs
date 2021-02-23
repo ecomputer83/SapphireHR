@@ -78,9 +78,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<JobProfileModel>(result);
         }
 
-        public async Task<List<JobProfileModel>> GetJobProfiles()
+        public async Task<List<JobProfileModel>> GetJobProfiles(int companyId)
         {
-            var result = await this._jobRepsitory.GetAll();
+            var result = await this._jobRepsitory.GetJobProfiles(companyId);
             return _mapper.Map<List<JobProfileModel>>(result);
         }
 
@@ -96,9 +96,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<JobSkillLevelModel>>(result);
         }
 
-        public async Task<List<VacancyModel>> GetVacancies()
+        public async Task<List<VacancyModel>> GetVacancies(int id)
         {
-            var result = await this._jobRepsitory.GetVacancies();
+            var result = await this._jobRepsitory.GetVacancies(id);
             return _mapper.Map<List<VacancyModel>>(result);
         }
 

@@ -29,11 +29,28 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet]
-        public async Task<IActionResult> Post()
+
+        public async Task<IActionResult> GetJobProfiles(int id)
         {
             try
             {
-                var resource = await _jobService.GetJobProfiles();
+                var resource = await _jobService.GetJobProfiles(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpGet]
+        public async Task<IActionResult> Get(int Id)
+        {
+            try
+            {
+                var resource = await _jobService.GetJobProfileById(Id);
                 return Ok(resource);
             }
             catch (Exception ex)
@@ -82,11 +99,11 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("getVacancies")]
-        public async Task<IActionResult> GetVacancies()
+        public async Task<IActionResult> GetVacancies(int id)
         {
             try
             {
-                var resource = await _jobService.GetVacancies();
+                var resource = await _jobService.GetVacancies(id);
                 return Ok(resource);
             }
             catch (Exception ex)
