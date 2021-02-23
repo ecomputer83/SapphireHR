@@ -289,7 +289,7 @@ namespace SapphireHR.Web.Controllers
                 }
                 //add rank
                 var rankId = 0;
-                var rank = await _organizationService.GetRank("Resources Manager");
+                var rank = await _organizationService.GetRank(org.Id, "Resources Manager");
                 if (rank == null)
                 {
                     var rmodel = new RankModel

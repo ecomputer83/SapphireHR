@@ -125,9 +125,9 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<RankModel>(ranks);
         }
 
-        public async Task<RankModel> GetRank(string name)
+        public async Task<RankModel> GetRank(int orgId, string name)
         {
-            var ranks = await this._orgRepository.ReadRank(name);
+            var ranks = await this._orgRepository.ReadRank(orgId, name);
             return _mapper.Map<RankModel>(ranks);
         }
 

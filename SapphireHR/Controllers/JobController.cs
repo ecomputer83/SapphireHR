@@ -27,7 +27,7 @@ namespace SapphireHR.Web.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("GetJobProfiles")]
         public async Task<IActionResult> GetJobProfiles(int id)
@@ -44,7 +44,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         public async Task<IActionResult> Get(int Id)
         {
@@ -60,7 +60,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("GetJobProfessionByProfileId")]
         public async Task<IActionResult> GetJobProfessionByProfileId(int id)
