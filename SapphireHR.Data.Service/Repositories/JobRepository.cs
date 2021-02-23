@@ -82,7 +82,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<JobSkillLevel>> GetJobSkillLevels(int profileId)
         {
-            return await _context.Set<JobSkillLevel>().Where(c=>c.JobProfileId == profileId).ToListAsync();
+            return await _context.Set<JobSkillLevel>().Include(s=>s.SkillGrade).Include(s=>s.Skill).ThenInclude(a=>a.SkillType).Where(c=>c.JobProfileId == profileId).ToListAsync();
         }
         public async Task<JobSkillLevel> GetJobSkillLevelById(int id)
         {
