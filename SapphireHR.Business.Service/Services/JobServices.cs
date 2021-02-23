@@ -28,14 +28,15 @@ namespace SapphireHR.Business.Service.Services
             await _jobRepsitory.AddJobProfession(datamodel);
         }
 
-        public async Task AddJobProfile(JobProfileModel model)
+        public async Task<int> AddJobProfile(JobProfileModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.JobProfile>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await _jobRepsitory.Add(datamodel);
+            datamodel = await _jobRepsitory.Add(datamodel);
+            return datamodel.Id;
         }
 
         public async Task AddJobSkillLevel(JobSkillLevelModel model)

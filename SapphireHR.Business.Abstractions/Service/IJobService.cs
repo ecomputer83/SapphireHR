@@ -10,7 +10,7 @@ namespace SapphireHR.Business.Abstractions.Service
     {
         Task<List<JobProfileModel>> GetJobProfiles();
         Task<JobProfileModel> GetJobProfileById(int Id);
-        Task AddJobProfile(JobProfileModel model);
+        Task<int> AddJobProfile(JobProfileModel model);
         Task UpdateJobProfile(JobProfileModel model, int Id);
         Task RemoveJobProfile(int id);
 

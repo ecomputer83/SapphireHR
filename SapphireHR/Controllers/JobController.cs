@@ -172,8 +172,8 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                await _jobService.AddJobProfile(model);
-                return Ok();
+                var id = await _jobService.AddJobProfile(model);
+                return Ok(id);
             }
             catch (Exception ex)
             {
