@@ -9,5 +9,8 @@ namespace SapphireHR.Business.Abstractions.Models
         public int JobProfileId { get; set; }
         public int SkillsId { get; set; }
         public int SkillGradeId { get; set; }
+
+        public SkillModel Skill { get; set; }
+        public SkillGradeModel SkillGrade { get; set; }
     }
 }
