@@ -12,6 +12,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public int LeaveTypeId { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public int Days { get; set; }
         public string Reason { get; set; }
         public int? ApprovedBy { get; set; }
         public int Status { get; set; }
