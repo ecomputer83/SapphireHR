@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class VacancyModel: BaseModel
     {
+        public int CompanyId { get; set; }
         public int JobProfileId { get; set; }
         public int DesignationId { get; set; }
         public int Quantity { get; set; }
