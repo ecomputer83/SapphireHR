@@ -18,5 +18,6 @@ namespace SapphireHR.Business.Abstractions.Models
 
         public RankModel Rank { get; set; }
         public DepartmentModel Department { get; set; }
+        public CompanyModel Company { get; set; }
     }
 }
