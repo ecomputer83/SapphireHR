@@ -20,5 +20,7 @@ namespace SapphireHR.Database.EntityModels
         public Rank Rank { get; set; }
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+        [ForeignKey("CompanyId")]
+        public CompanyInfo Company { get; set; }
     }
 }

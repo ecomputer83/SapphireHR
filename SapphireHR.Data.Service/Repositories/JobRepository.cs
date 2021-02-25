@@ -79,6 +79,36 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<JobRequisition> GetJobRequisitionbyVacancyId(int Id)
+        {
+            return await _context.Set<JobRequisition>().FirstOrDefaultAsync(c => c.VacancyId == Id);
+        }
+        public async Task<JobRequisition> GetJobRequisitionById(int id)
+        {
+            return await _context.Set<JobRequisition>().FindAsync(id);
+        }
+        public async Task AddJobRequisition(JobRequisition model)
+        {
+            this._context.Set<Database.EntityModels.JobRequisition>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateJobRequisition(JobRequisition model)
+        {
+            this._context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        public async Task RemoveJobRequisition(int id)
+        {
+            var entity = await _context.Set<JobRequisition>().FindAsync(id);
+            if (entity == null)
+            {
+                await Task.FromException(new Exception("This job requisition doesn't exists"));
+            }
+
+            _context.Set<JobRequisition>().Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+
 
         public async Task<List<JobSkillLevel>> GetJobSkillLevels(int profileId)
         {
@@ -115,14 +145,23 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<Vacancy>().Include(c=>c.JobProfile).Where(c=>c.JobProfile.CompanyId == id).ToListAsync();
         }
+        public async Task<List<Vacancy>> GetVacanciesByOrgId(int id)
+        {
+            return await _context.Set<Vacancy>().Include(v=>v.Designation).Include(c => c.JobProfile).ThenInclude(p=>p.Company).Where(c => c.JobProfile.Company.OrganizationId == id).ToListAsync();
+        }
         public async Task<Vacancy> GetVacancyById(int id)
         {
-            return await _context.Set<Vacancy>().FindAsync(id);
+            var vacancy = await _context.Set<Vacancy>().FindAsync(id);
+            vacancy.JobRequisition = await GetJobRequisitionById(vacancy.Id);
+
+            return vacancy;
         }
-        public async Task AddVacancy(Vacancy model)
+        public async Task<int> AddVacancy(Vacancy model)
         {
-            this._context.Set<Database.EntityModels.Vacancy>().Add(model);
+            var data = this._context.Set<Database.EntityModels.Vacancy>().Add(model);
             await _context.SaveChangesAsync();
+
+            return data.Entity.Id;
         }
         public async Task UpdateVacancy(Vacancy model)
         {

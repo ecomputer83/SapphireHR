@@ -20,6 +20,12 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateJobProfession(JobProfessionModel model, int Id);
         Task RemoveJobProfession(int id);
 
+        Task<JobRequisitionModel> GetJobRequisitionByVacancyId(int vacancyId);
+        Task<JobRequisitionModel> GetJobRequisitionById(int Id);
+        Task AddJobRequisition(JobRequisitionModel model);
+        Task UpdateJobRequisition(JobRequisitionModel model, int Id);
+        Task RemoveJobRequisition(int id);
+
 
         Task<List<JobSkillLevelModel>> GetJobSkillLevels(int profileId);
         Task<JobSkillLevelModel> GetJobSkillLevelById(int Id);
@@ -30,7 +36,8 @@ namespace SapphireHR.Business.Abstractions.Service
 
         Task<List<VacancyModel>> GetVacancies(int id);
         Task<VacancyModel> GetVacancyById(int Id);
-        Task AddVacancy(VacancyModel model);
+        Task<List<VacancyModel>> GetVacanciesByOrgId(int id);
+        Task<int> AddVacancy(VacancyModel model);
         Task UpdateVacancy(VacancyModel model, int Id);
         Task RemoveVacancy(int id);
     }

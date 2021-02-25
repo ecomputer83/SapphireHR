@@ -13,10 +13,19 @@ namespace SapphireHR.Database.EntityModels
         public int Quantity { get; set; }
         public string Description { get; set; }
         public string Scores { get; set; }
+        public int RequestedBy { get; set; }
+        public DateTime RequestedOn { get; set; }
+        public DateTime PeriodFrom { get; set; }
+        public DateTime PeriodTo { get; set; }
+
+        [ForeignKey("RequestBy")]
+        public Employee Requestor { get; set; }
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
         [ForeignKey("DesignationId")]
         public JobProfile JobProfile { get; set; }
+
+        public virtual JobRequisition JobRequisition { get; set; }
     }
 }
