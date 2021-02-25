@@ -7,9 +7,9 @@ namespace SapphireHR.Database.EntityModels
 {
     public class JobRequisition : BaseEntity
     {
-        public int JobProfileId { get; set; }
+        public int VacancyId { get; set; }
         public string Duties { get; set; }
-        [ForeignKey("JobProfileId")]
-        public JobProfile JobProfile { get;set; }
+        [ForeignKey("VacancyId")]
+        public Vacancy Vacancy { get;set; }
     }
 }

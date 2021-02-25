@@ -50,14 +50,15 @@ namespace SapphireHR.Business.Service.Services
         }
 
 
-        public async Task AddVacancy(VacancyModel model)
+        public async Task<int> AddVacancy(VacancyModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.Vacancy>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await _jobRepsitory.AddVacancy(datamodel);
+            var Id = await _jobRepsitory.AddVacancy(datamodel);
+            return Id;
         }
 
         public async Task<JobProfessionModel> GetJobProfessionById(int id)
@@ -99,6 +100,12 @@ namespace SapphireHR.Business.Service.Services
         public async Task<List<VacancyModel>> GetVacancies(int id)
         {
             var result = await this._jobRepsitory.GetVacancies(id);
+            return _mapper.Map<List<VacancyModel>>(result);
+        }
+
+        public async Task<List<VacancyModel>> GetVacanciesByOrgId(int id)
+        {
+            var result = await this._jobRepsitory.GetVacanciesByOrgId(id);
             return _mapper.Map<List<VacancyModel>>(result);
         }
 
@@ -160,6 +167,41 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _jobRepsitory.UpdateVacancy(datamodel);
+        }
+
+        public async Task<JobRequisitionModel> GetJobRequisitionByVacancyId(int vacancyId)
+        {
+            var result = await this._jobRepsitory.GetJobRequisitionbyVacancyId(vacancyId);
+            return _mapper.Map<JobRequisitionModel>(result);
+        }
+
+        public async Task<JobRequisitionModel> GetJobRequisitionById(int Id)
+        {
+            var result = await this._jobRepsitory.GetJobRequisitionById(Id);
+            return _mapper.Map<JobRequisitionModel>(result);
+        }
+
+        public async Task AddJobRequisition(JobRequisitionModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.JobRequisition>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.AddJobRequisition(datamodel);
+        }
+
+        public async Task UpdateJobRequisition(JobRequisitionModel model, int Id)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.JobRequisition>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateJobRequisition(datamodel);
+        }
+
+        public async Task RemoveJobRequisition(int id)
+        {
+            await this._jobRepsitory.RemoveJobRequisition(id);
         }
     }
 }
