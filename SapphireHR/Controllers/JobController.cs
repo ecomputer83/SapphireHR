@@ -116,11 +116,17 @@ namespace SapphireHR.Web.Controllers
         
         [HttpGet]
         [Route("getVacanciesByOrg")]
-        public async Task<IActionResult> GetVacanciesByOrg(int id)
+        public async Task<IActionResult> GetVacanciesByOrg()
         {
             try
             {
-                var resource = await _jobService.GetVacancies(id);
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                var resource = await _jobService.GetVacancies(org.Id);
                 return Ok(resource);
             }
             catch (Exception ex)

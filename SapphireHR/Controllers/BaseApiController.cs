@@ -28,6 +28,7 @@ namespace SapphireHR.Web.Controllers
             return await _organizationService.GetOrganizationByHostHeader(host);
         }
 
+        [NonAction]
         public string GetClientUrl()
         {
             var host = Request.Headers["Referer"];
