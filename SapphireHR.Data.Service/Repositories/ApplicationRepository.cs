@@ -15,6 +15,57 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
+
+
+        public async Task<Application> GetApplicationLogin(string username, string password)
+        {
+            return await _context.Set<ApplicationLogin>().Include(c=>c.Application)
+                .Where(a=>a.UserName.ToLower() == username.ToLower() 
+                && a.Password.ToLower() == password.ToLower()).Select(p=>p.Application).FirstOrDefaultAsync();
+        }
+        
+        public async Task AddApplicationLogin(ApplicationLogin model)
+        {
+            _context.Set<ApplicationLogin>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task AddApplication(Application model)
+        {
+            _context.Set<Application>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateApplication(Application model, int Id)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Application> GetApplication(int Id)
+        {
+            return await _context.Set<Application>().FindAsync(Id);
+        }
+
+        public async Task<List<Application>> GetApplicationByCompany(int id)
+        {
+            return await _context.Set<Application>().Where(c=>c.Vacancy.CompanyId == id).ToListAsync();
+        }
+
+        public async Task RemoveApplication(int Id)
+        {
+            var data = await _context.Set<Application>().FindAsync(Id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<Application>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+
         public Task<Application> GetApplicationDetail(int ApplicationId)
         {
             return Task.FromResult(new Application());
@@ -36,7 +87,6 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<ApplicationFaceToView>().FindAsync(Id);
         }
-
 
         public async Task RemoveApplicationFaceToView(int Id)
         {

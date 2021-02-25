@@ -65,6 +65,11 @@ namespace SapphireHR.Database
         public DbSet<TerminationType> TerminationTypes { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
-
+        public virtual DbSet<MailMessage> MailMessage { get; set; }
+        public virtual DbSet<MailMessageAddress> MailMessageAddress { get; set; }
+        public virtual DbSet<MailMessageAttachment> MailMessageAttachment { get; set; }
+        public virtual DbSet<MailMessageQueue> MailMessageQueue { get; set; }
+        public virtual DbSet<MailTemplate> MailTemplate { get; set; }
     }
 }
+

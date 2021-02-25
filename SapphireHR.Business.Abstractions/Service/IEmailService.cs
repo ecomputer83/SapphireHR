@@ -13,5 +13,6 @@ namespace SapphireHR.Business.Abstractions.Service
         Task SendEmailConfirmationAsync(string Email, string Code);
 
         Task SendPasswordResetAsync(string Email, string Code);
+        Task SendApplicationLogin(string Org, string Username, string Password, string ApplicantEmail, string Url);
     }
 }

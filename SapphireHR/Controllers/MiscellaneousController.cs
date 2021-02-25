@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Business.DocumentManager.Documents;
+using SapphireHR.Business.DocumentManager.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,12 @@ namespace SapphireHR.Web.Controllers
         private readonly ILogger _logger;
         IMiscellaneousService _miscellaneousService;
         IOrganizationService _organizationService;
+        FileManager _fileManager;
 
-        public MiscellaneousController(ILogger<MiscellaneousController> logger, IMiscellaneousService miscellaneousService, IOrganizationService organizationService) : base(organizationService)
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, FileManager fileManager, IMiscellaneousService miscellaneousService, IOrganizationService organizationService) : base(organizationService)
         {
             _logger = logger;
+            _fileManager = fileManager;
             _miscellaneousService = miscellaneousService;
             _organizationService = organizationService;
         }
@@ -144,10 +148,9 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
         [HttpPost]
-        [Route("createApplicant")]
-        public async Task<IActionResult> PostApplicant([FromBody] ApplicantModel model)
+        [Route("createApplicant/{companyId}")]
+        public async Task<IActionResult> PostApplicant([FromBody] ApplicantModel model, int companyId)
         {
             try
             {
@@ -157,7 +160,18 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
                 model.OrganizationId = org.Id;
-                await _miscellaneousService.AddApplicant(model);
+                var Id = await _miscellaneousService.AddApplicant(model);
+
+                // TODO Upload CV to documentManager
+                var blob = new BlobStore
+                {
+                    FileName = model.Uploadfile.FileName,
+                    ContentType = model.Uploadfile.ContentType,
+                    FileLength = model.Uploadfile.Length,
+                    FileStream = model.Uploadfile.OpenReadStream()
+                };
+
+                await _fileManager.UploadFileToApplicantdFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), companyId.ToString(), Id.ToString());
                 return Ok();
             }
             catch (Exception ex)

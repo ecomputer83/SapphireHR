@@ -26,7 +26,41 @@ namespace SapphireHR.Web.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Administrator")]
+
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllApplication(int id)
+        {
+            try
+            {
+                var resource = await _applicationService.GetAllApplication(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetApplicationbById(int id)
+        {
+            try
+            {
+                var resource = await _applicationService.GetApplicationById(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationScore(int id)
         {
@@ -42,7 +76,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationFaceToView(int id)
         {
@@ -58,7 +92,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationInterview(int id)
         {
@@ -74,7 +108,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationSkill(int id)
         {
@@ -90,7 +124,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationNegotiation(int id)
         {
@@ -105,7 +139,33 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        [Authorize(Roles = "Administrator")]
+
+
+
+        
+        [HttpPost]
+        public async Task<IActionResult> PostApplication([FromBody] ApplicationModel payload)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                var url = GetClientUrl() + "applicant-login";
+                await _applicationService.AddApplication(org.Id, payload, url);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostApplicationScore([FromBody] ApplicationScoreModel payload)
         {
@@ -121,7 +181,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostApplicationFaceToView([FromBody] ApplicationFaceToViewModel payload)
         {
@@ -137,7 +197,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostApplicationInterview([FromBody] ApplicationInterviewModel payload)
         {
@@ -153,7 +213,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostApplicationSkills([FromBody] ApplicationSkillModel payload)
         {
@@ -169,7 +229,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostApplicationNegotiation([FromBody] ApplicationNegotiationModel payload)
         {
@@ -185,7 +245,10 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+
+
+
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplicationScore(int id, [FromBody] ApplicationScoreModel payload)
         {
@@ -201,8 +264,23 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutApplication(int id, [FromBody] ApplicationModel payload)
+        {
+            try
+            {
+                await _applicationService.UpdateApplication(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplicationFaceToView(int id, [FromBody] ApplicationFaceToViewModel payload)
         {
@@ -218,7 +296,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplicationInterview(int id, [FromBody] ApplicationInterviewModel payload)
         {
@@ -234,7 +312,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplicationSkills(int id, [FromBody] ApplicationSkillModel payload)
         {
@@ -250,7 +328,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutApplicationNegotiation(int id, [FromBody] ApplicationNegotiationModel payload)
         {
@@ -266,7 +344,10 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+
+
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplicationScore(int id)
         {
@@ -282,7 +363,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplicationNegotiation(int id)
         {
@@ -298,7 +379,23 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteApplication(int id)
+        {
+            try
+            {
+                await _applicationService.RemoveApplication(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplicationSkills(int id)
         {
@@ -314,7 +411,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplicationInterview(int id)
         {
@@ -330,7 +427,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteApplicationFaceToView(int id)
         {

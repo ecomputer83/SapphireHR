@@ -14,11 +14,18 @@ namespace SapphireHR.Business.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly ApplicationRepository _applicationRepository;
+        private readonly OrganizationRepository _organizationRepository;
+        private readonly ApplicantRepository _applicantRepository;
+        private readonly IEmailService _emailService;
 
-        public ApplicationServices(IMapper mapper, ApplicationRepository applicationStore)
+        public ApplicationServices(IMapper mapper, ApplicationRepository applicationStore, ApplicantRepository applicantRepository,
+            OrganizationRepository organizationRepository, IEmailService emailService)
         {
             _mapper = mapper;
             _applicationRepository = applicationStore;
+            _organizationRepository = organizationRepository;
+            _applicantRepository = applicantRepository;
+            _emailService = emailService;
         }
 
         public async Task AddApplicationScore(ApplicationScoreModel model)
@@ -181,11 +188,90 @@ namespace SapphireHR.Business.Service.Services
             await _applicationRepository.UpdateApplicatioFaceToView(data, id);
         }
 
-       
+
         public async Task UpdateAddApplicationSkills(ApplicationSkillModel model, int id)
         {
             var data = await _applicationRepository.ReadApplicationSkills(id);
             await _applicationRepository.UpdateApplicationSkills(data, id);
+        }
+
+        public async Task AddApplicationLogin(ApplicationLoginModel model)
+        {
+            var data = _mapper.Map<ApplicationLogin>(model);
+            data.CreatedAt = DateTime.Now;
+            data.UpdatedAt = DateTime.Now;
+            data.CreatedBy = "SYSSTEM";
+            data.UpdatedBy = "SYSTEM";
+            await _applicationRepository.AddApplicationLogin(data);
+        }
+
+        public async Task<ApplicationModel> GetApplicationLogin(string username, string password)
+        {
+            var result = await _applicationRepository.GetApplicationLogin(username, password);
+            var data = _mapper.Map<ApplicationModel>(result);
+            return data;
+        }
+
+        public async Task<int> AddApplication(int OrgId, ApplicationModel model, string Url)
+        {
+            var data = _mapper.Map<Application>(model);
+            data.CreatedAt = DateTime.Now;
+            data.UpdatedAt = DateTime.Now;
+            data.CreatedBy = "SYSSTEM";
+            data.UpdatedBy = "SYSTEM";
+            data = await _applicationRepository.Add(data);
+
+            // Get OrganizationDetails
+            var org = await _organizationRepository.Get(OrgId);
+
+            // Get Applicant Details
+            var applicant = await _applicantRepository.Get(model.ApplicantId);
+            //Generate Application Login
+            var generator = new RandomGenerator();
+            var loginmodel = new ApplicationLogin
+            {
+                ApplicationId = data.Id,
+                UserName = generator.RandomString(15),
+                Password = generator.RandomPassword()
+            };
+
+            await _applicationRepository.AddApplicationLogin(loginmodel);
+
+            //Send Application Login to Applicant
+            await _emailService.SendApplicationLogin(org.Name, loginmodel.UserName, loginmodel.Password, applicant.Email, Url);
+
+            return data.Id;
+        }
+    
+
+        public async Task<ApplicationModel> GetApplicationById(int id)
+        {
+            var result = await _applicationRepository.GetApplication(id);
+            var appFtv = _mapper.Map<ApplicationModel>(result);
+            return appFtv;
+        }
+
+        public async Task UpdateApplication(ApplicationModel model, int id)
+        {
+            var data = await _applicationRepository.Get(id);
+            data.CoverLetter = model.CoverLetter;
+            data.Document = model.Document;
+            data.ExpectedSalary = model.ExpectedSalary;
+            data.NoticePeriod = model.NoticePeriod;
+            data.StartDate = model.StartDate;
+            await _applicationRepository.UpdateApplication(data, id);
+        }
+
+        public async Task<List<ApplicationModel>> GetAllApplication(int companyId)
+        {
+            var result = await _applicationRepository.GetApplicationByCompany(companyId);
+            var appInterview = _mapper.Map<List<ApplicationModel>>(result);
+            return appInterview;
+        }
+
+        public async Task RemoveApplication(int id)
+        {
+            await _applicationRepository.RemoveApplication(id);
         }
     }
 }

@@ -30,14 +30,15 @@ namespace SapphireHR.Business.Service.Services
             var data = await _applicantRepository.GetApplicants(orgId);
             return _mapper.Map<List<ApplicantModel>>(data);
         }
-        public async Task AddApplicant(ApplicantModel model)
+        public async Task<int> AddApplicant(ApplicantModel model)
         {
             var data = _mapper.Map<Applicant>(model);
             data.CreatedAt = DateTime.Now;
             data.UpdatedAt = DateTime.Now;
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
-            await _applicantRepository.Add(data);
+            data = await _applicantRepository.Add(data);
+            return data.Id;
         }
 
         public async Task<int> AddDepartment(DepartmentModel model)

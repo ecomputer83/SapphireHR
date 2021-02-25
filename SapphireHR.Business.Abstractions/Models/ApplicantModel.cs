@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace SapphireHR.Business.Abstractions.Models
@@ -16,5 +18,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Phone2 { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public IFormFile Uploadfile { get; set; }
     }
 }

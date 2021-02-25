@@ -8,7 +8,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IMiscellaneousService
     {
-        Task AddApplicant(ApplicantModel model);
+        Task<int> AddApplicant(ApplicantModel model);
         Task UpdateApplicant(ApplicantModel model, int id);
         Task<ApplicantModel> GetApplicant(int id);
         Task<List<ApplicantModel>> GetApplicants(int orgId);
