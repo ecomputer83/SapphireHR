@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SapphireHR.Business.Abstractions;
 using SapphireHR.Business.Abstractions.Service;
-using SapphireHR.Data.Service;
+using SapphireHR.Data.Service.Repositories;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;

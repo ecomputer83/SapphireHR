@@ -30,6 +30,7 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<DepartmentRepository>();
                 services.AddScoped<DesignationRepository>();
                 services.AddScoped<ExpenseRespository>();
+                services.AddScoped<MailTemplateRepository>();
             }
             services.AddScoped<FileManager>();
             services.AddTransient<IApplicationService, ApplicationServices>();

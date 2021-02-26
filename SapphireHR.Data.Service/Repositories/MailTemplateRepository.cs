@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SapphireHR.Data.Service
+namespace SapphireHR.Data.Service.Repositories
 {
     public class MailTemplateRepository : GenericRepository<MailTemplate, ApplicationDbContext>
     {
