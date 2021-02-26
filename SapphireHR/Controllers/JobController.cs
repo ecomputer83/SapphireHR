@@ -263,7 +263,13 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                await _jobService.AddVacancy(model);
+                var id = await _jobService.AddVacancy(model);
+
+                var req = model.JobRequisition;
+                req.VacancyId = id;
+
+                await _jobService.AddJobRequisition(req);
+
                 return Ok();
             }
             catch (Exception ex)
@@ -281,6 +287,18 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _jobService.UpdateVacancy(model, model.Id);
+
+                if(model.JobRequisition != null)
+                {
+                    var req = await _jobService.GetJobRequisitionByVacancyId(model.Id);
+
+                    if(req != null)
+                    {
+                        req.Duties = model.JobRequisition.Duties;
+                        await _jobService.UpdateJobRequisition(req, model.Id);
+                    }
+                    
+                }
                 return Ok();
             }
             catch (Exception ex)

@@ -22,6 +22,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public DesignationModel Designation { get; set; }
         public JobProfileModel JobProfile { get; set; }
 
-        public virtual JobRequisitionModel JobRequisition { get; set; }
+        public JobRequisitionModel JobRequisition { get; set; }
     }
 }

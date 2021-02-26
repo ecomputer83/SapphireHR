@@ -81,7 +81,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<JobRequisition> GetJobRequisitionbyVacancyId(int Id)
         {
-            return await _context.Set<JobRequisition>().FirstOrDefaultAsync(c => c.VacancyId == Id);
+            return await _context.Set<JobRequisition>().AsNoTracking().FirstOrDefaultAsync(c => c.VacancyId == Id);
         }
         public async Task<JobRequisition> GetJobRequisitionById(int id)
         {
