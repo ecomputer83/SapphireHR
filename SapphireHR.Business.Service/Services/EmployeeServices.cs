@@ -205,17 +205,17 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<EmployeeResignationModel> GetEmployeeResignation(int id)
+        public async Task<List<EmployeeResignationModel>> GetEmployeeResignation(int id)
         {
             var bank = await _employeeRepository.GetEmployeeResignationById(id);
-            var res = _mapper.Map<EmployeeResignationModel>(bank);
+            var res = _mapper.Map<List<EmployeeResignationModel>>(bank);
             return res;
         }
 
-        public async Task<EmployeeTerminationModel> GetEmployeeTermination(int id)
+        public async Task<List<EmployeeTerminationModel>> GetEmployeeTermination(int id)
         {
             var bank = await _employeeRepository.GetEmployeeTerminationById(id);
-            var res = _mapper.Map<EmployeeTerminationModel>(bank);
+            var res = _mapper.Map<List<EmployeeTerminationModel>>(bank);
             return res;
         }
 
