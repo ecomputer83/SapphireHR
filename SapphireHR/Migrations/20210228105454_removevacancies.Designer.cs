@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireHR.Database;
 
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210228105454_removevacancies")]
+    partial class removevacancies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2684,6 +2686,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RequestBy")
+                        .HasColumnType("int");
+
                     b.Property<int>("RequestedBy")
                         .HasColumnType("int");
 
@@ -2706,11 +2711,9 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasIndex("DesignationId");
 
-                    b.HasIndex("JobProfileId");
+                    b.HasIndex("RequestBy");
 
-                    b.HasIndex("RequestedBy");
-
-                    b.ToTable("Vacancies");
+                    b.ToTable("Vacancy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -3445,15 +3448,13 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasOne("SapphireHR.Database.EntityModels.JobProfile", "JobProfile")
                         .WithMany()
-                        .HasForeignKey("JobProfileId")
+                        .HasForeignKey("DesignationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SapphireHR.Database.EntityModels.Employee", "Requestor")
                         .WithMany()
-                        .HasForeignKey("RequestedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RequestBy");
 
                     b.Navigation("Designation");
 
