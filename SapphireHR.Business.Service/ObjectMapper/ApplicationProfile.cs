@@ -29,7 +29,9 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<VacancyModel, Vacancy>().ReverseMap();
             CreateMap<JobProfessionModel, JobProfession>().ReverseMap();
             CreateMap<JobRequisitionModel, JobRequisition>().ReverseMap();
-
+            CreateMap<EmployeeTerminationModel, EmployeeTermination>().ReverseMap();
+            CreateMap<EmployeeResignationModel, EmployeeResignation>().ReverseMap();
+            CreateMap<TerminationTypeModel, TerminationType>().ReverseMap();
             CreateMap<SkillModel, Skill>().ReverseMap();
             CreateMap<SkillTypeModel, SkillType>().ReverseMap();
             CreateMap<SkillGradeModel, SkillGrade>().ReverseMap();

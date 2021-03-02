@@ -18,12 +18,12 @@ namespace SapphireHR.Database.EntityModels
         public DateTime PeriodFrom { get; set; }
         public DateTime PeriodTo { get; set; }
 
-        [ForeignKey("RequestBy")]
+        [ForeignKey("RequestedBy")]
         public Employee Requestor { get; set; }
 
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
-        [ForeignKey("DesignationId")]
+        [ForeignKey("JobProfileId")]
         public JobProfile JobProfile { get; set; }
 
         public virtual JobRequisition JobRequisition { get; set; }

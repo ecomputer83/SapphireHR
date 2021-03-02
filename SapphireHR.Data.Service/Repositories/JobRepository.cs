@@ -158,6 +158,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<int> AddVacancy(Vacancy model)
         {
+            model.JobRequisition = null;
             var data = this._context.Set<Database.EntityModels.Vacancy>().Add(model);
             await _context.SaveChangesAsync();
 

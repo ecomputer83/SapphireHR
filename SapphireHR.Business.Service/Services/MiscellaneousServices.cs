@@ -16,14 +16,16 @@ namespace SapphireHR.Business.Service.Services
         private readonly ApplicantRepository _applicantRepository;
         private readonly DepartmentRepository _departmentRepository;
         private readonly DesignationRepository _designationRepository;
+        private readonly ExitRepository _exitRepository;
 
         public MiscellaneousServices(IMapper mapper, ApplicantRepository applicantRepository, 
-                                    DepartmentRepository departmentRepository, DesignationRepository designationRepository)
+                                    DepartmentRepository departmentRepository, DesignationRepository designationRepository, ExitRepository exitRepository)
         {
             _mapper = mapper;
             _applicantRepository = applicantRepository;
             _departmentRepository = departmentRepository;
             _designationRepository = designationRepository;
+            _exitRepository = exitRepository;
         }
         public async Task<List<ApplicantModel>> GetApplicants(int orgId)
         {
@@ -38,6 +40,16 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
             data = await _applicantRepository.Add(data);
+            return data.Id;
+        }
+        public async Task<int> AddTerminationType(TerminationTypeModel model)
+        {
+            var data = _mapper.Map<TerminationType>(model);
+            data.CreatedAt = DateTime.Now;
+            data.UpdatedAt = DateTime.Now;
+            data.CreatedBy = "SYSTEM";
+            data.UpdatedBy = "SYSTEM";
+            data = await _exitRepository.Add(data);
             return data.Id;
         }
 
@@ -87,6 +99,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<DepartmentModel>>(data);
         }
 
+        public async Task<List<TerminationTypeModel>> GetTerminationTypes(int orgId)
+        {
+            var data = await _exitRepository.GetTerminationTypes(orgId);
+            return _mapper.Map<List<TerminationTypeModel>>(data);
+        }
+
         public async Task<DesignationModel> GetDesignation(string name)
         {
             var data = await _designationRepository.GetDesignation(name);
@@ -115,6 +133,11 @@ namespace SapphireHR.Business.Service.Services
             await _departmentRepository.Delete(id);
         }
 
+        public async Task RemoveTerminationType(int id)
+        {
+            await _exitRepository.Delete(id);
+        }
+
         public async Task RemoveDesignation(int id)
         {
             await _designationRepository.Delete(id);
@@ -141,6 +164,15 @@ namespace SapphireHR.Business.Service.Services
             var data = await _departmentRepository.GetNoTrackingDepartment(id);
             data.Name = new_data.Name;
             await _departmentRepository.Update(data);
+        }
+
+        public async Task UpdateTerminationType(TerminationTypeModel model, int id)
+        {
+
+            var new_data = _mapper.Map<TerminationType>(model);
+            var data = await _exitRepository.GetNoTrackingTerminationType(id);
+            data.Name = new_data.Name;
+            await _exitRepository.Update(data);
         }
 
         public async Task UpdateDesignation(DesignationModel model, int id)
