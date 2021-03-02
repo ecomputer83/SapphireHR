@@ -111,6 +111,28 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
+        [Route("getTerminationTypes")]
+        public async Task<IActionResult> GetTerminationTypes()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetTerminationTypes(org.Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
         [Route("getDesignations")]
         public async Task<IActionResult> GetDesignations()
         {
@@ -206,6 +228,29 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
+        [Route("createTerminationType")]
+        public async Task<IActionResult> PostTerminationType([FromBody] TerminationTypeModel model)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                model.OrganizationId = org.Id;
+                await _miscellaneousService.AddTerminationType(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPost]
         [Route("createDesignation")]
         public async Task<IActionResult> PostDesignation([FromBody] DesignationModel model)
         {
@@ -252,6 +297,23 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _miscellaneousService.UpdateDepartment(model, model.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpPut]
+        [Route("updateTerminationType")]
+        public async Task<IActionResult> UpdateTerminationType([FromBody] TerminationTypeModel model)
+        {
+            try
+            {
+                await _miscellaneousService.UpdateTerminationType(model, model.Id);
                 return Ok();
             }
             catch (Exception ex)
@@ -311,7 +373,24 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpDelete]
+        [Route("deleteTerminationType")]
+        public async Task<IActionResult> DeleteTerminationType(int id)
+        {
+            try
+            {
+                await _miscellaneousService.RemoveTerminationType(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "HRAdmin")]
         [HttpDelete]
         [Route("deleteDesignation")]
