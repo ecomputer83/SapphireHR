@@ -89,6 +89,13 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.EmployeeTerminations.FromSqlRaw("select et.* from dbo.EmployeeTerminations et inner join dbo.Employees e on e.Id = et.employeeId inner join dbo.CompanyEmployees c on c.employeeId = et.employeeId where c.companyId = @companyId", companyIdParam)
                 .Include(e=>e.Employee).ToListAsync();
         }
+
+        public async Task<List<EmployeeResignation>> GetEmployeeResignations(int companyId)
+        {
+            var companyIdParam = new SqlParameter("@companyId", companyId);
+            return await _context.EmployeeResignations.FromSqlRaw("select et.* from dbo.EmployeeResignations et inner join dbo.Employees e on e.Id = et.employeeId inner join dbo.CompanyEmployees c on c.employeeId = et.employeeId where c.companyId = @companyId", companyIdParam)
+                .Include(e => e.Employee).ToListAsync();
+        }
         public async Task<List<EmployeeTravel>> GetEmployeeTravels()
         {
             return await _context.Set<EmployeeTravel>().Include(c => c.Employee).ToListAsync();
@@ -107,6 +114,7 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<EmployeeTermination>().Include(c => c.Employee).Include(x => x.Employee).FirstOrDefaultAsync(e => e.Id == id);
         }
+
         public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)
         {
             return await _context.Set<CompanyEmployee>().Include(c=>c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c=>c.EmployeeId == employeeId);

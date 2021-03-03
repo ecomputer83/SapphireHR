@@ -64,12 +64,14 @@ namespace SapphireHR.Business.Abstractions.Service
 
         Task AddEmployeeResignation(EmployeeResignationModel model);
         Task UpdateEmployeeResignation(EmployeeResignationModel model, int id);
-        Task<List<EmployeeResignationModel>> GetEmployeeResignation(int id);
+        Task<EmployeeResignationModel> GetEmployeeResignation(int id);
+        Task<List<EmployeeResignationModel>> GetEmployeeResignations(int id);
         Task RemoveEmployeeResignation(int id);
 
         Task AddEmployeeTermination(EmployeeTerminationModel model);
         Task UpdateEmployeeTermination(EmployeeTerminationModel model, int id);
-        Task<List<EmployeeTerminationModel>> GetEmployeeTermination(int id);
+        Task<List<EmployeeTerminationModel>> GetEmployeeTerminations(int id);
+        Task<EmployeeTerminationModel> GetEmployeeTermination(int id);
         Task RemoveEmployeeTermination(int id);
     }
 }

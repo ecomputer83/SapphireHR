@@ -98,11 +98,43 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeResignations(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeResignations(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTermination(int id)
         {
             try
             {
                 var rsc = await _employeeService.GetEmployeeTermination(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeTerminations(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeTerminations(id);
                 return Ok(rsc);
             }
             catch (Exception ex)
