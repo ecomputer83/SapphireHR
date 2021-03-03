@@ -123,6 +123,26 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                
+                return Ok(org);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
         [Authorize]
         [HttpGet]
         [Route("leavetypes")]

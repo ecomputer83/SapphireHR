@@ -13,6 +13,7 @@ namespace SapphireHR.Database.EntityModels
         public int Quantity { get; set; }
         public string Description { get; set; }
         public string Scores { get; set; }
+        public string Type { get; set; }
         public int RequestedBy { get; set; }
         public DateTime RequestedOn { get; set; }
         public DateTime PeriodFrom { get; set; }
