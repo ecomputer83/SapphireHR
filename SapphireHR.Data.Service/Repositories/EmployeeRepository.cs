@@ -112,7 +112,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<EmployeeTermination> GetEmployeeTerminationById(int id)
         {
-            return await _context.Set<EmployeeTermination>().Include(c => c.Employee).Include(x => x.Employee).FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Set<EmployeeTermination>().Include(c => c.Employee).Include(x => x.TerminationType).FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<CompanyEmployee> GetCompanyEmployee(int employeeId)

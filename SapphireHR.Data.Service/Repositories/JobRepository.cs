@@ -171,7 +171,7 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<Vacancy> GetVacancyById(int id)
         {
             var vacancy = await _context.Set<Vacancy>().FindAsync(id);
-            vacancy.JobRequisition = await GetJobRequisitionById(vacancy.Id);
+            vacancy.JobRequisition = await GetJobRequisitionbyVacancyId(vacancy.Id);
 
             return vacancy;
         }
