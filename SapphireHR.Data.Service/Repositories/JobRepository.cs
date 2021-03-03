@@ -156,7 +156,7 @@ namespace SapphireHR.Data.Service.Repositories
 	inner join dbo.JobProfiles j on v.JobProfileId = j.Id 
 	inner join dbo.Departments d on j.DepartmentId = d.Id
     inner join dbo.CompanyInfos c on j.CompanyId = c.Id
-	where j.OrganizationId = @p0", id);
+	where c.OrganizationId = @p0", id);
             var json = JsonConvert.SerializeObject(data);
             return JsonConvert.DeserializeObject<List<Vacancy>>(json);
         }
