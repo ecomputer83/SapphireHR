@@ -103,6 +103,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<VacancyModel>>(result);
         }
 
+        public async Task<List<VacancySummaryModel>> GetVacancySummaries(int id)
+        {
+            var result = await this._jobRepsitory.GetVacancySummaries(id);
+            return _mapper.Map<List<VacancySummaryModel>>(result);
+        }
+
         public async Task<List<VacancyModel>> GetVacanciesByOrgId(int id)
         {
             var result = await this._jobRepsitory.GetVacanciesByOrgId(id);

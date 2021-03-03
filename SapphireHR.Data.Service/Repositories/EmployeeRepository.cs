@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
@@ -82,9 +83,11 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<EmployeeResignation>().Include(c => c.Employee).ToListAsync();
         }
 
-        public async Task<List<EmployeeTermination>> GetEmployeeTerminations()
+        public async Task<List<EmployeeTermination>> GetEmployeeTerminations(int companyId)
         {
-            return await _context.Set<EmployeeTermination>().Include(c => c.Employee).ToListAsync();
+            var companyIdParam = new SqlParameter("@companyId", companyId);
+            return await _context.EmployeeTerminations.FromSqlRaw("select et.* from dbo.EmployeeTerminations et inner join dbo.Employees e on e.Id = et.employeeId inner join dbo.CompanyEmployees c on c.employeeId = et.employeeId where c.companyId = @companyId", companyIdParam)
+                .Include(e=>e.Employee).ToListAsync();
         }
         public async Task<List<EmployeeTravel>> GetEmployeeTravels()
         {

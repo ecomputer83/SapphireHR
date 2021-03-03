@@ -113,7 +113,24 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        
+        [Authorize]
+        [HttpGet]
+        [Route("getVacancySummaries")]
+        public async Task<IActionResult> GetVacancySummaries(int id)
+        {
+            try
+            {
+                var resource = await _jobService.GetVacancySummaries(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
         [HttpGet]
         [Route("getVacanciesByOrg")]
         public async Task<IActionResult> GetVacanciesByOrg()
