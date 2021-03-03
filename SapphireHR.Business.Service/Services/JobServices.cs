@@ -199,9 +199,11 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateJobRequisition(JobRequisitionModel model, int Id)
         {
+            var result = await this._jobRepsitory.GetJobRequisitionbyVacancyId(Id);
             var datamodel = _mapper.Map<Database.EntityModels.JobRequisition>(model);
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
+            datamodel.Id = result.Id;
             await _jobRepsitory.UpdateJobRequisition(datamodel);
         }
 
