@@ -144,21 +144,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<Vacancy>> GetVacancies(int id)
         {
-            var data = await _context.CustomFromSql(@"SELECT 
-	v.*,
-	j.Title + ' - ' + d.Name as Title,
-	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 0) as NewApplicationCount,
-	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 8) as RejectedApplicationCount,
-	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 1) as AcceptedApplicationCount,
-	(select count(*) from dbo.Applications a inner join dbo.ApplicationInterviews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 0) as HRInterviewCount,
-	(select count(*) from dbo.Applications a inner join dbo.ApplicationFaceToViews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 0) as SupervisorInterviewCount
-	from dbo.Vacancies v 
-	inner join dbo.JobProfiles j on v.JobProfileId = j.Id 
-	inner join dbo.Departments d on j.DepartmentId = d.Id
-    inner join dbo.CompanyInfos c on j.CompanyId = c.Id
-	where c.OrganizationId = @p0", id);
-            var json = JsonConvert.SerializeObject(data);
-            return JsonConvert.DeserializeObject<List<Vacancy>>(json);
+            return await _context.Set<Vacancy>().Include(c=>c.JobProfile).Where(c=>c.JobProfile.CompanyId == id).ToListAsync();
         }
 
         public async Task<List<VacancySummary>> GetVacancySummaries(int companyId)

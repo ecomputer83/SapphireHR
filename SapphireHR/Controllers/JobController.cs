@@ -143,7 +143,7 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
 
-                var resource = await _jobService.GetVacancies(org.Id);
+                var resource = await _jobService.GetVacanciesByOrgId(org.Id);
                 return Ok(resource);
             }
             catch (Exception ex)
