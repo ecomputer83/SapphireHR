@@ -11,11 +11,14 @@ namespace SapphireHR.Database.EntityModels
         public string Reason { get; set; }
         public DateTimeOffset NoticeDate { get; set; }
 
-        [ForeignKey("TerminationTypeId")]
-        public int TerminationTypeId { get; set; }
-        public TerminationType TerminationType { get; set; }
-        [ForeignKey("EmployeeId")]
         public int EmployeeId { get; set; }
+
+        public int TerminationTypeId { get; set; }
+
+        [ForeignKey("TerminationTypeId")]
+        public TerminationType TerminationType { get; set; }
+
+        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
 
     }

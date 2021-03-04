@@ -520,7 +520,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task RemoveEmployeeTermination(int id)
         {
-            await _employeeRepository.RemoveEmployeeStatutory(id);
+            await _employeeRepository.RemoveEmployeeTermination(id);
         }
     }
 }
