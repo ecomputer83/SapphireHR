@@ -70,7 +70,7 @@ namespace SapphireHR.Web.Controllers
         }
 
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpGet]
         [Route("getDepartmentById")]
         public async Task<IActionResult> GetDepartmentById(int id)
@@ -87,7 +87,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpGet]
         [Route("getDepartments")]
         public async Task<IActionResult> GetDepartments()
@@ -131,7 +131,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpGet]
         [Route("getDesignations")]
         public async Task<IActionResult> GetDesignations()
@@ -153,7 +153,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpGet]
         [Route("getDesignationById")]
         public async Task<IActionResult> GetDesignationById(int id)
@@ -203,7 +203,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpPost]
         [Route("createDepartment")]
         public async Task<IActionResult> PostDepartment([FromBody] DepartmentModel model)
@@ -249,7 +249,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpPost]
         [Route("createDesignation")]
         public async Task<IActionResult> PostDesignation([FromBody] DesignationModel model)
@@ -289,7 +289,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpPut]
         [Route("updateDepartment")]
         public async Task<IActionResult> UpdateDepartment([FromBody] DepartmentModel model)
@@ -323,7 +323,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpPut]
         [Route("updateDesignation")]
         public async Task<IActionResult> UpdateDesignation([FromBody] DesignationModel model)
@@ -357,7 +357,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpDelete]
         [Route("deleteDepartment")]
         public async Task<IActionResult> DeleteDepartment(int id)
@@ -391,7 +391,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpDelete]
         [Route("deleteDesignation")]
         public async Task<IActionResult> DeleteDesignation(int id)

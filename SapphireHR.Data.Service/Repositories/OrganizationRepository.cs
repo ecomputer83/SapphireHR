@@ -157,7 +157,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<RankPermission> ReadRankPermission(int Id)
         {
-            return await _context.Set<RankPermission>().FindAsync(Id);
+            return await _context.Set<RankPermission>().AsNoTracking().FirstOrDefaultAsync(r=>Id == Id);
         }
     }
 }

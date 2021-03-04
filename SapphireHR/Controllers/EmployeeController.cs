@@ -48,7 +48,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
         
-        [Authorize(Roles = "HRAdmin")]
+        [Authorize]
         [HttpGet("{companyId}")]
         public async Task<IActionResult> GetAllEmployees(int companyId)
         {
