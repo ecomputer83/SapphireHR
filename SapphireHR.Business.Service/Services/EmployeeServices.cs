@@ -253,6 +253,13 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<EmployeeModel> GetNoTrackingEmployee(int id)
+        {
+            var emp =  await _employeeRepository.GetEmployeeDetail(id);
+            var res = _mapper.Map<EmployeeModel>(emp);
+            return res;
+        }
+
         public async Task<EmployeeEducationModel> GetEmployeeEducation(int id)
         {
             var edu = await _employeeRepository.GetEmployeeEducation(id);

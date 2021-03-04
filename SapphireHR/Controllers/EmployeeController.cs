@@ -884,7 +884,12 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                await _employeeService.RemoveEmployee(id);
+                var employee = await _employeeService.GetNoTrackingEmployee(id);
+                if (employee != null)
+                {
+                    await _userService.RemoveUser(employee.UserId);
+                    await _employeeService.RemoveEmployee(id);
+                }
                 return Ok();
             }
             catch (Exception ex)

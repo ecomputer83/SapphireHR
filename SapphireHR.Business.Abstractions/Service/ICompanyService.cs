@@ -13,6 +13,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<List<CompanyModel>> GetCompanies(int orgId);
         Task UpdateCompany(CompanyModel model, int Id);
         Task RemoveCompany(int Id);
+        Task InactiveCompany(int Id);
         Task AddLeaveSetting(LeaveSettingModel model);
         Task UpdateLeaveSetting(LeaveSettingModel model, int Id);
     }

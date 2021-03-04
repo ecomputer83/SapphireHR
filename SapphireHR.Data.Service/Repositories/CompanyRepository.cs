@@ -16,7 +16,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<List<CompanyInfo>> ReadCompaniesById(int id)
         {
-            return await _context.Set<CompanyInfo>().Where(c=>c.OrganizationId == id).ToListAsync();
+            return await _context.Set<CompanyInfo>().Where(c=>c.OrganizationId == id && c.Status != 8).ToListAsync();
         }
         public async Task AddCompanyEmployee(CompanyEmployee model)
         {

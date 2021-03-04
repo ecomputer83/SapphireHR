@@ -113,6 +113,30 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut]
+        [Route("Inactive")]
+        public async Task<IActionResult> Inactive(int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                await _companyService.InactiveCompany(Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int Id)

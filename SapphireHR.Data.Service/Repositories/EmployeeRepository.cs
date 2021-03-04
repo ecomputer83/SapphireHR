@@ -469,13 +469,8 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task RemoveEmployee(int Id)
         {
-            var bank = await _context.Set<EmployeeBank>().FirstOrDefaultAsync(e=>e.EmployeeId == Id);
-            if (bank != null)
-            {
-                _context.Set<EmployeeBank>().Remove(bank);
-            }
-            
-            //var educations = await  _context.Set<EmployeeEducation>().
+
+            await _context.FromNoReturnedStoredProcedure("removeEmployee", Id);
         }
         public async Task AddEmployeeTransfer(EmployeeTransfer model)
         {

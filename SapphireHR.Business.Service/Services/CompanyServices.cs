@@ -77,6 +77,13 @@ namespace SapphireHR.Business.Service.Services
             await this._companyRepository.Update(company);
         }
 
+        public async Task InactiveCompany(int Id)
+        {
+            var company = await this._companyRepository.Get(Id);
+            company.Status = 8;
+            await this._companyRepository.Update(company);
+        }
+
         public async Task UpdateLeaveSetting(LeaveSettingModel model, int Id)
         {
             var setting = await this._companyRepository.ReadLeaveSettingById(Id);
