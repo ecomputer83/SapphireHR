@@ -207,7 +207,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task<List<EmployeeResignationModel>> GetEmployeeResignations(int id)
         {
-            var bank = await _employeeRepository.GetEmployeeResignationById(id);
+            var bank = await _employeeRepository.GetEmployeeResignations(id);
             var res = _mapper.Map<List<EmployeeResignationModel>>(bank);
             return res;
         }
