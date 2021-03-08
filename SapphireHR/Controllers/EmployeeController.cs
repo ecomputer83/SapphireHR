@@ -274,6 +274,38 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeSalary(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeSalary(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllEmployeeSalaries(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetAllEmployeeSalaries(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTimetable(int id)
         {
             try
@@ -605,6 +637,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> PostEmployeeSalary([FromBody] EmployeeSalaryModel payload)
+        {
+            try
+            {
+                await _employeeService.AddEmployeeSalary(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> PostEmployeePension([FromBody] EmployeePensionModel payload)
         {
             try
@@ -805,6 +853,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.UpdateEmployeeLeave(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeSalary(int id, [FromBody] EmployeeSalaryModel data)
+        {
+            try
+            {
+                await _employeeService.UpdateEmployeeSalary(data, id);
                 return Ok();
             }
             catch (Exception ex)

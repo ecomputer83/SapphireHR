@@ -32,6 +32,16 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddCompanyEmployee(datamodel);
         }
 
+        public async Task AddEmployeeSalary(EmployeeSalaryModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeSalary>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeSalary(datamodel);
+        }
+
         public async Task AddEmployeeResignation(EmployeeResignationModel model)
         {
             var datamodel = _mapper.Map<EmployeeResignation>(model);
@@ -62,14 +72,7 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedBy = "SYSTEM";
             await _employeeRepository.AddEmployeeTermination(datamodel);
         }
-
-
-
-        public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
-        {
-            var data = await _employeeRepository.GetCompanyEmployeeByUserId(UserId);
-            return _mapper.Map<CompanyEmployeeModel>(data);
-        }
+                        
         public async Task<EmployeeModel> AddEmployee(EmployeeModel model)
         {
             var Company = await _companyRepository.Get(model.CompanyId);
@@ -198,10 +201,30 @@ namespace SapphireHR.Business.Service.Services
         }
 
 
+        public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
+        {
+            var data = await _employeeRepository.GetCompanyEmployeeByUserId(UserId);
+            return _mapper.Map<CompanyEmployeeModel>(data);
+        }
+
         public async Task<EmployeeBankModel> GetEmployeeBank(int id)
         {
             var bank = await _employeeRepository.GetEmployeeBank(id);
             var res = _mapper.Map<EmployeeBankModel>(bank);
+            return res;
+        }
+
+        public async Task<List<EmployeeSalaryModel>> GetAllEmployeeSalaries(int id)
+        {
+            var data = await _employeeRepository.GetEmployeeSalaries(id);
+            var res =  _mapper.Map<List<EmployeeSalaryModel>>(data);
+            return res;
+        }
+
+        public async Task<EmployeeSalaryModel> GetEmployeeSalary(int id)
+        {
+            var data = await _employeeRepository.GetEmployeeSalary(id);
+            var res = _mapper.Map<EmployeeSalaryModel>(data);
             return res;
         }
 
@@ -330,6 +353,8 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+
+
         public async Task RemoveEmployee(int id)
         {
             await _employeeRepository.Delete(id);
@@ -338,6 +363,11 @@ namespace SapphireHR.Business.Service.Services
         public async Task RemoveEmployeeBank(int id)
         {
             await _employeeRepository.RemoveEmployeeBank(id);
+        }
+
+        public async Task RemoveEmployeeSalary(int id)
+        {
+            await _employeeRepository.RemoveEmployeeSalary(id);
         }
 
         public async Task RemoveEmployeeEducation(int id)
@@ -385,6 +415,9 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.RemoveEmployeeTransfer(id);
         }
 
+
+
+
         public async Task UpdateEmployee(EmployeeModel model, int id)
         {
             var data = await _employeeRepository.GetNoTrackingEmployee(id);
@@ -396,6 +429,14 @@ namespace SapphireHR.Business.Service.Services
             n_data.UpdatedAt = data.UpdatedAt;
             n_data.UpdatedBy = data.UpdatedBy;
             await _employeeRepository.Update(n_data);
+        }
+
+        public async Task UpdateEmployeeSalary(EmployeeSalaryModel model, int id)
+        {
+            var datamodel = _mapper.Map<EmployeeSalary>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateCompanySalary(datamodel);
         }
 
         public async Task UpdateEmployeeBank(EmployeeBankModel model, int id)

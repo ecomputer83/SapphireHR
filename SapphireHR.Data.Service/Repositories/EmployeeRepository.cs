@@ -124,11 +124,6 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<CompanyEmployee>().Include(c=>c.Company).Include(c => c.Employee).FirstOrDefaultAsync(c=>c.EmployeeId == employeeId);
         }
 
-        public async Task<List<EmployeeSalary>> GetEmployeeSalaries()
-        {
-            return await _context.Set<EmployeeSalary>().Include(c => c.Employee).ToListAsync();
-        }
-
         public async Task UpdateEmployeeTravel(EmployeeTravel model)
         {
             _context.Entry(model).State = EntityState.Modified;
