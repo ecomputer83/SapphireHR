@@ -43,11 +43,13 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Set<EmployeeBank>().Add(model);
             await _context.SaveChangesAsync();
         }
+
         public async Task<List<EmployeeSalary>> GetEmployeeSalaries(int companyId)
         {
             var companyIdParam = new SqlParameter("@companyId", companyId);
             return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ToListAsync(); ;
         }
+
         public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)
         {
             return await _context.EmployeeSalaries
