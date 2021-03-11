@@ -21,13 +21,13 @@ namespace SapphireHR.Data.Service.Repositories
             var header = await _context.OrganizationHeaders.Include("Organization").FirstOrDefaultAsync(c => c.HostName == hostHeader);
             return header?.Organization;
         }
-        public Task GetOrgHeader(int orgId)
+        public Task<OrganizationHeader> GetOrgHeader(int orgId)
         {
             var orgHeader = this._context.OrganizationHeaders.FirstOrDefault(c => c.OrganizationId == orgId);
             return Task.FromResult(orgHeader);
         }
 
-        public Task GetOrgHeader(string hostHeader)
+        public Task<OrganizationHeader> GetOrgHeader(string hostHeader)
         {
             var orgHeader = this._context.OrganizationHeaders.FirstOrDefault(c => c.HostName == hostHeader);
             return Task.FromResult(orgHeader);

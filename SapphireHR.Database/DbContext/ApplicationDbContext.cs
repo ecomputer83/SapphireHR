@@ -33,6 +33,7 @@ namespace SapphireHR.Database
         public DbSet<CompanyLeavePolicy> CompanyLeavePolicies { get; set; }
         public DbSet<EmployeeBank> EmployeeBankss { get; set; }
         public DbSet<EmployeeSalary> EmployeeSalaries { get; set; }
+        public DbSet<EmployeeStatutory> EmployeeStatutories { get; set; }
         public DbSet<EmployeeEducation> EmployeeEducations { get; set; }
         public DbSet<EmployeeEmergency> EmployeeEmergencies { get; set; }
         public DbSet<EmployeeExperience> EmployeeExperiences { get; set; }

@@ -17,12 +17,12 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Employee> GetEmployeeDetail(int employeeId)
         {
-            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).FirstOrDefaultAsync(c=>c.Id == employeeId);
+            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).Include(a=>a.EmployeePension).Include(c=>c.EmployeeStatutory).FirstOrDefaultAsync(c=>c.Id == employeeId);
             emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeExperiences = _context.Set<EmployeeExperience>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeFamilies = _context.Set<EmployeeFamily>().Where(e => e.EmployeeId == emp.Id).ToList();
-
+            
             return emp;
         }
 

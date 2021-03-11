@@ -18,13 +18,16 @@ namespace SapphireHR.Business.Service.Services
         public readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailService _emailService;
+        private readonly IOrganizationService _organizationService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IEmailService emailService, IMapper mapper, IConfiguration configuration)
+        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IEmailService emailService,
+            IOrganizationService organizationService, IMapper mapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _mapper = mapper;
             _emailService = emailService;
+            _organizationService = organizationService;
             _configuration = configuration;
             _roleManager = roleManager;
         }
@@ -68,6 +71,8 @@ namespace SapphireHR.Business.Service.Services
                         var resultx = await _userManager.AddToRolesAsync(user, roleNames);
                         res = resultx.Succeeded;
                     }
+
+                    var org = await _organizationService.GetOrganizationAsync(user.OrganizationId);
                 }
                 else
                 {

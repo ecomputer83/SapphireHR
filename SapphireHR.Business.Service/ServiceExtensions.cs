@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SapphireHR.Business.Abstractions.Service;
 using SapphireHR.Business.DocumentManager.Documents;
+using SapphireHR.Business.Integrations;
 using SapphireHR.Business.Service.Services;
 using SapphireHR.Data.Service.Repositories;
 using System;
@@ -32,6 +33,7 @@ namespace SapphireHR.Business.Service
                 services.AddScoped<ExpenseRespository>();
                 services.AddScoped<MailTemplateRepository>();
                 services.AddScoped<ExitRepository>();
+                services.AddScoped<SysAdminClientService>();
             }
             services.AddScoped<FileManager>();
             services.AddTransient<IApplicationService, ApplicationServices>();

@@ -29,5 +29,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public  List<EmployeeExperienceModel> EmployeeExperiences { get; set; }
         public  List<EmployeeFamilyModel> EmployeeFamilies { get; set; }
         public  EmployeeBankModel EmployeeBank { get; set; }
+        public EmployeeStatutoryModel EmployeeStatutory { get; set; }
+        public EmployeePensionModel EmployeePension { get; set; }
     }
 }

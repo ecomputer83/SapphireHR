@@ -7,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class DesignationPerformance : BaseEntity, IEntity
     {
+        public int DesignationId { get; set; }
         public string Tech_CE { get; set; }
         public string Tech_Marketing { get; set; }
         public string Tech_Management { get; set; }
@@ -23,7 +24,6 @@ namespace SapphireHR.Database.EntityModels
         public string Org_ATMD { get; set; }
 
         [ForeignKey("DesignationId")]
-        public int DesignationId { get; set; }
         public Designation Designation { get; set; }
 
     }

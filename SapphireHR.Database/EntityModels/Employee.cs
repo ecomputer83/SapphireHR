@@ -33,5 +33,7 @@ namespace SapphireHR.Database.EntityModels
         public virtual List<EmployeeExperience> EmployeeExperiences { get; set; }
         public virtual List<EmployeeFamily> EmployeeFamilies { get; set; }
         public virtual EmployeeBank EmployeeBank { get; set; }
+        public virtual EmployeeStatutory EmployeeStatutory { get; set; }
+        public virtual EmployeePension EmployeePension { get; set; }
     }
 }

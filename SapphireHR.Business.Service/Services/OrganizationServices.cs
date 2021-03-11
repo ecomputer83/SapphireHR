@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using SapphireHR.Business.Integrations;
 
 namespace SapphireHR.Business.Service.Services
 {
@@ -15,18 +16,22 @@ namespace SapphireHR.Business.Service.Services
     {
         OrganizationRepository _orgRepository;
         FileManager _fileManager;
+        SysAdminClientService _sysAdminClientService;
         readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        public OrganizationServices(OrganizationRepository orgRepository, FileManager fileManager, IMapper mapper, IConfiguration config)
+        public OrganizationServices(OrganizationRepository orgRepository, FileManager fileManager, IMapper mapper, IConfiguration config, SysAdminClientService sysAdminClientService)
         {
             this._orgRepository = orgRepository;
             _fileManager = fileManager;
             this._mapper = mapper;
             this._config = config;
+            _sysAdminClientService = sysAdminClientService;
         }
         public async Task<OrganizationModel> GetOrganizationAsync(int orgId)
         {
             var org = await _orgRepository.Get(orgId);
+
+            org.OrganizationHeader = await _orgRepository.GetOrgHeader(orgId);
             return _mapper.Map<OrganizationModel>(org);
         }
         public async Task<OrganizationModel> GetOrganizationByHostHeader(string hostname)
@@ -58,6 +63,9 @@ namespace SapphireHR.Business.Service.Services
 
             var hostname = datamodel.Name.Replace(" ", "").ToLower();
             var domain = _config.GetValue<string>("MyDomain");
+            var websiteName = _config.GetValue<string>("MyClient");
+
+            await _sysAdminClientService.PostHostHeader(new Abstractions.SysAdminRequest { hostHeader = $"{hostname}.{domain}", websiteName = websiteName });
             var headermodel = new Database.EntityModels.OrganizationHeader
             {
                 OrganizationId = datamodel.Id,
@@ -69,6 +77,8 @@ namespace SapphireHR.Business.Service.Services
             };
 
             await this._orgRepository.AddOrgHeader(headermodel);
+
+            //
             return datamodel.Id;
         }
 
