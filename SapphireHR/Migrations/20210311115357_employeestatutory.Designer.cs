@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireHR.Database;
 
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210311115357_employeestatutory")]
+    partial class employeestatutory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1467,10 +1469,16 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("Approval")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("ApprovalDate")
+                    b.Property<DateTimeOffset>("ApprovalDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("ApprovalEmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Assignee")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AssigneeEmployeeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -1479,7 +1487,7 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset?>("Date")
+                    b.Property<DateTimeOffset>("Date")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Remark")
@@ -1496,7 +1504,9 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Assignee");
+                    b.HasIndex("ApprovalEmployeeId");
+
+                    b.HasIndex("AssigneeEmployeeId");
 
                     b.ToTable("ExpenseClaims");
                 });
@@ -3194,11 +3204,15 @@ namespace SapphireHR.Web.Migrations
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.ExpenseClaim", b =>
                 {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "ApprovalEmployee")
+                        .WithMany()
+                        .HasForeignKey("ApprovalEmployeeId");
+
                     b.HasOne("SapphireHR.Database.EntityModels.Employee", "AssigneeEmployee")
                         .WithMany()
-                        .HasForeignKey("Assignee")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssigneeEmployeeId");
+
+                    b.Navigation("ApprovalEmployee");
 
                     b.Navigation("AssigneeEmployee");
                 });

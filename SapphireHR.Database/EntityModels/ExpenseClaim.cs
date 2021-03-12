@@ -7,15 +7,15 @@ namespace SapphireHR.Database.EntityModels
 {
     public class ExpenseClaim : BaseEntity, IEntity
     {
-        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset? Date { get; set; }
         public string Remark { get; set; }
         public int Amount { get; set; }
-        [ForeignKey("EmployeeId")]
+        
         public int Assignee { get; set; }
-        [ForeignKey("EmployeeId")]
         public int Approval { get; set; }
-        public DateTimeOffset ApprovalDate { get; set; }
-        public Employee ApprovalEmployee { get; set; }
+        public DateTimeOffset? ApprovalDate { get; set; }
+
+        [ForeignKey("Assignee")]
         public Employee AssigneeEmployee { get; set; }
     }
 }
