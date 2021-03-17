@@ -47,7 +47,7 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<List<EmployeeSalary>> GetEmployeeSalaries(int companyId)
         {
             var companyIdParam = new SqlParameter("@companyId", companyId);
-            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ThenInclude(a => a.DesignationId).ToListAsync(); ;
+            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ThenInclude(a => a.Designation).ToListAsync(); ;
         }
 
         public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)
