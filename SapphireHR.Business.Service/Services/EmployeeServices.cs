@@ -5,7 +5,7 @@ using SapphireHR.Data.Service.Repositories;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using SapphireHR.Business.Service;
 using System.Threading.Tasks;
 
 namespace SapphireHR.Business.Service.Services
@@ -35,6 +35,7 @@ namespace SapphireHR.Business.Service.Services
         public async Task AddEmployeeSalary(EmployeeSalaryModel model)
         {
             var datamodel = _mapper.Map<EmployeeSalary>(model);
+            datamodel.SalaryDate = DateTime.Now;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
@@ -216,12 +217,21 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task<List<EmployeeSalaryModel>> GetAllEmployeeSalaries(int id)
         {
-            var data = await _employeeRepository.GetEmployeeSalaries(id);
+            var start = DateTime.Now.GetFirstDayOfMonth();
+            var end = DateTime.Now.GetLastDayOfMonth();
+            var data = await _employeeRepository.GetEmployeeSalaries(id, start, end);
             var res =  _mapper.Map<List<EmployeeSalaryModel>>(data);
             return res;
         }
 
         public async Task<EmployeeSalaryModel> GetEmployeeSalary(int id)
+        {
+            var data = await _employeeRepository.GetEmployeeSalary(id);
+            var res = _mapper.Map<EmployeeSalaryModel>(data);
+            return res;
+        }
+
+        public async Task<EmployeeSalaryModel> GetEmployeePayslip(int id)
         {
             var data = await _employeeRepository.GetEmployeeSalary(id);
             var res = _mapper.Map<EmployeeSalaryModel>(data);
