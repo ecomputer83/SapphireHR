@@ -433,6 +433,7 @@ namespace SapphireHR.Business.Service.Services
             var data = await _employeeRepository.GetNoTrackingEmployee(id);
             var n_data = _mapper.Map<Employee>(model);
             n_data.Id = data.Id;
+            n_data.UserId = data.UserId;
             n_data.DesignationId = data.DesignationId;
             n_data.CreatedAt = data.CreatedAt;
             n_data.CreatedBy = data.CreatedBy;

@@ -985,7 +985,7 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployeeSalaryk(int id)
+        public async Task<IActionResult> DeleteEmployeeSalary(int id)
         {
             try
             {
