@@ -16,6 +16,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public double LeaveAllowance { get; set; }
         public double HMO { get; set; }
         public double Tax { get; set; }
+        public double Leave { get; set; }
         public double Others { get; set; }
         public  string Reasons { get; set; }
         public double NetSalary { get; set; }
