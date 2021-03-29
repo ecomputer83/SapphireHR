@@ -22,7 +22,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task RemoveExpenseType(int id);
 
 
-        Task<List<ExpensePromotionModel>> GetExpensePromotions();
+        Task<List<ExpensePromotionModel>> GetExpensePromotions(int id);
         Task<ExpensePromotionModel> GetExpensePromotion(int id);
         Task AddExpensePromotion(ExpensePromotionModel model);
         Task UpdateExpensePromotion(ExpensePromotionModel model);

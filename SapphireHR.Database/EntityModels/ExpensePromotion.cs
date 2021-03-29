@@ -7,7 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class ExpensePromotion : BaseEntity
     {
-
+        public int CompanyId { get; set; }
         [ForeignKey("DesignationId")]
         public int From { get; set; }
         public Designation FromPromotion { get; set; }

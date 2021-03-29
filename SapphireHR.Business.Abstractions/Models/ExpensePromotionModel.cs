@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class ExpensePromotionModel
     {
+        public int CompanyId { get; set; }
         public int From { get; set; }
         public DesignationModel FromPromotion { get; set; }
         public int To { get; set; }

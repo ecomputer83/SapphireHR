@@ -70,9 +70,9 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<List<ExpensePromotionModel>> GetExpensePromotions()
+        public async Task<List<ExpensePromotionModel>> GetExpensePromotions(int id)
         {
-            var expensePromotion = await _expenseRepository.GetExpensePromotions();
+            var expensePromotion = await _expenseRepository.GetExpensePromotions(id);
             var res = _mapper.Map<List<ExpensePromotionModel>>(expensePromotion);
             return res;
         }

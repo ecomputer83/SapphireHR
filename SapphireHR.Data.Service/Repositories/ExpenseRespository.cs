@@ -3,6 +3,7 @@ using SapphireHR.Database;
 using SapphireHR.Database.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,12 +46,12 @@ namespace SapphireHR.Data.Service.Repositories
                .Include(c => c.ExpenseClaim)
                .ToListAsync();
         }
-        public async Task<List<ExpensePromotion>> GetExpensePromotions()
+        public async Task<List<ExpensePromotion>> GetExpensePromotions(int id)
         {
             return await _context.Set<ExpensePromotion>()
                .Include(c => c.Employee)
                .Include(t=>t.ToPromotion)
-               .Include(f=>f.FromPromotion)
+               .Include(f=>f.FromPromotion).Where(c=>c.CompanyId == id)
                .ToListAsync();
         }
 
