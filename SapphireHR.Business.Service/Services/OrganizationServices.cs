@@ -64,8 +64,14 @@ namespace SapphireHR.Business.Service.Services
             var hostname = datamodel.Name.Replace(" ", "").ToLower();
             var domain = _config.GetValue<string>("MyDomain");
             var websiteName = _config.GetValue<string>("MyClient");
+            try
+            {
+                await _sysAdminClientService.PostHostHeader(new Abstractions.SysAdminRequest { hostHeader = $":80:{hostname}.{domain}", websiteName = websiteName });
+            }
+            catch(Exception ex)
+            {
 
-            await _sysAdminClientService.PostHostHeader(new Abstractions.SysAdminRequest { hostHeader = $"{hostname}.{domain}", websiteName = websiteName });
+            }
             var headermodel = new Database.EntityModels.OrganizationHeader
             {
                 OrganizationId = datamodel.Id,
