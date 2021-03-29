@@ -43,11 +43,27 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetExpensePromotion(int id)
+        public async Task<IActionResult> GetPromotion(int id)
         {
             try
             {
                 var rsc = await _expenseService.GetExpensePromotion(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPromotions(int id)
+        {
+            try
+            {
+                var rsc = await _expenseService.GetExpensePromotions(id);
                 return Ok(rsc);
             }
             catch (Exception ex)
