@@ -49,6 +49,8 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<ExpensePromotion>()
                .Include(c => c.Employee)
+               .Include(t=>t.ToPromotion)
+               .Include(f=>f.FromPromotion)
                .ToListAsync();
         }
 

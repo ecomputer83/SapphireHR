@@ -367,7 +367,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task RemoveEmployee(int id)
         {
-            await _employeeRepository.Delete(id);
+            await _employeeRepository.RemoveEmployee(id);
         }
 
         public async Task RemoveEmployeeBank(int id)

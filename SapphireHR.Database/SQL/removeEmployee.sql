@@ -20,6 +20,7 @@ BEGIN TRANSACTION;
 	Delete from EmployeeEmergencies where EmployeeId = @p0
 	Delete from EmployeeEducations where EmployeeId = @p0
 	Delete from EmployeeBank where EmployeeId = @p0
+	Delete from CompanyEmployees where EmployeeId = @p0
 	Delete from Employees where Id = @p0
 
 COMMIT;

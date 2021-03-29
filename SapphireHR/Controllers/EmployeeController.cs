@@ -951,12 +951,14 @@ namespace SapphireHR.Web.Controllers
                 var employee = await _employeeService.GetNoTrackingEmployee(id);
                 if (employee != null)
                 {
+                    await _employeeService.RemoveEmployee(id);
+
                     if (!string.IsNullOrEmpty(employee.UserId))
                     {
                         await _userService.RemoveUser(employee.UserId);
                     }
                     
-                    await _employeeService.RemoveEmployee(id);
+                    
                 }
                 return Ok();
             }
