@@ -10,9 +10,11 @@ namespace SapphireHR.Database.EntityModels
         public int CompanyId { get; set; }
         [ForeignKey("DesignationId")]
         public int From { get; set; }
+        [ForeignKey("From")]
         public Designation FromPromotion { get; set; }
-        [ForeignKey("DesignationId")]
+        
         public int To { get; set; }
+        [ForeignKey("To")]
         public Designation ToPromotion { get; set; }
         public DateTimeOffset Date { get; set; }
         [ForeignKey("EmployeeId")]

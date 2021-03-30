@@ -1538,16 +1538,10 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("From")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FromPromotionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int>("To")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ToPromotionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -1560,11 +1554,11 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("FromPromotionId");
+                    b.HasIndex("From");
 
-                    b.HasIndex("ToPromotionId");
+                    b.HasIndex("To");
 
-                    b.ToTable("ExpensePromotions");
+                    b.ToTable("EmployeePromotions");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.ExpenseType", b =>
@@ -3228,11 +3222,15 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasOne("SapphireHR.Database.EntityModels.Designation", "FromPromotion")
                         .WithMany()
-                        .HasForeignKey("FromPromotionId");
+                        .HasForeignKey("From")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SapphireHR.Database.EntityModels.Designation", "ToPromotion")
                         .WithMany()
-                        .HasForeignKey("ToPromotionId");
+                        .HasForeignKey("To")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
 

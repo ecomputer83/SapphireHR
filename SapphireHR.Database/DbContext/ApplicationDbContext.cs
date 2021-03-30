@@ -40,7 +40,7 @@ namespace SapphireHR.Database
         public DbSet<EmployeeFamily> EmployeeFamilies { get; set; }
         public DbSet<ExpenseType> ExpenseTypes { get; set; }
         public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
-        public DbSet<ExpensePromotion> ExpensePromotions { get; set; }
+        public DbSet<ExpensePromotion> EmployeePromotions { get; set; }
         public DbSet<EmployeeTravel> EmployeeTravels { get; set; }
         public DbSet<EmployeeResignation> EmployeeResignations { get; set; }
         public DbSet<EmployeeLeave> EmployeeLeaves { get; set; }
