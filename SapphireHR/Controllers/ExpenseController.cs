@@ -139,7 +139,7 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutExpensePromotion([FromBody] ExpensePromotionModel payload)
         {
             try
@@ -155,7 +155,7 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutExpenseType([FromBody] ExpenseTypeModel payload)
         {
             try
@@ -171,7 +171,7 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutExpenseClaim([FromBody] ExpenseClaimModel payload)
         {
             try
