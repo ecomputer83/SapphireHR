@@ -59,12 +59,10 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.SalaryDate >= @start and s.SalaryDate <= @end and s.Status == 1)", companyIdParam, startParam, endParam).Include(e => e.Employee).ThenInclude(a => a.Designation).ToListAsync();
         }
 
-        public async Task<List<EmployeeSalary>> GetEmployeePaidSalary(int employeeId, DateTime start, DateTime end)
+        public async Task<List<EmployeeSalary>> GetEmployeePaidSalary(int employeeId)
         {
             var companyIdParam = new SqlParameter("@employeeId", employeeId);
-            var startParam = new SqlParameter("@start", start);
-            var endParam = new SqlParameter("@end", end);
-            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.SalaryDate >= @start and s.SalaryDate <= @end and s.Status == 1)", companyIdParam, startParam, endParam).Include(e => e.Employee).ThenInclude(a => a.Designation).ToListAsync();
+            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.Status == 1)", companyIdParam).Include(e => e.Employee).ToListAsync();
         }
 
         public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)

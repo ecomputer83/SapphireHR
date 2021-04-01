@@ -231,10 +231,10 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<EmployeeSalaryModel> GetEmployeePayslip(int id)
+        public async Task<List<EmployeeSalaryModel>> GetEmployeePayslip(int id)
         {
-            var data = await _employeeRepository.GetEmployeeSalary(id);
-            var res = _mapper.Map<EmployeeSalaryModel>(data);
+            var data = await _employeeRepository.GetEmployeePaidSalary(id);
+            var res = _mapper.Map<List<EmployeeSalaryModel>>(data);
             return res;
         }
 

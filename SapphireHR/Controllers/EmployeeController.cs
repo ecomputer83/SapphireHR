@@ -290,6 +290,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetPaidSalaries(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeePayslip(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAllEmployeeSalaries(int id)
         {
             try
