@@ -20,6 +20,13 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployeeBank(EmployeeBankModel model, int id);
         Task<EmployeeBankModel> GetEmployeeBank(int id);
         Task RemoveEmployeeBank(int id);
+
+        Task AddDisciplinaryMeasures(DisciplinaryMeasuresModel model);
+        Task UpdateDisciplinaryMeasures(DisciplinaryMeasuresModel model, int id);
+        Task <DisciplinaryMeasuresModel> GetDisciplinaryMeasures(int id);
+        Task RemoveDisciplinaryMeasures(int id);
+
+
         Task AddEmployeeEducation(EmployeeEducationModel model);
         Task UpdateEmployeeEducation(EmployeeEducationModel model, int id);
         Task AddEmployeeSalary(EmployeeSalaryModel model);

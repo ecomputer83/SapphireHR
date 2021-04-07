@@ -201,6 +201,16 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeTransfer(datamodel);
         }
 
+        public async Task AddDisciplinaryMeasures(DisciplinaryMeasuresModel model)
+        {
+            var datamodel = _mapper.Map<DisciplinaryMeasures>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddDisciplinaryMeasures(datamodel);
+        }
+
 
         public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
         {
@@ -363,7 +373,12 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-
+        public async Task<DisciplinaryMeasuresModel> GetDisciplinaryMeasures(int id)
+        {
+            var dm = await _employeeRepository.GetDisciplinaryMeasures(id);
+            var res = _mapper.Map<DisciplinaryMeasuresModel>(dm);
+            return res;
+        }
 
         public async Task RemoveEmployee(int id)
         {
@@ -424,6 +439,29 @@ namespace SapphireHR.Business.Service.Services
         {
             await _employeeRepository.RemoveEmployeeTransfer(id);
         }
+
+        public async Task RemoveEmployeeTravel(int id)
+        {
+            await _employeeRepository.RemoveEmployeeTravel(id);
+        }
+
+        public async Task RemoveEmployeeResignation(int id)
+        {
+            await _employeeRepository.RemoveEmployeeResignation(id);
+        }
+
+        public async Task RemoveEmployeeTermination(int id)
+        {
+            await _employeeRepository.RemoveEmployeeTermination(id);
+        }
+
+
+        public async Task RemoveDisciplinaryMeasures(int id)
+        {
+            await _employeeRepository.RemoveDisciplinaryMeasures(id);
+        }
+
+
 
 
 
@@ -567,19 +605,12 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.UpdateEmployeeTermination(datamodel);
         }
 
-        public async Task RemoveEmployeeTravel(int id)
+        public async Task UpdateDisciplinaryMeasures(DisciplinaryMeasuresModel model, int id)
         {
-            await _employeeRepository.RemoveEmployeeTravel(id);
-        }
-
-        public async Task RemoveEmployeeResignation(int id)
-        {
-            await _employeeRepository.RemoveEmployeeResignation(id);
-        }
-
-        public async Task RemoveEmployeeTermination(int id)
-        {
-            await _employeeRepository.RemoveEmployeeTermination(id);
-        }
+            var datamodel = _mapper.Map<DisciplinaryMeasures>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateDisciplinaryMeasures(datamodel);
+        }        
     }
 }

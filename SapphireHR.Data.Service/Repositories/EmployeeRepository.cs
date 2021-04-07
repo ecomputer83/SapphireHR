@@ -75,6 +75,12 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddDisciplinaryMeasures(DisciplinaryMeasures model)
+        {
+            _context.Set<DisciplinaryMeasures>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddEmployeeTermination(EmployeeTermination model)
         {
             _context.Set<EmployeeTermination>().Add(model);
@@ -159,6 +165,12 @@ namespace SapphireHR.Data.Service.Repositories
         }
 
         public async Task UpdateCompanyEmployee(CompanyEmployee model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task UpdateDisciplinaryMeasures(DisciplinaryMeasures model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -497,6 +509,11 @@ namespace SapphireHR.Data.Service.Repositories
         {
             return await _context.Set<EmployeeTransfer>().FindAsync(id);
         }
+        
+        public async Task<DisciplinaryMeasures> GetDisciplinaryMeasures(int id)
+        {
+            return await _context.Set<DisciplinaryMeasures>().FindAsync(id);
+        }
 
         public async Task RemoveEmployeeTransfer(int id)
         {
@@ -507,6 +524,18 @@ namespace SapphireHR.Data.Service.Repositories
             }
 
             _context.Set<EmployeeTransfer>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveDisciplinaryMeasures(int id)
+        {
+            var data = await _context.Set<DisciplinaryMeasures>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<DisciplinaryMeasures>().Remove(data);
             await _context.SaveChangesAsync();
         }
 

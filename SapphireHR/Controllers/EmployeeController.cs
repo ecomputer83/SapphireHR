@@ -352,6 +352,22 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDisciplinaryMeasure(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetDisciplinaryMeasures(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         public async Task<IActionResult> PostEmployee([FromBody] EmployeeModel payload)
@@ -620,6 +636,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> PostDisciplinaryMeasure([FromBody] DisciplinaryMeasuresModel payload)
+        {
+            try
+            {
+                await _employeeService.AddDisciplinaryMeasures(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> PostEmployeeFamily([FromBody] EmployeeFamilyModel payload)
         {
             try
@@ -739,6 +771,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.UpdateEmployeeBank(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDisciplinaryMeasure(int id, [FromBody] DisciplinaryMeasuresModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateDisciplinaryMeasures(payload, id);
                 return Ok();
             }
             catch (Exception ex)
@@ -1024,6 +1072,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.RemoveEmployeeResignation(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        } 
+        
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDisciplinaryMeasure(int id)
+        {
+            try
+            {
+                await _employeeService.RemoveDisciplinaryMeasures(id);
                 return Ok();
             }
             catch (Exception ex)
