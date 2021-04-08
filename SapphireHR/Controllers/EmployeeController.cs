@@ -358,7 +358,23 @@ namespace SapphireHR.Web.Controllers
         {
             try
             {
-                var rsc = await _employeeService.GetDisciplinaryMeasures(id);
+                var rsc = await _employeeService.GetDisciplinaryMeasure(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{companyId}")]
+        public async Task<IActionResult> GetDisciplinaryMeasures(int companyId)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetDisciplinaryMeasures(companyId);
                 return Ok(rsc);
             }
             catch (Exception ex)

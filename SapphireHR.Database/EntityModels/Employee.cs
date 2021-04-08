@@ -28,9 +28,6 @@ namespace SapphireHR.Database.EntityModels
         [ForeignKey("RankId")]
         public Rank Rank { get; set; }
 
-        [ForeignKey("DisciplinaryMeasuresId")]
-        public DisciplinaryMeasures DisciplinaryMeasures { get; set; }
-
         public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
         public virtual List<EmployeeEmergency> EmployeeEmergencies { get; set; }
         public virtual List<EmployeeExperience> EmployeeExperiences { get; set; }

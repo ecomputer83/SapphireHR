@@ -7,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class DisciplinaryMeasures : BaseEntity, IEntity
     {
+        public int EmployeeId { get; set; }
         public DateTime Date { get; set; }
         public string HRManager { get; set; }
         public string Reason { get; set; }

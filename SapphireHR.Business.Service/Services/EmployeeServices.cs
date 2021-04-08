@@ -373,10 +373,17 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<DisciplinaryMeasuresModel> GetDisciplinaryMeasures(int id)
+        public async Task<DisciplinaryMeasuresModel> GetDisciplinaryMeasure(int id)
+        {
+            var dm = await _employeeRepository.GetDisciplinaryMeasure(id);
+            var res = _mapper.Map<DisciplinaryMeasuresModel>(dm);
+            return res;
+        }
+
+        public async Task<List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasures(int id)
         {
             var dm = await _employeeRepository.GetDisciplinaryMeasures(id);
-            var res = _mapper.Map<DisciplinaryMeasuresModel>(dm);
+            var res = _mapper.Map<List<DisciplinaryMeasuresModel>>(dm);
             return res;
         }
 

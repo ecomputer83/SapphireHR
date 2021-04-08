@@ -23,7 +23,8 @@ namespace SapphireHR.Business.Abstractions.Service
 
         Task AddDisciplinaryMeasures(DisciplinaryMeasuresModel model);
         Task UpdateDisciplinaryMeasures(DisciplinaryMeasuresModel model, int id);
-        Task <DisciplinaryMeasuresModel> GetDisciplinaryMeasures(int id);
+        Task <DisciplinaryMeasuresModel> GetDisciplinaryMeasure(int id);
+        Task<List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasures(int id);
         Task RemoveDisciplinaryMeasures(int id);
 
 

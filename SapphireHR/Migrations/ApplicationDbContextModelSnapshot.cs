@@ -743,6 +743,50 @@ namespace SapphireHR.Web.Migrations
                     b.ToTable("DesignationPerformances");
                 });
 
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.DisciplinaryMeasures", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HRManager")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("DisciplinaryMeasures");
+                });
+
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -3010,6 +3054,17 @@ namespace SapphireHR.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("Designation");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.DisciplinaryMeasures", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>

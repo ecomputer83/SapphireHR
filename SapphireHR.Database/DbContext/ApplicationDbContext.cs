@@ -61,6 +61,7 @@ namespace SapphireHR.Database
         public DbSet<RankPermission> RankPermissions { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillType> SkillTypes { get; set; }
+        public DbSet<DisciplinaryMeasures> DisciplinaryMeasures { get; set; }
 
         public DbSet<SkillGrade> SkillGrades { get; set; }
         public DbSet<TerminationType> TerminationTypes { get; set; }
