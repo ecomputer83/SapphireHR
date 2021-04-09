@@ -60,6 +60,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<ApplicantModel, Applicant>().ReverseMap();
             CreateMap<UserViewModel, UserModel>();
             CreateMap<EmployeeResignationModel, EmployeeResignation>().ReverseMap();
+            CreateMap<DisciplinaryMeasuresModel, DisciplinaryMeasures>().ReverseMap();
         }
     }
 }
