@@ -7,6 +7,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class DesignationPerformanceModel 
     {
+        public int Id { get; set; }
         public string Tech_CE { get; set; }
         public string Tech_Marketing { get; set; }
         public string Tech_Management { get; set; }

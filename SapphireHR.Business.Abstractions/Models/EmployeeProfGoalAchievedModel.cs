@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SapphireHR.Business.Abstractions.Models
+{
+    public class EmployeeProfGoalAchievedModel
+    {
+        public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public string BySelf { get; set; }
+        public string ROComment { get; set; }
+        public string HODComment { get; set; }
+        public DateTime Year { get; set; }
+    }
+}

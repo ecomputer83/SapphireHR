@@ -62,16 +62,33 @@ namespace SapphireHR.Database
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillType> SkillTypes { get; set; }
         public DbSet<DisciplinaryMeasures> DisciplinaryMeasures { get; set; }
-
         public DbSet<SkillGrade> SkillGrades { get; set; }
         public DbSet<TerminationType> TerminationTypes { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
+        public DbSet<MailTemplate> MailTemplate { get; set; }
+        public DbSet<EmployeeRoleComment> EmployeeRoleComments { get; set; }
+        public DbSet<EmployeeResponsibilityComment> EmployeeResponsibilityComments { get; set; }
+        public DbSet<EmployeeHODImprovementComment> EmployeeHODImprovementComments { get; set; }
+        public DbSet<EmployeeROImprovementComment> EmployeeROImprovementComments { get; set; }
+        public DbSet<EmployeeProfGoalPlan> EmployeeProfGoalPlans { get; set; }
+        public DbSet<EmployeeProfGoalAchieved> EmployeeProfGoalAchieveds { get; set; }
+        public DbSet<EmployeePersonalGoals> EmployeePersonalGoals { get; set; }
+        public DbSet<EmployeeInitiativeAchievement> EmployeeInitiativeAchievements { get; set; }
+        public DbSet<EmployeeObservation> EmployeeObservations { get; set; }
+        public DbSet<EmployeeTrainingRequirement> EmployeeTrainingRequirements { get; set; }
+        public DbSet<EmployeePersonalExcellence> EmployeePersonalExcellences { get; set; }
+        public DbSet<EmployeeProffesionalExcellence> EmployeeProffesionalExcellences { get; set; }
+        public DbSet<ProffesionalExcellenceSettings> ProffesionalExcellenceSettings { get; set; }
+        public DbSet<PersonalExcellenceSettings> PersonalExcellenceSettings { get; set; }
+
+
+
         public virtual DbSet<MailMessage> MailMessage { get; set; }
         public virtual DbSet<MailMessageAddress> MailMessageAddress { get; set; }
         public virtual DbSet<MailMessageAttachment> MailMessageAttachment { get; set; }
         public virtual DbSet<MailMessageQueue> MailMessageQueue { get; set; }
-        public virtual DbSet<MailTemplate> MailTemplate { get; set; }
+        
     }
 }
 
