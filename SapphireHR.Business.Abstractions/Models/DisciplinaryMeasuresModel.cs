@@ -12,5 +12,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Reason { get; set; }
         public string Remark { get; set; }
         public int EmployeeId { get; set; }
+        public EmployeeModel Employee { get; set; }
     }
 }

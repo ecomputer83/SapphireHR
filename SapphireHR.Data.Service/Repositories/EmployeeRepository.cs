@@ -518,7 +518,7 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<List<DisciplinaryMeasures>> GetDisciplinaryMeasures(int id)
         {
             var companyIdParam = new SqlParameter("@companyId", id);
-            return await _context.DisciplinaryMeasures.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.DisciplinaryMeasures s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ToListAsync();
+            return await _context.DisciplinaryMeasures.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.DisciplinaryMeasures s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ThenInclude(d=>d.Designation).ToListAsync();
         }
 
         public async Task RemoveEmployeeTransfer(int id)
