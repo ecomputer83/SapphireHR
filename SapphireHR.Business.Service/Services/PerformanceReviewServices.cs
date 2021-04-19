@@ -324,7 +324,7 @@ namespace SapphireHR.Business.Service.Services
             await _performanceReview.RemovePersonalExcellenceSettings(id);
         }
         
-        public async Task RemoveProffesionalExcellenceSett(int id)
+        public async Task RemoveProffesionalExcellenceSettings(int id)
         {
             await _performanceReview.RemoveProffesionalExcellenceSettings(id);
         }
@@ -390,6 +390,16 @@ namespace SapphireHR.Business.Service.Services
         }
 
 
+        public async Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettingsModels(int Id)
+        {
+            var settings = await _performanceReview.GetPersonalExcellenceSettings(Id);
+            return _mapper.Map<List<PersonalExcellenceSettingsModel>>(settings);
+        }
 
+        public async Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettingsModels(int Id)
+        {
+            var settings = await _performanceReview.GetProffesionalExcellenceSettings(Id);
+            return _mapper.Map<List<ProffesionalExcellenceSettingsModel>>(settings);
+        }
     }
 }

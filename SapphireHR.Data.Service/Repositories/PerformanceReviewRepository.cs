@@ -18,39 +18,29 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<PerformanceReview> GetPerformance(int id)
         {
             var cmpny = await _context.Set<CompanyEmployee>().FirstOrDefaultAsync(u => u.EmployeeId == id);
-            var emp = await _context.Set<PerformanceReview>().Include(n => n.PersonalExcellenceSettings).Include(i => i.ProffesionalExcellenceSettings).FirstOrDefaultAsync(m => m.Id == id);
-            emp.ProffesionalExcellenceSettings =  _context.Set<ProffesionalExcellenceSettings>().Where(e => e.CompanyId == cmpny.CompanyId).ToList();
-            emp.PersonalExcellenceSettings = _context.Set<PersonalExcellenceSettings>().Where(e => e.CompanyId == cmpny.CompanyId).ToList();
-            emp.EmployeeProffesionalExcellence = _context.Set<EmployeeProffesionalExcellence>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeePersonalExcellence = _context.Set<EmployeePersonalExcellence>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeTrainingRequirement = _context.Set<EmployeeTrainingRequirement>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeObservation = _context.Set<EmployeeObservation>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeInitiativeAchievement = _context.Set<EmployeeInitiativeAchievement>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeePersonalGoals = _context.Set<EmployeePersonalGoals>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeProfGoalAchieved = _context.Set<EmployeeProfGoalAchieved>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeProfGoalPlan = _context.Set<EmployeeProfGoalPlan>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeRoleComment = _context.Set<EmployeeRoleComment>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeResponsibilityComment = _context.Set<EmployeeResponsibilityComment>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeHODImprovementComment = _context.Set<EmployeeHODImprovementComment>().Where(p => p.EmployeeId == emp.Id).ToList();
-            emp.EmployeeROImprovementComment = _context.Set<EmployeeROImprovementComment>().Where(p => p.EmployeeId == emp.Id).ToList();
+            var emp = new PerformanceReview();
+            emp.ProffesionalExcellenceSettings =  await _context.Set<ProffesionalExcellenceSettings>().Where(e => e.CompanyId == cmpny.CompanyId).ToListAsync();
+            emp.PersonalExcellenceSettings = await _context.Set<PersonalExcellenceSettings>().Where(e => e.CompanyId == cmpny.CompanyId).ToListAsync();
+            emp.EmployeeProffesionalExcellence = await _context.Set<EmployeeProffesionalExcellence>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeePersonalExcellence = await _context.Set<EmployeePersonalExcellence>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeTrainingRequirement = await _context.Set<EmployeeTrainingRequirement>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeObservation = await _context.Set<EmployeeObservation>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeInitiativeAchievement = await _context.Set<EmployeeInitiativeAchievement>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeePersonalGoals = await _context.Set<EmployeePersonalGoals>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeProfGoalAchieved = await _context.Set<EmployeeProfGoalAchieved>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeProfGoalPlan = await _context.Set<EmployeeProfGoalPlan>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeRoleComment = await _context.Set<EmployeeRoleComment>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeResponsibilityComment = await _context.Set<EmployeeResponsibilityComment>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeHODImprovementComment = await _context.Set<EmployeeHODImprovementComment>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
+            emp.EmployeeROImprovementComment = await _context.Set<EmployeeROImprovementComment>().Where(p => p.EmployeeId == emp.Id).ToListAsync();
 
             return emp;
         }
 
-        public async Task RemovePerformanceReview(int id)
+        public async Task RemovePerformanceReview(int employeeId)
         {
-            var data = await _context.Set<PerformanceReview>().FindAsync(id);
-            if (data == null)
-            {
-                await Task.FromException(new Exception("The Id can't be found"));
-            }
-
-            _context.Set<PerformanceReview>().Remove(data);
-            await _context.SaveChangesAsync();
+            await _context.FromNoReturnedStoredProcedure("removePerformanceReview", employeeId);
         }
-
-
-
 
         public async Task AddProffesionalExcellenceSettings(ProffesionalExcellenceSettings model)
         {

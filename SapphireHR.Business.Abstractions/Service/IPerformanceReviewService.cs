@@ -8,6 +8,10 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IPerformanceReviewService
     {
+        Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettingsModels(int Id);
+        Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettingsModels(int Id);
+
+
         Task AddProffesionalExcellenceSettings(ProffesionalExcellenceSettingsModel model);
         Task AddPersonalExcellenceSettings(PersonalExcellenceSettingsModel model);
         Task AddEmployeeProffesionalExcellence(EmployeeProffesionalExcellenceModel model);
@@ -44,7 +48,7 @@ namespace SapphireHR.Business.Abstractions.Service
 
 
         Task RemovePersonalExcellenceSettings(int id);
-        Task RemoveProffesionalExcellenceSett(int id);
+        Task RemoveProffesionalExcellenceSettings(int id);
         Task RemoveEmployeePersonalExcellence(int id);
         Task RemoveEmployeeProffesionalExcellence(int id);
         Task RemoveEmployeeTrainingRequirement(int id);

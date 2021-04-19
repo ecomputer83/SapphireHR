@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <None Remove="SQL\removeEmployee.sql" />
+    <None Remove="SQL\removePerformanceReview.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SQL\removePerformanceReview.sql" />
     <EmbeddedResource Include="SQL\removeEmployee.sql" />
   </ItemGroup>
 
