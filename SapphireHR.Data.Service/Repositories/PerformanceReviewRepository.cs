@@ -224,5 +224,233 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+
+
+        public async Task<ProffesionalExcellenceSettings> GetProffesionalExcellenceSettings(int id)
+        {
+            return await _context.ProffesionalExcellenceSettings.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<PersonalExcellenceSettings> GetPersonalExcellenceSettings(int id)
+        {
+            return await _context.PersonalExcellenceSettings.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeePersonalExcellence> GetEmployeePersonalExcellence(int id)
+        {
+            return await _context.EmployeePersonalExcellences.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeProffesionalExcellence> GetEmployeeProffesionalExcellence(int id)
+        {
+            return await _context.EmployeeProffesionalExcellences.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeTrainingRequirement> GetEmployeeTrainingRequirements(int id)
+        {
+            return await _context.EmployeeTrainingRequirements.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeObservation> GetEmployeeObservation(int id)
+        {
+            return await _context.EmployeeObservations.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeInitiativeAchievement> GetEmployeeInitiativeAchievement(int id)
+        {
+            return await _context.EmployeeInitiativeAchievements.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeePersonalGoals> GetEmployeePersonalGoals(int id)
+        {
+            return await _context.EmployeePersonalGoals.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeProfGoalAchieved> GetEmployeeProfGoalAchieved(int id)
+        {
+            return await _context.EmployeeProfGoalAchieveds.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeProfGoalPlan> GetEmployeeProfGoalPlan(int id)
+        {
+            return await _context.EmployeeProfGoalPlans.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeRoleComment> GetEmployeeRoleComment(int id)
+        {
+            return await _context.EmployeeRoleComments.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeResponsibilityComment> GetEmployeeResponsibilityComments(int id)
+        {
+            return await _context.EmployeeResponsibilityComments.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeHODImprovementComment> GetEmployeeHODImprovementComment(int id)
+        {
+            return await _context.EmployeeHODImprovementComments.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+        
+        public async Task<EmployeeROImprovementComment> GetEmployeeROImprovementComment(int id)
+        {
+            return await _context.EmployeeROImprovementComments.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        
+
+
+        public async Task RemoveProffesionalExcellenceSettings(int id)
+        {
+            var data = await _context.Set<ProffesionalExcellenceSettings>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<ProffesionalExcellenceSettings>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemovePersonalExcellenceSettings(int id)
+        {
+            var data = await _context.Set<PersonalExcellenceSettings>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<PersonalExcellenceSettings>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeePersonalExcellence(int id)
+        {
+            var data = await _context.Set<EmployeePersonalExcellence>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeePersonalExcellence>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeProffesionalExcellence(int id)
+        {
+            var data = await _context.Set<EmployeeProffesionalExcellence>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeProffesionalExcellence>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeTrainingRequirement(int id)
+        {
+            var data = await _context.Set<EmployeeTrainingRequirement>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeTrainingRequirement>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeObservation(int id)
+        {
+            var data = await _context.Set<EmployeeObservation>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeObservation>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeInitiativeAchievement(int id)
+        {
+            var data = await _context.Set<EmployeeInitiativeAchievement>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeInitiativeAchievement>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeePersonalGoals(int id)
+        {
+            var data = await _context.Set<EmployeePersonalGoals>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeePersonalGoals>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeProfGoalAchieved(int id)
+        {
+            var data = await _context.Set<EmployeeProfGoalAchieved>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeProfGoalAchieved>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeProfGoalPlan(int id)
+        {
+            var data = await _context.Set<EmployeeProfGoalPlan>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeProfGoalPlan>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeRoleComment(int id)
+        {
+            var data = await _context.Set<EmployeeRoleComment>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeRoleComment>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeResponsibilityComment(int id)
+        {
+            var data = await _context.Set<EmployeeResponsibilityComment>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeResponsibilityComment>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        public async Task RemoveEmployeeHODImprovementComment(int id)
+        {
+            var data = await _context.Set<EmployeeHODImprovementComment>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeHODImprovementComment>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveEmployeeROImprovementComment(int id)
+        {
+            var data = await _context.Set<EmployeeROImprovementComment>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+            _context.Set<EmployeeROImprovementComment>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
     }
 }
