@@ -762,6 +762,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Form")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HRManager")
                         .HasColumnType("nvarchar(max)");
 
