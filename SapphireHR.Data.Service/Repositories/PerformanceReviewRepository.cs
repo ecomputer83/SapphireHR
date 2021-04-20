@@ -15,7 +15,7 @@ namespace SapphireHR.Data.Service.Repositories
         {
         }
 
-        public async Task<PerformanceReview> GetPerformance(int id)
+        public async Task<PerformanceReview> GetPerformanceReview(int id)
         {
             var cmpny = await _context.Set<CompanyEmployee>().FirstOrDefaultAsync(u => u.EmployeeId == id);
             var emp = new PerformanceReview();
@@ -41,6 +41,10 @@ namespace SapphireHR.Data.Service.Repositories
         {
             await _context.FromNoReturnedStoredProcedure("removePerformanceReview", employeeId);
         }
+
+
+
+
 
         public async Task AddProffesionalExcellenceSettings(ProffesionalExcellenceSettings model)
         {
@@ -214,6 +218,9 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+
+
 
 
 

@@ -25,6 +25,8 @@ namespace SapphireHR.Web.Controllers
             _logger = logger;
         }
 
+
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddProffesionalExcellenceSettings([FromBody] ProffesionalExcellenceSettingsModel model)
@@ -66,13 +68,247 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeProffesionalExcellence([FromBody] EmployeeProffesionalExcellenceModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.AddEmployeeProffesionalExcellence(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeePersonalExcellence([FromBody] EmployeePersonalExcellenceModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeePersonalExcellence(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeTrainingRequirement([FromBody] EmployeeTrainingRequirementModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeTrainingRequirement(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeObservation([FromBody] EmployeeObservationModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeObservation(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeInitiativeAchievement([FromBody] EmployeeInitiativeAchievementModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeInitiativeAchievement(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeePersonalGoals([FromBody] EmployeePersonalGoalsModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeePersonalGoals(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeProfGoalAchieved([FromBody] EmployeeProfGoalAchievedModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeProfGoalAchieved(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeProfGoalPlan([FromBody] EmployeeProfGoalPlanModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeProfGoalPlan(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeRoleComment([FromBody] EmployeeRoleCommentModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeRoleComment(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeResponsibilityComment([FromBody] EmployeeResponsibilityCommentModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeResponsibilityComment(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeHODImprovementComment([FromBody] EmployeeHODImprovementCommentModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeHODImprovementComment(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeROImprovementComment([FromBody] EmployeeROImprovementCommentModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+                await _performanceReviewService.AddEmployeeROImprovementComment(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+
+
+
+
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPersonalExcellenceSettings(int id)
         {
             try
             {
 
-                var settings = await _performanceReviewService.GetPersonalExcellenceSettingsModels(id);
+                var settings = await _performanceReviewService.GetPersonalExcellenceSettings(id);
 
                 return Ok(settings);
             }
@@ -90,7 +326,7 @@ namespace SapphireHR.Web.Controllers
             try
             {
 
-                var settings = await _performanceReviewService.GetProffesionalExcellenceSettingsModels(id);
+                var settings = await _performanceReviewService.GetProffesionalExcellenceSettings(id);
 
                 return Ok(settings);
             }
@@ -100,6 +336,28 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+        
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPerformanceReview(int id)
+        {
+            try
+            {
+
+                var settings = await _performanceReviewService.GetPerformanceReview(id);
+
+                return Ok(settings);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+
+
 
         [Authorize]
         [HttpPut("{id}")]
@@ -140,7 +398,267 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeePersonalExcellence([FromBody] EmployeePersonalExcellenceModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
 
+                await _performanceReviewService.UpdateEmployeePersonalExcellence(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeProffesionalExcellence([FromBody] EmployeeProffesionalExcellenceModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeProffesionalExcellence(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeTrainingRequirement([FromBody] EmployeeTrainingRequirementModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeTrainingRequirement(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeObservation([FromBody] EmployeeObservationModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeObservation(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeInitiativeAchievement([FromBody] EmployeeInitiativeAchievementModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeInitiativeAchievement(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatEmployeePersonalGoals([FromBody] EmployeePersonalGoalsModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdatEmployeePersonalGoals(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeProfGoalAchieved([FromBody] EmployeeProfGoalAchievedModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeProfGoalAchieved(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeProfGoalPlan([FromBody] EmployeeProfGoalPlanModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeProfGoalPlan(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeRoleComment([FromBody] EmployeeRoleCommentModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeRoleComment(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeResponsibilityComment([FromBody] EmployeeResponsibilityCommentModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeResponsibilityComment(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeHODImprovementComment([FromBody] EmployeeHODImprovementCommentModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeHODImprovementComment(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeROImprovementComment([FromBody] EmployeeROImprovementCommentModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _performanceReviewService.UpdateEmployeeROImprovementComment(model, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+
+
+
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemovePerformanceReview(int id)
+        {
+            try
+            {
+                await _performanceReviewService.RemovePerformanceReview(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveProffesionalExcellenceSettings(int id)

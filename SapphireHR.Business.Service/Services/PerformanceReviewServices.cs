@@ -319,6 +319,11 @@ namespace SapphireHR.Business.Service.Services
 
 
 
+        public async Task RemovePerformanceReview(int id)
+        {
+            await _performanceReview.RemovePerformanceReview(id);
+        }
+        
         public async Task RemovePersonalExcellenceSettings(int id)
         {
             await _performanceReview.RemovePersonalExcellenceSettings(id);
@@ -390,16 +395,100 @@ namespace SapphireHR.Business.Service.Services
         }
 
 
-        public async Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettingsModels(int Id)
+
+
+
+
+        public async Task<List<PerformanceReviewModel>> GetPerformanceReview(int Id)
         {
-            var settings = await _performanceReview.GetPersonalExcellenceSettings(Id);
-            return _mapper.Map<List<PersonalExcellenceSettingsModel>>(settings);
+            var data = await _performanceReview.GetPerformanceReview(Id);
+            return _mapper.Map<List<PerformanceReviewModel>>(data);
         }
 
-        public async Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettingsModels(int Id)
+        public async Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettings(int Id)
         {
-            var settings = await _performanceReview.GetProffesionalExcellenceSettings(Id);
-            return _mapper.Map<List<ProffesionalExcellenceSettingsModel>>(settings);
+            var data = await _performanceReview.GetPersonalExcellenceSettings(Id);
+            return _mapper.Map<List<PersonalExcellenceSettingsModel>>(data);
         }
+
+        public async Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettings(int Id)
+        {
+            var data = await _performanceReview.GetProffesionalExcellenceSettings(Id);
+            return _mapper.Map<List<ProffesionalExcellenceSettingsModel>>(data);
+        }
+
+        public async Task<List<EmployeePersonalExcellenceModel>> GetEmployeePersonalExcellence(int Id)
+        {
+            var data = await _performanceReview.GetEmployeePersonalExcellence(Id);
+            return _mapper.Map<List<EmployeePersonalExcellenceModel>>(data);
+        }
+
+        public async Task<List<EmployeeProffesionalExcellenceModel>> GetEmployeeProffesionalExcellence(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeProffesionalExcellence(Id);
+            return _mapper.Map<List<EmployeeProffesionalExcellenceModel>>(data);
+        }
+        
+        public async Task<List<EmployeeTrainingRequirementModel>> GetEmployeeTrainingRequirement(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeTrainingRequirements(Id);
+            return _mapper.Map<List<EmployeeTrainingRequirementModel>>(data);
+        }
+        
+        public async Task<List<EmployeeObservationModel>> GetEmployeeObservation(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeObservation(Id);
+            return _mapper.Map<List<EmployeeObservationModel>>(data);
+        }
+        
+        public async Task<List<EmployeeInitiativeAchievementModel>> GetEmployeeInitiativeAchievement(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeInitiativeAchievement(Id);
+            return _mapper.Map<List<EmployeeInitiativeAchievementModel>>(data);
+        }
+        
+        public async Task<List<EmployeePersonalGoalsModel>> GetEmployeePersonalGoals(int Id)
+        {
+            var data = await _performanceReview.GetEmployeePersonalGoals(Id);
+            return _mapper.Map<List<EmployeePersonalGoalsModel>>(data);
+        }
+        
+        public async Task<List<EmployeeProfGoalAchievedModel>> GetEmployeeProfGoalAchieved(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeProfGoalAchieved(Id);
+            return _mapper.Map<List<EmployeeProfGoalAchievedModel>>(data);
+        }
+        
+        public async Task<List<EmployeeProfGoalPlanModel>> GetEmployeeProfGoalPlan(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeProfGoalPlan(Id);
+            return _mapper.Map<List<EmployeeProfGoalPlanModel>>(data);
+        }
+        
+        public async Task<List<EmployeeRoleCommentModel>> GetEmployeeRoleComment(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeRoleComment(Id);
+            return _mapper.Map<List<EmployeeRoleCommentModel>>(data);
+        }
+        
+        public async Task<List<EmployeeResponsibilityCommentModel>> GetEmployeeResponsibilityComment(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeResponsibilityComments(Id);
+            return _mapper.Map<List<EmployeeResponsibilityCommentModel>>(data);
+        }
+        
+        public async Task<List<EmployeeHODImprovementCommentModel>> GetEmployeeHODImprovementComment(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeHODImprovementComment(Id);
+            return _mapper.Map<List<EmployeeHODImprovementCommentModel>>(data);
+        }
+        
+        public async Task<List<EmployeeROImprovementCommentModel>> GetEmployeeROImprovementComment(int Id)
+        {
+            var data = await _performanceReview.GetEmployeeROImprovementComment(Id);
+            return _mapper.Map<List<EmployeeROImprovementCommentModel>>(data);
+        }
+
+
     }
 }

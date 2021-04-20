@@ -8,8 +8,23 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IPerformanceReviewService
     {
-        Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettingsModels(int Id);
-        Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettingsModels(int Id);
+        Task<List<PerformanceReviewModel>> GetPerformanceReview(int Id);
+        Task<List<PersonalExcellenceSettingsModel>> GetPersonalExcellenceSettings(int Id);
+        Task<List<ProffesionalExcellenceSettingsModel>> GetProffesionalExcellenceSettings(int Id);
+        Task<List<EmployeePersonalExcellenceModel>> GetEmployeePersonalExcellence(int Id);
+        Task<List<EmployeeProffesionalExcellenceModel>> GetEmployeeProffesionalExcellence(int Id);
+        Task<List<EmployeeTrainingRequirementModel>> GetEmployeeTrainingRequirement(int Id);
+        Task<List<EmployeeObservationModel>> GetEmployeeObservation(int Id);
+        Task<List<EmployeeInitiativeAchievementModel>> GetEmployeeInitiativeAchievement(int Id);
+        Task<List<EmployeePersonalGoalsModel>> GetEmployeePersonalGoals(int Id);
+        Task<List<EmployeeProfGoalAchievedModel>> GetEmployeeProfGoalAchieved(int Id);
+        Task<List<EmployeeProfGoalPlanModel>> GetEmployeeProfGoalPlan(int Id);
+        Task<List<EmployeeRoleCommentModel>> GetEmployeeRoleComment(int Id);
+        Task<List<EmployeeResponsibilityCommentModel>> GetEmployeeResponsibilityComment(int Id);
+        Task<List<EmployeeHODImprovementCommentModel>> GetEmployeeHODImprovementComment(int Id);
+        Task<List<EmployeeROImprovementCommentModel>> GetEmployeeROImprovementComment(int Id);
+
+
 
 
         Task AddProffesionalExcellenceSettings(ProffesionalExcellenceSettingsModel model);
@@ -47,6 +62,7 @@ namespace SapphireHR.Business.Abstractions.Service
 
 
 
+        Task RemovePerformanceReview(int id);
         Task RemovePersonalExcellenceSettings(int id);
         Task RemoveProffesionalExcellenceSettings(int id);
         Task RemoveEmployeePersonalExcellence(int id);
