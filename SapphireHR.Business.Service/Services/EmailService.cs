@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SapphireHR.Business.Abstractions;
+using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
 using SapphireHR.Data.Service.Repositories;
 using SendGrid;
@@ -30,17 +31,17 @@ namespace SapphireHR.Business.Service.Services
             this._mailTemplateRepository = mailTemplateRepository;
         }
 
-        public async Task SendWelcomeMessageAsync(object oc, string Type, string To)
+        public async Task SendWelcomeMessageAsync(string Header, UserModel user)
         {
             try
             {
-                var template = await _mailTemplateRepository.GetByCode(Type);
+                var template = await _mailTemplateRepository.GetByCode("WELCOME_MSG");
                 var body = template.TemplateBody;
-                //body = ConvertOrderCreditToBodyMessage(body, oc);
+                body = ConvertWelcomeMsgToBodyMessage(body, Header, user);
                 if (_email.IsSendgrid)
                 {
                     var client = new SendGridClient(_email.Password);
-                    var to = new EmailAddress(To);
+                    var to = new EmailAddress(user.Email);
                     var from = new EmailAddress(_email.From, _email.DisplayName);
                     var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject, body, body);
                     var response = await client.SendEmailAsync(msg);
@@ -59,7 +60,7 @@ namespace SapphireHR.Business.Service.Services
                                 client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
                             }
                             var cc = _email.CC;
-                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, To, mailMessage, cc);
+                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, user.Email, mailMessage, cc);
                             client.EnableSsl = true;
                             await client.SendMailAsync(mailMessage);
                         }
@@ -154,22 +155,125 @@ namespace SapphireHR.Business.Service.Services
             }
         }
 
-        //private string ConvertOrderCreditToBodyMessage(string xc, OrderCreditModel model)
-        //{
-        //    var body = xc;
-        //    body = body.Replace("{PRODUCT}", model.Order.ProductName);
-        //    body = body.Replace("{DEPOT}", model.Order.DepotName);
-        //    body = body.Replace("{OrderNo}", model.Order.OrderNo);
-        //    body = body.Replace("{Quantity}", model.Order.Quantity.ToString("N", CultureInfo.CurrentCulture));
-        //    body = body.Replace("{TotalAmount}", "₦ " + model.Order.TotalAmount.ToString("N", CultureInfo.CurrentCulture));
-        //    body = body.Replace("{Price}", "₦ " + (model.Order.TotalAmount / model.Order.Quantity).ToString("N", CultureInfo.CurrentCulture));
-        //    body = body.Replace("{Account}", (model.Credit.Type == 3) ? "Bank Deposit" : (model.Credit.Type == 2) ? "IPMAN Credit" : "Card Payment");
-        //    body = body.Replace("{Reference}", model.Credit.Reference.ToString());
-        //    body = body.Replace("{Amount}", "₦ " + model.Credit.TotalAmount.ToString("N", CultureInfo.CurrentCulture));
-        //    body = body.Replace("{Date}", model.Credit.CreditDate.ToShortDateString());
+        private string ConvertWelcomeMsgToBodyMessage(string xc, string header, UserModel model)
+        {
+            var body = xc;
+            body = body.Replace("[header]", header);
+            body = body.Replace("[name]", model.FullName);
+            body = body.Replace("[email]", model.Email);
+            body = body.Replace("[password]", model.Password);
 
-        //    return body;
-        //}
+            return body;
+        }
+
+        private string ConvertHRMsgToBodyMessage(string xc, string header, string company, UserModel model)
+        {
+            var body = xc;
+            body = body.Replace("[header]", header);
+            body = body.Replace("[company]", company);
+            body = body.Replace("[name]", model.FullName);
+            body = body.Replace("[email]", model.Email);
+            body = body.Replace("[password]", model.Password);
+
+            return body;
+        }
+
+        private string ConvertEmployeeMsgToBodyMessage(string xc, string header, string company, string destination, UserModel model)
+        {
+            var body = xc;
+            body = body.Replace("[header]", header);
+            body = body.Replace("[company]", company);
+            body = body.Replace("[destination]", destination);
+            body = body.Replace("[name]", model.FullName);
+            body = body.Replace("[email]", model.Email);
+            body = body.Replace("[password]", model.Password);
+
+            return body;
+        }
+
+        public async Task SendHRMessageAsync(string Header, string company, UserModel user)
+        {
+            try
+            {
+                var template = await _mailTemplateRepository.GetByCode("HR_REGISTRATION");
+                var body = template.TemplateBody;
+                body = ConvertHRMsgToBodyMessage(body, Header, company, user);
+                if (_email.IsSendgrid)
+                {
+                    var client = new SendGridClient(_email.Password);
+                    var to = new EmailAddress(user.Email);
+                    var from = new EmailAddress(_email.From, _email.DisplayName);
+                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject, body, body);
+                    var response = await client.SendEmailAsync(msg);
+                    if (!response.IsSuccessStatusCode)
+                        throw new Exception(response.Body.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    using (var client = new SmtpClient(_email.Server, _email.Port))
+                    {
+                        using (var mailMessage = new MailMessage())
+                        {
+                            if (!_email.DefaultCredentials)
+                            {
+                                client.UseDefaultCredentials = false;
+                                client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                            }
+                            var cc = _email.CC;
+                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, user.Email, mailMessage, cc);
+                            client.EnableSsl = true;
+                            await client.SendMailAsync(mailMessage);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
+
+        public async Task SendEmployeeMessageAsync(string Header, string company, string destination, UserModel user)
+        {
+            try
+            {
+                var template = await _mailTemplateRepository.GetByCode("EMPLOYEE_REGISTRATION");
+                var body = template.TemplateBody;
+                body = ConvertEmployeeMsgToBodyMessage(body, Header, company, destination, user);
+                if (_email.IsSendgrid)
+                {
+                    var client = new SendGridClient(_email.Password);
+                    var to = new EmailAddress(user.Email);
+                    var from = new EmailAddress(_email.From, _email.DisplayName);
+                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject, body, body);
+                    var response = await client.SendEmailAsync(msg);
+                    if (!response.IsSuccessStatusCode)
+                        throw new Exception(response.Body.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    using (var client = new SmtpClient(_email.Server, _email.Port))
+                    {
+                        using (var mailMessage = new MailMessage())
+                        {
+                            if (!_email.DefaultCredentials)
+                            {
+                                client.UseDefaultCredentials = false;
+                                client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                            }
+                            var cc = _email.CC;
+                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, user.Email, mailMessage, cc);
+                            client.EnableSsl = true;
+                            await client.SendMailAsync(mailMessage);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
 
         //private string ConvertOrderToBodyMessage(string xc, OrderViewModel model)
         //{

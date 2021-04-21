@@ -28,6 +28,7 @@ namespace SapphireHR.Web.Controllers
         private readonly IUserService _userService;
         private readonly IEmployeeService _employeeService;
         private readonly IOrganizationService _organizationService;
+        private readonly IEmailService _emailService;
         private readonly JwtSecurityTokenSettings _jwt;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
@@ -39,7 +40,8 @@ namespace SapphireHR.Web.Controllers
             IOrganizationService organizationService,
         IOptions<JwtSecurityTokenSettings> jwt,
             ILogger<AccountController> logger,
-            IMapper mapper
+            IMapper mapper,
+            IEmailService emailService
             ) : base(organizationService)
         {
 
@@ -50,6 +52,7 @@ namespace SapphireHR.Web.Controllers
             this._jwt = jwt.Value;
             this._logger = logger;
             this._mapper = mapper;
+            this._emailService = emailService;
         }
 
 
@@ -106,10 +109,12 @@ namespace SapphireHR.Web.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
-
+                var org = await this._organizationService.GetOrganizationAsync(model.OrganizationId);
                 var _model = _mapper.Map<UserModel>(model);
                 _model.UserType = 1;
                 await _userService.CreateUserAsync(_model, new string[] {"Administrator"});
+
+                await _emailService.SendWelcomeMessageAsync(org.OrganizationHeader?.HostName, _model);
 
                 return Ok();
             }

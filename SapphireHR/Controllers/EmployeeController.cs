@@ -20,14 +20,20 @@ namespace SapphireHR.Web.Controllers
         IUserService _userService;
         IOrganizationService _organizationService;
         IMiscellaneousService _miscellaneousService;
+        private IEmailService _emailService;
+        private ICompanyService _companyService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IUserService userService, IOrganizationService organizationService, IMiscellaneousService miscellaneousService, ILogger<EmployeeController> logger) : base(organizationService)
+        public EmployeeController(IEmployeeService employeeService, IUserService userService,
+            IOrganizationService organizationService, IMiscellaneousService miscellaneousService,
+            ILogger<EmployeeController> logger, IEmailService emailService, ICompanyService companyService) : base(organizationService)
         {
             _employeeService = employeeService;
             _userService = userService;
             _organizationService = organizationService;
             _miscellaneousService = miscellaneousService;
+            _emailService = emailService;
+            _companyService = companyService;
             _logger = logger;
         }
 
@@ -396,8 +402,8 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
 
-                
-                
+                var host = Request.Headers["Holder"];
+                var company = await _companyService.GetCompany(payload.CompanyId);
 
                 var model = new UserModel();
                 model.OrganizationId = org.Id;
@@ -409,7 +415,9 @@ namespace SapphireHR.Web.Controllers
                 model.ConfirmPassword = "password";
                 var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
                 payload.UserId = usermodel.Id;
-                var emp = await _employeeService.AddEmployee(payload);
+                var new_emp = await _employeeService.AddEmployee(payload);
+                var emp = await _employeeService.GetEmployee(new_emp.Id);
+                await _emailService.SendEmployeeMessageAsync(host, company.Name, emp.Designation.Name, model);
                 return Ok();
             }
             catch (Exception ex)
@@ -431,6 +439,10 @@ namespace SapphireHR.Web.Controllers
                 {
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
+
+                var host = Request.Headers["Holder"];
+                var company = await _companyService.GetCompany(payload.CompanyId);
+
                 //add rank
                 var rankId = 0;
                 var rank = await _organizationService.GetRank(org.Id, "Resources Manager");
@@ -509,6 +521,8 @@ namespace SapphireHR.Web.Controllers
                 payload.RankId = rankId;
                 payload.DesignationId = designationId;
                 var emp = await _employeeService.AddEmployee(payload);
+
+                await _emailService.SendHRMessageAsync(host, company.Name, model);
                 return Ok();
             }
             catch (Exception ex)
