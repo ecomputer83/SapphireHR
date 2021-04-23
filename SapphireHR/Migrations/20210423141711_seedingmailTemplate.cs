@@ -52,7 +52,7 @@ namespace SapphireHR.Web.Migrations
                 column: "CompanyId",
                 principalTable: "CompanyInfos",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProffesionalExcellenceSettings_CompanyInfos_CompanyId",
@@ -60,7 +60,7 @@ namespace SapphireHR.Web.Migrations
                 column: "CompanyId",
                 principalTable: "CompanyInfos",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
