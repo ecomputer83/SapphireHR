@@ -31,19 +31,19 @@ namespace SapphireHR.Business.Service.Services
             this._mailTemplateRepository = mailTemplateRepository;
         }
 
-        public async Task SendWelcomeMessageAsync(string Header, UserModel user)
+        public async Task SendWelcomeMessageAsync(string Header, string orgName, UserModel user)
         {
             try
             {
                 var template = await _mailTemplateRepository.GetByCode("WELCOME_MSG");
                 var body = template.TemplateBody;
-                body = ConvertWelcomeMsgToBodyMessage(body, Header, user);
+                body = ConvertWelcomeMsgToBodyMessage(body, Header, orgName, user);
                 if (_email.IsSendgrid)
                 {
                     var client = new SendGridClient(_email.Password);
                     var to = new EmailAddress(user.Email);
                     var from = new EmailAddress(_email.From, _email.DisplayName);
-                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject, body, body);
+                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject.Replace("[org]", orgName), body, body);
                     var response = await client.SendEmailAsync(msg);
                     if (!response.IsSuccessStatusCode)
                         throw new Exception(response.Body.ReadAsStringAsync().Result);
@@ -60,7 +60,7 @@ namespace SapphireHR.Business.Service.Services
                                 client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
                             }
                             var cc = _email.CC;
-                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, user.Email, mailMessage, cc);
+                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject.Replace("[org]", orgName), body, _email.From, user.Email, mailMessage, cc);
                             client.EnableSsl = true;
                             await client.SendMailAsync(mailMessage);
                         }
@@ -155,9 +155,10 @@ namespace SapphireHR.Business.Service.Services
             }
         }
 
-        private string ConvertWelcomeMsgToBodyMessage(string xc, string header, UserModel model)
+        private string ConvertWelcomeMsgToBodyMessage(string xc, string header, string org, UserModel model)
         {
             var body = xc;
+            body = body.Replace("[org]", org);
             body = body.Replace("[header]", header);
             body = body.Replace("[name]", model.FullName);
             body = body.Replace("[email]", model.Email);
@@ -203,7 +204,7 @@ namespace SapphireHR.Business.Service.Services
                     var client = new SendGridClient(_email.Password);
                     var to = new EmailAddress(user.Email);
                     var from = new EmailAddress(_email.From, _email.DisplayName);
-                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject, body, body);
+                    var msg = MailHelper.CreateSingleEmail(from, to, template.TemplateSubject.Replace("[company]", company), body, body);
                     var response = await client.SendEmailAsync(msg);
                     if (!response.IsSuccessStatusCode)
                         throw new Exception(response.Body.ReadAsStringAsync().Result);
@@ -220,7 +221,7 @@ namespace SapphireHR.Business.Service.Services
                                 client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
                             }
                             var cc = _email.CC;
-                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject, body, _email.From, user.Email, mailMessage, cc);
+                            PrepareMailMessage(_email.DisplayName, template.TemplateSubject.Replace("[company]", company), body, _email.From, user.Email, mailMessage, cc);
                             client.EnableSsl = true;
                             await client.SendMailAsync(mailMessage);
                         }

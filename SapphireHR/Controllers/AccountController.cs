@@ -114,7 +114,7 @@ namespace SapphireHR.Web.Controllers
                 _model.UserType = 1;
                 await _userService.CreateUserAsync(_model, new string[] {"Administrator"});
 
-                await _emailService.SendWelcomeMessageAsync(org.OrganizationHeader?.HostName, _model);
+                await _emailService.SendWelcomeMessageAsync(org.OrganizationHeader?.HostName, org.Name, _model);
 
                 return Ok();
             }
