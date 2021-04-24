@@ -46,14 +46,29 @@ namespace SapphireHR.SysAdmin.Controllers
         private void AddHostHeader(string hostHeader, string websiteID)
         {
             DirectoryEntry site = new DirectoryEntry("IIS://localhost/w3svc/" + websiteID);
-            PropertyValueCollection serverBindings = site.Properties["ServerBindings"];
+            PropertyValueCollection serverBindings = null;
+            if (hostHeader.Contains("443"))
+            {
+                serverBindings = site.Properties["SecureBindings"];
 
-            serverBindings.Add(hostHeader);
+                serverBindings.Add(hostHeader);
 
-            Object[] newList = new Object[serverBindings.Count];
-            serverBindings.CopyTo(newList, 0);
+                Object[] newList = new Object[serverBindings.Count];
+                serverBindings.CopyTo(newList, 0);
 
-            site.Properties["ServerBindings"].Value = newList;
+                site.Properties["SecureBindings"].Value = newList;
+            }
+            else
+            {
+                serverBindings = site.Properties["ServerBindings"];
+
+                serverBindings.Add(hostHeader);
+
+                Object[] newList = new Object[serverBindings.Count];
+                serverBindings.CopyTo(newList, 0);
+
+                site.Properties["ServerBindings"].Value = newList;
+            }
             site.CommitChanges();
         }
     }
