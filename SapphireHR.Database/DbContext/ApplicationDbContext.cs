@@ -162,6 +162,7 @@ namespace SapphireHR.Database
         public DbSet<OrganizationAccount> OrganizationAccounts { get; set; }
         public DbSet<SalaryBatchPayment> SalaryBatchPayments { get; set; }
         public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        public DbSet<CompanyAccount> CompanyAccounts { get; set; }
 
 
 
