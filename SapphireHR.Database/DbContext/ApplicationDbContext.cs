@@ -157,6 +157,12 @@ namespace SapphireHR.Database
         public DbSet<EmployeeProffesionalExcellence> EmployeeProffesionalExcellences { get; set; }
         public DbSet<ProffesionalExcellenceSettings> ProffesionalExcellenceSettings { get; set; }
         public DbSet<PersonalExcellenceSettings> PersonalExcellenceSettings { get; set; }
+        public DbSet<EmployeePerfomanceAppraisal> EmployeePerfomanceAppraisals { get; set; }
+        public DbSet<OrganizationSettings> OrganizationSettings { get; set; }
+        public DbSet<OrganizationAccount> OrganizationAccounts { get; set; }
+        public DbSet<SalaryBatchPayment> SalaryBatchPayments { get; set; }
+        public DbSet<SalaryPayment> SalaryPayments { get; set; }
+
 
 
 
