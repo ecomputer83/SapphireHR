@@ -30,6 +30,18 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddCompanyAccount(CompanyAccount model)
+        {
+            this._context.Set<Database.EntityModels.CompanyAccount>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateCompanyAccount(CompanyAccount model)
+        {
+            this._context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddLeaveSetting(LeaveSetting model)
         {
             this._context.Set<Database.EntityModels.LeaveSetting>().Add(model);
@@ -47,12 +59,18 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<CompanyAccount> ReadCompanyAccount(int id)
+        {
+
+            return await _context.Set<CompanyAccount>().FirstOrDefaultAsync(c=>c.CompanyId == id);
+        }
+
         public async Task<CompanyEmployee> ReadCompanyEmployee(int id)
         {
 
             return await _context.Set<CompanyEmployee>().FindAsync(id);
         }
-        
+
         public async Task RemoveCompanyEmployee(int id)
         {
             var entity = await _context.Set<CompanyEmployee>().FindAsync(id);

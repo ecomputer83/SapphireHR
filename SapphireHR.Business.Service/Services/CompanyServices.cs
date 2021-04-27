@@ -38,6 +38,18 @@ namespace SapphireHR.Business.Service.Services
             return datamodel.Id;
         }
 
+        public async Task AddCompanyAccount(CompanyAccountModel model)
+        {
+            
+            var datamodel = _mapper.Map<Database.EntityModels.CompanyAccount>(model);
+            //datamodel.Directory = directory;
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._companyRepository.AddCompanyAccount(datamodel);
+        }
+
         public async Task<List<CompanyModel>> GetCompanies(int orgId)
         {
             var Orgs = await _companyRepository.ReadCompaniesById(orgId);
@@ -48,6 +60,12 @@ namespace SapphireHR.Business.Service.Services
         {
             var Orgs = await _companyRepository.Get(Id);
             return _mapper.Map<CompanyModel>(Orgs);
+        }
+
+        public async Task<CompanyAccountModel> GetCompanyAccount(int Id)
+        {
+            var Orgs = await _companyRepository.ReadCompanyAccount(Id);
+            return _mapper.Map<CompanyAccountModel>(Orgs);
         }
 
         public async Task AddLeaveSetting(LeaveSettingModel model)
@@ -75,6 +93,22 @@ namespace SapphireHR.Business.Service.Services
             company.Address = model.Address;
             company.UpdatedAt = DateTime.Now;
             await this._companyRepository.Update(company);
+        }
+
+        public async Task UpdateCompanyAccount(CompanyAccountModel model, int Id)
+        {
+            var company = await this._companyRepository.ReadCompanyAccount(Id);
+            company.BankAccountForSalary = model.BankAccountForSalary;
+            company.BankCodeForSalary = model.BankCodeForSalary;
+            company.BankAccountForPension = model.BankAccountForPension;
+            company.BankCodeForPension = model.BankCodeForPension;
+            company.BankAccountForTax = model.BankAccountForTax;
+            company.BankCodeForTax = model.BankCodeForTax;
+            company.Currency = model.Currency;
+            company.EmployerCodeForPension = model.EmployerCodeForPension;
+            company.RemitaUserAccount = model.RemitaUserAccount;
+            company.SalaryPayDay = model.SalaryPayDay;
+            await this._companyRepository.UpdateCompanyAccount(company);
         }
 
         public async Task InactiveCompany(int Id)
