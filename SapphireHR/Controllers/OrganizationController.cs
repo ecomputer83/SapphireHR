@@ -45,7 +45,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         [Route("addrank")]
         public async Task<IActionResult> AddRank([FromBody] RankModel model)
@@ -78,7 +78,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut]
         [Route("updaterank/{id}")]
         public async Task<IActionResult> UpdateRank([FromBody] RankModel model, int Id)
@@ -232,7 +232,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpDelete]
         [Route("DeleteRank")]
         public async Task<IActionResult> DeleteRank(int Id)

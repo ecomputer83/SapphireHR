@@ -65,6 +65,12 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<CompanyAccount>().FirstOrDefaultAsync(c=>c.CompanyId == id);
         }
 
+        public async Task<CompanyAccount> FindCompanyAccount(int id)
+        {
+
+            return await _context.Set<CompanyAccount>().AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
+        }
+
         public async Task<CompanyEmployee> ReadCompanyEmployee(int id)
         {
 

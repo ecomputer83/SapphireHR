@@ -576,6 +576,9 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Abbrv")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
@@ -2709,7 +2712,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6202),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(3975),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Access Bank Nigeria Plc",
                             LookupGroup = 0,
@@ -2721,7 +2724,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6480),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4202),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Diamond Bank Plc",
                             LookupGroup = 0,
@@ -2733,7 +2736,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6513),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4229),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Ecobank Nigeria",
                             LookupGroup = 0,
@@ -2745,7 +2748,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6534),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4248),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Enterprise Bank Plc",
                             LookupGroup = 0,
@@ -2757,7 +2760,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6557),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4267),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Fidelity Bank Plc",
                             LookupGroup = 0,
@@ -2769,7 +2772,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6591),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4287),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "First Bank of Nigeria Plc",
                             LookupGroup = 0,
@@ -2781,7 +2784,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6613),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4305),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "First City Monument Bank",
                             LookupGroup = 0,
@@ -2793,7 +2796,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6633),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4322),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Guaranty Trust Bank Plc",
                             LookupGroup = 0,
@@ -2805,7 +2808,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6652),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4340),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Heritage Banking Company Ltd",
                             LookupGroup = 0,
@@ -2817,7 +2820,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6674),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4359),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Jaiz Bank",
                             LookupGroup = 0,
@@ -2829,7 +2832,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6694),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4375),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Keystone Bank Ltd",
                             LookupGroup = 0,
@@ -2841,7 +2844,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6713),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4392),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Mainstreet Bank Plc",
                             LookupGroup = 0,
@@ -2853,7 +2856,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6733),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4409),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Stanbic IBTC Plc",
                             LookupGroup = 0,
@@ -2865,7 +2868,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6752),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4426),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Sterling Bank Plc",
                             LookupGroup = 0,
@@ -2877,7 +2880,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6772),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4444),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Union Bank Nigeria Plc",
                             LookupGroup = 0,
@@ -2889,7 +2892,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6791),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4461),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "United Bank for Africa Plc",
                             LookupGroup = 0,
@@ -2901,7 +2904,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6809),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4477),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Unity Bank Plc",
                             LookupGroup = 0,
@@ -2913,7 +2916,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6830),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4495),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "WEMA Bank Plc",
                             LookupGroup = 0,
@@ -2925,7 +2928,7 @@ namespace SapphireHR.Web.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 121, DateTimeKind.Local).AddTicks(6849),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 763, DateTimeKind.Local).AddTicks(4593),
                             CreatedBy = "SYSTEM",
                             LookupDescription = "Zenith Bank International",
                             LookupGroup = 0,
@@ -3140,7 +3143,7 @@ namespace SapphireHR.Web.Migrations
                         {
                             Id = 1,
                             CopySender = 0,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 117, DateTimeKind.Local).AddTicks(3624),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 759, DateTimeKind.Local).AddTicks(9555),
                             CreatedBy = "SYSTEM",
                             IsBodyHtml = 1,
                             IsSystem = false,
@@ -3155,7 +3158,7 @@ namespace SapphireHR.Web.Migrations
                         {
                             Id = 2,
                             CopySender = 0,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 119, DateTimeKind.Local).AddTicks(7416),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 761, DateTimeKind.Local).AddTicks(8595),
                             CreatedBy = "SYSTEM",
                             IsBodyHtml = 1,
                             IsSystem = false,
@@ -3170,7 +3173,7 @@ namespace SapphireHR.Web.Migrations
                         {
                             Id = 3,
                             CopySender = 0,
-                            CreatedAt = new DateTime(2021, 4, 28, 1, 19, 15, 119, DateTimeKind.Local).AddTicks(7629),
+                            CreatedAt = new DateTime(2021, 4, 28, 14, 8, 8, 761, DateTimeKind.Local).AddTicks(8725),
                             CreatedBy = "SYSTEM",
                             IsBodyHtml = 1,
                             IsSystem = false,

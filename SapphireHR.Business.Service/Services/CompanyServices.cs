@@ -87,6 +87,7 @@ namespace SapphireHR.Business.Service.Services
         {
             var company = await this._companyRepository.Get(Id);
             company.Name = model.Name;
+            company.Abbrv = model.Abbrv;
             company.Phone = model.Phone;
             company.Email = model.Email;
             company.ContactPerson = model.ContactPerson;
@@ -97,7 +98,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateCompanyAccount(CompanyAccountModel model, int Id)
         {
-            var company = await this._companyRepository.ReadCompanyAccount(Id);
+            var company = await this._companyRepository.FindCompanyAccount(Id);
             company.BankAccountForSalary = model.BankAccountForSalary;
             company.BankCodeForSalary = model.BankCodeForSalary;
             company.BankAccountForPension = model.BankAccountForPension;

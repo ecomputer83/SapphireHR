@@ -49,7 +49,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         [Route("PostAccount")]
         public async Task<IActionResult> PostAccount(CompanyAccountModel model)
@@ -115,7 +115,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet]
         [Route("GetAccount")]
         public async Task<IActionResult> GetAccount(int id)
@@ -160,7 +160,7 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPut]
         [Route("PutAccount")]
         public async Task<IActionResult> PutAccount(CompanyAccountModel model, int Id)

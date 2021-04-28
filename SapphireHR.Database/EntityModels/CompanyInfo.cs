@@ -5,6 +5,7 @@ namespace SapphireHR.Database.EntityModels
     public class CompanyInfo : BaseEntity, IEntity
     {
         public string Name { get; set; }
+        public string Abbrv { get; set; }
         public string ContactPerson { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
