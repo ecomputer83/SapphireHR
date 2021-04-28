@@ -50,6 +50,30 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [Route("PostAccount")]
+        public async Task<IActionResult> PostAccount(CompanyAccountModel model)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+
+                await _companyService.AddCompanyAccount(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -92,6 +116,28 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpGet]
+        [Route("GetAccount")]
+        public async Task<IActionResult> GetAccount(int id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var companies = await _companyService.GetCompanyAccount(id);
+                return Ok(companies);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
         public async Task<IActionResult> Put(CompanyModel model, int Id)
         {
@@ -105,6 +151,29 @@ namespace SapphireHR.Web.Controllers
                 model.OrganizationId = org.Id;
 
                 await _companyService.UpdateCompany(model, Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut]
+        [Route("PutAccount")]
+        public async Task<IActionResult> PutAccount(CompanyAccountModel model, int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                await _companyService.UpdateCompanyAccount(model, Id);
                 return Ok();
             }
             catch (Exception ex)
