@@ -155,6 +155,28 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("getLookup")]
+        public async Task<IActionResult> GetLookup(string type)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetLookups(type);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         [Route("getDesignationById")]
         public async Task<IActionResult> GetDesignationById(int id)
         {

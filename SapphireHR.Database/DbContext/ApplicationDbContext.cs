@@ -85,8 +85,34 @@ namespace SapphireHR.Database
                 CreatedAt = DateTime.Now,
                 CreatedBy = "SYSTEM"
             });
+            builder = SeedLookup(builder);
+
 
             base.OnModelCreating(builder);
+        }
+
+        private ModelBuilder SeedLookup(ModelBuilder builder)
+        {
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 1, LookupType = "BANKS", LookupValue = "044", LookupDescription = "Access Bank Nigeria Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 2, LookupType = "BANKS", LookupValue = "063", LookupDescription = "Diamond Bank Plc", LookupSort = 2, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 3, LookupType = "BANKS", LookupValue = "050", LookupDescription = "Ecobank Nigeria", LookupSort = 3, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 4, LookupType = "BANKS", LookupValue = "084", LookupDescription = "Enterprise Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 5, LookupType = "BANKS", LookupValue = "070", LookupDescription = "Fidelity Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 6, LookupType = "BANKS", LookupValue = "011", LookupDescription = "First Bank of Nigeria Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 7, LookupType = "BANKS", LookupValue = "214", LookupDescription = "First City Monument Bank", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 8, LookupType = "BANKS", LookupValue = "058", LookupDescription = "Guaranty Trust Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 9, LookupType = "BANKS", LookupValue = "030", LookupDescription = "Heritage Banking Company Ltd", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 10, LookupType = "BANKS", LookupValue = "301", LookupDescription = "Jaiz Bank", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 11, LookupType = "BANKS", LookupValue = "082", LookupDescription = "Keystone Bank Ltd", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 12, LookupType = "BANKS", LookupValue = "014", LookupDescription = "Mainstreet Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 13, LookupType = "BANKS", LookupValue = "039", LookupDescription = "Stanbic IBTC Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 14, LookupType = "BANKS", LookupValue = "232", LookupDescription = "Sterling Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 15, LookupType = "BANKS", LookupValue = "032", LookupDescription = "Union Bank Nigeria Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 16, LookupType = "BANKS", LookupValue = "033", LookupDescription = "United Bank for Africa Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 17, LookupType = "BANKS", LookupValue = "215", LookupDescription = "Unity Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 18, LookupType = "BANKS", LookupValue = "035", LookupDescription = "WEMA Bank Plc", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            builder.Entity<Lookup>().HasData(new Lookup { Id = 19, LookupType = "BANKS", LookupValue = "057", LookupDescription = "Zenith Bank International", LookupSort = 1, CreatedAt = DateTime.Now, CreatedBy = "SYSTEM" });
+            return builder;
         }
 
         public DbSet<Applicant> Applicants { get; set; }

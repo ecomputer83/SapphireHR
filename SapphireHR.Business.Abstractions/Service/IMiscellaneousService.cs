@@ -13,7 +13,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<ApplicantModel> GetApplicant(int id);
         Task<List<ApplicantModel>> GetApplicants(int orgId);
         Task RemoveApplicant(int id);
-
+        Task<List<LookupModel>> GetLookups(string type);
         Task<int> AddDepartment(DepartmentModel model);
         Task UpdateDepartment(DepartmentModel model, int id);
         Task<List<DepartmentModel>> GetDepartments(int orgId);

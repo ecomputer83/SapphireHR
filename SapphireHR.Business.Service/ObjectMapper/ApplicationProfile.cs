@@ -22,6 +22,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<RankModel, Rank>().ReverseMap();
             CreateMap<RankPermissionModel, RankPermission>().ReverseMap();
             CreateMap<CompanyModel, CompanyInfo>().ReverseMap();
+            CreateMap<CompanyAccountModel, CompanyAccount>().ReverseMap();
             CreateMap<LeaveSettingModel, LeaveSetting>().ReverseMap();
             CreateMap<EmployeeBankModel, EmployeeBank>().ReverseMap();
             CreateMap<JobSkillLevelModel, JobSkillLevel>().ReverseMap();
@@ -57,6 +58,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<ApplicationScoreModel, ApplicationScore>().ReverseMap();
             CreateMap<DesignationModel, Designation>().ReverseMap();
             CreateMap<DepartmentModel, Department>().ReverseMap();
+            CreateMap<LookupModel, Lookup>().ReverseMap();
             CreateMap<ApplicantModel, Applicant>().ReverseMap();
             CreateMap<UserViewModel, UserModel>();
             CreateMap<EmployeeResignationModel, EmployeeResignation>().ReverseMap();

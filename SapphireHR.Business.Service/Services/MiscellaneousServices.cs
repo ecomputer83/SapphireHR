@@ -16,15 +16,18 @@ namespace SapphireHR.Business.Service.Services
         private readonly ApplicantRepository _applicantRepository;
         private readonly DepartmentRepository _departmentRepository;
         private readonly DesignationRepository _designationRepository;
+        private readonly LookupRepository _lookupRepository;
         private readonly ExitRepository _exitRepository;
 
         public MiscellaneousServices(IMapper mapper, ApplicantRepository applicantRepository, 
-                                    DepartmentRepository departmentRepository, DesignationRepository designationRepository, ExitRepository exitRepository)
+                                    DepartmentRepository departmentRepository, DesignationRepository designationRepository,
+                                    LookupRepository lookupRepository, ExitRepository exitRepository)
         {
             _mapper = mapper;
             _applicantRepository = applicantRepository;
             _departmentRepository = departmentRepository;
             _designationRepository = designationRepository;
+            _lookupRepository = lookupRepository;
             _exitRepository = exitRepository;
         }
         public async Task<List<ApplicantModel>> GetApplicants(int orgId)
@@ -91,6 +94,12 @@ namespace SapphireHR.Business.Service.Services
         {
             var data = await _departmentRepository.GetDepartment(name);
             return _mapper.Map<DepartmentModel>(data);
+        }
+
+        public async Task<List<LookupModel>> GetLookups(string type)
+        {
+            var data = await _lookupRepository.ReadLookup(type);
+            return _mapper.Map<List<LookupModel>>(data); ;
         }
 
         public async Task<List<DepartmentModel>> GetDepartments(int orgId)
