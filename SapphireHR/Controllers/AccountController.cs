@@ -175,14 +175,45 @@ namespace SapphireHR.Web.Controllers
         //    }
         //}
 
-
-
-        /// <summary>
-        /// Log into account
-        /// </summary>
-        /// <param name="model">LoginViewModel</param>
-        /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(typeof(TokenModel), 200)]
+        [ProducesResponseType(typeof(IEnumerable<string>), 400)]
+        [Route("validate")]
+        public async Task<IActionResult> Validate([FromBody] LoginModel model)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this url" });
+                }
+                var user = await _userService.FindByEmailAsync(model.Email).ConfigureAwait(false);
+                if (user == null)
+                    return BadRequest(new string[] { "Invalid credentials." });
+
+                if (await _userService.CheckPasswordAsync(user, model.Password).ConfigureAwait(false))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    throw new Exception("Invalid credentials.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+            /// <summary>
+            /// Log into account
+            /// </summary>
+            /// <param name="model">LoginViewModel</param>
+            /// <returns></returns>
+            [HttpPost]
         [ProducesResponseType(typeof(TokenModel), 200)]
         [ProducesResponseType(typeof(IEnumerable<string>), 400)]
         [Route("token")]

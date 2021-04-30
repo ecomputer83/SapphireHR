@@ -17,6 +17,7 @@ namespace SapphireHR.Database.EntityModels
         public string Currency { get; set; }
         public string EmployerCodeForPension { get; set; }
         public string RemitaUserAccount { get; set; }
+        public string RemitaSecret { get; set; }
         public int SalaryPayDay { get; set; }
 
         [ForeignKey("CompanyId")]

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RestSharp;
 using SapphireHR.Business.Abstractions;
 using System;
@@ -88,9 +89,42 @@ namespace SapphireHR.Business.Integrations.RestApi
             //ValidateHttpResponse(response);
 
             if (response.Content != null)
-                return response.Content;
+                return JsonConvert.DeserializeObject(response.Content);
 
             return null;
+
+        }
+
+        public static T RestClientCall<T>(string baseUrl, string resource, Method method, BaseRequest req, string authorizationCode) where T : new()
+        {
+
+            var client = new RestClient(baseUrl);
+            var contentType = "application/json";
+
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-GB");
+
+            var request = new RestRequest(resource, method);
+            request.AddHeader("Content-Type", "application/json");
+
+            if(string.IsNullOrEmpty(authorizationCode))
+            request.AddHeader("Authorization", "Bearer " + authorizationCode);
+
+            if (req != null)
+                request?.AddParameter(contentType, JsonConvert.SerializeObject(req, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }), ParameterType.RequestBody);
+
+            var response = client.Execute<T>(request);
+
+            ValidateHttpResponse(response);
+
+            if (response.Data != null)
+            {
+                return response.Data;
+            }
+
+            if (response.Content != null)
+                return JsonConvert.DeserializeObject<T>(response.Content);
+
+            return default(T);
 
         }
 

@@ -147,6 +147,7 @@ namespace SapphireHR.Database
         public DbSet<EmployeeResignation> EmployeeResignations { get; set; }
         public DbSet<EmployeeLeave> EmployeeLeaves { get; set; }
         public DbSet<EmployeePension> EmployeePensions { get; set; }
+        public DbSet<EmployeeTax> EmployeeTaxes { get; set; }
         public DbSet<EmployeeTimetable> EmployeeTimetables { get; set; }
         public DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
         public DbSet<EmployeeTransfer> EmployeeTransfers { get; set; }
@@ -187,6 +188,10 @@ namespace SapphireHR.Database
         public DbSet<OrganizationSettings> OrganizationSettings { get; set; }
         public DbSet<SalaryBatchPayment> SalaryBatchPayments { get; set; }
         public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        public DbSet<PensionBatchPayment> PensionBatchPayments { get; set; }
+        public DbSet<PensionPayment> PensionPayments { get; set; }
+        public DbSet<TaxBatchPayment> TaxBatchPayments { get; set; }
+        public DbSet<TaxPayment> TaxPayments { get; set; }
         public DbSet<CompanyAccount> CompanyAccounts { get; set; }
 
 

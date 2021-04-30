@@ -108,6 +108,7 @@ namespace SapphireHR.Business.Service.Services
             company.Currency = model.Currency;
             company.EmployerCodeForPension = model.EmployerCodeForPension;
             company.RemitaUserAccount = model.RemitaUserAccount;
+            company.RemitaSecret = model.RemitaSecret;
             company.SalaryPayDay = model.SalaryPayDay;
             await this._companyRepository.UpdateCompanyAccount(company);
         }

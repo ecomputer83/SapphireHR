@@ -24,5 +24,8 @@ namespace SapphireHR.Database.EntityModels
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
+        public virtual SalaryPayment SalaryPayment { get; set; }
+        public virtual PensionPayment PensionPayment { get; set; }
+        public virtual TaxPayment TaxPayment { get; set; }
     }
 }

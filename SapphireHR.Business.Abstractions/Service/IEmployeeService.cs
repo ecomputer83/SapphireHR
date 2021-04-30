@@ -26,14 +26,16 @@ namespace SapphireHR.Business.Abstractions.Service
         Task <DisciplinaryMeasuresModel> GetDisciplinaryMeasure(int id);
         Task<List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasures(int id);
         Task RemoveDisciplinaryMeasures(int id);
-
+        Task<List<EmployeeTaxModel>> GetEmployeeTaxes(int id);
 
         Task AddEmployeeEducation(EmployeeEducationModel model);
         Task UpdateEmployeeEducation(EmployeeEducationModel model, int id);
         Task AddEmployeeSalary(EmployeeSalaryModel model);
         Task<List<EmployeeSalaryModel>> GetAllEmployeeSalaries(int id);
+        Task<List<EmployeeSalaryModel>> GetEmployeeSalariesByMonth(int id, string Period);
         Task<EmployeeSalaryModel> GetEmployeeSalary(int id);
         Task<List<EmployeeSalaryModel>> GetEmployeePayslip(int id);
+        Task<List<EmployeePensionModel>> GetEmployeePensions(int id);
         Task UpdateEmployeeSalary(EmployeeSalaryModel model, int id);
         Task RemoveEmployeeSalary(int id);
         Task<EmployeeEducationModel> GetEmployeeEducation(int id);
@@ -50,6 +52,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployeeFamily(EmployeeFamilyModel model, int id);
         Task<EmployeeFamilyModel> GetEmployeeFamily(int id);
         Task RemoveEMployeeFamily(int id);
+        Task<List<EmployeeBankModel>> GetEmployeeBanks(int id);
         Task AddEmployeeLeave(EmployeeLeaveModel model);
         Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id);
         Task<EmployeeLeaveModel> GetEMployeeLeave(int id);
@@ -58,6 +61,9 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddEmployeePension(EmployeePensionModel model);
         Task UpdateEmployeePension(EmployeePensionModel model, int id);
         Task<EmployeePensionModel> GetEmployeePension(int id);
+        Task AddEmployeeTax(EmployeeTaxModel model);
+        Task UpdateEmployeeTax(EmployeeTaxModel model, int id);
+        Task<EmployeeTaxModel> GetEmployeeTax(int id);
         Task RemoveEmployeePension(int id);
         Task AddEmployeeStatutory(EmployeeStatutoryModel model);
         Task UpdateEmployeeStatutory(EmployeeStatutoryModel model, int id);
