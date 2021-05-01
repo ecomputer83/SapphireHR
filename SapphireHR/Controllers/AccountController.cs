@@ -76,6 +76,25 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("checkuser")]
+        public async Task<IActionResult> CheckUser(string email)
+        {
+            try
+            {
+
+                var user = await _userService.FindByEmailAsync(email);
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("roles")]
