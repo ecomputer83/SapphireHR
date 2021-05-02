@@ -264,6 +264,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeTax(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeTax(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeStatutory(int id)
         {
             try
@@ -317,6 +333,23 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var rsc = await _employeeService.GetAllEmployeeSalaries(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllPrevEmployeeSalaries(int id, string month, string year)
+        {
+            try
+            {
+                var period = month + '/' + year;
+                var rsc = await _employeeService.GetEmployeeSalariesByMonth(id, period);
                 return Ok(rsc);
             }
             catch (Exception ex)
@@ -536,7 +569,8 @@ namespace SapphireHR.Web.Controllers
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeBank([FromBody] EmployeeBankModel payload)
-        {            try
+        {            
+            try
 
             {
                 await _employeeService.AddEmployeeBank(payload);
@@ -736,6 +770,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.AddEmployeePension(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> PostEmployeeTax([FromBody] EmployeeTaxModel payload)
+        {
+            try
+            {
+                await _employeeService.AddEmployeeTax(payload);
                 return Ok();
             }
             catch (Exception ex)
@@ -979,6 +1029,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.UpdateEmployeePension(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeTax(int id, [FromBody] EmployeeTaxModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateEmployeeTax(payload, id);
                 return Ok();
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SapphireHR.Business.Abstractions;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Database.EntityModels;
 using System;
@@ -43,6 +44,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<EmployeeFamilyModel, EmployeeFamily>().ReverseMap();
             CreateMap<EmployeeLeaveModel, EmployeeLeave>().ReverseMap();
             CreateMap<EmployeePensionModel, EmployeePension>().ReverseMap();
+            CreateMap<EmployeeTaxModel, EmployeeTax>().ReverseMap();
             CreateMap<EmployeeStatutoryModel, EmployeeStatutory>().ReverseMap();
             CreateMap<EmployeeTimetableModel, EmployeeTimetable>().ReverseMap();
             CreateMap<EmployeeTransferModel, EmployeeTransfer>().ReverseMap();
@@ -63,6 +65,26 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<UserViewModel, UserModel>();
             CreateMap<EmployeeResignationModel, EmployeeResignation>().ReverseMap();
             CreateMap<DisciplinaryMeasuresModel, DisciplinaryMeasures>().ReverseMap();
+            CreateMap<RemitaSalaryRequest, SalaryBatchPayment>().ReverseMap();
+            CreateMap<SalaryTransaction, SalaryPayment>()
+                .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
+            CreateMap<RemitaPensionRequest, PensionBatchPayment>().ReverseMap();
+            CreateMap<PensionTransaction, PensionPayment>()
+                .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
+            CreateMap<RemitaTaxRequest, TaxBatchPayment>().ReverseMap();
+            CreateMap<TaxTransaction, TaxPayment>()
+                .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
+        }
+
+    }
+
+    public class RemoveSalaryIdFromTrans : IValueConverter<string, int>
+    {
+        public int Convert(string sourceMember, ResolutionContext context)
+        {
+            var ret = sourceMember;
+            string i = ret.Split('E')[0];
+            return int.Parse(i);
         }
     }
 }

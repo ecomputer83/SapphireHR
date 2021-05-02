@@ -17,7 +17,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Employee> GetEmployeeDetail(int employeeId)
         {
-            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).Include(a=>a.EmployeePension).Include(c=>c.EmployeeStatutory).FirstOrDefaultAsync(c=>c.Id == employeeId);
+            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).Include(a=>a.EmployeePension).Include(c=>c.EmployeeStatutory).Include(c=>c.EmployeeTax).FirstOrDefaultAsync(c=>c.Id == employeeId);
             emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeExperiences = _context.Set<EmployeeExperience>().Where(e => e.EmployeeId == emp.Id).ToList();
@@ -49,7 +49,10 @@ namespace SapphireHR.Data.Service.Repositories
             var companyIdParam = new SqlParameter("@companyId", companyId);
             var startParam = new SqlParameter("@start", start);
             var endParam = new SqlParameter("@end", end);
-            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.SalaryDate >= @start and s.SalaryDate <= @end)", companyIdParam, startParam, endParam).Include(e => e.Employee).ThenInclude(a => a.Designation).ToListAsync();
+            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.SalaryDate >= @start and s.SalaryDate <= @end)", companyIdParam, startParam, endParam).Include(s => s.SalaryPayment)
+                .Include(p=>p.PensionPayment).Include(t=>t.TaxPayment)
+                .Include(e => e.Employee).ThenInclude(a => a.Designation)
+                .ToListAsync();
         }
 
         public async Task<List<EmployeeSalary>> GetEmployeePaidSalary(int employeeId)
@@ -57,11 +60,15 @@ namespace SapphireHR.Data.Service.Repositories
             var companyIdParam = new SqlParameter("@employeeId", employeeId);
             return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.EmployeeId = @employeeId and s.Status = 1", companyIdParam).Include(e => e.Employee).ToListAsync();
         }
-
+        public async Task<EmployeeSalary> GetNoTrackingEmployeeSalary(int id)
+        {
+            return await _context.Set<EmployeeSalary>().AsNoTracking()
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
         public async Task<EmployeeSalary> GetEmployeeSalary(int employeeId)
         {
             return await _context.EmployeeSalaries
-                .Include(c => c.Employee).AsNoTracking()
+                .Include(c => c.Employee)
                 .FirstOrDefaultAsync(s => s.EmployeeId == employeeId);
         }
         public async Task AddEmployeeSalary(EmployeeSalary model)
@@ -184,6 +191,24 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<EmployeeBank> GetEmployeeBank(int id)
         {
             return await _context.EmployeeBanks.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<List<EmployeeBank>> GetEmployeeBanks(int id)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            return await _context.EmployeeBanks.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeBanks s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ToListAsync();
+        }
+
+        public async Task<List<EmployeePension>> GetEmployeePensions(int id)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            return await _context.EmployeePensions.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeePensions s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ToListAsync();
+        }
+
+        public async Task<List<EmployeeTax>> GetEmployeeTaxes(int id)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            return await _context.EmployeeTaxes.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeTaxes s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ToListAsync();
         }
 
         public async Task RemoveEmployeeBank(int id)
@@ -440,6 +465,23 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<EmployeeStatutory> GetEmployeeStatutory(int id)
         {
             return await _context.Set<EmployeeStatutory>().FindAsync(id);
+        }
+
+        public async Task AddEmployeeTax(EmployeeTax model)
+        {
+            _context.Set<EmployeeTax>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateEmployeeTax(EmployeeTax model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<EmployeeTax> GetEmployeeTax(int id)
+        {
+            return await _context.Set<EmployeeTax>().FindAsync(id);
         }
 
         public async Task RemoveEmployeeStatutory(int id)

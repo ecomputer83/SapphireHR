@@ -21,34 +21,38 @@ namespace SapphireHR.Business.Service
             }
             else
             {
-                services.AddScoped<OrganizationRepository>();
-                services.AddScoped<CompanyRepository>();
-                services.AddScoped<JobRepository>();
-                services.AddScoped<SkillsRepository>();
-                services.AddScoped<EmployeeRepository>();
-                services.AddScoped<ApplicantRepository>();
-                services.AddScoped<ApplicationRepository>();
-                services.AddScoped<DepartmentRepository>();
-                services.AddScoped<DesignationRepository>();
-                services.AddScoped<ExpenseRespository>();
-                services.AddScoped<MailTemplateRepository>();
-                services.AddScoped<LookupRepository>();
-
-                services.AddScoped<ExitRepository>();
-                services.AddScoped<SysAdminClientService>();
+                services.AddTransient<IApplicationService, ApplicationServices>();
+                services.AddTransient<IExpenseService, ExpenseService>();
+                services.AddTransient<ICompanyService, CompanyServices>();
+                services.AddTransient<IEmailService, EmailService>();
+                services.AddTransient<IDesignationService, DesignationService>();
+                services.AddTransient<ISkillService, SkillService>();
+                services.AddTransient<IEmployeeService, EmployeeServices>();
+                services.AddTransient<IJobService, JobServices>();
+                services.AddTransient<IPaymentService, PaymentService>();
+                services.AddTransient<IMiscellaneousService, MiscellaneousServices>();
+                services.AddTransient<IOrganizationService, OrganizationServices>();
+                services.AddTransient<IUserService, UserService>();
             }
+            services.AddScoped<OrganizationRepository>();
+            services.AddScoped<CompanyRepository>();
+            services.AddScoped<JobRepository>();
+            services.AddScoped<SkillsRepository>();
+            services.AddScoped<EmployeeRepository>();
+            services.AddScoped<ApplicantRepository>();
+            services.AddScoped<ApplicationRepository>();
+            services.AddScoped<DepartmentRepository>();
+            services.AddScoped<DesignationRepository>();
+            services.AddScoped<ExpenseRespository>();
+            services.AddScoped<MailTemplateRepository>();
+            services.AddScoped<LookupRepository>();
+            services.AddScoped<PaymentRepository>();
+
+            services.AddScoped<ExitRepository>();
+            services.AddScoped<SysAdminClientService>();
+            services.AddScoped<PaymentClientService>();
             services.AddScoped<FileManager>();
-            services.AddTransient<IApplicationService, ApplicationServices>();
-            services.AddTransient<IExpenseService, ExpenseService>();
-            services.AddTransient<ICompanyService, CompanyServices>();
-            services.AddTransient<IEmailService, EmailService>();
-            services.AddTransient<IDesignationService, DesignationService>();
-            services.AddTransient<ISkillService, SkillService>();
-            services.AddTransient<IEmployeeService, EmployeeServices>();
-            services.AddTransient<IJobService, JobServices>();
-            services.AddTransient<IMiscellaneousService, MiscellaneousServices>();
-            services.AddTransient<IOrganizationService, OrganizationServices>();
-            services.AddTransient<IUserService, UserService>();
+            
         }
 
     }

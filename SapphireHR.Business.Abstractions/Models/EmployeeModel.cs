@@ -31,5 +31,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public  EmployeeBankModel EmployeeBank { get; set; }
         public EmployeeStatutoryModel EmployeeStatutory { get; set; }
         public EmployeePensionModel EmployeePension { get; set; }
+        public EmployeeTaxModel EmployeeTax { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Currency { get; set; }
         public string EmployerCodeForPension { get; set; }
         public string RemitaUserAccount { get; set; }
+        public string RemitaSecret { get; set; }
         public int SalaryPayDay { get; set; }
+
+        public CompanyModel CompanyInfo { get; set; }
     }
 }

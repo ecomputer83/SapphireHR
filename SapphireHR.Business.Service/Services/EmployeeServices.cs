@@ -181,6 +181,16 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeStatutory(datamodel);
         }
 
+        public async Task AddEmployeeTax(EmployeeTaxModel model)
+        {
+            var datamodel = _mapper.Map<EmployeeTax>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddEmployeeTax(datamodel);
+        }
+
         public async Task AddEmployeeTimetable(EmployeeTimetableModel model)
         {
             var datamodel = _mapper.Map<EmployeeTimetable>(model);
@@ -225,12 +235,44 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<List<EmployeeBankModel>> GetEmployeeBanks(int id)
+        {
+            var banks = await _employeeRepository.GetEmployeeBanks(id);
+            var res = _mapper.Map<List<EmployeeBankModel>>(banks);
+            return res;
+        }
+
+        public async Task<List<EmployeePensionModel>> GetEmployeePensions(int id)
+        {
+            var banks = await _employeeRepository.GetEmployeePensions(id);
+            var res = _mapper.Map<List<EmployeePensionModel>>(banks);
+            return res;
+        }
+
+        public async Task<List<EmployeeTaxModel>> GetEmployeeTaxes(int id)
+        {
+            var banks = await _employeeRepository.GetEmployeeTaxes(id);
+            var res = _mapper.Map<List<EmployeeTaxModel>>(banks);
+            return res;
+        }
+
         public async Task<List<EmployeeSalaryModel>> GetAllEmployeeSalaries(int id)
         {
             var start = DateTime.Now.GetFirstDayOfMonth();
             var end = DateTime.Now.GetLastDayOfMonth();
             var data = await _employeeRepository.GetEmployeeSalaries(id, start, end);
             var res =  _mapper.Map<List<EmployeeSalaryModel>>(data);
+            return res;
+        }
+
+        public async Task<List<EmployeeSalaryModel>> GetEmployeeSalariesByMonth(int id, string Period)
+        {
+            var sp = Period.Split('/');
+            var dateofMonth = new DateTime(int.Parse(sp[1]), int.Parse(sp[0]), 15);
+            var start = dateofMonth.GetFirstDayOfMonth();
+            var end = dateofMonth.GetLastDayOfMonth().AddHours(23).AddMinutes(59);
+            var data = await _employeeRepository.GetEmployeeSalaries(id, start, end);
+            var res = _mapper.Map<List<EmployeeSalaryModel>>(data);
             return res;
         }
 
@@ -349,6 +391,13 @@ namespace SapphireHR.Business.Service.Services
         {
             var stat = await _employeeRepository.GetEmployeeStatutory(id);
             var res = _mapper.Map<EmployeeStatutoryModel>(stat);
+            return res;
+        }
+
+        public async Task<EmployeeTaxModel> GetEmployeeTax(int id)
+        {
+            var stat = await _employeeRepository.GetEmployeeTax(id);
+            var res = _mapper.Map<EmployeeTaxModel>(stat);
             return res;
         }
 
@@ -489,7 +538,12 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateEmployeeSalary(EmployeeSalaryModel model, int id)
         {
+            var data = await _employeeRepository.GetNoTrackingEmployeeSalary(id);
             var datamodel = _mapper.Map<EmployeeSalary>(model);
+            datamodel.Id = data.Id;
+            datamodel.SalaryDate = data.SalaryDate;
+            datamodel.CreatedAt = data.CreatedAt;
+            datamodel.CreatedBy = data.CreatedBy;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _employeeRepository.UpdateCompanySalary(datamodel);
@@ -568,6 +622,15 @@ namespace SapphireHR.Business.Service.Services
             data.SalaryAmount = model.SalaryAmount;
             data.SalaryBasis = model.SalaryBasis;
             await _employeeRepository.UpdateEmployeeStatutory(data);
+        }
+
+        public async Task UpdateEmployeeTax(EmployeeTaxModel model, int id)
+        {
+            var data = await _employeeRepository.GetEmployeeTax(id);
+            data.Tin = model.Tin;
+            data.TaxCode = model.TaxCode;
+            data.TaxOffice = model.TaxOffice;
+            await _employeeRepository.UpdateEmployeeTax(data);
         }
 
         public async Task UpdateEmployeeTimetable(EmployeeTimetableModel model, int id)

@@ -35,5 +35,6 @@ namespace SapphireHR.Database.EntityModels
         public virtual EmployeeBank EmployeeBank { get; set; }
         public virtual EmployeeStatutory EmployeeStatutory { get; set; }
         public virtual EmployeePension EmployeePension { get; set; }
+        public virtual EmployeeTax EmployeeTax { get; set; }
     }
 }
