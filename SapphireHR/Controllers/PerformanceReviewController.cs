@@ -18,11 +18,13 @@ namespace SapphireHR.Web.Controllers
         IOrganizationService _organizationService;
         IPerformanceReviewService _performanceReviewService;
         private readonly ILogger<PerformanceReviewController> _logger;
-        public PerformanceReviewController(IOrganizationService organizationService, IPerformanceReviewService performanceReviewService, ILogger<PerformanceReviewController> logger) : base(organizationService)
+        private readonly IEmployeePerfomanceAppraisal _employeePerfomanceAppraisal;
+        public PerformanceReviewController(IOrganizationService organizationService, IPerformanceReviewService performanceReviewService, ILogger<PerformanceReviewController> logger, IEmployeePerfomanceAppraisal employeePerfomanceAppraisal) : base(organizationService)
         {
             _organizationService = organizationService;
             _performanceReviewService = performanceReviewService;
             _logger = logger;
+            _employeePerfomanceAppraisal = employeePerfomanceAppraisal;
         }
 
 
@@ -682,6 +684,78 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _performanceReviewService.RemovePersonalExcellenceSettings(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeePerfomanceAppraisal(int id)
+        {
+            try
+            {
+                var rsc = await _employeePerfomanceAppraisal.GetEmployeePerfomanceAppraisal(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllEmployeePerfomanceAppraisal(int id)
+        {
+            try
+            {
+                var rsc = await _employeePerfomanceAppraisal.GetAllEmployeePerfomanceAppraisal(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeePerfomanceAppraisal([FromBody] EmployeePerfomanceAppraisalModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _employeePerfomanceAppraisal.AddEmployeePerfomanceAppraisal(model);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeePerfomanceAppraisal([FromBody] EmployeePerfomanceAppraisalModel model, int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState.Values.Select(x => x.Errors.FirstOrDefault().ErrorMessage));
+
+                await _employeePerfomanceAppraisal.UpdateEmployeePerfomanceAppraisal(model, id);
+
                 return Ok();
             }
             catch (Exception ex)
