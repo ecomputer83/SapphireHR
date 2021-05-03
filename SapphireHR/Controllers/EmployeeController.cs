@@ -361,6 +361,23 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetMonthlyAAttendanceReview(int id, string month, string year)
+        {
+            try
+            {
+                var period = month + '/' + year;
+                var rsc = await _employeeService.GetMonthlyAttendanceReview(id, period);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTimetable(int id)
         {
             try

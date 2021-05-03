@@ -20,7 +20,7 @@ namespace SapphireHR.Business.Integrations
         }
         public Task<RemitaLoginResponse> Authenticate(RemitaLogin request)
         {
-            var resource = $"/uaasvc/uaa";
+            var resource = $"/uaasvc/uaa/token";
             var resp = RestService.RestClientCall<RemitaLoginResponse>(this.baseUrl, resource, RestSharp.Method.POST, request, null);
             return Task.FromResult(resp);
         }

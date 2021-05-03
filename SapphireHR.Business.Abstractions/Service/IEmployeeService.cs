@@ -36,6 +36,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<EmployeeSalaryModel> GetEmployeeSalary(int id);
         Task<List<EmployeeSalaryModel>> GetEmployeePayslip(int id);
         Task<List<EmployeePensionModel>> GetEmployeePensions(int id);
+        Task<List<MonthlyAttendanceReviewModel>> GetMonthlyAttendanceReview(int id, string Period);
         Task UpdateEmployeeSalary(EmployeeSalaryModel model, int id);
         Task RemoveEmployeeSalary(int id);
         Task<EmployeeEducationModel> GetEmployeeEducation(int id);

@@ -387,6 +387,17 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<List<MonthlyAttendanceReviewModel>> GetMonthlyAttendanceReview(int id, string Period)
+        {
+            var sp = Period.Split('/');
+            var dateofMonth = new DateTime(int.Parse(sp[1]), int.Parse(sp[0]), 15);
+            var start = dateofMonth.GetFirstDayOfMonth();
+            var end = dateofMonth.GetLastDayOfMonth().AddHours(23).AddMinutes(59);
+            var pen = await _employeeRepository.GetMonthlyAttendanceReview(id, start, end);
+            var res = _mapper.Map<List<MonthlyAttendanceReviewModel>>(pen);
+            return res;
+        }
+
         public async Task<EmployeeStatutoryModel> GetEmployeeStatutory(int id)
         {
             var stat = await _employeeRepository.GetEmployeeStatutory(id);
@@ -637,8 +648,8 @@ namespace SapphireHR.Business.Service.Services
         {
             var data = await _employeeRepository.GetEmployeeTimetable(id);
             data.AttendedDate = model.AttendedDate;
-            data.Time = model.Time;
-            data.Punch = model.Punch;
+            data.PunchInTime = model.PunchInTime;
+            data.PunchOutTime = model.PunchOutTime;
             await _employeeRepository.UpdateEmployeeTimetable(data);
         }
 

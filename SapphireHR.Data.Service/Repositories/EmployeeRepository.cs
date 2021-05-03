@@ -510,7 +510,18 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<EmployeeTimetable>> GetEmployeeTimetables(int id)
         {
-            return await _context.Set<EmployeeTimetable>().Where(c=>c.EmployeeId == id && c.AttendedDate.ToShortDateString() == DateTime.Now.ToShortDateString()).ToListAsync();
+            return await _context.Set<EmployeeTimetable>().Where(c=>c.EmployeeId == id).ToListAsync();
+        }
+
+        public async Task<List<MonthlyAttendanceReview>> GetMonthlyAttendanceReview(int id, DateTime start, DateTime end)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            var startParam = new SqlParameter("@start", start);
+            var endParam = new SqlParameter("@end", end);
+            var attendances = await _context.EmployeeTimetables
+                .FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeTimetables s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.AttendedDate >= @start and s.AttendedDate <= @end)", companyIdParam, startParam, endParam)
+                .Include(e => e.Employee).ToListAsync();
+            return attendances.GroupBy(g => g.EmployeeId).Select(t => ConvertArrayToObject(t)).ToList();
         }
 
         public async Task<EmployeeTimetable> GetEmployeeTimetable(int id)
@@ -585,6 +596,25 @@ namespace SapphireHR.Data.Service.Repositories
 
             _context.Set<DisciplinaryMeasures>().Remove(data);
             await _context.SaveChangesAsync();
+        }
+
+        private MonthlyAttendanceReview ConvertArrayToObject( IGrouping<int, EmployeeTimetable> timetables)
+        {
+            var result = new Dictionary<string, object>();
+            result.Add("EmployeeId", timetables.Key);
+            result.Add("Employee", timetables.First().Employee);
+            var resArray = timetables.ToArray();
+            for (var i = 0; i < resArray.Length; i++)
+            {
+                var obj = resArray[i];
+                var day = obj.AttendedDate.Day;
+                var halfDay = string.IsNullOrEmpty(obj.PunchOutTime) ? false : int.Parse(obj.PunchOutTime.Split(':')[0]) < 17;
+                var num = (obj.PunchInTime != null && !halfDay) ? 1 : (obj.PunchInTime != null && halfDay) ? 2 : 0;
+                result.Add("Day"+day.ToString(), num);
+            }
+
+            var resultString = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<MonthlyAttendanceReview>(resultString);
         }
 
     }

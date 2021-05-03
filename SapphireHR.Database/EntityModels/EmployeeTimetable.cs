@@ -9,8 +9,8 @@ namespace SapphireHR.Database.EntityModels
     {
         public int EmployeeId { get; set; }
         public DateTime AttendedDate { get; set; }
-        public string Time { get; set; }
-        public bool Punch { get; set; }
+        public string PunchInTime { get; set; }
+        public string PunchOutTime { get; set; }
 
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
