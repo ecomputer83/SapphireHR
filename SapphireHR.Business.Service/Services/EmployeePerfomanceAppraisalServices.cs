@@ -39,18 +39,26 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<List<EmployeePerfomanceAppraisalModel>> GetAllEmployeePerfomanceAppraisal(int Id)
+        {
+            var data = await _appraisalRepository.GetAllEmployeePerfomanceAppraisal(Id);
+            var res = _mapper.Map<List<EmployeePerfomanceAppraisalModel>>(data);
+            return res;
+        }
+
         public async Task RemoveEmployeePerfomanceAppraisal(int id)
         {
             await _appraisalRepository.RemoveEmployeePerfomanceAppraisal(id);
         }
 
 
-        public async Task UpdateEmployeePerfomanceAppraisal(EmployeePerfomanceAppraisalModel model)
+        public async Task UpdateEmployeePerfomanceAppraisal(EmployeePerfomanceAppraisalModel model, int id)
         {
-            var datamodel = _mapper.Map<EmployeePerfomanceAppraisal>(model);
-            datamodel.UpdatedAt = DateTime.Now;
-            datamodel.UpdatedBy = "SYSTEM";
-            await _appraisalRepository.UpdateEmployeePerfomanceAppraisal(datamodel);
+            var data = await _appraisalRepository.GetEmployeePerfomanceAppraisal(id);
+            data = _mapper.Map<EmployeePerfomanceAppraisal>(model);
+            data.UpdatedAt = DateTime.Now;
+            data.UpdatedBy = "SYSTEM";
+            await _appraisalRepository.UpdateEmployeePerfomanceAppraisal(data);
         }
 
     }

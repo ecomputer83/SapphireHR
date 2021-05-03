@@ -12,8 +12,10 @@ namespace SapphireHR.Business.Abstractions.Service
 
         Task<List<EmployeePerfomanceAppraisalModel>> GetEmployeePerfomanceAppraisal(int Id);
 
+        Task<List<EmployeePerfomanceAppraisalModel>> GetAllEmployeePerfomanceAppraisal(int Id);
+
         Task RemoveEmployeePerfomanceAppraisal(int id);
 
-        Task UpdateEmployeePerfomanceAppraisal(EmployeePerfomanceAppraisalModel model);
+        Task UpdateEmployeePerfomanceAppraisal(EmployeePerfomanceAppraisalModel model, int id);
     }
 }
