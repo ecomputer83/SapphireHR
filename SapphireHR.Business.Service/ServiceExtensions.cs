@@ -33,6 +33,9 @@ namespace SapphireHR.Business.Service
                 services.AddTransient<IMiscellaneousService, MiscellaneousServices>();
                 services.AddTransient<IOrganizationService, OrganizationServices>();
                 services.AddTransient<IUserService, UserService>();
+                services.AddTransient<IPerformanceReviewService, PerformanceReviewServices>();
+                services.AddTransient<IEmployeePerfomanceAppraisal, EmployeePerfomanceAppraisalServices>();
+
             }
             services.AddScoped<OrganizationRepository>();
             services.AddScoped<CompanyRepository>();
@@ -47,6 +50,8 @@ namespace SapphireHR.Business.Service
             services.AddScoped<MailTemplateRepository>();
             services.AddScoped<LookupRepository>();
             services.AddScoped<PaymentRepository>();
+            services.AddScoped<PerformanceReviewRepository>();
+            services.AddScoped<EmployeePerfomanceAppraisalRepository>();
 
             services.AddScoped<ExitRepository>();
             services.AddScoped<SysAdminClientService>();

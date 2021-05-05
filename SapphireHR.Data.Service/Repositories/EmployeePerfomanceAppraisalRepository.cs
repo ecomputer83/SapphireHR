@@ -17,7 +17,11 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<List<EmployeePerfomanceAppraisal>> GetAllEmployeePerfomanceAppraisal(int id)
         {
             var companyIdParam = new Microsoft.Data.SqlClient.SqlParameter("@companyId", id);
-            return await _context.EmployeePerfomanceAppraisals.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeePerfomanceAppraisals s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).Include(d =>d.DesignationPerformance).ToListAsync();
+            return await _context.EmployeePerfomanceAppraisals.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeePerfomanceAppraisals s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam)
+                .Include(d =>d.DesignationPerformance)
+                .Include(e => e.Employee)
+                .ThenInclude(f => f.Designation)
+                .ThenInclude(g => g.Department).ToListAsync();
 
         }
 

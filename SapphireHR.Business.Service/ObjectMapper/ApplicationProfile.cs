@@ -67,6 +67,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<DisciplinaryMeasuresModel, DisciplinaryMeasures>().ReverseMap();
             CreateMap<RemitaSalaryRequest, SalaryBatchPayment>().ReverseMap();
             CreateMap<MonthlyAttendanceReview, MonthlyAttendanceReviewModel>().ReverseMap();
+            CreateMap<EmployeePerfomanceAppraisal, EmployeePerfomanceAppraisalModel>().ReverseMap();
             CreateMap<SalaryTransaction, SalaryPayment>()
                 .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
             CreateMap<RemitaPensionRequest, PensionBatchPayment>().ReverseMap();

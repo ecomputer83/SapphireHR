@@ -23,6 +23,8 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Org_Conflict { get; set; }
         public string Org_Attendance { get; set; }
         public string Org_ATMD { get; set; }
+        public int Status { get; set; }
         public DateTime AppraisalDate { get; set; }
+        public EmployeeModel Employee { get; set; }
     }
 }
