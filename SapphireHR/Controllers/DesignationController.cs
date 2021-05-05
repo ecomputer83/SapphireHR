@@ -29,6 +29,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet]
+        public async Task<IActionResult> GetDesignationByEmployee(int id)
+        {
+            try
+            {
+                var rsc = await _designationService.GetDesignationByEmployee(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> GetDesignationPerformances()
         {
             try
@@ -50,6 +66,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var rsc = await _designationService.GetDesignationPerformance(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDesignationPerformanceByDesignationId(int id)
+        {
+            try
+            {
+                var rsc = await _designationService.GetDesignationPerformanceByDesignationId(id);
                 return Ok(rsc);
             }
             catch (Exception ex)

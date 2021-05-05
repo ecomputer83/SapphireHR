@@ -21,14 +21,21 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<DesignationPerformance> GetDesignationPerformance(int id)
         {
             return await _context.Set<DesignationPerformance>()
-               .Include(c => c.Designation)
+               .Include(c => c.Designation).ThenInclude(d => d.Department)
                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<DesignationPerformance> GetDesignationPerformanceByDesignationId(int id)
+        {
+            return await _context.Set<DesignationPerformance>()
+               .Include(c => c.Designation).ThenInclude(d => d.Department)
+               .FirstOrDefaultAsync(s => s.DesignationId == id);
         }
 
         public async Task<List<DesignationPerformance>> GetDesignationPerformances()
         {
             return await _context.Set<DesignationPerformance>()
-               .Include(c => c.Designation)
+               .Include(c => c.Designation).ThenInclude(d => d.Department)
                .ToListAsync();
         }
 

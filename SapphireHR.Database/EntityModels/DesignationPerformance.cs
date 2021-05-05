@@ -8,6 +8,7 @@ namespace SapphireHR.Database.EntityModels
     public class DesignationPerformance : BaseEntity, IEntity
     {
         public int DesignationId { get; set; }
+        public string AddedBy { get; set; }
         public string Tech_CE { get; set; }
         public string Tech_Marketing { get; set; }
         public string Tech_Management { get; set; }

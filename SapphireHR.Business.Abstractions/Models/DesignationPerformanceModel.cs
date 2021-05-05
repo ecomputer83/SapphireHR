@@ -24,6 +24,9 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Org_ATMD { get; set; }
         public int DesignationId { get; set; }
         public DesignationModel Designation { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public string AddedBy { get; set; }
+        public int Status { get; set; }
 
     }
 }

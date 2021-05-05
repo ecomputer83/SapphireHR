@@ -14,10 +14,12 @@ namespace SapphireHR.Business.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly DesignationRepository _designationRepository;
-        public DesignationService(DesignationRepository designationRepository, IMapper mapper)
+        private readonly EmployeeRepository _employeeRepository;
+        public DesignationService(DesignationRepository designationRepository, EmployeeRepository employeeRepository, IMapper mapper)
         {
             _mapper = mapper;
             _designationRepository = designationRepository;
+            _employeeRepository = employeeRepository;
         }
         public async Task AddDesignationPerformance(DesignationPerformanceModel model)
         {
@@ -29,9 +31,24 @@ namespace SapphireHR.Business.Service.Services
             await _designationRepository.AddDesignationPerformance(datamodel);
         }
 
+        public async Task<DesignationModel> GetDesignationByEmployee(int id)
+        {
+            var employee = await _employeeRepository.Get(id);
+            var res = await _designationRepository.Get(employee.DesignationId);
+            var datamodel = _mapper.Map<DesignationModel>(res);
+            return datamodel;
+        }
+
         public async Task<DesignationPerformanceModel> GetDesignationPerformance(int id)
         {
             var res = await _designationRepository.GetDesignationPerformance(id);
+            var datamodel = _mapper.Map<DesignationPerformanceModel>(res);
+            return datamodel;
+        }
+
+        public async Task<DesignationPerformanceModel> GetDesignationPerformanceByDesignationId(int id)
+        {
+            var res = await _designationRepository.GetDesignationPerformanceByDesignationId(id);
             var datamodel = _mapper.Map<DesignationPerformanceModel>(res);
             return datamodel;
         }
