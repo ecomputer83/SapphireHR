@@ -11,6 +11,6 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Tin { get; set; }
         public string TaxCode { get; set; }
         public string TaxOffice { get; set; }
-        public EmployeeModel Employee { get; set; }
+        //public EmployeeModel Employee { get; set; }
     }
 }
