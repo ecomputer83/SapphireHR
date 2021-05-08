@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
@@ -53,7 +54,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        
+
         [Authorize]
         [HttpGet("{companyId}")]
         public async Task<IActionResult> GetAllEmployees(int companyId)
@@ -85,7 +86,7 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
-        
+
         [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeResignation(int id)
@@ -586,7 +587,7 @@ namespace SapphireHR.Web.Controllers
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostEmployeeBank([FromBody] EmployeeBankModel payload)
-        {            
+        {
             try
 
             {
@@ -765,6 +766,7 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
+
         [HttpPost]
         public async Task<IActionResult> PostEmployeeSalary([FromBody] EmployeeSalaryModel payload)
         {
@@ -772,6 +774,21 @@ namespace SapphireHR.Web.Controllers
             {
                 await _employeeService.AddEmployeeSalary(payload);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+        [Authorize]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> PostEmployeePhoto([FromForm] IFormFile file, int id)
+        {
+            try
+            {
+                var emp = await _employeeService.AddPhoto(file, id);
+                return Ok(emp);
             }
             catch (Exception ex)
             {

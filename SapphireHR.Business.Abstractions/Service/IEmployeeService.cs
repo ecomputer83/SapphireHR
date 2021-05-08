@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using SapphireHR.Business.Abstractions.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IEmployeeService
     {
         Task<EmployeeModel> AddEmployee(EmployeeModel model);
+        Task<EmployeeModel> AddPhoto(IFormFile file, int id);
         Task UpdateEmployee(EmployeeModel model, int id);
         Task<EmployeeModel> GetEmployee(int id);
         Task<EmployeeModel> GetNoTrackingEmployee(int id);

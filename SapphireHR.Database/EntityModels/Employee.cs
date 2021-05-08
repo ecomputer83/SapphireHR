@@ -17,7 +17,7 @@ namespace SapphireHR.Database.EntityModels
         public string Address { get; set; }
         public string Gender { get; set; } // "M" or "F"
         public string PassportIdentificationNumber { get; set; } // "Could be shortened to PIN for the model mappings or use like so"
-        public string PassportPhoto { get; set; } // Url to Azure Blob store
+        public byte[] PassportPhoto { get; set; } // Url to Azure Blob store
         public string Nationality { get; set; }
         public string Religion { get; set; }
         public string MaritalStatus { get; set; } // "Single" "Married"

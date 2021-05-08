@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using SapphireHR.Business.Service;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace SapphireHR.Business.Service.Services
 {
@@ -101,6 +103,26 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<EmployeeModel>(datamodel);
         }
 
+        public async Task<EmployeeModel> AddPhoto(IFormFile file, int id)
+        {
+            EmployeeModel model = null;
+            var employee = await _employeeRepository.GetNoTrackingEmployee(id);
+            if(file.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    if(memoryStream.Length > 0)
+                    {
+                        employee.PassportPhoto = memoryStream.ToArray();
+                    }
+
+                    var result = await _employeeRepository.Update(employee);
+                    model = _mapper.Map<EmployeeModel>(result);
+                }
+            }
+            return model;
+        }
         public async Task AddEmployeeBank(EmployeeBankModel model)
         {
             var datamodel = _mapper.Map<EmployeeBank>(model);
