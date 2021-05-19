@@ -56,6 +56,25 @@ namespace SapphireHR.Business.Service
             passwordBuilder.Append(RandomString(2));
             return passwordBuilder.ToString();
         }
+
+        public string RandomCode()
+        {
+            var passwordBuilder = new StringBuilder();
+
+            // 4-Letters lower case   
+            passwordBuilder.Append(RandomString(2));
+
+            // 4-Digits between 1000 and 9999  
+            passwordBuilder.Append(RandomNumber(1000, 9999));
+
+            // 2-Letters upper case  
+            passwordBuilder.Append(RandomString(2));
+
+            // 4-Digits between 10 and 99 
+            passwordBuilder.Append(RandomNumber(10, 99));
+
+            return passwordBuilder.ToString();
+        }
     }
 }
 

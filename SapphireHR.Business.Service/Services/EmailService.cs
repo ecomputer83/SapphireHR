@@ -138,7 +138,7 @@ namespace SapphireHR.Business.Service.Services
             mailMessage.Subject = Subject;
         }
 
-        public async Task SendApplicationLogin(string Org, string Username, string Password, string ApplicantEmail, string Url)
+        public async Task SendApplicationLogin(string Company, string WelcomeMessage, string Name, string ApplicantEmail)
         {
             using (var client = new SmtpClient(_email.Server, _email.Port))
             using (var loginDetails = new MailMessage())
@@ -149,7 +149,11 @@ namespace SapphireHR.Business.Service.Services
                     client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
                 }
 
-                PrepareMailMessage(_email.DisplayName, $"{Org} Application Login", $"Here is the login Username <b>{Username}</b> and Password <b>{Password}</b> to this <a href=\"{Url}\">link</a> ", _email.From, ApplicantEmail, loginDetails);
+                var message = new StringBuilder();
+                message.AppendLine($"Hi {Name},");
+                message.AppendLine(WelcomeMessage);
+
+                PrepareMailMessage(_email.DisplayName, $"{Company} Application Login", message.ToString(), _email.From, ApplicantEmail, loginDetails);
                 client.EnableSsl = true;
                 await client.SendMailAsync(loginDetails);
             }

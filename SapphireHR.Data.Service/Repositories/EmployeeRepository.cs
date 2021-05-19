@@ -88,6 +88,12 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddQuery(Query model)
+        {
+            _context.Set<Query>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddEmployeeTermination(EmployeeTermination model)
         {
             _context.Set<EmployeeTermination>().Add(model);
@@ -99,15 +105,21 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Set<EmployeeResignation>().Add(model);
             await _context.SaveChangesAsync();
         }
+        public async Task AddExitInterface(ExitInterview model)
+        {
+            _context.Set<ExitInterview>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<CompanyEmployee> GetCompanyEmployeeByUserId(string userId)
         {
             var employee = await _context.Set<Employee>().FirstOrDefaultAsync(e => e.UserId == userId);
             return await _context.Set<CompanyEmployee>().Include(c => c.Company).Include(c => c.Employee).Include(c => c.Rank).FirstOrDefaultAsync(c => c.EmployeeId == employee.Id);
         }
 
-        public async Task<List<EmployeeResignation>> GetEmployeeResignations()
+        public async Task<List<EmployeeResignation>> GetEmployeeResignationsByEmployee(int EmployeeId)
         {
-            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).ToListAsync();
+            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).Include(d=>d.ExitInterview).Where(e=>e.EmployeeId == EmployeeId).ToListAsync();
         }
 
         public async Task<List<EmployeeTermination>> GetEmployeeTerminations(int companyId)
@@ -121,7 +133,7 @@ namespace SapphireHR.Data.Service.Repositories
         {
             var companyIdParam = new SqlParameter("@companyId", companyId);
             return await _context.EmployeeResignations.FromSqlRaw("select et.* from dbo.EmployeeResignations et inner join dbo.Employees e on e.Id = et.employeeId inner join dbo.CompanyEmployees c on c.employeeId = et.employeeId where c.companyId = @companyId", companyIdParam)
-                .Include(e => e.Employee).ToListAsync();
+                .Include(e => e.Employee).Include(e=>e.ExitInterview).ToListAsync();
         }
         public async Task<List<EmployeeTravel>> GetEmployeeTravels()
         {
@@ -129,7 +141,12 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<EmployeeResignation> GetEmployeeResignationById(int id)
         {
-            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).Include(c=>c.ExitInterview).FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<List<EmployeeResignation>> GetEmployeeResignationByEmployeeId(int id)
+        {
+            return await _context.Set<EmployeeResignation>().Include(c => c.Employee).Include(c => c.ExitInterview).Where(e => e.Id == id).ToListAsync();
         }
 
         public async Task<EmployeeTravel> GetEmployeeTravelById(int id)
@@ -165,6 +182,12 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateExitInterview(ExitInterview model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateCompanySalary(EmployeeSalary model)
         {
             _context.Entry(model).State = EntityState.Modified;
@@ -182,6 +205,13 @@ namespace SapphireHR.Data.Service.Repositories
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateQuery(Query model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateEmployeeBank(EmployeeBank model)
         {
             _context.Entry(model).State = EntityState.Modified;
@@ -295,11 +325,16 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task RemoveEmployeeResignation(int id)
         {
-            var data = await _context.Set<EmployeeResignation>().FindAsync(id);
+            var data = await _context.Set<EmployeeResignation>().AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
             if (data == null)
             {
                 await Task.FromException(new Exception("The Id can't be found"));
             }
+
+            var exit = await _context.Set<ExitInterview>().AsNoTracking().FirstOrDefaultAsync(c => c.ResignationId == data.Id);
+            
+            if(exit != null)
+                _context.Set<ExitInterview>().Remove(exit);
 
             _context.Set<EmployeeResignation>().Remove(data);
             await _context.SaveChangesAsync();
@@ -307,7 +342,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task RemoveEmployeeTermination(int id)
         {
-            var data = await _context.Set<EmployeeTermination>().FindAsync(id);
+            var data = await _context.Set<EmployeeTermination>().AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
             if (data == null)
             {
                 await Task.FromException(new Exception("The Id can't be found"));
@@ -319,7 +354,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task RemoveEmployeeSalary(int id)
         {
-            var data = await _context.Set<EmployeeSalary>().FindAsync(id);
+            var data = await _context.Set<EmployeeSalary>().AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
             if (data == null)
             {
                 await Task.FromException(new Exception("This item can't be found"));
@@ -502,7 +537,19 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddEmployeeLeavePolicy(CompanyLeavePolicy model)
+        {
+            _context.Set<CompanyLeavePolicy>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateEmployeeTimetable(EmployeeTimetable model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateEmployeeLeavePolicy(CompanyLeavePolicy model)
         {
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -529,6 +576,26 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.EmployeeTimetables.AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
         }
 
+        public async Task<CompanyLeavePolicy> GetEmployeeLeavePolicy(int id)
+        {
+            return await _context.CompanyLeavePolicies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<CompanyLeavePolicy> GetEmployeeLeavePolicyByEmployee(int id, int policyId)
+        {
+            return await _context.CompanyLeavePolicies.AsNoTracking().FirstOrDefaultAsync(c => c.EmployeeId == id && c.PolicyId == policyId);
+        }
+        public async Task RemoveEmployeeLeavePolicyByEmployee(int id, int policyId)
+        {
+            var data = await GetEmployeeLeavePolicyByEmployee(id, policyId);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<CompanyLeavePolicy>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
         public async Task RemoveEmployeeTimetable(int id)
         {
             var data = await _context.Set<EmployeeTimetable>().FindAsync(id);
@@ -563,15 +630,26 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<EmployeeTransfer>().FindAsync(id);
         }
         
-        public async Task<DisciplinaryMeasures> GetDisciplinaryMeasure(int id)
+        public async Task<List<DisciplinaryMeasures>> GetDisciplinaryMeasure(int id)
         {
-            return await _context.Set<DisciplinaryMeasures>().FirstOrDefaultAsync(c=>c.EmployeeId == id);
+            return await _context.Set<DisciplinaryMeasures>().Include(e => e.Query).ThenInclude(e=>e.Employee).ThenInclude(d => d.Designation).Where(c=>c.Query.EmployeeId == id).ToListAsync();
+        }
+
+        public async Task<List<Query>> GetQueriesByEmployeeId(int id)
+        {
+            return await _context.Set<Query>().Include(e => e.Employee).ThenInclude(d => d.Designation).Where(c => c.EmployeeId == id).ToListAsync();
         }
 
         public async Task<List<DisciplinaryMeasures>> GetDisciplinaryMeasures(int id)
         {
             var companyIdParam = new SqlParameter("@companyId", id);
-            return await _context.DisciplinaryMeasures.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.DisciplinaryMeasures s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ThenInclude(d=>d.Designation).ToListAsync();
+            return await _context.DisciplinaryMeasures.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.Queries q on c.EmployeeId = q.EmployeeId inner join dbo.DisciplinaryMeasures s on q.Id = s.QueryId where c.CompanyId = @companyId", companyIdParam).Include(q=>q.Query).ThenInclude(e => e.Employee).ThenInclude(d=>d.Designation).ToListAsync();
+        }
+
+        public async Task<List<Query>> GetQueries(int id)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            return await _context.Queries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.Queries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(e => e.Employee).ThenInclude(d => d.Designation).ToListAsync();
         }
 
         public async Task RemoveEmployeeTransfer(int id)
@@ -595,6 +673,18 @@ namespace SapphireHR.Data.Service.Repositories
             }
 
             _context.Set<DisciplinaryMeasures>().Remove(data);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveQueries(int id)
+        {
+            var data = await _context.Set<Query>().FindAsync(id);
+            if (data == null)
+            {
+                await Task.FromException(new Exception("The Id can't be found"));
+            }
+
+            _context.Set<Query>().Remove(data);
             await _context.SaveChangesAsync();
         }
 

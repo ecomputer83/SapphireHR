@@ -73,6 +73,62 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("PostLeavePolicy")]
+        public async Task<IActionResult> PostLeavePolicy(LeavePolicyModel model)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+
+                await _companyService.AddLeavePolicy(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("InitiateLeaveSetting")]
+        public async Task<IActionResult> InitiateLeaveSetting(int id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                var types = await _organizationService.GetLeaveTypes(org.Id);
+                foreach (var type in types)
+                {
+                    var model = new LeaveSettingModel
+                    {
+                        TypeId = type.Id,
+                        CompanyId = id
+                    };
+                    await _companyService.AddLeaveSetting(model);
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -137,6 +193,28 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("GetLeaveSettings")]
+        public async Task<IActionResult> GetLeaveSettings(int id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var companies = await _companyService.GetLeaveSetting(id);
+                return Ok(companies);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpPut]
         public async Task<IActionResult> Put(CompanyModel model, int Id)
@@ -174,6 +252,52 @@ namespace SapphireHR.Web.Controllers
                 }
 
                 await _companyService.UpdateCompanyAccount(model, Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("PutLeaveSetting")]
+        public async Task<IActionResult> PutLeaveSetting(LeaveSettingModel model, int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                await _companyService.UpdateLeaveSetting(model, Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("PutLeavePolicy")]
+        public async Task<IActionResult> PutLeavePolicy(LeavePolicyModel model, int Id)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+
+                await _companyService.UpdateLeavePolicy(model, Id);
                 return Ok();
             }
             catch (Exception ex)

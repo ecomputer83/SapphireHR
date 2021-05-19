@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireHR.Database;
 
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210519130906_Queries")]
+    partial class Queries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -831,6 +833,12 @@ namespace SapphireHR.Web.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Form")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("QueryId")
                         .HasColumnType("int");
 
@@ -851,7 +859,7 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QueryId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("DisciplinaryMeasures");
                 });
@@ -3687,9 +3695,6 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Form")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("QueryType")
                         .HasColumnType("nvarchar(max)");
 
@@ -4672,13 +4677,13 @@ namespace SapphireHR.Web.Migrations
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.DisciplinaryMeasures", b =>
                 {
-                    b.HasOne("SapphireHR.Database.EntityModels.Query", "Query")
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("QueryId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Query");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>

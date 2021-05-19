@@ -26,8 +26,22 @@ namespace SapphireHR.Database.EntityModels
         public Designation Designation { get; set; }
         [ForeignKey("JobProfileId")]
         public JobProfile JobProfile { get; set; }
-
         public virtual JobRequisition JobRequisition { get; set; }
+        public virtual Vacancysettings Vacancysettings { get; set; }
+        [NotMapped]
+        public virtual List<Application> FreshApplications { get; set; }
+        [NotMapped]
+        public virtual List<Application> PhoneInterviewApplications { get; set; }
+        [NotMapped]
+        public virtual List<Application> FaceToFaceInterviewApplications { get; set; }
+        [NotMapped]
+        public virtual List<Application> TestInterviewApplications { get; set; }
+        [NotMapped]
+        public virtual List<Application> AcceptedApplications { get; set; }
+        [NotMapped]
+        public virtual List<Application> RejectedApplications { get; set; }
+
+
     }
 
     public class VacancySummary : BaseEntity, IEntity
@@ -46,7 +60,10 @@ namespace SapphireHR.Database.EntityModels
         public int NewApplicationCount { get; set; }
         public int RejectedApplicationCount { get; set; }
         public int AcceptedApplicationCount { get; set; }
-        public int HRInterviewCount { get; set; }
-        public int SupervisorInterviewCount { get; set; }
+        public int PhoneInterviewCount { get; set; }
+        public int FaceToFaceInterviewCount { get; set; }
+        public int AptitudeTestInterviewCount { get; set; }
+
+        
     }
 }

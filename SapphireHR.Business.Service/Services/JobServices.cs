@@ -61,6 +61,17 @@ namespace SapphireHR.Business.Service.Services
             return Id;
         }
 
+        public async Task<int> AddVacancySetting(VacancysettingsModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.Vacancysettings>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            var Id = await _jobRepsitory.AddVacancySetting(datamodel);
+            return Id;
+        }
+
         public async Task<JobProfessionModel> GetJobProfessionById(int id)
         {
             var result = await this._jobRepsitory.GetJobProfessionById(id);
@@ -107,6 +118,12 @@ namespace SapphireHR.Business.Service.Services
         {
             var result = await this._jobRepsitory.GetVacancySummaries(id);
             return _mapper.Map<List<VacancySummaryModel>>(result);
+        }
+
+        public async Task<VacancyModel> GetVacancyApplications(int id)
+        {
+            var result = await this._jobRepsitory.GetVacancyApplicationDetail(id);
+            return _mapper.Map<VacancyModel>(result);
         }
 
         public async Task<List<VacancyModel>> GetVacanciesByOrgId(int id)
@@ -173,6 +190,14 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _jobRepsitory.UpdateVacancy(datamodel);
+        }
+
+        public async Task UpdateVacancySettings(VacancysettingsModel model, int id)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.Vacancysettings>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _jobRepsitory.UpdateVacancysetting(datamodel);
         }
 
         public async Task<JobRequisitionModel> GetJobRequisitionByVacancyId(int vacancyId)

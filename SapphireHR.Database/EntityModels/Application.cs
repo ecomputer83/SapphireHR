@@ -9,6 +9,7 @@ namespace SapphireHR.Database.EntityModels
     {
         public int ApplicantId { get; set; }
         public int VacancyId { get; set; }
+        public string Code { get; set; }
         public DateTime StartDate { get; set; }
         public string NoticePeriod { get; set; }
         public double ExpectedSalary { get; set; }
@@ -17,6 +18,7 @@ namespace SapphireHR.Database.EntityModels
         [ForeignKey("ApplicantId")]
         public Applicant Applicant { get; set; }
         [ForeignKey("VacancyId")]
+        [NotMapped]
         public Vacancy Vacancy { get; set; }
 
         public virtual ApplicationFaceToView ApplicationFaceToView { get; set; }

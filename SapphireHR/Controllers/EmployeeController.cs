@@ -121,6 +121,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeResignationsByEmployee(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeResignationsByEmployee(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeTermination(int id)
         {
             try
@@ -411,11 +427,11 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDisciplinaryMeasure(int id)
+        public async Task<IActionResult> GetDisciplinaryMeasureByEmployee(int id)
         {
             try
             {
-                var rsc = await _employeeService.GetDisciplinaryMeasure(id);
+                var rsc = await _employeeService.GetDisciplinaryMeasureByEmployee(id);
                 return Ok(rsc);
             }
             catch (Exception ex)
@@ -432,6 +448,38 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 var rsc = await _employeeService.GetDisciplinaryMeasures(companyId);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetQueriesByEmployee(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetQueriesByEmployee(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{companyId}")]
+        public async Task<IActionResult> GetQueries(int companyId)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetQueries(companyId);
                 return Ok(rsc);
             }
             catch (Exception ex)
@@ -637,6 +685,23 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> PostExitInterview([FromBody] ExitInterviewModel payload)
+        {
+            try
+
+            {
+                await _employeeService.AddExitInterview(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> PostEmployeeTermination([FromBody] EmployeeTerminationModel payload)
         {
             try
@@ -766,7 +831,6 @@ namespace SapphireHR.Web.Controllers
         }
 
         [Authorize]
-
         [HttpPost]
         public async Task<IActionResult> PostEmployeeSalary([FromBody] EmployeeSalaryModel payload)
         {
@@ -781,6 +845,23 @@ namespace SapphireHR.Web.Controllers
                 return CreateApiException(ex);
             }
         }
+
+        [Authorize]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> PostEmployeeLeavePolicy([FromBody] List<int> payload, int id)
+        {
+            try
+            {
+                await _employeeService.AddEmployeeLeavePolicy(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize]
         [HttpPost("{id}")]
         public async Task<IActionResult> PostEmployeePhoto([FromForm] IFormFile file, int id)
@@ -912,6 +993,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateQuery(int id, [FromBody] QueryModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateQuery(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployeeEducation(int id, [FromBody] EmployeeEducationModel payload)
         {
             try
@@ -949,6 +1046,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.UpdateEmployeeResignation(payload, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExitInterview(int id, [FromBody] ExitInterviewModel payload)
+        {
+            try
+            {
+                await _employeeService.UpdateExitInterview(payload, id);
                 return Ok();
             }
             catch (Exception ex)
@@ -1229,6 +1342,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteQuery(int id)
+        {
+            try
+            {
+                await _employeeService.RemoveQuery(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeTermination(int id)
         {
             try
@@ -1346,6 +1475,22 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _employeeService.RemoveEmployeeTransfer(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeleteEmployeeLeavePolicy([FromBody] List<int> EmployeeIds, int id)
+        {
+            try
+            {
+                await _employeeService.RemoveEmployeeLeavePolicy(EmployeeIds, id);
                 return Ok();
             }
             catch (Exception ex)

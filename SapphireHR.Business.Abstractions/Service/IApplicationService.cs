@@ -12,7 +12,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<ApplicationModel> GetApplicationLogin(string username, string password);
 
 
-        Task<int> AddApplication(int OrgId, ApplicationModel model, string Url);
+        Task<int> AddApplication(ApplicationModel model);
         Task<ApplicationModel> GetApplicationById(int id);
         Task UpdateApplication(ApplicationModel model, int id);
         Task<List<ApplicationModel>> GetAllApplication(int companyId);

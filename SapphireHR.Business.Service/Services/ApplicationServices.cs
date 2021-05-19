@@ -15,16 +15,21 @@ namespace SapphireHR.Business.Service.Services
         private readonly IMapper _mapper;
         private readonly ApplicationRepository _applicationRepository;
         private readonly OrganizationRepository _organizationRepository;
+        private readonly CompanyRepository _companyRepository;
         private readonly ApplicantRepository _applicantRepository;
+        private readonly JobRepository _jobRepository;
         private readonly IEmailService _emailService;
 
-        public ApplicationServices(IMapper mapper, ApplicationRepository applicationStore, ApplicantRepository applicantRepository,
+        public ApplicationServices(IMapper mapper, ApplicationRepository applicationStore, ApplicantRepository applicantRepository, 
+            JobRepository jobRepository, CompanyRepository companyRepository,
             OrganizationRepository organizationRepository, IEmailService emailService)
         {
             _mapper = mapper;
             _applicationRepository = applicationStore;
             _organizationRepository = organizationRepository;
+            _companyRepository = companyRepository;
             _applicantRepository = applicantRepository;
+            _jobRepository = jobRepository;
             _emailService = emailService;
         }
 
@@ -212,33 +217,41 @@ namespace SapphireHR.Business.Service.Services
             return data;
         }
 
-        public async Task<int> AddApplication(int OrgId, ApplicationModel model, string Url)
+        public async Task<int> AddApplication(ApplicationModel model)
         {
+            var generator = new RandomGenerator();
             var data = _mapper.Map<Application>(model);
+            data.Code = generator.RandomCode();
             data.CreatedAt = DateTime.Now;
             data.UpdatedAt = DateTime.Now;
             data.CreatedBy = "SYSSTEM";
             data.UpdatedBy = "SYSTEM";
             data = await _applicationRepository.Add(data);
 
-            // Get OrganizationDetails
-            var org = await _organizationRepository.Get(OrgId);
-
             // Get Applicant Details
             var applicant = await _applicantRepository.Get(model.ApplicantId);
-            //Generate Application Login
-            var generator = new RandomGenerator();
-            var loginmodel = new ApplicationLogin
-            {
-                ApplicationId = data.Id,
-                UserName = generator.RandomString(15),
-                Password = generator.RandomPassword()
-            };
 
-            await _applicationRepository.AddApplicationLogin(loginmodel);
+            // Get Welcome Message
+            var vacancy = await _jobRepository.GetVacancyById(data.VacancyId);
+
+            // Get Company Details
+            var company = await _companyRepository.Get(vacancy.CompanyId);
+
+            //Generate Application Login
+
+            //var loginmodel = new ApplicationLogin
+            //{
+            //    ApplicationId = data.Id,
+            //    UserName = generator.RandomString(15),
+            //    Password = generator.RandomPassword()
+            //};
+
+            //await _applicationRepository.AddApplicationLogin(loginmodel);
 
             //Send Application Login to Applicant
-            await _emailService.SendApplicationLogin(org.Name, loginmodel.UserName, loginmodel.Password, applicant.Email, Url);
+            await _emailService.SendApplicationLogin(company.Name, vacancy.Vacancysettings?.WelcomeMessage, $"{applicant.FirstName} {applicant.LastName}", applicant.Email);
+
+
 
             return data.Id;
         }

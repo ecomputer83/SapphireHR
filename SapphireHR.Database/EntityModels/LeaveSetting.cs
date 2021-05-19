@@ -16,5 +16,9 @@ namespace SapphireHR.Database.EntityModels
 
         [ForeignKey("CompanyId")]
         public CompanyInfo CompanyInfo { get; set; }
+        [ForeignKey("TypeId")]
+        public LeaveType LeaveType { get; set; }
+        [NotMapped]
+        public virtual List<LeavePolicy> LeavePolicies { get; set; }
     }
 }

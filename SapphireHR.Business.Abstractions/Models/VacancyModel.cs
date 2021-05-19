@@ -24,5 +24,12 @@ namespace SapphireHR.Business.Abstractions.Models
         public JobProfileModel JobProfile { get; set; }
 
         public JobRequisitionModel JobRequisition { get; set; }
+        public VacancysettingsModel Vacancysettings { get; set; }
+        public List<ApplicationModel> FreshApplications { get; set; }
+        public List<ApplicationModel> PhoneInterviewApplications { get; set; }
+        public List<ApplicationModel> FaceToFaceInterviewApplications { get; set; }
+        public List<ApplicationModel> TestInterviewApplications { get; set; }
+        public List<ApplicationModel> AcceptedApplications { get; set; }
+        public List<ApplicationModel> RejectedApplications { get; set; }
     }
 }

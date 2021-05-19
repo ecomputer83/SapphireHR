@@ -50,7 +50,29 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<LeaveSetting> ReadLeaveSettingById(int id)
         {
-            return await _context.Set<LeaveSetting>().FindAsync(id);
+            return await _context.Set<LeaveSetting>().AsNoTracking().FirstOrDefaultAsync(a=>a.Id == id);
+        }
+
+        public async Task<LeaveSetting> ReadLeaveSettingByTypeId(int id, int companyId)
+        {
+            return await _context.Set<LeaveSetting>().AsNoTracking().FirstOrDefaultAsync(a => a.TypeId == id && a.CompanyId == companyId);
+        }
+
+        public async Task<List<LeaveSetting>> ReadLeaveSettings(int id)
+        {
+            var result = await _context.Set<LeaveSetting>().Include(c=>c.LeaveType).Where(c => c.CompanyId == id).ToListAsync();
+            result.ForEach(async r =>
+            {
+                var policies = await _context.Set<LeavePolicy>().Where(c => c.TypeId == r.TypeId && c.CompanyId == id).ToListAsync();
+                policies.ForEach(async p =>
+                {
+                    p.CompanyLeavePolicies = await _context.Set<CompanyLeavePolicy>().Include(c => c.Employee).Where(c => c.PolicyId == p.Id).ToListAsync();
+                });
+
+                r.LeavePolicies = policies;
+            });
+
+            return result;
         }
 
         public async Task UpdateLeaveSetting(LeaveSetting model)
@@ -89,32 +111,32 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCompanyLeavePolicy(CompanyLeavePolicy model)
+        public async Task AddCompanyLeavePolicy(LeavePolicy model)
         {
-            this._context.Set<Database.EntityModels.CompanyLeavePolicy>().Add(model);
+            this._context.Set<Database.EntityModels.LeavePolicy>().Add(model);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateCompanyLeavePolicy(CompanyLeavePolicy model)
+        public async Task UpdateCompanyLeavePolicy(LeavePolicy model)
         {
             this._context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<CompanyLeavePolicy> ReadCompanyLeavePolicy(int id)
+        public async Task<LeavePolicy> ReadCompanyLeavePolicy(int id)
         {
-            return await _context.Set<CompanyLeavePolicy>().FindAsync(id);
+            return await _context.Set<LeavePolicy>().AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
         }
 
         public async Task RemoveCompanyLeavePolicy(int id)
         {
-            var entity = await _context.Set<CompanyLeavePolicy>().FindAsync(id);
+            var entity = await _context.Set<LeavePolicy>().FindAsync(id);
             if (entity == null)
             {
                 await Task.FromException(new Exception("The Id provided doesn't exists"));
             }
 
-            _context.Set<CompanyLeavePolicy>().Remove(entity);
+            _context.Set<LeavePolicy>().Remove(entity);
             await _context.SaveChangesAsync();
         }
 

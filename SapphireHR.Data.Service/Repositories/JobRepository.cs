@@ -155,8 +155,9 @@ namespace SapphireHR.Data.Service.Repositories
 	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 0) as NewApplicationCount,
 	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 8) as RejectedApplicationCount,
 	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 1) as AcceptedApplicationCount,
-	(select count(*) from dbo.Applications a inner join dbo.ApplicationInterviews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 0) as HRInterviewCount,
-	(select count(*) from dbo.Applications a inner join dbo.ApplicationFaceToViews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 0) as SupervisorInterviewCount
+	(select count(*) from dbo.Applications a inner join dbo.ApplicationInterviews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 2) as PhoneInterviewCount,
+	(select count(*) from dbo.Applications a inner join dbo.ApplicationFaceToViews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 4) as FaceToFaceInterviewCount,
+	(select count(*) from dbo.Applications a inner join dbo.ApplicationScores i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 3) as AptitudeTestInterviewCount,
 	from dbo.Vacancies v 
 	inner join dbo.JobProfiles j on v.JobProfileId = j.Id 
 	inner join dbo.Departments d on j.DepartmentId = d.Id
@@ -164,13 +165,30 @@ namespace SapphireHR.Data.Service.Repositories
             var json = JsonConvert.SerializeObject(data);
             return JsonConvert.DeserializeObject<List<VacancySummary>>(json);
         }
+
+        public async Task<Vacancy> GetVacancyApplicationDetail(int vacancyId)
+        {
+            var data = await _context.Set<Vacancy>().Include(v => v.Vacancysettings).FirstOrDefaultAsync(c => c.Id == vacancyId);
+            data.FreshApplications = await _context.Set<Application>().Include(c => c.Applicant).Where(j => j.Status == 0).ToListAsync();
+            data.RejectedApplications = await _context.Set<Application>().Include(c => c.Applicant).Include(c=>c.ApplicationInterview).Include(c => c.ApplicationFaceToView).Include(c => c.ApplicationNegotiation).Include(c => c.ApplicationScore).Where(j => j.Status == 8).ToListAsync();
+            data.AcceptedApplications = await _context.Set<Application>().Include(c => c.Applicant).Include(c=>c.ApplicationInterview).Include(c => c.ApplicationFaceToView).Include(c => c.ApplicationNegotiation).Include(c => c.ApplicationScore).Where(j => j.Status == 1).ToListAsync();
+            data.PhoneInterviewApplications = await _context.Set<Application>().Include(c => c.Applicant).Include(c=>c.ApplicationInterview).Include(c => c.ApplicationFaceToView).Include(c => c.ApplicationNegotiation).Include(c => c.ApplicationScore).Where(j => j.Status == 2).ToListAsync();
+            data.FaceToFaceInterviewApplications = await _context.Set<Application>().Include(c => c.Applicant).Include(c=>c.ApplicationInterview).Include(c => c.ApplicationFaceToView).Include(c => c.ApplicationNegotiation).Include(c => c.ApplicationScore).Where(j => j.Status == 3).ToListAsync();
+            data.TestInterviewApplications = await _context.Set<Application>().Include(c => c.Applicant).Include(c=>c.ApplicationInterview).Include(c => c.ApplicationFaceToView).Include(c => c.ApplicationNegotiation).Include(c => c.ApplicationScore).Where(j => j.Status == 4).ToListAsync();
+
+            return data;
+        }
         public async Task<List<Vacancy>> GetVacanciesByOrgId(int id)
         {
-            return await _context.Set<Vacancy>().Include(v=>v.Designation).Include(c => c.JobProfile).ThenInclude(p=>p.Company).Where(c => c.JobProfile.Company.OrganizationId == id).ToListAsync();
+            return await _context.Set<Vacancy>().Include(v=>v.Designation)
+                .Include(c => c.JobProfile).ThenInclude(p=>p.Company)
+                .Include(v => v.Vacancysettings)
+                .Where(c => c.JobProfile.Company.OrganizationId == id)
+                .ToListAsync();
         }
         public async Task<Vacancy> GetVacancyById(int id)
         {
-            var vacancy = await _context.Set<Vacancy>().FindAsync(id);
+            var vacancy = await _context.Set<Vacancy>().Include(v=>v.Vacancysettings).FirstOrDefaultAsync(c=>c.Id == id);
             vacancy.JobRequisition = await GetJobRequisitionbyVacancyId(vacancy.Id);
 
             return vacancy;
@@ -183,7 +201,21 @@ namespace SapphireHR.Data.Service.Repositories
 
             return data.Entity.Id;
         }
+
+        public async Task<int> AddVacancySetting(Vacancysettings model)
+        {
+            var data = this._context.Set<Database.EntityModels.Vacancysettings>().Add(model);
+            await _context.SaveChangesAsync();
+
+            return data.Entity.Id;
+        }
         public async Task UpdateVacancy(Vacancy model)
+        {
+            this._context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateVacancysetting(Vacancysettings model)
         {
             this._context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -195,7 +227,8 @@ namespace SapphireHR.Data.Service.Repositories
             {
                 await Task.FromException(new Exception("This vacancy doesn't exists"));
             }
-
+            var setting = await _context.Set<Vacancysettings>().FirstOrDefaultAsync(c => c.VacancyId == entity.Id);
+            _context.Set<Vacancysettings>().Remove(setting);
             _context.Set<Vacancy>().Remove(entity);
             await _context.SaveChangesAsync();
         }

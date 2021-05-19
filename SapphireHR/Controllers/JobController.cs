@@ -130,6 +130,23 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("getVacancyApplications")]
+        public async Task<IActionResult> GetVacancyApplications(int id)
+        {
+            try
+            {
+                var resource = await _jobService.GetVacancyApplications(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
 
         [HttpGet]
         [Route("getVacanciesByOrg")]
@@ -287,6 +304,11 @@ namespace SapphireHR.Web.Controllers
 
                 await _jobService.AddJobRequisition(req);
 
+                var setting = model.Vacancysettings;
+                setting.VacancyId = id;
+
+                await _jobService.AddVacancySetting(setting);
+
                 return Ok();
             }
             catch (Exception ex)
@@ -315,6 +337,11 @@ namespace SapphireHR.Web.Controllers
                         await _jobService.UpdateJobRequisition(req, model.Id);
                     }
                     
+                }
+
+                if(model.Vacancysettings != null)
+                {
+                    await _jobService.UpdateVacancySettings(model.Vacancysettings, model.Vacancysettings.Id);
                 }
                 return Ok();
             }

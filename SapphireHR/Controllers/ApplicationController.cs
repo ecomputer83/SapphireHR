@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
+using SapphireHR.Business.DocumentManager.Documents;
+using SapphireHR.Business.DocumentManager.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +18,18 @@ namespace SapphireHR.Web.Controllers
     public class ApplicationController : BaseApiController
     {
         IApplicationService _applicationService;
+        IMiscellaneousService _miscellaneousService;
         IOrganizationService _organizationService;
+        FileManager _fileManager;
         private readonly ILogger<ApplicationController> _logger;
 
-        public ApplicationController(IApplicationService applicationService, IOrganizationService organizationService, ILogger<ApplicationController> logger) : base(organizationService)
+        public ApplicationController(IApplicationService applicationService, IOrganizationService organizationService,
+            IMiscellaneousService miscellaneousService, FileManager fileManager, ILogger<ApplicationController> logger) : base(organizationService)
         {
             _applicationService = applicationService;
             _organizationService = organizationService;
+            _miscellaneousService = miscellaneousService;
+            _fileManager = fileManager;
             _logger = logger;
         }
 
@@ -142,7 +149,7 @@ namespace SapphireHR.Web.Controllers
 
 
 
-        
+
         [HttpPost]
         public async Task<IActionResult> PostApplication([FromBody] ApplicationModel payload)
         {
@@ -154,8 +161,47 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
 
-                var url = GetClientUrl() + "applicant-login";
-                await _applicationService.AddApplication(org.Id, payload, url);
+                //var url = GetClientUrl() + "applicant-login";
+                await _applicationService.AddApplication(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> ApplyJob([FromBody] ApplicantModel payload, int id, int company)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                payload.OrganizationId = org.Id;
+                var Id = await _miscellaneousService.AddApplicant(payload);
+
+                // TODO Upload CV to documentManager
+                var blob = new BlobStore
+                {
+                    FileName = payload.Uploadfile.FileName,
+                    ContentType = payload.Uploadfile.ContentType,
+                    FileLength = payload.Uploadfile.Length,
+                    FileStream = payload.Uploadfile.OpenReadStream()
+                };
+
+                var Document = await _fileManager.UploadFileToApplicantdFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), company.ToString(), Id.ToString());
+
+                var model = new ApplicationModel();
+                model.ApplicantId = Id;
+                model.VacancyId = id;
+                model.Document = Document;
+                //var url = GetClientUrl() + "applicant-login";
+                await _applicationService.AddApplication(model);
                 return Ok();
             }
             catch (Exception ex)

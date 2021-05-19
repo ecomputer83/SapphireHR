@@ -25,9 +25,16 @@ namespace SapphireHR.Business.Abstractions.Service
 
         Task AddDisciplinaryMeasures(DisciplinaryMeasuresModel model);
         Task UpdateDisciplinaryMeasures(DisciplinaryMeasuresModel model, int id);
-        Task <DisciplinaryMeasuresModel> GetDisciplinaryMeasure(int id);
+        Task <List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasureByEmployee(int id);
         Task<List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasures(int id);
         Task RemoveDisciplinaryMeasures(int id);
+
+        Task AddQuery(QueryModel model);
+        Task UpdateQuery(QueryModel model, int id);
+        Task<List<QueryModel>> GetQueriesByEmployee(int id);
+        Task<List<QueryModel>> GetQueries(int id);
+        Task RemoveQuery(int id);
+
         Task<List<EmployeeTaxModel>> GetEmployeeTaxes(int id);
 
         Task AddEmployeeEducation(EmployeeEducationModel model);
@@ -90,6 +97,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployeeResignation(EmployeeResignationModel model, int id);
         Task<EmployeeResignationModel> GetEmployeeResignation(int id);
         Task<List<EmployeeResignationModel>> GetEmployeeResignations(int id);
+        Task<List<EmployeeResignationModel>> GetEmployeeResignationsByEmployee(int id);
         Task RemoveEmployeeResignation(int id);
 
         Task AddEmployeeTermination(EmployeeTerminationModel model);
@@ -97,5 +105,12 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<List<EmployeeTerminationModel>> GetEmployeeTerminations(int id);
         Task<EmployeeTerminationModel> GetEmployeeTermination(int id);
         Task RemoveEmployeeTermination(int id);
+
+        Task AddEmployeeLeavePolicy(List<int> EmployeeIds, int PolicyId);
+        Task<CompanyLeavePolicyModel> GetEmployeeLeavePolicy(int id);
+        Task RemoveEmployeeLeavePolicy(List<int> EmployeeIds, int Id);
+
+        Task AddExitInterview(ExitInterviewModel model);
+        Task UpdateExitInterview(ExitInterviewModel model, int id);
     }
 }

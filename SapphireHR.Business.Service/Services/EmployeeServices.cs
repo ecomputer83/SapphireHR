@@ -55,6 +55,16 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeResignation(datamodel);
         }
 
+        public async Task AddExitInterview(ExitInterviewModel model)
+        {
+            var datamodel = _mapper.Map<ExitInterview>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddExitInterface(datamodel);
+        }
+
         public async Task AddEmployeeTravel(EmployeeTravelModel model)
         {
             var datamodel = _mapper.Map<EmployeeTravel>(model);
@@ -183,6 +193,19 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddEmployeeLeave(datamodel);
         }
 
+        public async Task AddEmployeeLeavePolicy(List<int> EmployeeIds, int PolicyId)
+        {
+            foreach (var id in EmployeeIds)
+            {
+                var datamodel = new CompanyLeavePolicy { PolicyId = PolicyId, EmployeeId = id };
+                datamodel.CreatedAt = DateTime.Now;
+                datamodel.UpdatedAt = DateTime.Now;
+                datamodel.CreatedBy = "SYSTEM";
+                datamodel.UpdatedBy = "SYSTEM";
+                await _employeeRepository.AddEmployeeLeavePolicy(datamodel);
+            }
+        }
+
         public async Task AddEmployeePension(EmployeePensionModel model)
         {
             var datamodel = _mapper.Map<EmployeePension>(model);
@@ -243,6 +266,15 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.AddDisciplinaryMeasures(datamodel);
         }
 
+        public async Task AddQuery(QueryModel model)
+        {
+            var datamodel = _mapper.Map<Query>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddQuery(datamodel);
+        }
 
         public async Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId)
         {
@@ -315,6 +347,13 @@ namespace SapphireHR.Business.Service.Services
         public async Task<List<EmployeeResignationModel>> GetEmployeeResignations(int id)
         {
             var bank = await _employeeRepository.GetEmployeeResignations(id);
+            var res = _mapper.Map<List<EmployeeResignationModel>>(bank);
+            return res;
+        }
+
+        public async Task<List<EmployeeResignationModel>> GetEmployeeResignationsByEmployee(int id)
+        {
+            var bank = await _employeeRepository.GetEmployeeResignationByEmployeeId(id);
             var res = _mapper.Map<List<EmployeeResignationModel>>(bank);
             return res;
         }
@@ -395,6 +434,13 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<CompanyLeavePolicyModel> GetEmployeeLeavePolicy(int id)
+        {
+            var leave = await _employeeRepository.GetEmployeeLeavePolicy(id);
+            var res = _mapper.Map<CompanyLeavePolicyModel>(leave);
+            return res;
+        }
+
         public async Task<List<EmployeeLeaveModel>> GetEmployeeLeaves(int id)
         {
             var leaves = await _employeeRepository.GetEMployeeLeaves(id);
@@ -455,10 +501,10 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
-        public async Task<DisciplinaryMeasuresModel> GetDisciplinaryMeasure(int id)
+        public async Task<List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasureByEmployee(int id)
         {
             var dm = await _employeeRepository.GetDisciplinaryMeasure(id);
-            var res = _mapper.Map<DisciplinaryMeasuresModel>(dm);
+            var res = _mapper.Map<List<DisciplinaryMeasuresModel>>(dm);
             return res;
         }
 
@@ -466,6 +512,20 @@ namespace SapphireHR.Business.Service.Services
         {
             var dm = await _employeeRepository.GetDisciplinaryMeasures(id);
             var res = _mapper.Map<List<DisciplinaryMeasuresModel>>(dm);
+            return res;
+        }
+
+        public async Task<List<QueryModel>> GetQueriesByEmployee(int id)
+        {
+            var dm = await _employeeRepository.GetQueriesByEmployeeId(id);
+            var res = _mapper.Map<List<QueryModel>>(dm);
+            return res;
+        }
+
+        public async Task<List<QueryModel>> GetQueries(int id)
+        {
+            var dm = await _employeeRepository.GetQueries(id);
+            var res = _mapper.Map<List<QueryModel>>(dm);
             return res;
         }
 
@@ -477,6 +537,12 @@ namespace SapphireHR.Business.Service.Services
         public async Task RemoveEmployeeBank(int id)
         {
             await _employeeRepository.RemoveEmployeeBank(id);
+        }
+
+        public async Task RemoveEmployeeLeavePolicy(List<int> EmployeeIds, int Id)
+        {
+            foreach(var id in EmployeeIds)
+                await _employeeRepository.RemoveEmployeeLeavePolicyByEmployee(id, Id);
         }
 
         public async Task RemoveEmployeeSalary(int id)
@@ -550,9 +616,10 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.RemoveDisciplinaryMeasures(id);
         }
 
-
-
-
+        public async Task RemoveQuery(int id)
+        {
+            await _employeeRepository.RemoveQueries(id);
+        }
 
 
         public async Task UpdateEmployee(EmployeeModel model, int id)
@@ -700,6 +767,14 @@ namespace SapphireHR.Business.Service.Services
             await _employeeRepository.UpdateEmployeeResignation(datamodel);
         }
 
+        public async Task UpdateExitInterview(ExitInterviewModel model, int id)
+        {
+            var datamodel = _mapper.Map<ExitInterview>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateExitInterview(datamodel);
+        }
+
         public async Task UpdateEmployeeTermination(EmployeeTerminationModel model, int id)
         {
             var datamodel = _mapper.Map<EmployeeTermination>(model);
@@ -714,6 +789,14 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.UpdatedBy = "SYSTEM";
             await _employeeRepository.UpdateDisciplinaryMeasures(datamodel);
-        }        
+        }
+
+        public async Task UpdateQuery(QueryModel model, int id)
+        {
+            var datamodel = _mapper.Map<Query>(model);
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.UpdateQuery(datamodel);
+        }
     }
 }

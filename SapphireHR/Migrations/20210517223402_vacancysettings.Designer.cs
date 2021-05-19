@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireHR.Database;
 
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210517223402_vacancysettings")]
+    partial class vacancysettings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -831,8 +833,14 @@ namespace SapphireHR.Web.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("QueryId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Form")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HRManager")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
@@ -851,7 +859,7 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QueryId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("DisciplinaryMeasures");
                 });
@@ -2196,48 +2204,6 @@ namespace SapphireHR.Web.Migrations
                     b.ToTable("EmployeeTravels");
                 });
 
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.ExitInterview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("InterviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Observation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ResignationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResignationId")
-                        .IsUnique();
-
-                    b.ToTable("ExitInterview");
-                });
-
             modelBuilder.Entity("SapphireHR.Database.EntityModels.ExpenseClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -2639,9 +2605,6 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -2667,8 +2630,6 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("TypeId");
 
@@ -2718,8 +2679,6 @@ namespace SapphireHR.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("LeaveSettings");
                 });
@@ -3663,56 +3622,6 @@ namespace SapphireHR.Web.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("ProffesionalExcellenceSettings");
-                });
-
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.Query", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Accusation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Form")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QueryType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Response")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResponseBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("Queries");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Rank", b =>
@@ -4672,13 +4581,13 @@ namespace SapphireHR.Web.Migrations
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.DisciplinaryMeasures", b =>
                 {
-                    b.HasOne("SapphireHR.Database.EntityModels.Query", "Query")
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("QueryId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Query");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>
@@ -5046,17 +4955,6 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.ExitInterview", b =>
-                {
-                    b.HasOne("SapphireHR.Database.EntityModels.EmployeeResignation", "Resignation")
-                        .WithOne("ExitInterview")
-                        .HasForeignKey("SapphireHR.Database.EntityModels.ExitInterview", "ResignationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Resignation");
-                });
-
             modelBuilder.Entity("SapphireHR.Database.EntityModels.ExpenseClaim", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.Employee", "AssigneeEmployee")
@@ -5206,19 +5104,11 @@ namespace SapphireHR.Web.Migrations
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.LeavePolicy", b =>
                 {
-                    b.HasOne("SapphireHR.Database.EntityModels.CompanyInfo", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SapphireHR.Database.EntityModels.LeaveType", "LeaveType")
                         .WithMany()
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("LeaveType");
                 });
@@ -5231,15 +5121,7 @@ namespace SapphireHR.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SapphireHR.Database.EntityModels.LeaveType", "LeaveType")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CompanyInfo");
-
-                    b.Navigation("LeaveType");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.LeaveType", b =>
@@ -5354,17 +5236,6 @@ namespace SapphireHR.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("CompanyInfo");
-                });
-
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.Query", b =>
-                {
-                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Rank", b =>
@@ -5580,11 +5451,6 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("EmployeeStatutory");
 
                     b.Navigation("EmployeeTax");
-                });
-
-            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeResignation", b =>
-                {
-                    b.Navigation("ExitInterview");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeSalary", b =>

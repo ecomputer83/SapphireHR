@@ -68,16 +68,49 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<CompanyAccountModel>(Orgs);
         }
 
+        public async Task<List<LeaveSettingModel>> GetLeaveSetting(int Id)
+        {
+            var Orgs = await _companyRepository.ReadLeaveSettings(Id);
+            return _mapper.Map<List<LeaveSettingModel>>(Orgs);
+        }
+
         public async Task AddLeaveSetting(LeaveSettingModel model)
         {
-            var datamodel = _mapper.Map<Database.EntityModels.LeaveSetting>(model);
+            var setting = await this._companyRepository.ReadLeaveSettingByTypeId(model.TypeId, model.CompanyId);
+            if (setting == null)
+            {
+                var datamodel = _mapper.Map<Database.EntityModels.LeaveSetting>(model);
+                datamodel.CreatedAt = DateTime.Now;
+                datamodel.UpdatedAt = DateTime.Now;
+                datamodel.CreatedBy = "SYSTEM";
+                datamodel.UpdatedBy = "SYSTEM";
+                await this._companyRepository.AddLeaveSetting(datamodel);
+            }
+        }
+
+        public async Task AddLeavePolicy(LeavePolicyModel model)
+        {
+            var datamodel = _mapper.Map<Database.EntityModels.LeavePolicy>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._companyRepository.AddLeaveSetting(datamodel);
+            await this._companyRepository.AddCompanyLeavePolicy(datamodel);
         }
 
+        public async Task UpdateLeavePolicy(LeavePolicyModel model, int Id)
+        {
+            var datamodel = await this._companyRepository.ReadCompanyLeavePolicy(Id);
+            datamodel.Days = model.Days;
+            datamodel.PolicyName = model.PolicyName;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.UpdatedBy = "SYSTEM";
+            await this._companyRepository.UpdateCompanyLeavePolicy(datamodel);
+        }
+        public async Task RemoveLeavePolicy(int Id)
+        {
+            await this._companyRepository.RemoveCompanyLeavePolicy(Id);
+        }
         public async Task RemoveCompany(int Id)
         {
             await this._companyRepository.Delete(Id);
