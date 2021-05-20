@@ -88,14 +88,14 @@ namespace SapphireHR.Business.Service.Services
             }
         }
 
-        public async Task AddLeavePolicy(LeavePolicyModel model)
+        public async Task<int> AddLeavePolicy(LeavePolicyModel model)
         {
             var datamodel = _mapper.Map<Database.EntityModels.LeavePolicy>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            await this._companyRepository.AddCompanyLeavePolicy(datamodel);
+            return await this._companyRepository.AddCompanyLeavePolicy(datamodel);
         }
 
         public async Task UpdateLeavePolicy(LeavePolicyModel model, int Id)
@@ -160,6 +160,7 @@ namespace SapphireHR.Business.Service.Services
             setting.CarryOverMax = model.CarryOverMax;
             setting.Days = model.Days;
             setting.EarnedLeave = model.EarnedLeave;
+            setting.Status = model.Status;
             await this._companyRepository.UpdateLeaveSetting(setting);
         }
 

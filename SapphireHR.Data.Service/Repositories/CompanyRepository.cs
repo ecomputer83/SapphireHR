@@ -60,19 +60,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<LeaveSetting>> ReadLeaveSettings(int id)
         {
-            var result = await _context.Set<LeaveSetting>().Include(c=>c.LeaveType).Where(c => c.CompanyId == id).ToListAsync();
-            result.ForEach(async r =>
-            {
-                var policies = await _context.Set<LeavePolicy>().Where(c => c.TypeId == r.TypeId && c.CompanyId == id).ToListAsync();
-                policies.ForEach(async p =>
-                {
-                    p.CompanyLeavePolicies = await _context.Set<CompanyLeavePolicy>().Include(c => c.Employee).Where(c => c.PolicyId == p.Id).ToListAsync();
-                });
-
-                r.LeavePolicies = policies;
-            });
-
-            return result;
+            return await _context.Set<LeaveSetting>().Include(c => c.LeaveType).Include(c=>c.LeavePolicies).ThenInclude(p=>p.CompanyLeavePolicies).Where(c => c.CompanyId == id).ToListAsync();
         }
 
         public async Task UpdateLeaveSetting(LeaveSetting model)
@@ -111,10 +99,11 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCompanyLeavePolicy(LeavePolicy model)
+        public async Task<int> AddCompanyLeavePolicy(LeavePolicy model)
         {
             this._context.Set<Database.EntityModels.LeavePolicy>().Add(model);
             await _context.SaveChangesAsync();
+            return model.Id;
         }
 
         public async Task UpdateCompanyLeavePolicy(LeavePolicy model)

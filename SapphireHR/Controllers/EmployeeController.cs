@@ -799,6 +799,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        public async Task<IActionResult> PostQuery([FromBody] QueryModel payload)
+        {
+            try
+            {
+                await _employeeService.AddQuery(payload);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> PostEmployeeFamily([FromBody] EmployeeFamilyModel payload)
         {
             try

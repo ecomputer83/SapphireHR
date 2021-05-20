@@ -20,7 +20,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddLeaveSetting(LeaveSettingModel model);
         Task UpdateLeaveSetting(LeaveSettingModel model, int Id);
         Task<List<LeaveSettingModel>> GetLeaveSetting(int Id);
-        Task AddLeavePolicy(LeavePolicyModel model);
+        Task<int> AddLeavePolicy(LeavePolicyModel model);
         Task UpdateLeavePolicy(LeavePolicyModel model, int Id);
         Task RemoveLeavePolicy(int Id);
     }

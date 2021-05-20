@@ -38,7 +38,10 @@ namespace SapphireHR.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.SetupRegistration(false, false);
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                         );
             services.AddSwaggerGen();
             services.AddDbContext<ApplicationDbContext>(w =>
             {

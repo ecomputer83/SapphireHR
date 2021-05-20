@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapphireHR.Database;
 
 namespace SapphireHR.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210519221623_MappedVirtualLeave")]
+    partial class MappedVirtualLeave
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2639,6 +2641,9 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -2648,13 +2653,16 @@ namespace SapphireHR.Web.Migrations
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LeaveSettingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PolicyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SettingId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -2665,7 +2673,11 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SettingId");
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("LeaveSettingId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("LeavePolicies");
                 });
@@ -5201,13 +5213,25 @@ namespace SapphireHR.Web.Migrations
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.LeavePolicy", b =>
                 {
-                    b.HasOne("SapphireHR.Database.EntityModels.LeaveSetting", "LeaveSetting")
-                        .WithMany("LeavePolicies")
-                        .HasForeignKey("SettingId")
+                    b.HasOne("SapphireHR.Database.EntityModels.CompanyInfo", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LeaveSetting");
+                    b.HasOne("SapphireHR.Database.EntityModels.LeaveSetting", null)
+                        .WithMany("LeavePolicies")
+                        .HasForeignKey("LeaveSettingId");
+
+                    b.HasOne("SapphireHR.Database.EntityModels.LeaveType", "LeaveType")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("LeaveType");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.LeaveSetting", b =>

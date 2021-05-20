@@ -87,8 +87,8 @@ namespace SapphireHR.Web.Controllers
                 }
 
 
-                await _companyService.AddLeavePolicy(model);
-                return Ok();
+                var id = await _companyService.AddLeavePolicy(model);
+                return Ok(id);
             }
             catch (Exception ex)
             {
@@ -120,7 +120,8 @@ namespace SapphireHR.Web.Controllers
                     };
                     await _companyService.AddLeaveSetting(model);
                 }
-                return Ok();
+                var settings = await _companyService.GetLeaveSetting(id);
+                return Ok(settings);
             }
             catch (Exception ex)
             {
