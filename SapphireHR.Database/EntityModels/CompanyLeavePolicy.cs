@@ -15,4 +15,6 @@ namespace SapphireHR.Database.EntityModels
         [ForeignKey("PolicyId")]
         public LeavePolicy LeavePolicy { get; set; }
     }
+
+    
 }

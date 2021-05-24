@@ -10,7 +10,7 @@ namespace SapphireHR.Business.Abstractions.Service
     {
         Task AddApplicationLogin(ApplicationLoginModel model);
         Task<ApplicationModel> GetApplicationLogin(string username, string password);
-
+        Task<int> GetAllApplicationCount(int companyId);
 
         Task<int> AddApplication(ApplicationModel model);
         Task<ApplicationModel> GetApplicationById(int id);

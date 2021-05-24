@@ -282,6 +282,18 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<CompanyEmployeeModel>(data);
         }
 
+        public async Task<CompanyEmployeeModel> GetCompanyEmployee(int EmployeeId)
+        {
+            var data = await _employeeRepository.GetCompanyEmployee(EmployeeId);
+            return _mapper.Map<CompanyEmployeeModel>(data);
+        }
+
+        public async Task<CompanyLeavePolicyModel> GetEmployeeLeavePolicy(int EmployeeId, int TypeId)
+        {
+            var data = await _employeeRepository.GetEmployeePolicy(EmployeeId, TypeId);
+            return _mapper.Map<CompanyLeavePolicyModel>(data);
+        }
+
         public async Task<EmployeeBankModel> GetEmployeeBank(int id)
         {
             var bank = await _employeeRepository.GetEmployeeBank(id);
@@ -319,6 +331,15 @@ namespace SapphireHR.Business.Service.Services
             return res;
         }
 
+        public async Task<List<EmployeeSalaryModel>> GetEmployeePaidSalaries(int id)
+        {
+            var start = DateTime.Now.GetFirstDayOfMonth().AddMonths(-1);
+            var end = DateTime.Now.GetLastDayOfMonth().AddMonths(-1);
+            var data = await _employeeRepository.GetEmployeePaidSalaries(id, start, end);
+            var res = _mapper.Map<List<EmployeeSalaryModel>>(data);
+            return res;
+        }
+
         public async Task<List<EmployeeSalaryModel>> GetEmployeeSalariesByMonth(int id, string Period)
         {
             var sp = Period.Split('/');
@@ -348,6 +369,13 @@ namespace SapphireHR.Business.Service.Services
         {
             var bank = await _employeeRepository.GetEmployeeResignations(id);
             var res = _mapper.Map<List<EmployeeResignationModel>>(bank);
+            return res;
+        }
+
+        public async Task<List<CompanyLeavePolicyModel>> GetCompanyLeavePolicies(int id)
+        {
+            var bank = await _employeeRepository.ReadCompanyLeavePolicies(id);
+            var res = _mapper.Map<List<CompanyLeavePolicyModel>>(bank);
             return res;
         }
 
@@ -390,6 +418,11 @@ namespace SapphireHR.Business.Service.Services
             var emp = await _employeeRepository.GetEmployees(companyId);
             var res = _mapper.Map<List<EmployeeModel>>(emp);
             return res;
+        }
+
+        public async Task<int> GetTotalEmployees(int companyId)
+        {
+            return await _employeeRepository.GetTotalEmployees(companyId);
         }
 
         public async Task<EmployeeModel> GetEmployee(int id)
@@ -444,6 +477,41 @@ namespace SapphireHR.Business.Service.Services
         public async Task<List<EmployeeLeaveModel>> GetEmployeeLeaves(int id)
         {
             var leaves = await _employeeRepository.GetEMployeeLeaves(id);
+            var res = _mapper.Map<List<EmployeeLeaveModel>>(leaves);
+            return res;
+        }
+
+        public async Task<int> GetTotalPendingLeaves(int id)
+        {
+            var leaves = await _employeeRepository.GetTotalPendingLeaves(id);
+            return leaves;
+        }
+
+        public async Task<List<EmployeeLeaveModel>> GetEmployeeLeavesSummaries(int id, bool isToday)
+        {
+            List<EmployeeLeave> leaves = null;
+            if(isToday)
+            {
+                leaves = await _employeeRepository.GetEMployeeTodayLeaves(id);
+            }
+            else
+            {
+                leaves = await _employeeRepository.GetEMployeeUpcomingLeaves(id);
+            }
+            var res = _mapper.Map<List<EmployeeLeaveModel>>(leaves);
+            return res;
+        }
+
+        public async Task<List<EmployeeLeaveModel>> GetEmployeeLeavesByEmployee(int id)
+        {
+            var leaves = await _employeeRepository.GetEMployeeLeavesByEmployee(id);
+            var res = _mapper.Map<List<EmployeeLeaveModel>>(leaves);
+            return res;
+        }
+
+        public async Task<List<EmployeeLeaveModel>> GetEmployeeLeavesByTypeId(int id, int typeId)
+        {
+            var leaves = await _employeeRepository.GetEmployeeLeavesByTypeId(id, typeId);
             var res = _mapper.Map<List<EmployeeLeaveModel>>(leaves);
             return res;
         }
@@ -703,6 +771,9 @@ namespace SapphireHR.Business.Service.Services
             data.FromDate = model.FromDate;
             data.Reason = model.Reason;
             data.ToDate = model.ToDate;
+            data.ApprovedBy = model.ApprovedBy;
+            data.Status = model.Status;
+            data.Days = model.Days;
             await _employeeRepository.UpdateEmployeeLeave(data);
         }
 

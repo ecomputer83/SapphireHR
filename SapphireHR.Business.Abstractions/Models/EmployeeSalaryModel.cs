@@ -23,5 +23,9 @@ namespace SapphireHR.Business.Abstractions.Models
         public int EmployeeId { get; set; }
         public int Status { get; set; }
         public EmployeeModel Employee { get; set; }
+
+        public SalaryPaymentModel SalaryPayment { get; set; }
+        public PensionPaymentModel PensionPayment { get; set; }
+        public TaxPaymentModel TaxPayment { get; set; }
     }
 }

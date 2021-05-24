@@ -61,6 +61,45 @@ namespace SapphireHR.Database
             return resultSets;
         }
 
+        public static async Task<string> JsonFromSql(this ApplicationDbContext dbContext, string sql, params object[] parameters)
+        {
+            var resultSets = new StringBuilder();
+
+            var connection = dbContext.Database.GetDbConnection();
+            var parameterGenerator = dbContext.GetService<IParameterNameGeneratorFactory>()
+                                                .Create();
+            var commandBuilder = dbContext.GetService<IRelationalCommandBuilderFactory>()
+                                            .Create();
+
+            foreach (var parameter in parameters)
+            {
+                var generatedName = parameterGenerator.GenerateNext();
+                if (parameter is DbParameter dbParameter)
+                    commandBuilder.AddRawParameter(generatedName, dbParameter);
+                else
+                    commandBuilder.AddParameter(generatedName, generatedName);
+            }
+
+            using var command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = sql;
+            command.Connection = connection;
+            for (var i = 0; i < commandBuilder.Parameters.Count; i++)
+            {
+                var relationalParameter = commandBuilder.Parameters[i];
+                relationalParameter.AddDbParameter(command, parameters[i]);
+            }
+
+            var materializerSource = dbContext.GetService<IEntityMaterializerSource>();
+            if (connection.State == ConnectionState.Closed)
+                await connection.OpenAsync();
+
+            var reader = await command.ExecuteScalarAsync();
+            resultSets.Append(reader);
+
+            return resultSets.ToString();
+        }
+
         public static async Task<int> FromNoReturnedStoredProcedure(this ApplicationDbContext dbContext, string sql, params object[] parameters)
         {
             var connection = dbContext.Database.GetDbConnection();

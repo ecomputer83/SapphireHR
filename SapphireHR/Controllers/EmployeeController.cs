@@ -265,6 +265,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeLeavesByEmployee(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetEmployeeLeavesByEmployee(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeePension(int id)
         {
             try
@@ -427,11 +443,55 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeLeaveEligibility(int id, int typeId)
+        {
+            try
+            {
+                var company = await _employeeService.GetCompanyEmployee(id);
+                var setting = await _companyService.GetLeaveSettingByType(typeId, company.CompanyId);
+                var policy = await _employeeService.GetEmployeeLeavePolicy(id, typeId);
+                var usedLeaves = await _employeeService.GetEmployeeLeavesByTypeId(id, typeId);
+
+                var useddays = usedLeaves.Sum(c => c.Days);
+
+                var leaveDays = (policy?.LeavePolicy?.Days != null) 
+                    ? policy.LeavePolicy.Days : (setting?.Days != null) 
+                    ? setting.Days : 0;
+
+                var remainingDays = leaveDays - useddays;
+                return Ok(remainingDays < 0 ? 0 : remainingDays);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetDisciplinaryMeasureByEmployee(int id)
         {
             try
             {
                 var rsc = await _employeeService.GetDisciplinaryMeasureByEmployee(id);
+                return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCompanyLeavePolicies(int id)
+        {
+            try
+            {
+                var rsc = await _employeeService.GetCompanyLeavePolicies(id);
                 return Ok(rsc);
             }
             catch (Exception ex)

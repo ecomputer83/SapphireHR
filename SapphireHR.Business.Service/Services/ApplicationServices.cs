@@ -282,6 +282,13 @@ namespace SapphireHR.Business.Service.Services
             return appInterview;
         }
 
+        public async Task<int> GetAllApplicationCount(int companyId)
+        {
+            var result = await _applicationRepository.GetApplicationCountByCompany(companyId);
+            
+            return result;
+        }
+
         public async Task RemoveApplication(int id)
         {
             await _applicationRepository.RemoveApplication(id);

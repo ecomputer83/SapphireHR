@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,4 +38,6 @@ namespace SapphireHR.Database.EntityModels
         public virtual EmployeePension EmployeePension { get; set; }
         public virtual EmployeeTax EmployeeTax { get; set; }
     }
+
+    
 }

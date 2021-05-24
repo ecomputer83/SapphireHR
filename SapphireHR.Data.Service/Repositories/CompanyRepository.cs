@@ -60,7 +60,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<LeaveSetting>> ReadLeaveSettings(int id)
         {
-            return await _context.Set<LeaveSetting>().Include(c => c.LeaveType).Include(c=>c.LeavePolicies).ThenInclude(p=>p.CompanyLeavePolicies).Where(c => c.CompanyId == id).ToListAsync();
+            return await _context.Set<LeaveSetting>().Include(c => c.LeaveType).Include(c=>c.LeavePolicies).Where(c => c.CompanyId == id).ToListAsync();
         }
 
         public async Task UpdateLeaveSetting(LeaveSetting model)

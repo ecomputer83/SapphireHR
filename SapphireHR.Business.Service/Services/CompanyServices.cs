@@ -74,6 +74,12 @@ namespace SapphireHR.Business.Service.Services
             return _mapper.Map<List<LeaveSettingModel>>(Orgs);
         }
 
+        public async Task<LeaveSettingModel> GetLeaveSettingByType(int Id, int CompanyId)
+        {
+            var Orgs = await _companyRepository.ReadLeaveSettingByTypeId(Id, CompanyId);
+            return _mapper.Map<LeaveSettingModel>(Orgs);
+        }
+
         public async Task AddLeaveSetting(LeaveSettingModel model)
         {
             var setting = await this._companyRepository.ReadLeaveSettingByTypeId(model.TypeId, model.CompanyId);

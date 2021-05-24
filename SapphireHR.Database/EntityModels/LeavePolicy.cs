@@ -15,4 +15,5 @@ namespace SapphireHR.Database.EntityModels
         public LeaveSetting LeaveSetting { get; set; }
         public virtual List<CompanyLeavePolicy> CompanyLeavePolicies { get; set; }
     }
+
 }

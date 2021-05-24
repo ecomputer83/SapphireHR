@@ -25,7 +25,10 @@ namespace SapphireHR.Data.Service.Repositories
             
             return emp;
         }
-
+        public Task<int> GetTotalEmployees(int companyId)
+        {
+            return _context.Set<CompanyEmployee>().Include(c => c.Employee).Where(e => e.CompanyId == companyId).CountAsync();
+        }
         public Task<List<Employee>> GetEmployees(int companyId) {
             return _context.Set<CompanyEmployee>().Include(c=>c.Employee).ThenInclude(d => d.Designation).Where(e=>e.CompanyId == companyId).Select(e => e.Employee).ToListAsync();
         }
@@ -51,6 +54,17 @@ namespace SapphireHR.Data.Service.Repositories
             var endParam = new SqlParameter("@end", end);
             return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and (s.SalaryDate >= @start and s.SalaryDate <= @end)", companyIdParam, startParam, endParam).Include(s => s.SalaryPayment)
                 .Include(p=>p.PensionPayment).Include(t=>t.TaxPayment)
+                .Include(e => e.Employee).ThenInclude(a => a.Designation)
+                .ToListAsync();
+        }
+
+        public async Task<List<EmployeeSalary>> GetEmployeePaidSalaries(int companyId, DateTime start, DateTime end)
+        {
+            var companyIdParam = new SqlParameter("@companyId", companyId);
+            var startParam = new SqlParameter("@start", start);
+            var endParam = new SqlParameter("@end", end);
+            return await _context.EmployeeSalaries.FromSqlRaw(@"Select s.* from dbo.CompanyEmployees c inner join dbo.EmployeeSalaries s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId and s.Status = 1 and (s.SalaryDate >= @start and s.SalaryDate <= @end)", companyIdParam, startParam, endParam).Include(s => s.SalaryPayment)
+                .Include(p => p.PensionPayment).Include(t => t.TaxPayment)
                 .Include(e => e.Employee).ThenInclude(a => a.Designation)
                 .ToListAsync();
         }
@@ -135,9 +149,22 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.EmployeeResignations.FromSqlRaw("select et.* from dbo.EmployeeResignations et inner join dbo.Employees e on e.Id = et.employeeId inner join dbo.CompanyEmployees c on c.employeeId = et.employeeId where c.companyId = @companyId", companyIdParam)
                 .Include(e => e.Employee).Include(e=>e.ExitInterview).ToListAsync();
         }
+
+        public async Task<List<CompanyLeavePolicy>> ReadCompanyLeavePolicies(int id)
+        {
+            var companyIdParam = new SqlParameter("@companyId", id);
+            return await _context.Set<CompanyLeavePolicy>().FromSqlRaw("Select s.* from dbo.CompanyEmployees c inner join dbo.CompanyLeavePolicies s on c.EmployeeId = s.EmployeeId where c.CompanyId = @companyId", companyIdParam).Include(c => c.Employee).ToListAsync();
+        }
         public async Task<List<EmployeeTravel>> GetEmployeeTravels()
         {
             return await _context.Set<EmployeeTravel>().Include(c => c.Employee).ToListAsync();
+        }
+
+        public async Task<CompanyLeavePolicy> GetEmployeePolicy(int id, int typeId)
+        {
+            var policy = await _context.Set<CompanyLeavePolicy>().Include(c => c.LeavePolicy)
+                .ThenInclude(d=>d.LeaveSetting).FirstOrDefaultAsync(p => p.EmployeeId == id && p.LeavePolicy.LeaveSetting.TypeId == typeId);
+            return policy;
         }
         public async Task<EmployeeResignation> GetEmployeeResignationById(int id)
         {
@@ -439,9 +466,39 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<EmployeeLeave>().FindAsync(id);
         }
 
+        public async Task<List<EmployeeLeave>> GetEmployeeLeavesByTypeId(int id, int typeId)
+        {
+            var startYearDate = new DateTime(DateTime.Now.Year, 1, 1);
+            var endYearDate = new DateTime(DateTime.Now.Year, 12, 31);
+            return await _context.Set<EmployeeLeave>().Where(c=> c.EmployeeId == id && c.LeaveTypeId == typeId
+            && (c.FromDate >= startYearDate && c.FromDate <= endYearDate)).ToListAsync();
+        }
+
         public async Task<List<EmployeeLeave>> GetEMployeeLeaves(int id)
         {
             return await _context.Set<EmployeeLeave>().Include(e=>e.Employee).Include(l=>l.LeaveType).Where(l => l.CompanyId == id).ToListAsync();
+        }
+
+        public async Task<int> GetTotalPendingLeaves(int id)
+        {
+            return await _context.Set<EmployeeLeave>().Include(e => e.Employee).Include(l => l.LeaveType).Where(l => l.CompanyId == id && l.Status == 0).CountAsync();
+        }
+
+        public async Task<List<EmployeeLeave>> GetEMployeeTodayLeaves(int id)
+        {
+            var today = DateTime.Now;
+            return await _context.Set<EmployeeLeave>().Include(e => e.Employee).Include(l => l.LeaveType).Where(l => l.CompanyId == id && l.Status == 1 && (l.ToDate >= today && l.FromDate <= today)).ToListAsync();
+        }
+
+        public async Task<List<EmployeeLeave>> GetEMployeeUpcomingLeaves(int id)
+        {
+            var today = DateTime.Now;
+            return await _context.Set<EmployeeLeave>().Include(e => e.Employee).Include(l => l.LeaveType).Where(l => l.CompanyId == id && l.FromDate >= today).ToListAsync();
+        }
+
+        public async Task<List<EmployeeLeave>> GetEMployeeLeavesByEmployee(int id)
+        {
+            return await _context.Set<EmployeeLeave>().Include(e => e.Employee).Include(l => l.LeaveType).Where(l => l.EmployeeId == id).ToListAsync();
         }
 
         public async Task RemoveEmployeeLeave(int id)

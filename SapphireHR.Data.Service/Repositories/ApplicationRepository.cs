@@ -48,9 +48,28 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<Application>().FindAsync(Id);
         }
 
+        public async Task<List<Application>> GetApplicationsByVacancy(int Id)
+        {
+            return await _context.Set<Application>().Where(c=>c.VacancyId == Id).ToListAsync();
+        }
+
         public async Task<List<Application>> GetApplicationByCompany(int id)
         {
-            return await _context.Set<Application>().Where(c=>c.Vacancy.CompanyId == id).ToListAsync();
+            var result = new List<Application>();
+            var vacs = await _context.Set<Vacancy>()
+                .Where(c => c.CompanyId == id && (c.Status == 1)).ToListAsync();
+            vacs.ForEach(async c =>
+            {
+                var li = await this.GetApplicationsByVacancy(c.Id);
+                result.AddRange(li.Where(c=>c.Status < 8).ToList());
+            });
+            return result;
+        }
+
+        public async Task<int> GetApplicationCountByCompany(int id)
+        {
+            var result = await GetApplicationByCompany(id);
+            return result.Count;
         }
 
         public async Task RemoveApplication(int Id)

@@ -6,6 +6,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class VacancyModel: BaseModel
     {
+        public int Id { get; set; }
         public int CompanyId { get; set; }
         public int JobProfileId { get; set; }
         public int DesignationId { get; set; }
@@ -17,7 +18,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public DateTime RequestedOn { get; set; }
         public DateTime PeriodFrom { get; set; }
         public DateTime PeriodTo { get; set; }
-
+        public int Status { get; set; }
         public EmployeeModel Requestor { get; set; }
 
         public DesignationModel Designation { get; set; }

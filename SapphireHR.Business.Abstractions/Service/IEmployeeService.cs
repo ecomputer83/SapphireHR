@@ -15,14 +15,17 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<EmployeeModel> GetEmployee(int id);
         Task<EmployeeModel> GetNoTrackingEmployee(int id);
         Task<List<EmployeeModel>> GetAllEmployees(int companyId);
+        Task<int> GetTotalEmployees(int companyId);
         Task RemoveEmployee(int id);
         Task AddCompanyEmployee(CompanyEmployeeModel model);
         Task<CompanyEmployeeModel> GetCompanyEmployeeByUserId(string UserId);
+        Task<List<CompanyLeavePolicyModel>> GetCompanyLeavePolicies(int id);
         Task AddEmployeeBank(EmployeeBankModel model);
         Task UpdateEmployeeBank(EmployeeBankModel model, int id);
         Task<EmployeeBankModel> GetEmployeeBank(int id);
         Task RemoveEmployeeBank(int id);
-
+        Task<CompanyEmployeeModel> GetCompanyEmployee(int EmployeeId);
+        Task<CompanyLeavePolicyModel> GetEmployeeLeavePolicy(int EmployeeId, int TypeId);
         Task AddDisciplinaryMeasures(DisciplinaryMeasuresModel model);
         Task UpdateDisciplinaryMeasures(DisciplinaryMeasuresModel model, int id);
         Task <List<DisciplinaryMeasuresModel>> GetDisciplinaryMeasureByEmployee(int id);
@@ -42,6 +45,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task AddEmployeeSalary(EmployeeSalaryModel model);
         Task<List<EmployeeSalaryModel>> GetAllEmployeeSalaries(int id);
         Task<List<EmployeeSalaryModel>> GetEmployeeSalariesByMonth(int id, string Period);
+        Task<List<EmployeeSalaryModel>> GetEmployeePaidSalaries(int id);
         Task<EmployeeSalaryModel> GetEmployeeSalary(int id);
         Task<List<EmployeeSalaryModel>> GetEmployeePayslip(int id);
         Task<List<EmployeePensionModel>> GetEmployeePensions(int id);
@@ -67,6 +71,10 @@ namespace SapphireHR.Business.Abstractions.Service
         Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id);
         Task<EmployeeLeaveModel> GetEMployeeLeave(int id);
         Task<List<EmployeeLeaveModel>> GetEmployeeLeaves(int id);
+        Task<int> GetTotalPendingLeaves(int id);
+        Task<List<EmployeeLeaveModel>> GetEmployeeLeavesByTypeId(int id, int typeId);
+        Task<List<EmployeeLeaveModel>> GetEmployeeLeavesByEmployee(int id);
+        Task<List<EmployeeLeaveModel>> GetEmployeeLeavesSummaries(int id, bool isToday);
         Task RemoveEmployeeLeave(int id);
         Task AddEmployeePension(EmployeePensionModel model);
         Task UpdateEmployeePension(EmployeePensionModel model, int id);
