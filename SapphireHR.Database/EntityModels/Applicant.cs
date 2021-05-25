@@ -7,7 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class Applicant : BaseEntity, IEntity
     {
-        public int OrganizationId { get; set; }
+        public int CompanyId { get; set; }
 
         public string Salutation { get; set; }
         public string FirstName { get; set; }
@@ -18,7 +18,7 @@ namespace SapphireHR.Database.EntityModels
         public string Email { get; set; }
         public string Address { get; set; }
         
-        [ForeignKey("OrganizationId")]
-        public OrganizationInfo Organization { get; set; }
+        [ForeignKey("CompanyId")]
+        public CompanyInfo Company { get; set; }
     }
 }

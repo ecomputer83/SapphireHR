@@ -157,7 +157,7 @@ namespace SapphireHR.Data.Service.Repositories
 	(select count(*) from dbo.Applications where VacancyId = v.Id and Status = 1) as AcceptedApplicationCount,
 	(select count(*) from dbo.Applications a inner join dbo.ApplicationInterviews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 2) as PhoneInterviewCount,
 	(select count(*) from dbo.Applications a inner join dbo.ApplicationFaceToViews i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 4) as FaceToFaceInterviewCount,
-	(select count(*) from dbo.Applications a inner join dbo.ApplicationScores i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 3) as AptitudeTestInterviewCount,
+	(select count(*) from dbo.Applications a inner join dbo.ApplicationScores i on a.Id = i.ApplicationId where VacancyId = v.Id and a.Status = 3) as AptitudeTestInterviewCount
 	from dbo.Vacancies v 
 	inner join dbo.JobProfiles j on v.JobProfileId = j.Id 
 	inner join dbo.Departments d on j.DepartmentId = d.Id
@@ -188,7 +188,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Vacancy> GetVacancyById(int id)
         {
-            var vacancy = await _context.Set<Vacancy>().Include(v=>v.Vacancysettings).FirstOrDefaultAsync(c=>c.Id == id);
+            var vacancy = await _context.Set<Vacancy>().Include(v=>v.Vacancysettings).Include(c => c.JobProfile).ThenInclude(d => d.Department).FirstOrDefaultAsync(c=>c.Id == id);
             vacancy.JobRequisition = await GetJobRequisitionbyVacancyId(vacancy.Id);
 
             return vacancy;

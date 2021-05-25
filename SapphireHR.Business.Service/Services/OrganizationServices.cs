@@ -55,11 +55,17 @@ namespace SapphireHR.Business.Service.Services
 
             if (exist != null)
                 throw new Exception("Organization Name already exists.");
-
+            string orgUrl = null;
             ///DocumentService for Creating Org folder
-            //var orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower().Replace(" ", ""));
+            var storeToBlob = bool.Parse(_config.GetSection("FileSystem")["StoreToBlob"]);
+            string directory = null;
+            if (storeToBlob)
+            {
+                orgUrl = await _fileManager.CreateOrgDirectory(model.Name.Trim().ToLower().Replace(" ", ""));
+            }
             var datamodel = _mapper.Map<Database.EntityModels.OrganizationInfo>(model);
-            //datamodel.Directory = orgUrl;
+            if(storeToBlob)
+            datamodel.Directory = orgUrl;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";

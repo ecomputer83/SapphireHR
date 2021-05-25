@@ -20,7 +20,11 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public Task<List<Applicant>> GetApplicants(int orgId)
         {
-            return _context.Set<Applicant>().Where(c => c.OrganizationId == orgId).ToListAsync();
+            return _context.Set<Applicant>().Where(c => c.CompanyId == orgId).ToListAsync();
+        }
+        public Task<Applicant> GetApplicantByEmail(string email)
+        {
+            return _context.Set<Applicant>().FirstOrDefaultAsync(c => c.Email == email);
         }
     }
 }

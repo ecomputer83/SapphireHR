@@ -8,7 +8,7 @@ namespace SapphireHR.Business.Abstractions.Models
 {
     public class ApplicantModel
     {
-        public int OrganizationId { get; set; }
+        public int CompanyId { get; set; }
         public int Id { get; set; }
         public string Salutation { get; set; }
         public string FirstName { get; set; }

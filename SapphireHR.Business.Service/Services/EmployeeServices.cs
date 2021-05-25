@@ -36,12 +36,14 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task AddEmployeeSalary(EmployeeSalaryModel model)
         {
+            var company = _employeeRepository.GetCompanyEmployee(model.EmployeeId);
             var datamodel = _mapper.Map<EmployeeSalary>(model);
             datamodel.SalaryDate = DateTime.Now;
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
+            datamodel.Reference = DateTime.Now.ToString("yyyyMMddhhmmss") + company.Id + model.EmployeeId;
             await _employeeRepository.AddEmployeeSalary(datamodel);
         }
 

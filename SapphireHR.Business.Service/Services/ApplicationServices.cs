@@ -264,6 +264,13 @@ namespace SapphireHR.Business.Service.Services
             return appFtv;
         }
 
+        public async Task<ApplicationModel> GetApplicationByApplicant(int vacancy, int applicant)
+        {
+            var result = await _applicationRepository.GetApplicationByApplicant(vacancy, applicant);
+            var appFtv = _mapper.Map<ApplicationModel>(result);
+            return appFtv;
+        }
+
         public async Task UpdateApplication(ApplicationModel model, int id)
         {
             var data = await _applicationRepository.Get(id);

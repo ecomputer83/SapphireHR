@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
@@ -22,15 +23,17 @@ namespace SapphireHR.Web.Controllers
         IOrganizationService _organizationService;
         FileManager _fileManager;
         private readonly ILogger<ApplicationController> _logger;
+        private readonly IConfiguration _config;
 
         public ApplicationController(IApplicationService applicationService, IOrganizationService organizationService,
-            IMiscellaneousService miscellaneousService, FileManager fileManager, ILogger<ApplicationController> logger) : base(organizationService)
+            IMiscellaneousService miscellaneousService, FileManager fileManager, ILogger<ApplicationController> logger, IConfiguration config) : base(organizationService)
         {
             _applicationService = applicationService;
             _organizationService = organizationService;
             _miscellaneousService = miscellaneousService;
             _fileManager = fileManager;
             _logger = logger;
+            _config = config;
         }
 
 
@@ -173,7 +176,7 @@ namespace SapphireHR.Web.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> ApplyJob([FromBody] ApplicantModel payload, int id, int company)
+        public async Task<IActionResult> ApplyJob([FromForm] ApplicantModel payload, int id, int company)
         {
             try
             {
@@ -182,20 +185,29 @@ namespace SapphireHR.Web.Controllers
                 {
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
-                payload.OrganizationId = org.Id;
+                
                 var Id = await _miscellaneousService.AddApplicant(payload);
 
-                // TODO Upload CV to documentManager
-                var blob = new BlobStore
+                var exist = await _applicationService.GetApplicationByApplicant(id, Id);
+                if (exist != null)
                 {
-                    FileName = payload.Uploadfile.FileName,
-                    ContentType = payload.Uploadfile.ContentType,
-                    FileLength = payload.Uploadfile.Length,
-                    FileStream = payload.Uploadfile.OpenReadStream()
-                };
+                    return BadRequest(new string[] { "You have appliced for this job before" });
+                }
+                string Document = null;
+                var storeToBlob = bool.Parse(_config.GetSection("FileSystem")["StoreToBlob"]);
+                if (storeToBlob)
+                {
+                    // TODO Upload CV to documentManager
+                    var blob = new BlobStore
+                    {
+                        FileName = payload.Uploadfile.FileName,
+                        ContentType = payload.Uploadfile.ContentType,
+                        FileLength = payload.Uploadfile.Length,
+                        FileStream = payload.Uploadfile.OpenReadStream()
+                    };
 
-                var Document = await _fileManager.UploadFileToApplicantdFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), company.ToString(), Id.ToString());
-
+                    Document = await _fileManager.UploadFileToApplicantdFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), company.ToString(), Id.ToString());
+                }
                 var model = new ApplicationModel();
                 model.ApplicantId = Id;
                 model.VacancyId = id;
@@ -203,6 +215,7 @@ namespace SapphireHR.Web.Controllers
                 //var url = GetClientUrl() + "applicant-login";
                 await _applicationService.AddApplication(model);
                 return Ok();
+
             }
             catch (Exception ex)
             {

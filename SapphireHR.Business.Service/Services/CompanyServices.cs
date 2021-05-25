@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
 using SapphireHR.Business.DocumentManager.Documents;
@@ -16,20 +17,30 @@ namespace SapphireHR.Business.Service.Services
         CompanyRepository _companyRepository;
         OrganizationRepository _organizationRepository;
         FileManager _fileManager;
+        IConfiguration _configuration;
         readonly IMapper _mapper;
-        public CompanyServices(CompanyRepository companyRepository, OrganizationRepository organizationRepository, FileManager fileManager, IMapper mapper)
+        public CompanyServices(CompanyRepository companyRepository, OrganizationRepository organizationRepository, FileManager fileManager, IMapper mapper, IConfiguration configuration)
         {
             this._companyRepository = companyRepository;
             this._organizationRepository = organizationRepository;
             this._fileManager = fileManager;
             this._mapper = mapper;
+            this._configuration = configuration;
         }
         public async Task<int> AddCompany(CompanyModel model)
         {
             var org = await _organizationRepository.Get(model.OrganizationId);
-            //var directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
+            var storeToBlob = bool.Parse(_configuration.GetSection("FileSystem")["StoreToBlob"]);
+            string directory = null;
+            if (storeToBlob)
+            {
+                directory = await _fileManager.CreateCompanyDirectory(org.Directory, model.Name.Trim().ToLower().Replace(" ", ""));
+            }
             var datamodel = _mapper.Map<Database.EntityModels.CompanyInfo>(model);
-            //datamodel.Directory = directory;
+            if (storeToBlob)
+            {
+                datamodel.Directory = directory;
+            }
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";

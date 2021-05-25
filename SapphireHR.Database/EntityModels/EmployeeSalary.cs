@@ -7,6 +7,7 @@ namespace SapphireHR.Database.EntityModels
 {
     public class EmployeeSalary : BaseEntity
     {
+        public string Reference { get; set; }
         public DateTime SalaryDate { get; set; }
         public double Basic { get; set; }
         public double HRA { get; set; }

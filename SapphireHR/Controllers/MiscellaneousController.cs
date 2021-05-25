@@ -203,7 +203,7 @@ namespace SapphireHR.Web.Controllers
                 {
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
-                model.OrganizationId = org.Id;
+                //model.OrganizationId = org.Id;
                 var Id = await _miscellaneousService.AddApplicant(model);
 
                 // TODO Upload CV to documentManager

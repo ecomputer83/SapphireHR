@@ -37,13 +37,22 @@ namespace SapphireHR.Business.Service.Services
         }
         public async Task<int> AddApplicant(ApplicantModel model)
         {
-            var data = _mapper.Map<Applicant>(model);
-            data.CreatedAt = DateTime.Now;
-            data.UpdatedAt = DateTime.Now;
-            data.CreatedBy = "SYSTEM";
-            data.UpdatedBy = "SYSTEM";
-            data = await _applicantRepository.Add(data);
-            return data.Id;
+            var applicant = await _applicantRepository.GetApplicantByEmail(model.Email);
+            if (applicant == null)
+            {
+                var data = _mapper.Map<Applicant>(model);
+                data.CreatedAt = DateTime.Now;
+                data.UpdatedAt = DateTime.Now;
+                data.CreatedBy = "SYSTEM";
+                data.UpdatedBy = "SYSTEM";
+                data = await _applicantRepository.Add(data);
+
+                return data.Id;
+            }
+            else
+            {
+                return applicant.Id;
+            }
         }
         public async Task<int> AddTerminationType(TerminationTypeModel model)
         {

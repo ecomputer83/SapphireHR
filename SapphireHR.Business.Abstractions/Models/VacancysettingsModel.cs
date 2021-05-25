@@ -8,6 +8,7 @@ namespace SapphireHR.Business.Abstractions.Models
     {
         public int Id { get; set; }
         public int VacancyId { get; set; }
+        public string WelcomeMessage { get; set; }
         public string RejectMessage { get; set; }
         public bool PhoneInterviewChecked { get; set; }
         public string WelcomeMessageToPhoneInterview { get; set; }

@@ -48,6 +48,11 @@ namespace SapphireHR.Data.Service.Repositories
             return await _context.Set<Application>().FindAsync(Id);
         }
 
+        public async Task<Application> GetApplicationByApplicant(int vacanyId, int applicantId)
+        {
+            return await _context.Set<Application>().FirstOrDefaultAsync(c=>c.VacancyId == vacanyId && c.ApplicantId == applicantId);
+        }
+
         public async Task<List<Application>> GetApplicationsByVacancy(int Id)
         {
             return await _context.Set<Application>().Where(c=>c.VacancyId == Id).ToListAsync();
