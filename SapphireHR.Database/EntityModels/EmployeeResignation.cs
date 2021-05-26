@@ -15,7 +15,7 @@ namespace SapphireHR.Database.EntityModels
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
-        public virtual ExitInterview ExitInterview { get; set; }
+        public ExitInterview ExitInterview { get; set; }
     }
 
     public class ExitInterview : BaseEntity

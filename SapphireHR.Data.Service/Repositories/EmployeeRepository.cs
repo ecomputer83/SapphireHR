@@ -470,7 +470,7 @@ namespace SapphireHR.Data.Service.Repositories
         {
             var startYearDate = new DateTime(DateTime.Now.Year, 1, 1);
             var endYearDate = new DateTime(DateTime.Now.Year, 12, 31);
-            return await _context.Set<EmployeeLeave>().Where(c=> c.EmployeeId == id && c.LeaveTypeId == typeId
+            return await _context.Set<EmployeeLeave>().Where(c=> c.EmployeeId == id && c.LeaveTypeId == typeId && c.Status == 1
             && (c.FromDate >= startYearDate && c.FromDate <= endYearDate)).ToListAsync();
         }
 

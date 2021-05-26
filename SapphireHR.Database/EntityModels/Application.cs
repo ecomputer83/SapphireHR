@@ -15,6 +15,7 @@ namespace SapphireHR.Database.EntityModels
         public double ExpectedSalary { get; set; }
         public string Document { get; set; }
         public string CoverLetter { get; set; }
+
         [ForeignKey("ApplicantId")]
         public Applicant Applicant { get; set; }
         [ForeignKey("VacancyId")]
