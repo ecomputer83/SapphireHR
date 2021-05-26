@@ -86,7 +86,7 @@ WHERE [v].[CompanyId] = @p0 and [a].[Status] < 8 FOR JSON PATH", id);
         public async Task<int> GetApplicationCountByCompany(int id)
         {
             var result = await GetApplicationByCompany(id);
-            return result.Count;
+            return (result == null) ? 0 : result.Count;
         }
 
         public async Task RemoveApplication(int Id)
