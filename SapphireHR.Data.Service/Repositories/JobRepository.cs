@@ -188,7 +188,7 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Vacancy> GetVacancyById(int id)
         {
-            var vacancy = await _context.Set<Vacancy>().Include(v=>v.Vacancysettings).Include(c => c.JobProfile).ThenInclude(d => d.Department).FirstOrDefaultAsync(c=>c.Id == id);
+            var vacancy = await _context.Set<Vacancy>().Include(v=>v.Vacancysettings).Include(c => c.JobProfile).ThenInclude(d => d.Company).FirstOrDefaultAsync(c=>c.Id == id);
             vacancy.JobRequisition = await GetJobRequisitionbyVacancyId(vacancy.Id);
 
             return vacancy;

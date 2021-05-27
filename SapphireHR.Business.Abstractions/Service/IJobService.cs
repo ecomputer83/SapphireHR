@@ -39,6 +39,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<VacancyModel> GetVacancyApplications(int id);
         Task<VacancyModel> GetVacancyById(int Id);
         Task<List<VacancyModel>> GetVacanciesByOrgId(int id);
+
         Task<int> AddVacancy(VacancyModel model);
         Task UpdateVacancy(VacancyModel model, int Id);
         Task RemoveVacancy(int id);
