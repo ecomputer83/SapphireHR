@@ -46,7 +46,14 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<Application> GetApplication(int Id)
         {
-            return await _context.Set<Application>().FindAsync(Id);
+            var app = await _context.Set<Application>().Include(c=>c.Applicant).Include(c=>c.ApplicationFaceToView)
+                .Include(c => c.ApplicationInterview).Include(c => c.ApplicationNegotiation)
+                .Include(c => c.ApplicationScore).AsNoTracking().FirstOrDefaultAsync(a => a.Id == Id);
+
+            app.Vacancy = await _context.Set<Vacancy>().Include(c=>c.Vacancysettings).Include(c=>c.Designation).Include(v=>v.JobProfile)
+                .ThenInclude(j=>j.Department).FirstOrDefaultAsync(v => v.Id == app.VacancyId);
+
+            return app;
         }
 
         public async Task<Application> GetApplicationByApplicant(int vacanyId, int applicantId)
@@ -61,25 +68,40 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<Application>> GetApplicationByCompany(int id)
         {
-            var data = await _context.JsonFromSql(@"Select 
-[a].[Id], [a].[ApplicantId], [a].[VacancyId], [a].[StartDate], [a].[NoticePeriod], [a].[ExpectedSalary], [a].[Document], [a].[CoverLetter], [a].[CreatedAt], [a].[CreatedBy], [a].[UpdatedAt], [a].[UpdatedBy], [a].[Code], [a].[Status],
-[v].[Id] AS [Vacancy.Id], [v].[JobProfileId] AS [Vacancy.JobProfileId], [v].[DesignationId] AS [Vacancy.DesignationId], [v].[Quantity] AS [Vacancy.Quantity], [v].[Description] AS [Vacancy.Description], [v].[Type] AS [Vacancy.Type],
-[v].[Scores] AS [Vacancy.Scores], [v].[CreatedAt] AS [Vacancy.CreatedAt], [v].[CreatedBy] AS [Vacancy.CreatedBy], [v].[UpdatedAt] AS [Vacancy.UpdatedAt], [v].[UpdatedBy] AS [Vacancy.UpdatedBy], [v].[PeriodFrom] AS [Vacancy.PeriodFrom],
-[v].[PeriodTo] AS [Vacancy.PeriodTo], [v].[RequestedBy] AS [Vacancy.RequestedBy], [v].[RequestedOn] AS [Vacancy.RequestedOn],[j].[Id] AS [Vacancy.JobProfile.Id], [j].[CompanyId] AS [Vacancy.JobProfile.CompanyId], [j].[RankId] AS [Vacancy.JobProfile.RankId], [j].[DepartmentId] AS [Vacancy.JobProfile.DepartmentId], [j].[Title] AS [Vacancy.JobProfile.Title],
-[j].[Experience] AS [Vacancy.JobProfile.Experience], [j].[Description] AS [Vacancy.JobProfile.Description], [j].[SalaryMin] AS [Vacancy.JobProfile.SalaryMin], [j].[SalaryMax] AS [Vacancy.JobProfile.SalaryMax], [j].[AverageSalary] AS [Vacancy.JobProfile.AverageSalary],
-[j].[CreatedAt] AS [Vacancy.JobProfile.CreatedAt], [j].[CreatedBy] AS [Vacancy.JobProfile.CreatedBy], [j].[UpdatedAt] AS [Vacancy.JobProfile.UpdatedAt], [j].[UpdatedBy] AS [Vacancy.JobProfile.UpdatedBy],
-[p].[Id] AS [Applicant.Id], [p].[CompanyId] AS [Applicant.CompanyId], [p].[FirstName] AS [Applicant.FirstName], [p].[LastName] AS [Applicant.LastName], [p].[Gender] AS [Applicant.Gender], [p].[Phone1] AS [Applicant.Phone1], 
-[p].[Phone2] AS [Applicant.Phone2], [p].[Email] AS [Applicant.Email], [p].[Address] AS [Applicant.Address], [p].[Salutation] AS [Applicant.Salutation],
-[p].[CreatedAt] AS [Applicant.CreatedAt], [p].[CreatedBy] AS [Applicant.CreatedBy], [p].[UpdatedAt] AS [Applicant.UpdatedAt], [p].[UpdatedBy] AS [Applicant.UpdatedBy],
-[s].[Id] AS [ApplicationScore.Id], [s].[ApplicationId] AS [ApplicationScore.ApplicationId],[s].[CreatedAt] AS [ApplicationScore.CreatedAt], [s].[CreatedBy] AS [ApplicationScore.CreatedBy], [s].[UpdatedAt] AS [ApplicationScore.UpdatedAt], [s].[UpdatedBy] AS [ApplicationScore.UpdatedBy],
-[s].[Score] AS [ApplicationScore.Score]
+            var data = await _context.JsonFromSql(@"Declare @result NVARCHAR(max)
+SET @result =(Select 
+[a].[Id], [a].[ApplicantId], [a].[VacancyId],[a].[ExpectedSalary], [a].[CreatedAt],[a].[Status],
+[v].[Id] AS [Vacancy.Id], [v].[JobProfileId] AS [Vacancy.JobProfileId], [v].[DesignationId] AS [Vacancy.DesignationId], [v].[PeriodFrom] AS [Vacancy.PeriodFrom],
+[v].[PeriodTo] AS [Vacancy.PeriodTo],[j].[Id] AS [Vacancy.JobProfile.Id], [j].[CompanyId] AS [Vacancy.JobProfile.CompanyId], [j].[RankId] AS [Vacancy.JobProfile.RankId], [j].[DepartmentId] AS [Vacancy.JobProfile.DepartmentId], [j].[Title] AS [Vacancy.JobProfile.Title],
+[p].[Id] AS [Applicant.Id], [p].[CompanyId] AS [Applicant.CompanyId], [p].[FirstName] AS [Applicant.FirstName], [p].[LastName] AS [Applicant.LastName],
+[s].[Id] AS [ApplicationScore.Id], [s].[ApplicationId] AS [ApplicationScore.ApplicationId],[s].[Score] AS [ApplicationScore.Score]
 
 from [Applications] AS [a]
 LEFT JOIN [Vacancies] AS [v] on [a].[VacancyId] = [v].Id
 LEFT JOIN [JobProfiles] AS [j] on [v].[JobProfileId] = [j].Id
 LEFT JOIN [Applicants] AS [p] on [a].[ApplicantId] = [p].Id
 LEFT OUTER JOIN [ApplicationScores] AS [s] on [a].[Id] = [s].[ApplicationId]
-WHERE [v].[CompanyId] = @p0 and [a].[Status] < 8 FOR JSON PATH", id);
+WHERE [v].[CompanyId] = 1 and [a].[Status] < 8 FOR JSON PATH)
+SELECT @result", id);
+            return JsonConvert.DeserializeObject<List<Application>>(data);
+        }
+
+        public async Task<List<Application>> GetAcceptedApplicationByCompany(int id)
+        {
+            var data = await _context.JsonFromSql(@"Declare @result NVARCHAR(max)
+SET @result =(Select 
+[a].[Id], [a].[ApplicantId], [a].[VacancyId],[a].[ExpectedSalary], [a].[CreatedAt],[a].[Status],
+[v].[Id] AS [Vacancy.Id], [v].[JobProfileId] AS [Vacancy.JobProfileId], [v].[DesignationId] AS [Vacancy.DesignationId], [j].[Id] AS [Vacancy.Designation.Id], [j].[DepartmentId] AS [Vacancy.Designation.DepartmentId], [j].[OrganizationId] AS [Vacancy.Designation.OrganizationId], [j].[Name] AS [Vacancy.Designation.Name],
+[p].[Id] AS [Applicant.Id], [p].[CompanyId] AS [Applicant.CompanyId], [p].[FirstName] AS [Applicant.FirstName], [p].[LastName] AS [Applicant.LastName],
+[ps].[Id] AS [ApplicationInterview.Id], [ps].[ApplicationId] AS [ApplicationInterview.ApplicationId], [ps].[StartDate] AS [ApplicationInterview.StartDate], [ps].[ExpectedSalary] AS [ApplicationInterview.ExpectedSalary]
+
+from [Applications] AS [a]
+LEFT JOIN [Vacancies] AS [v] on [a].[VacancyId] = [v].Id
+LEFT JOIN [Designations] AS [j] on [v].[DesignationId] = [j].Id
+LEFT JOIN [Applicants] AS [p] on [a].[ApplicantId] = [p].Id
+LEFT OUTER JOIN [ApplicationInterviews] AS [ps] on [a].[Id] = [ps].[ApplicationId]
+WHERE [v].[CompanyId] = 1 and [a].[Status] = 1 FOR JSON PATH)
+Select @result", id);
             return JsonConvert.DeserializeObject<List<Application>>(data);
         }
 

@@ -72,45 +72,12 @@ namespace SapphireHR.Business.Service.Services
                 _logger.LogError(ex, ex.Message);
             }
         }
-        
+
         public async Task SendAsync(string EmailDisplayName, string Subject, string Body, string From, string To)
         {
-            using (var client = new SmtpClient(_email.Server, _email.Port))
-            using (var mailMessage = new MailMessage())
+            try
             {
-                if (!_email.DefaultCredentials)
-                {
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
-                }
-
-                PrepareMailMessage(EmailDisplayName, Subject, Body, From, To, mailMessage);
-                client.EnableSsl = true;
-                await client.SendMailAsync(mailMessage);
-            }
-        }
-
-        public async Task SendEmailConfirmationAsync(string EmailAddress, string Code)
-        {
-            using (var client = new SmtpClient(_email.Server, _email.Port))
-            using (var mailMessage = new MailMessage())
-            {
-                if (!_email.DefaultCredentials)
-                {
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
-                }
-
-                PrepareMailMessage(_email.DisplayName, "Confirm your email", $"Here is the confirmation code <b>{Code}</b>", _email.From, EmailAddress, mailMessage);
-                client.EnableSsl = true;
-                await client.SendMailAsync(mailMessage);
-            }
-        }
-
-        public async Task SendPasswordResetAsync(string EmailAddress, string Code)
-        {
-            using (var client = new SmtpClient(_email.Server, _email.Port))
-            {
+                using (var client = new SmtpClient(_email.Server, _email.Port))
                 using (var mailMessage = new MailMessage())
                 {
                     if (!_email.DefaultCredentials)
@@ -119,10 +86,64 @@ namespace SapphireHR.Business.Service.Services
                         client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
                     }
 
-                    PrepareMailMessage(_email.DisplayName, "Reset your password", $"Please reset your password with code <b>{Code}</b>", _email.From, EmailAddress, mailMessage);
+                    PrepareMailMessage(EmailDisplayName, Subject, Body, From, To, mailMessage);
                     client.EnableSsl = true;
                     await client.SendMailAsync(mailMessage);
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
+
+        public async Task SendEmailConfirmationAsync(string EmailAddress, string Code)
+        {
+            try
+            {
+                using (var client = new SmtpClient(_email.Server, _email.Port))
+                using (var mailMessage = new MailMessage())
+                {
+                    if (!_email.DefaultCredentials)
+                    {
+                        client.UseDefaultCredentials = false;
+                        client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                    }
+
+                    PrepareMailMessage(_email.DisplayName, "Confirm your email", $"Here is the confirmation code <b>{Code}</b>", _email.From, EmailAddress, mailMessage);
+                    client.EnableSsl = true;
+                    await client.SendMailAsync(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
+
+        public async Task SendPasswordResetAsync(string EmailAddress, string Code)
+        {
+            try
+            {
+                using (var client = new SmtpClient(_email.Server, _email.Port))
+                {
+                    using (var mailMessage = new MailMessage())
+                    {
+                        if (!_email.DefaultCredentials)
+                        {
+                            client.UseDefaultCredentials = false;
+                            client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                        }
+
+                        PrepareMailMessage(_email.DisplayName, "Reset your password", $"Please reset your password with code <b>{Code}</b>", _email.From, EmailAddress, mailMessage);
+                        client.EnableSsl = true;
+                        await client.SendMailAsync(mailMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
             }
         }
 
@@ -140,22 +161,29 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task SendApplicationLogin(string Company, string WelcomeMessage, string Name, string ApplicantEmail)
         {
-            using (var client = new SmtpClient(_email.Server, _email.Port))
-            using (var loginDetails = new MailMessage())
+            try
             {
-                if (!_email.DefaultCredentials)
+                using (var client = new SmtpClient(_email.Server, _email.Port))
+                using (var loginDetails = new MailMessage())
                 {
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                    if (!_email.DefaultCredentials)
+                    {
+                        client.UseDefaultCredentials = false;
+                        client.Credentials = new NetworkCredential(_email.UserName, _email.Password);
+                    }
+
+                    var message = new StringBuilder();
+                    message.AppendLine($"Hi {Name},");
+                    message.AppendLine(WelcomeMessage);
+
+                    PrepareMailMessage(_email.DisplayName, $"{Company} Application Login", message.ToString(), _email.From, ApplicantEmail, loginDetails);
+                    client.EnableSsl = true;
+                    await client.SendMailAsync(loginDetails);
                 }
-
-                var message = new StringBuilder();
-                message.AppendLine($"Hi {Name},");
-                message.AppendLine(WelcomeMessage);
-
-                PrepareMailMessage(_email.DisplayName, $"{Company} Application Login", message.ToString(), _email.From, ApplicantEmail, loginDetails);
-                client.EnableSsl = true;
-                await client.SendMailAsync(loginDetails);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
             }
         }
 

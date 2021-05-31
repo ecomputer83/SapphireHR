@@ -56,6 +56,22 @@ namespace SapphireHR.Web.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        public async Task<IActionResult> GetAcceptedApplication(int id)
+        {
+            try
+            {
+                var resource = await _applicationService.GetAcceptedApplication(id);
+                return Ok(resource);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetApplicationbById(int id)
         {
             try

@@ -93,7 +93,7 @@ namespace SapphireHR.Database
             var materializerSource = dbContext.GetService<IEntityMaterializerSource>();
             if (connection.State == ConnectionState.Closed)
                 await connection.OpenAsync();
-
+            
             var reader = await command.ExecuteScalarAsync();
             resultSets.Append(reader);
 

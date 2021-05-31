@@ -41,6 +41,10 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
             await _applicationRepository.AddApplicationScore(data);
+            var app = await _applicationRepository.GetApplication(model.ApplicationId);
+            app.Status = 3;
+
+            await _applicationRepository.Update(app);
         }
 
         public async Task UpdateApplicationScore(ApplicationScoreModel model, int id)
@@ -71,6 +75,11 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
             await _applicationRepository.AddApplicationFaceToView(data);
+
+            var app = await _applicationRepository.GetApplication(model.ApplicationId);
+            app.Status = 4;
+
+            await _applicationRepository.Update(app);
         }
 
         public async Task UpdateApplicationFaceToView(ApplicationFaceToViewModel model, int id)
@@ -101,6 +110,11 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSSTEM";
             data.UpdatedBy = "SYSTEM";
             await _applicationRepository.AddApplicationInterview(data);
+
+            var app = await _applicationRepository.GetApplication(model.ApplicationId);
+            app.Status = 2;
+
+            await _applicationRepository.Update(app);
         }
 
         public async Task UpdateApplicationInterview(ApplicationInterviewModel model, int id)
@@ -162,6 +176,10 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSSTEM";
             data.UpdatedBy = "SYSTEM";
             await _applicationRepository.AddApplicationNegotiation(data);
+            var app = await _applicationRepository.GetApplication(model.ApplicationId);
+            app.Status = 5;
+
+            await _applicationRepository.Update(app);
         }
 
         public async Task UpdateApplicationNegotiation(ApplicationNegotiationModel model, int id)
@@ -170,6 +188,7 @@ namespace SapphireHR.Business.Service.Services
             data.NegotiationCompleted = model.NegotiationCompleted;
             data.RelatedTaskCompleted = model.RelatedTaskCompleted;
             data.FinalDecision = model.FinalDecision;
+            data.NegotiatedSalary = model.NegotiatedSalary;
             await _applicationRepository.UpdateApplicationNegotiation(data, id);
         }
 
@@ -279,12 +298,20 @@ namespace SapphireHR.Business.Service.Services
             data.ExpectedSalary = model.ExpectedSalary;
             data.NoticePeriod = model.NoticePeriod;
             data.StartDate = model.StartDate;
+            data.Status = model.Status;
             await _applicationRepository.UpdateApplication(data, id);
         }
 
         public async Task<List<ApplicationModel>> GetAllApplication(int companyId)
         {
             var result = await _applicationRepository.GetApplicationByCompany(companyId);
+            var appInterview = _mapper.Map<List<ApplicationModel>>(result);
+            return appInterview;
+        }
+
+        public async Task<List<ApplicationModel>> GetAcceptedApplication(int companyId)
+        {
+            var result = await _applicationRepository.GetAcceptedApplicationByCompany(companyId);
             var appInterview = _mapper.Map<List<ApplicationModel>>(result);
             return appInterview;
         }

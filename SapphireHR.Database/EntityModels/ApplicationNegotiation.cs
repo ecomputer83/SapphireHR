@@ -10,6 +10,7 @@ namespace SapphireHR.Database.EntityModels
         public int ApplicationId { get; set; }
         public bool RelatedTaskCompleted { get; set; }
         public bool NegotiationCompleted { get; set; }
+        public double NegotiatedSalary { get; set; }
         public string FinalDecision { get; set; }
         [ForeignKey("ApplicationId")]
         public Application Application { get; set; }

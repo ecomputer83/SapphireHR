@@ -17,6 +17,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<ApplicationModel> GetApplicationByApplicant(int vacancy, int applicant);
         Task UpdateApplication(ApplicationModel model, int id);
         Task<List<ApplicationModel>> GetAllApplication(int companyId);
+        Task<List<ApplicationModel>> GetAcceptedApplication(int companyId);
         Task RemoveApplication(int id);
 
 

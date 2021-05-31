@@ -187,11 +187,13 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task AddEmployeeLeave(EmployeeLeaveModel model)
         {
+            var days = (model.ToDate - model.FromDate).TotalDays;
             var datamodel = _mapper.Map<EmployeeLeave>(model);
             datamodel.CreatedAt = DateTime.Now;
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
+            datamodel.Days = Convert.ToInt32(days);
             await _employeeRepository.AddEmployeeLeave(datamodel);
         }
 
@@ -768,6 +770,7 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateEmployeeLeave(EmployeeLeaveModel model, int id)
         {
+            var days = (model.ToDate - model.FromDate).TotalDays;
             var data = await _employeeRepository.GetEMployeeLeave(id);
             data.ApprovedBy = model.ApprovedBy;
             data.FromDate = model.FromDate;
@@ -775,7 +778,7 @@ namespace SapphireHR.Business.Service.Services
             data.ToDate = model.ToDate;
             data.ApprovedBy = model.ApprovedBy;
             data.Status = model.Status;
-            data.Days = model.Days;
+            data.Days = Convert.ToInt32(days);
             await _employeeRepository.UpdateEmployeeLeave(data);
         }
 
