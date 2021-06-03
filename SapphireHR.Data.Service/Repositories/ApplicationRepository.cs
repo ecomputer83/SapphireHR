@@ -81,7 +81,7 @@ LEFT JOIN [Vacancies] AS [v] on [a].[VacancyId] = [v].Id
 LEFT JOIN [JobProfiles] AS [j] on [v].[JobProfileId] = [j].Id
 LEFT JOIN [Applicants] AS [p] on [a].[ApplicantId] = [p].Id
 LEFT OUTER JOIN [ApplicationScores] AS [s] on [a].[Id] = [s].[ApplicationId]
-WHERE [v].[CompanyId] = 1 and [a].[Status] < 8 FOR JSON PATH)
+WHERE [v].[CompanyId] = @p0 and [a].[Status] < 8 FOR JSON PATH)
 SELECT @result", id);
             return JsonConvert.DeserializeObject<List<Application>>(data);
         }
@@ -100,7 +100,7 @@ LEFT JOIN [Vacancies] AS [v] on [a].[VacancyId] = [v].Id
 LEFT JOIN [Designations] AS [j] on [v].[DesignationId] = [j].Id
 LEFT JOIN [Applicants] AS [p] on [a].[ApplicantId] = [p].Id
 LEFT OUTER JOIN [ApplicationInterviews] AS [ps] on [a].[Id] = [ps].[ApplicationId]
-WHERE [v].[CompanyId] = 1 and [a].[Status] = 1 FOR JSON PATH)
+WHERE [v].[CompanyId] = @p0 and [a].[Status] = 1 FOR JSON PATH)
 Select @result", id);
             return JsonConvert.DeserializeObject<List<Application>>(data);
         }

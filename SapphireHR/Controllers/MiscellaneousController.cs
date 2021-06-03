@@ -50,7 +50,7 @@ namespace SapphireHR.Web.Controllers
         [Authorize(Roles = "HRAdmin")]
         [HttpGet]
         [Route("getAllApplicant")]
-        public async Task<IActionResult> GetApplicants()
+        public async Task<IActionResult> GetApplicants(int Id)
         {
             try
             {
