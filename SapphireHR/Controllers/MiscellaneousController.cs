@@ -59,7 +59,7 @@ namespace SapphireHR.Web.Controllers
                 {
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
-                var res = await _miscellaneousService.GetApplicants(org.Id);
+                var res = await _miscellaneousService.GetApplicants(Id);
                 return Ok(res);
             }
             catch (Exception ex)
