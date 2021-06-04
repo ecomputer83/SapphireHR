@@ -144,7 +144,7 @@ namespace SapphireHR.Data.Service.Repositories
 
         public async Task<List<Vacancy>> GetVacancies(int id)
         {
-            return await _context.Set<Vacancy>().Include(c=>c.JobProfile).Where(c=>c.JobProfile.CompanyId == id).ToListAsync();
+            return await _context.Set<Vacancy>().Include(c=>c.JobProfile).Where(c=>c.JobProfile.CompanyId == id && c.Status == 1).ToListAsync();
         }
 
         public async Task<List<VacancySummary>> GetVacancySummaries(int companyId)

@@ -57,7 +57,7 @@ namespace SapphireHR.Business.Service.Services
             datamodel.UpdatedAt = DateTime.Now;
             datamodel.CreatedBy = "SYSTEM";
             datamodel.UpdatedBy = "SYSTEM";
-            datamodel.Status = 1;
+            //datamodel.Status = 1;
             var Id = await _jobRepsitory.AddVacancy(datamodel);
             return Id;
         }
