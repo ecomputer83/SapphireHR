@@ -696,6 +696,18 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateEmployee(EmployeeModel model, int id)
         {
+            if(model.EmployeeManager != null)
+            {
+                var m = _mapper.Map<EmployeeManager>(model.EmployeeManager);
+                if(m.Id == 0)
+                {
+                    await _employeeRepository.AddEmployeeManager(m);
+                }
+                else
+                {
+                    await _employeeRepository.UpdateEmployeeManager(m);
+                }
+            }
             var data = await _employeeRepository.GetNoTrackingEmployee(id);
             var n_data = _mapper.Map<Employee>(model);
             n_data.Id = data.Id;

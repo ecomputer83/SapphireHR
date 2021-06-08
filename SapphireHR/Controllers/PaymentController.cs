@@ -108,7 +108,7 @@ namespace SapphireHR.Web.Controllers
                 var settings = await _companyService.GetCompanyAccount(id);
                 var login = await _paymentClientService.Authenticate(new RemitaLogin { username = settings.RemitaUserAccount, password = settings.RemitaSecret });
 
-                if (login.status != "00")
+                if (login?.status != "00")
                     throw new Exception("Remita credential is invalid");
 
                 var resp = await _paymentClientService.GetTaxCodes(login.data.accessToken);

@@ -884,6 +884,9 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmploymentOfSpouse")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -896,11 +899,20 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("MaritalStatus")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NationalIdentityNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nationality")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NoOfChildren")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("PassportExpiryDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PassportIdentificationNumber")
                         .HasColumnType("nvarchar(max)");
@@ -949,6 +961,9 @@ namespace SapphireHR.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BvnNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -1282,6 +1297,43 @@ namespace SapphireHR.Web.Migrations
                     b.HasIndex("LeaveTypeId");
 
                     b.ToTable("EmployeeLeaves");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeManager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("EmployeeManagers");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeObservation", b =>
@@ -4795,6 +4847,25 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("LeaveType");
+                });
+
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeManager", b =>
+                {
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SapphireHR.Database.EntityModels.Employee", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeObservation", b =>

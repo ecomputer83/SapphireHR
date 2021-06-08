@@ -19,6 +19,10 @@ namespace SapphireHR.Business.Abstractions.Models
         public string Address { get; set; }
         public string Gender { get; set; } // "M" or "F"
         public string PassportIdentificationNumber { get; set; } // "Could be shortened to PIN for the model mappings or use like so"
+        public string NationalIdentityNumber { get; set; }
+        public DateTime PassportExpiryDate { get; set; }
+        public string EmploymentOfSpouse { get; set; }
+        public int NoOfChildren { get; set; }
         public byte[] PassportPhoto { get; set; } // Url to Azure Blob store
         public string Nationality { get; set; }
         public string Religion { get; set; }
@@ -29,6 +33,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public  List<EmployeeExperienceModel> EmployeeExperiences { get; set; }
         public  List<EmployeeFamilyModel> EmployeeFamilies { get; set; }
         public  EmployeeBankModel EmployeeBank { get; set; }
+        public  EmployeeManagerModel EmployeeManager { get; set; }
         public EmployeeStatutoryModel EmployeeStatutory { get; set; }
         public EmployeePensionModel EmployeePension { get; set; }
         public EmployeeTaxModel EmployeeTax { get; set; }

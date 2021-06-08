@@ -151,6 +151,7 @@ namespace SapphireHR.Database
         public DbSet<EmployeeTimetable> EmployeeTimetables { get; set; }
         public DbSet<EmployeeTermination> EmployeeTerminations { get; set; }
         public DbSet<EmployeeTransfer> EmployeeTransfers { get; set; }
+        public DbSet<EmployeeManager> EmployeeManagers { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
         public DbSet<JobCategory> JobCategories { get; set; }
         public DbSet<JobProfession> JobProfessions { get; set; }

@@ -6,6 +6,7 @@ namespace SapphireHR.Database.EntityModels
     {
         public string BankAccountNumber { get; set; }
         public string BankName { get; set; }
+        public string BvnNumber { get; set; }
         public int EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }

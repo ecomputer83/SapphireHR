@@ -17,12 +17,18 @@ namespace SapphireHR.Data.Service.Repositories
         }
         public async Task<Employee> GetEmployeeDetail(int employeeId)
         {
-            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).Include(a=>a.EmployeePension).Include(c=>c.EmployeeStatutory).Include(c=>c.EmployeeTax).FirstOrDefaultAsync(c=>c.Id == employeeId);
+            var emp = await _context.Set<Employee>().Include(d=>d.Designation).Include(b => b.EmployeeBank).Include(a=>a.EmployeePension)
+                .Include(c=>c.EmployeeStatutory).Include(c=>c.EmployeeTax).FirstOrDefaultAsync(c=>c.Id == employeeId);
+            emp.EmployeeManager = _context.Set<EmployeeManager>().FirstOrDefault(e => e.EmployeeId == emp.Id);
             emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeExperiences = _context.Set<EmployeeExperience>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeFamilies = _context.Set<EmployeeFamily>().Where(e => e.EmployeeId == emp.Id).ToList();
             
+            if(emp.EmployeeManager != null)
+            {
+                emp.EmployeeManager.Manager = _context.Set<Employee>().FirstOrDefault(e => e.Id == emp.EmployeeManager.ManagerId);
+            }
             return emp;
         }
         public Task<int> GetTotalEmployees(int companyId)
@@ -44,6 +50,12 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task AddEmployeeBank(EmployeeBank model)
         {
             _context.Set<EmployeeBank>().Add(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddEmployeeManager(EmployeeManager model)
+        {
+            _context.Set<EmployeeManager>().Add(model);
             await _context.SaveChangesAsync();
         }
 
@@ -239,6 +251,12 @@ namespace SapphireHR.Data.Service.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateEmployeeManager(EmployeeManager model)
+        {
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateEmployeeBank(EmployeeBank model)
         {
             _context.Entry(model).State = EntityState.Modified;
@@ -248,6 +266,11 @@ namespace SapphireHR.Data.Service.Repositories
         public async Task<EmployeeBank> GetEmployeeBank(int id)
         {
             return await _context.EmployeeBanks.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<EmployeeManager> GetEmployeeManager(int id)
+        {
+            return await _context.EmployeeManagers.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<List<EmployeeBank>> GetEmployeeBanks(int id)

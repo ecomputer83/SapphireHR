@@ -9,6 +9,7 @@ namespace SapphireHR.Business.Abstractions.Models
         public int Id { get; set; }
         public string BankAccountNumber { get; set; }
         public string BankName { get; set; }
+        public string BvnNumber { get; set; }
         public int EmployeeId { get; set; }
     }
 }

@@ -52,6 +52,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<EmployeeTransferModel, EmployeeTransfer>().ReverseMap();
             CreateMap<EmployeeSalaryModel, EmployeeSalary>().ReverseMap();
             CreateMap<EmployeeModel, Employee>().ReverseMap();
+            CreateMap<EmployeeManagerModel, EmployeeManager>().ReverseMap();
             CreateMap<UserModel, User>().ReverseMap();
             CreateMap<VacancyModel, Vacancy>().ReverseMap();
             CreateMap<VacancysettingsModel, Vacancysettings>().ReverseMap();
