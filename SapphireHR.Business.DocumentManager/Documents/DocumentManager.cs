@@ -68,6 +68,32 @@ namespace SapphireHR.Business.DocumentManager.Documents
             return result;
         }
 
+        public async Task<string> UploadFileToDepartmentFolder(BlobStore blob, string OrgFolder, string CompanyFolder, string Department)
+        {
+            string result = null;
+
+            string storageConnection = _configuration.GetConnectionString("BlobStorageConnectionString");
+            try
+            {
+                BlobContainerClient orgContainer = new BlobContainerClient(storageConnection, OrgFolder);
+
+                if (!orgContainer.Exists())
+                    orgContainer.Create();
+
+                // Get a reference to a blob named "sample-file" in a container named "sample-container"
+                BlobClient _blob = orgContainer.GetBlobClient(CompanyFolder + "/Departments/" + Department + "/" + blob.FileName);
+                await _blob.UploadAsync(blob.FileStream);
+                result = _blob.Uri.AbsoluteUri;
+            }
+            catch (Exception ex)
+            {
+                //Log.Error(ex);
+                throw new Exception(ex.Message, ex);
+            }
+
+            return result;
+        }
+
         public async Task<string> UploadFileToEmployeeFolder(BlobStore blob, string OrgFolder, string CompanyFolder, string EmployeeId)
         {
             string result = null;

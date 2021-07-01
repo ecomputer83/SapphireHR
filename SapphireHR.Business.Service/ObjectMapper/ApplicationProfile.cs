@@ -83,6 +83,9 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<RemitaTaxRequest, TaxBatchPayment>().ReverseMap();
             CreateMap<TaxTransaction, TaxPayment>()
                 .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
+            CreateMap<Policy, PolicyModel>()
+                .ForMember(x => x.Department, opt => opt.MapFrom(c=>c.DepartmentPolicy.Department))
+                .ForMember(x => x.DepartmentId, opt => opt.MapFrom(c => c.DepartmentPolicy.DepartmentId)).ReverseMap();
         }
 
     }

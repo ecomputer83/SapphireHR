@@ -196,7 +196,8 @@ namespace SapphireHR.Database
         public DbSet<TaxPayment> TaxPayments { get; set; }
         public DbSet<CompanyAccount> CompanyAccounts { get; set; }
         public DbSet<Query> Queries { get; set; }
-
+        public DbSet<Policy> Policies { get; set; }
+        public DbSet<DepartmentPolicy> DepartmentPolicies { get; set; }
 
 
         public virtual DbSet<MailMessage> MailMessage { get; set; }

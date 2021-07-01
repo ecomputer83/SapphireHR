@@ -9,10 +9,14 @@ namespace SapphireHR.Business.Abstractions.Service
     public interface IMiscellaneousService
     {
         Task<int> AddApplicant(ApplicantModel model);
+        Task<int> AddPolicy(PolicyModel model);
         Task UpdateApplicant(ApplicantModel model, int id);
         Task<ApplicantModel> GetApplicant(int id);
+        Task<List<PolicyModel>> GetPolicies(int orgId);
+        Task<PolicyModel> GetPolicy(int Id);
         Task<List<ApplicantModel>> GetApplicants(int orgId);
         Task RemoveApplicant(int id);
+        Task<int> UpdatePolicy(PolicyModel model);
         Task<List<LookupModel>> GetLookups(string type);
         Task<int> AddDepartment(DepartmentModel model);
         Task UpdateDepartment(DepartmentModel model, int id);
@@ -20,7 +24,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<DepartmentModel> GetDepartment(int id);
         Task<DepartmentModel> GetDepartment(string name);
         Task RemoveDepartment(int id);
-
+        Task RemovePolicy(int id);
         Task<int> AddDesignation(DesignationModel model);
         Task UpdateDesignation(DesignationModel model, int id);
         Task<List<DesignationModel>> GetDesignations(int orgId);

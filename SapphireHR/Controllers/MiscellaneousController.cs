@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SapphireHR.Business.Abstractions.Models;
 using SapphireHR.Business.Abstractions.Service;
@@ -21,13 +22,14 @@ namespace SapphireHR.Web.Controllers
         IMiscellaneousService _miscellaneousService;
         IOrganizationService _organizationService;
         FileManager _fileManager;
-
-        public MiscellaneousController(ILogger<MiscellaneousController> logger, FileManager fileManager, IMiscellaneousService miscellaneousService, IOrganizationService organizationService) : base(organizationService)
+        private readonly IConfiguration _config;
+        public MiscellaneousController(ILogger<MiscellaneousController> logger, FileManager fileManager, IMiscellaneousService miscellaneousService, IOrganizationService organizationService, IConfiguration config) : base(organizationService)
         {
             _logger = logger;
             _fileManager = fileManager;
             _miscellaneousService = miscellaneousService;
             _organizationService = organizationService;
+            _config = config;
         }
 
         [Authorize(Roles = "HRAdmin")]
@@ -60,6 +62,28 @@ namespace SapphireHR.Web.Controllers
                     return BadRequest(new string[] { "You are not authorized with this hostname" });
                 }
                 var res = await _miscellaneousService.GetApplicants(Id);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize(Roles = "HRAdmin")]
+        [HttpGet]
+        [Route("getpolicies")]
+        public async Task<IActionResult> GetPolicies()
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var res = await _miscellaneousService.GetPolicies(org.Id);
                 return Ok(res);
             }
             catch (Exception ex)
@@ -248,6 +272,45 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("createPolicy/{companyId}")]
+        public async Task<IActionResult> PostPolicy([FromForm] PolicyModel model, int companyId)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                string Document = null;
+                var storeToBlob = bool.Parse(_config.GetSection("FileSystem")["StoreToBlob"]);
+                if (storeToBlob && model.Uploadfile != null)
+                {
+                    // TODO Upload CV to documentManager
+                    var blob = new BlobStore
+                    {
+                        FileName = model.Uploadfile.FileName,
+                        ContentType = model.Uploadfile.ContentType,
+                        FileLength = model.Uploadfile.Length,
+                        FileStream = model.Uploadfile.OpenReadStream()
+                    };
+
+                    Document = await _fileManager.UploadFileToDepartmentFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), companyId.ToString(), model.DepartmentId.ToString());
+                }
+                model.OrganizationId = org.Id;
+                model.Document = Document;
+                await _miscellaneousService.AddPolicy(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "HRAdmin")]
         [HttpPost]
         [Route("createTerminationType")]
@@ -328,6 +391,46 @@ namespace SapphireHR.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut]
+        [Route("updatePolicy/{companyId}")]
+        public async Task<IActionResult> UpdatePolicy([FromForm] PolicyModel model, int companyId)
+        {
+            try
+            {
+                var old = await _miscellaneousService.GetPolicy(model.Id);
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                string Document = null;
+                var storeToBlob = bool.Parse(_config.GetSection("FileSystem")["StoreToBlob"]);
+                if (storeToBlob && model.Uploadfile != null)
+                {
+                    // TODO Upload CV to documentManager
+                    var blob = new BlobStore
+                    {
+                        FileName = model.Uploadfile.FileName,
+                        ContentType = model.Uploadfile.ContentType,
+                        FileLength = model.Uploadfile.Length,
+                        FileStream = model.Uploadfile.OpenReadStream()
+                    };
+
+                    Document = await _fileManager.UploadFileToDepartmentFolder(blob, org.Name.Trim().ToLower().Replace(" ", ""), companyId.ToString(), model.DepartmentId.ToString());
+                }
+                model.Document = string.IsNullOrEmpty(Document) ? old.Document : Document;
+                model.OrganizationId = org.Id;
+                await _miscellaneousService.UpdatePolicy(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
         [Authorize(Roles = "HRAdmin")]
         [HttpPut]
         [Route("updateTerminationType")]
@@ -387,6 +490,23 @@ namespace SapphireHR.Web.Controllers
             try
             {
                 await _miscellaneousService.RemoveDepartment(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("deletePolicy")]
+        public async Task<IActionResult> DeletePolicy(int id)
+        {
+            try
+            {
+                await _miscellaneousService.RemovePolicy(id);
                 return Ok();
             }
             catch (Exception ex)

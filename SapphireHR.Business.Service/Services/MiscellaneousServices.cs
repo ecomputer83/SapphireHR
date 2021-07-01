@@ -35,6 +35,17 @@ namespace SapphireHR.Business.Service.Services
             var data = await _applicantRepository.GetApplicants(orgId);
             return _mapper.Map<List<ApplicantModel>>(data);
         }
+        public async Task<List<PolicyModel>> GetPolicies(int orgId)
+        {
+            var data = await _departmentRepository.GetPolicies(orgId);
+            return _mapper.Map<List<PolicyModel>>(data);
+        }
+
+        public async Task<PolicyModel> GetPolicy(int Id)
+        {
+            var data = await _departmentRepository.GetPolicy(Id);
+            return _mapper.Map<PolicyModel>(data);
+        }
         public async Task<int> AddApplicant(ApplicantModel model)
         {
             var applicant = await _applicantRepository.GetApplicantByEmail(model.Email);
@@ -84,6 +95,45 @@ namespace SapphireHR.Business.Service.Services
             data.CreatedBy = "SYSTEM";
             data.UpdatedBy = "SYSTEM";
             data = await _designationRepository.Add(data);
+            return data.Id;
+        }
+
+        public async Task<int> AddPolicy(PolicyModel model)
+        {
+            var data = _mapper.Map<Policy>(model);
+            data.CreatedAt = DateTime.Now;
+            data.UpdatedAt = DateTime.Now;
+            data.CreatedBy = "SYSTEM";
+            data.UpdatedBy = "SYSTEM";
+            var Id = await _departmentRepository.AddPolicy(data);
+            if(Id > 0 && model.DepartmentId > 0)
+            {
+                var d = new DepartmentPolicy { PolicyId = Id, DepartmentId = model.DepartmentId };
+                await _departmentRepository.AddDepartmentPolicy(d);
+            }
+            return data.Id;
+        }
+
+        public async Task<int> UpdatePolicy(PolicyModel model)
+        {
+            var old = await _departmentRepository.GetPolicy(model.Id);
+            var data = _mapper.Map<Policy>(model);
+            old.UpdatedAt = DateTime.Now;
+            old.UpdatedBy = "SYSTEM";
+            old.Name = model.Name;
+            old.Description = model.Description;
+            old.Document = model.Document;
+            if (old.DepartmentPolicy != null && model.DepartmentId > 0)
+            {
+                old.DepartmentPolicy.DepartmentId = model.DepartmentId;
+            }
+
+            var Id = await _departmentRepository.UpdatePolicy(old);
+            if (old.DepartmentPolicy == null && model.DepartmentId > 0)
+            {
+                var dp = new DepartmentPolicy { DepartmentId = model.DepartmentId, PolicyId = model.Id };
+                await _departmentRepository.AddDepartmentPolicy(dp);
+            }
             return data.Id;
         }
 
@@ -149,6 +199,11 @@ namespace SapphireHR.Business.Service.Services
         public async Task RemoveDepartment(int id)
         {
             await _departmentRepository.Delete(id);
+        }
+
+        public async Task RemovePolicy(int id)
+        {
+            await _departmentRepository.DeletePolicy(id);
         }
 
         public async Task RemoveTerminationType(int id)
