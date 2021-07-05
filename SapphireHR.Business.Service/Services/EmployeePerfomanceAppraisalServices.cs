@@ -54,8 +54,11 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateEmployeePerfomanceAppraisal(EmployeePerfomanceAppraisalModel model, int id)
         {
-            var data = await _appraisalRepository.GetEmployeePerfomanceAppraisal(id);
-            data = _mapper.Map<EmployeePerfomanceAppraisal>(model);
+            var _data = await _appraisalRepository.GetEmployeePerfomanceAppraisal(id);
+            var data = _mapper.Map<EmployeePerfomanceAppraisal>(model);
+            data.Id = _data.Id;
+            data.CreatedAt = _data.CreatedAt;
+            data.CreatedBy = _data.CreatedBy;
             data.UpdatedAt = DateTime.Now;
             data.UpdatedBy = "SYSTEM";
             await _appraisalRepository.UpdateEmployeePerfomanceAppraisal(data);

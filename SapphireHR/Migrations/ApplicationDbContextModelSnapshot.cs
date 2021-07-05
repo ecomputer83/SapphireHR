@@ -3688,7 +3688,7 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KeyPerfomanceIndicator")
+                    b.Property<string>("KeyPerformanceIndicator")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KeyResult")
@@ -3768,7 +3768,7 @@ namespace SapphireHR.Web.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KeyPerfomanceIndicator")
+                    b.Property<string>("KeyPerformanceIndicator")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KeyResult")

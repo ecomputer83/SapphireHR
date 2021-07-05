@@ -168,10 +168,10 @@ namespace SapphireHR.Business.Service.Services
 
         public async Task UpdateProffesionalExcellenceSettings(ProffesionalExcellenceSettingsModel model, int id)
         {
-            var data = await _performanceReview.GetProffesionalExcellenceSettings(id);
+            var data = await _performanceReview.GetProffesionalExcellenceSetting(id);
             data.Weightage = model.Weightage;
             data.KeyResult = model.KeyResult;
-            data.KeyPerfomanceIndicator = model.KeyPerfomanceIndicator;
+            data.KeyPerformanceIndicator = model.KeyPerformanceIndicator;
             data.UpdatedAt = DateTime.Now;
             data.UpdatedBy = "SYSTEM";
             await _performanceReview.UpdateProffesionalExcellenceSettings(data);
@@ -179,10 +179,10 @@ namespace SapphireHR.Business.Service.Services
         
         public async Task UpdatePersonalExcellenceSettings(PersonalExcellenceSettingsModel model, int id)
         {
-            var data = await _performanceReview.GetPersonalExcellenceSettings(id);
+            var data = await _performanceReview.GetPersonalExcellenceSetting(id);
             data.Weightage = model.Weightage;
             data.KeyResult = model.KeyResult;
-            data.KeyPerfomanceIndicator = model.KeyPerfomanceIndicator;
+            data.KeyPerformanceIndicator = model.KeyPerformanceIndicator;
             data.UpdatedAt = DateTime.Now;
             data.UpdatedBy = "SYSTEM";
             await _performanceReview.UpdatePersonalExcellenceSettings(data);

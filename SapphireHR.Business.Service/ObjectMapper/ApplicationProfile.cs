@@ -75,6 +75,11 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<RemitaSalaryRequest, SalaryBatchPayment>().ReverseMap();
             CreateMap<MonthlyAttendanceReview, MonthlyAttendanceReviewModel>().ReverseMap();
             CreateMap<EmployeePerfomanceAppraisal, EmployeePerfomanceAppraisalModel>().ReverseMap();
+            CreateMap<PerformanceReview, PerformanceReviewModel>().ReverseMap();
+            CreateMap<PersonalExcellenceSettings, PersonalExcellenceSettingsModel>().ReverseMap();
+            CreateMap<ProffesionalExcellenceSettings, ProffesionalExcellenceSettingsModel>().ReverseMap();
+            CreateMap<EmployeePersonalExcellence, EmployeePersonalExcellenceModel>().ReverseMap();
+            CreateMap<EmployeeProffesionalExcellence, EmployeeProffesionalExcellenceModel>().ReverseMap();
             CreateMap<SalaryTransaction, SalaryPayment>()
                 .ForMember(x => x.SalaryId, opt => opt.ConvertUsing(new RemoveSalaryIdFromTrans(), y => y.TransactionRef));
             CreateMap<RemitaPensionRequest, PensionBatchPayment>().ReverseMap();

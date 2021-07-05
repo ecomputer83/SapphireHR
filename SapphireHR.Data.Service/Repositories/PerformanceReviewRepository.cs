@@ -221,15 +221,23 @@ namespace SapphireHR.Data.Service.Repositories
 
 
 
+        public async Task<List<ProffesionalExcellenceSettings>> GetProffesionalExcellenceSettings(int id)
+        {
+            return await _context.ProffesionalExcellenceSettings.AsNoTracking().Where(p => p.CompanyId == id).ToListAsync();
+        }
+
+        public async Task<List<PersonalExcellenceSettings>> GetPersonalExcellenceSettings(int id)
+        {
+            return await _context.PersonalExcellenceSettings.AsNoTracking().Where(p => p.CompanyId == id).ToListAsync();
+        }
 
 
-
-        public async Task<ProffesionalExcellenceSettings> GetProffesionalExcellenceSettings(int id)
+        public async Task<ProffesionalExcellenceSettings> GetProffesionalExcellenceSetting(int id)
         {
             return await _context.ProffesionalExcellenceSettings.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
         
-        public async Task<PersonalExcellenceSettings> GetPersonalExcellenceSettings(int id)
+        public async Task<PersonalExcellenceSettings> GetPersonalExcellenceSetting(int id)
         {
             return await _context.PersonalExcellenceSettings.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
