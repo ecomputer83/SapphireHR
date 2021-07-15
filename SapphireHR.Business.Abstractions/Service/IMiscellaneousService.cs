@@ -31,7 +31,7 @@ namespace SapphireHR.Business.Abstractions.Service
         Task<DesignationModel> GetDesignation(int id);
         Task<DesignationModel> GetDesignation(string name);
         Task RemoveDesignation(int id);
-
+        Task CloseApplicant(int id);
         Task<int> AddTerminationType(TerminationTypeModel model);
         Task UpdateTerminationType(TerminationTypeModel model, int id);
         Task<List<TerminationTypeModel>> GetTerminationTypes(int orgId);

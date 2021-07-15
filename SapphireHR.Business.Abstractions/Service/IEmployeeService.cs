@@ -9,6 +9,7 @@ namespace SapphireHR.Business.Abstractions.Service
 {
     public interface IEmployeeService
     {
+        Task AddOnboarding(OnboardingModel model);
         Task<EmployeeModel> AddEmployee(EmployeeModel model);
         Task<EmployeeModel> AddPhoto(IFormFile file, int id);
         Task UpdateEmployee(EmployeeModel model, int id);

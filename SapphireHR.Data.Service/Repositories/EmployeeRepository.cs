@@ -15,10 +15,16 @@ namespace SapphireHR.Data.Service.Repositories
         public EmployeeRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task AddOnboarding(Onboarding model)
+        {
+            _context.Set<Onboarding>().Add(model);
+            await _context.SaveChangesAsync();
+        }
         public async Task<Employee> GetEmployeeDetail(int employeeId)
         {
             var emp = await _context.Set<Employee>().Include(b => b.EmployeeBank).Include(a=>a.EmployeePension)
-                .Include(c=>c.EmployeeStatutory).Include(c=>c.EmployeeTax).Include(d => d.Designation).ThenInclude(e=>e.Department).FirstOrDefaultAsync(c=>c.Id == employeeId);
+                .Include(c=>c.EmployeeStatutory).Include(c=>c.EmployeeTax).Include(c=>c.Onboarding).Include(d => d.Designation).ThenInclude(e=>e.Department).ThenInclude(d=>d.DepartmentPolicy).FirstOrDefaultAsync(c=>c.Id == employeeId);
             emp.EmployeeManager = _context.Set<EmployeeManager>().FirstOrDefault(e => e.EmployeeId == emp.Id);
             emp.EmployeeEducations = _context.Set<EmployeeEducation>().Where(e => e.EmployeeId == emp.Id).ToList();
             emp.EmployeeEmergencies = _context.Set<EmployeeEmergency>().Where(e => e.EmployeeId == emp.Id).ToList();

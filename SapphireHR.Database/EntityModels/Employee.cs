@@ -41,6 +41,7 @@ namespace SapphireHR.Database.EntityModels
         public virtual EmployeeStatutory EmployeeStatutory { get; set; }
         public virtual EmployeePension EmployeePension { get; set; }
         public virtual EmployeeTax EmployeeTax { get; set; }
+        public virtual Onboarding Onboarding { get; set; }
         [NotMapped]
         public virtual EmployeeManager EmployeeManager { get; set; }
     }

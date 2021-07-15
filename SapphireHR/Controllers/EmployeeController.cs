@@ -21,11 +21,12 @@ namespace SapphireHR.Web.Controllers
         IUserService _userService;
         IOrganizationService _organizationService;
         IMiscellaneousService _miscellaneousService;
+        IApplicationService _applicationService;
         private IEmailService _emailService;
         private ICompanyService _companyService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IUserService userService,
+        public EmployeeController(IEmployeeService employeeService, IUserService userService, IApplicationService applicationService,
             IOrganizationService organizationService, IMiscellaneousService miscellaneousService,
             ILogger<EmployeeController> logger, IEmailService emailService, ICompanyService companyService) : base(organizationService)
         {
@@ -33,6 +34,7 @@ namespace SapphireHR.Web.Controllers
             _userService = userService;
             _organizationService = organizationService;
             _miscellaneousService = miscellaneousService;
+            _applicationService = applicationService;
             _emailService = emailService;
             _companyService = companyService;
             _logger = logger;
@@ -63,6 +65,58 @@ namespace SapphireHR.Web.Controllers
             {
                 var rsc = await _employeeService.GetAllEmployees(companyId);
                 return Ok(rsc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return CreateApiException(ex);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Onboarding(OnboardBindingModel _model)
+        {
+            try
+            {
+                var org = await GetOrganizationByHeader();
+                if (org == null)
+                {
+                    return BadRequest(new string[] { "You are not authorized with this hostname" });
+                }
+                var payload = _model.Employee;
+                var host = Request.Headers["Holder"];
+                var company = await _companyService.GetCompany(payload.CompanyId);
+
+                var model = new UserModel();
+                model.OrganizationId = org.Id;
+                model.FullName = $"{payload.FirstName} {payload.LastName}";
+                model.Email = payload.Email;
+                model.PhoneNumber = payload.Phone;
+                model.UserType = 3;
+                model.Password = "password";
+                model.ConfirmPassword = "password";
+                var usermodel = await _userService.CreateUserAsync(model, new string[] { "Employee" });
+                payload.UserId = usermodel.Id;
+                var new_emp = await _employeeService.AddEmployee(payload);
+                var emp = await _employeeService.GetEmployee(new_emp.Id);
+
+                //add onboarding
+                var boarding = _model.Onboarding;
+                boarding.EmployeeId = emp.Id;
+                await _employeeService.AddOnboarding(boarding);
+
+                //send email to employee
+                await _emailService.SendEmployeeMessageAsync(host, company.Name, emp.Designation.Name, model);
+
+                //close application
+                var app = await _applicationService.GetApplicationById(_model.ApplicationID);
+                app.Status = 10;
+                await _applicationService.UpdateApplication(app, _model.ApplicationID);
+
+                //close applicant
+                await _miscellaneousService.CloseApplicant(app.ApplicantId);
+                return Ok();
             }
             catch (Exception ex)
             {

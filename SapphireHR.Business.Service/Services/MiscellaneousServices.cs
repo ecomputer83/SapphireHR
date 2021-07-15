@@ -230,6 +230,14 @@ namespace SapphireHR.Business.Service.Services
             await _applicantRepository.Update(data);
         }
 
+        public async Task CloseApplicant(int id)
+        {
+            
+            var data = await _applicantRepository.GetNoTrackingApplicant(id);
+            data.Status = 8;
+            await _applicantRepository.Update(data);
+        }
+
         public async Task UpdateDepartment(DepartmentModel model, int id)
         {
             

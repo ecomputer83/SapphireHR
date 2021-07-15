@@ -24,6 +24,15 @@ namespace SapphireHR.Business.Service.Services
             _employeeRepository = employeeRepository;
             _companyRepository = companyRepository;
         }
+        public async Task AddOnboarding(OnboardingModel model)
+        {
+            var datamodel = _mapper.Map<Onboarding>(model);
+            datamodel.CreatedAt = DateTime.Now;
+            datamodel.UpdatedAt = DateTime.Now;
+            datamodel.CreatedBy = "SYSTEM";
+            datamodel.UpdatedBy = "SYSTEM";
+            await _employeeRepository.AddOnboarding(datamodel);
+        }
         public async Task AddCompanyEmployee(CompanyEmployeeModel model)
         {
             var datamodel = _mapper.Map<CompanyEmployee>(model);

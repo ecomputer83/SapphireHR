@@ -57,6 +57,7 @@ namespace SapphireHR.Business.Service
             services.AddScoped<SysAdminClientService>();
             services.AddScoped<PaymentClientService>();
             services.AddScoped<FileManager>();
+            services.AddScoped<DataSheetService>();
             
         }
 

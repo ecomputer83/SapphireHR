@@ -19,6 +19,7 @@ namespace SapphireHR.Business.Service.ObjectMapper
             CreateMap<LeaveTypeModel, LeaveType>().ReverseMap();
             CreateMap<OrganizationModel, OrganizationInfo>().ReverseMap();
             CreateMap<LeaveTypeModel, LeaveType>().ReverseMap();
+            CreateMap<OnboardingModel, Onboarding>().ReverseMap();
             CreateMap<OrganizationHeaderModel, OrganizationHeader>().ReverseMap();
             CreateMap<RankModel, Rank>().ReverseMap();
             CreateMap<RankPermissionModel, RankPermission>().ReverseMap();

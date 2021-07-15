@@ -731,7 +731,8 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartmentId")
+                        .IsUnique();
 
                     b.HasIndex("PolicyId")
                         .IsUnique();
@@ -3412,7 +3413,8 @@ namespace SapphireHR.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Onboardings");
                 });
@@ -4771,8 +4773,8 @@ namespace SapphireHR.Web.Migrations
             modelBuilder.Entity("SapphireHR.Database.EntityModels.DepartmentPolicy", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
+                        .WithOne("DepartmentPolicy")
+                        .HasForeignKey("SapphireHR.Database.EntityModels.DepartmentPolicy", "DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -5424,8 +5426,8 @@ namespace SapphireHR.Web.Migrations
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Onboarding", b =>
                 {
                     b.HasOne("SapphireHR.Database.EntityModels.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .WithOne("Onboarding")
+                        .HasForeignKey("SapphireHR.Database.EntityModels.Onboarding", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -5713,6 +5715,11 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("ApplicationSkills");
                 });
 
+            modelBuilder.Entity("SapphireHR.Database.EntityModels.Department", b =>
+                {
+                    b.Navigation("DepartmentPolicy");
+                });
+
             modelBuilder.Entity("SapphireHR.Database.EntityModels.Employee", b =>
                 {
                     b.Navigation("EmployeeBank");
@@ -5730,6 +5737,8 @@ namespace SapphireHR.Web.Migrations
                     b.Navigation("EmployeeStatutory");
 
                     b.Navigation("EmployeeTax");
+
+                    b.Navigation("Onboarding");
                 });
 
             modelBuilder.Entity("SapphireHR.Database.EntityModels.EmployeeResignation", b =>
